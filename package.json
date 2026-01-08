@@ -1,0 +1,16 @@
+{
+  "name": "channel47",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.16.17"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

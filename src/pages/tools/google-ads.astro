@@ -1,0 +1,601 @@
+---
+/**
+ * Google Ads MCP Tool Page
+ *
+ * Setup guide for the free Google Ads MCP server.
+ * Delivers value first, then soft-sells to Skills.
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Button from '../../components/Button.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
+---
+
+<BaseLayout
+  title="Google Ads MCP — Free Setup Guide | Channel47"
+  description="Connect the free Google Ads MCP server to Claude or Cursor in five minutes. Query any account. No install required."
+>
+  <Header />
+
+  <main class="tool-page">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/tools" class="breadcrumb__link">← Back to Tools</a>
+    </nav>
+
+    <article class="tool-content">
+      <!-- Hero -->
+      <header class="tool-header">
+        <div class="tool-header__badge">Free</div>
+        <h1>Google Ads MCP</h1>
+        <p class="tool-header__intro">
+          Connect in five minutes. Query any account. No install required.
+        </p>
+      </header>
+
+      <!-- What You'll Need -->
+      <section class="tool-section">
+        <h2>What you'll need</h2>
+        <ul class="requirements-list">
+          <li>
+            <strong>Claude Desktop, Cursor, or another MCP-compatible tool</strong>
+          </li>
+          <li>
+            <strong>Access to your Google Ads account</strong> (you'll authenticate through OAuth)
+          </li>
+          <li>
+            <strong>Five minutes</strong>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Add the MCP -->
+      <section class="tool-section">
+        <h2>Add the MCP</h2>
+        <p>
+          Channel47 runs as a hosted MCP server. No local install. Just point your AI tool to our URL.
+        </p>
+
+        <div class="setup-step">
+          <h3>For Claude Desktop</h3>
+          <ol>
+            <li>Open Claude Desktop and go to <strong>Settings</strong></li>
+            <li>Navigate to the <strong>Developer</strong> section</li>
+            <li>Click <strong>Edit Config</strong> to open your configuration file</li>
+            <li>Add the Channel47 server to your <code>mcpServers</code> configuration:</li>
+          </ol>
+          <div class="code-block-wrapper">
+            <pre class="code-block"><code>{`{
+  "mcpServers": {
+    "channel47": {
+      "url": "https://mcp.jig.tools/sse"
+    }
+  }
+}`}</code></pre>
+          </div>
+          <ol start="5">
+            <li>Save and restart Claude Desktop</li>
+          </ol>
+        </div>
+
+        <div class="setup-step">
+          <h3>For Cursor</h3>
+          <ol>
+            <li>Open Settings (<code>Cmd/Ctrl + ,</code>)</li>
+            <li>Navigate to <strong>Features → MCP Servers</strong></li>
+            <li>Click <strong>Add Server</strong></li>
+            <li>Enter the URL: <code>https://mcp.jig.tools/sse</code></li>
+            <li>Save and restart Cursor</li>
+          </ol>
+        </div>
+
+        <div class="setup-step">
+          <h3>For other MCP tools</h3>
+          <p>
+            Add this URL wherever your tool accepts MCP server configurations:
+          </p>
+          <div class="url-display">
+            <code class="url-display__url">https://mcp.jig.tools/sse</code>
+            <button class="copy-button" data-copy="https://mcp.jig.tools/sse">
+              Copy
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Authenticate -->
+      <section class="tool-section">
+        <h2>Authenticate</h2>
+        <p>
+          On first use, Channel47 will prompt you to connect your Google Ads account via OAuth.
+          Standard Google authentication—we never see your password.
+        </p>
+        <p>
+          You'll grant read access to your account data. That's it.
+        </p>
+      </section>
+
+      <!-- Test It -->
+      <section class="tool-section">
+        <h2>Test it</h2>
+        <p>
+          Start a new conversation and ask something like:
+        </p>
+        <div class="test-prompt">
+          <p>"What's my top spending campaign this month?"</p>
+        </div>
+        <p>
+          If you see data, you're connected. If you see an error, double-check the URL and restart your tool.
+        </p>
+      </section>
+
+      <!-- The Gap - Soft Sell -->
+      <section class="tool-section section--gap">
+        <div class="gap-content">
+          <h2>You've got the connection.</h2>
+          <p class="gap-lead">Now you need the judgment.</p>
+          <p>
+            The MCP lets you query your Google Ads data. But knowing <em>how</em> to query isn't the same as knowing <em>what</em> to look for.
+          </p>
+          <p>
+            The Skills tell your AI what to query, when, and what to do with the results. 47 GAQL queries. Audit workflows. Failure checklists. Everything that takes years to learn—packaged into files your tools can run.
+          </p>
+          <div class="gap-cta">
+            <Button href="/skills/google-ads" variant="primary" size="lg">
+              Get Google Ads Skills — $199
+            </Button>
+            <p class="gap-cta__note">One-time purchase. Lifetime updates.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Email Signup -->
+      <section class="tool-section section--email">
+        <EmailSignup
+          title="Get updates on this tool."
+          description="New features, fixes, and tips. No spam."
+          buttonText="Subscribe"
+          variant="card"
+          tag="google-ads-tool-user"
+        />
+      </section>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Copy button functionality
+  document.querySelectorAll('.copy-button').forEach(button => {
+    button.addEventListener('click', async () => {
+      const text = button.getAttribute('data-copy');
+      if (text) {
+        await navigator.clipboard.writeText(text);
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.classList.add('copy-button--success');
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copy-button--success');
+        }, 2000);
+      }
+    });
+  });
+</script>
+
+<style>
+  .tool-page {
+    padding: var(--space-6) var(--space-4);
+    padding-top: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .tool-page {
+      padding: var(--space-8) var(--space-4);
+      padding-top: var(--space-6);
+    }
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    max-width: var(--content-width);
+    margin: 0 auto var(--space-6);
+  }
+
+  .breadcrumb__link {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .breadcrumb__link:hover {
+    color: var(--color-fg);
+  }
+
+  .tool-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  /* Tool Header */
+  .tool-header {
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .tool-header {
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .tool-header__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-success);
+    background-color: oklch(from var(--color-success) l c h / 0.1);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-4);
+  }
+
+  .tool-header h1 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .tool-header h1 {
+      font-size: var(--text-4xl);
+      margin-bottom: var(--space-4);
+    }
+  }
+
+  .tool-header__intro {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .tool-header__intro {
+      font-size: var(--text-xl);
+    }
+  }
+
+  /* Sections */
+  .tool-section {
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .tool-section {
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .tool-section h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .tool-section h2 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .tool-section h3 {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .tool-section h3 {
+      font-size: var(--text-lg);
+      margin-top: var(--space-6);
+    }
+  }
+
+  .tool-section p {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-base);
+  }
+
+  /* Requirements List */
+  .requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .requirements-list li {
+    position: relative;
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-base);
+  }
+
+  .requirements-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+  }
+
+  /* Setup Steps */
+  .setup-step {
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 768px) {
+    .setup-step {
+      margin-bottom: var(--space-8);
+      padding: var(--space-6);
+    }
+  }
+
+  .setup-step h3 {
+    margin-top: 0;
+  }
+
+  .setup-step ol {
+    padding-left: var(--space-5);
+    margin-bottom: var(--space-4);
+  }
+
+  .setup-step ol li {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 768px) {
+    .setup-step ol li {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* Code Block */
+  .code-block-wrapper {
+    margin: var(--space-4) calc(-1 * var(--space-4));
+    padding: 0 var(--space-4);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 768px) {
+    .code-block-wrapper {
+      margin: var(--space-4) 0;
+      padding: 0;
+    }
+  }
+
+  .code-block {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: 0;
+    min-width: max-content;
+  }
+
+  @media (min-width: 768px) {
+    .code-block {
+      min-width: auto;
+    }
+  }
+
+  .code-block code {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg);
+    background: none;
+    padding: 0;
+    white-space: pre;
+  }
+
+  @media (min-width: 768px) {
+    .code-block code {
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* URL Display */
+  .url-display {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-3);
+  }
+
+  @media (min-width: 480px) {
+    .url-display {
+      flex-direction: row;
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+    }
+  }
+
+  .url-display__url {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    background: none;
+    padding: 0;
+    word-break: break-all;
+  }
+
+  @media (min-width: 480px) {
+    .url-display__url {
+      font-size: var(--text-sm);
+      word-break: normal;
+    }
+  }
+
+  .copy-button {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-fg-secondary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 480px) {
+    .copy-button {
+      padding: var(--space-2) var(--space-4);
+      min-height: 40px;
+    }
+  }
+
+  .copy-button:hover {
+    background-color: var(--color-bg-hover);
+    color: var(--color-fg);
+  }
+
+  .copy-button:active {
+    transform: scale(0.98);
+  }
+
+  .copy-button--success {
+    background-color: var(--color-success);
+    color: var(--color-fg-inverse);
+    border-color: var(--color-success);
+  }
+
+  /* Test Prompt */
+  .test-prompt {
+    padding: var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin: var(--space-4) 0;
+  }
+
+  .test-prompt p {
+    font-style: italic;
+    color: var(--color-fg);
+    margin: 0;
+  }
+
+  /* Inline Code */
+  .tool-section code:not(.code-block code):not(.url-display__url) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: var(--space-1) var(--space-2);
+    background-color: var(--color-bg-elevated);
+    border-radius: var(--radius-default);
+    color: var(--color-accent);
+  }
+
+  /* The Gap Section */
+  .section--gap {
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-12);
+  }
+
+  @media (min-width: 768px) {
+    .section--gap {
+      margin-top: var(--space-16);
+      margin-bottom: var(--space-16);
+    }
+  }
+
+  .gap-content {
+    padding: var(--space-8);
+    background-color: var(--color-bg-elevated);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .gap-content {
+      padding: var(--space-12);
+    }
+  }
+
+  .gap-content h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .gap-content h2 {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .gap-lead {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-accent);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .gap-lead {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .gap-content p {
+    max-width: 55ch;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--color-fg-secondary);
+  }
+
+  .gap-content em {
+    color: var(--color-fg);
+    font-style: normal;
+    font-weight: var(--font-medium);
+  }
+
+  .gap-cta {
+    margin-top: var(--space-8);
+  }
+
+  .gap-cta__note {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+  }
+
+  /* Email Section */
+  .section--email {
+    padding-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .section--email {
+      padding-bottom: var(--space-12);
+    }
+  }
+</style>
