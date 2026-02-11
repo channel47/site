@@ -41,12 +41,6 @@ body {
   overflow-x: hidden;
 }
 
-@media (min-width: 768px) {
-  body {
-    font-size: var(--text-sm);
-  }
-}
-
 /* Atmospheric background layer - subtle warmth from top */
 body::before {
   content: '';

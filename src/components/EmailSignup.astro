@@ -141,7 +141,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
               formElement.classList.remove('is-server-error');
             }, 2000);
           }
-        } catch (error) {
+        } catch {
           formElement.classList.remove('is-loading');
           formElement.classList.add('is-server-error');
           emailInput.placeholder = 'Try again';
@@ -419,19 +419,6 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 
   .email-signup--prominent .email-signup__input {
     font-size: max(16px, var(--text-base));
-  }
-
-  /* Accessibility */
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
