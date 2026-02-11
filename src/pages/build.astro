@@ -1,19 +1,19 @@
 ---
 /**
- * /build — Skills + Skill Builder
+ * /build — Skill Builder + Session Downloads
  * Post-talk landing page for Vibe Marketers (Feb 12).
  * QR code destination.
  *
- * Flow: Skills landing (downloads) → opt-in "Build Your Own" funnel →
- *       3 questions → personalized claude.ai deep link.
+ * Conversion hierarchy: Build funnel (hero) → Downloads (promised) → Email → Secondary CTAs
+ * Flow: Hero CTA → 3 questions → personalized claude.ai deep link → email capture
  */
 import FormPageLayout from '../layouts/FormPageLayout.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 ---
 
 <FormPageLayout
-  title="Skills from the Session — Channel47"
-  description="Download two ready-to-use Claude skills from the Vibe Marketers session, or build your own in minutes."
+  title="Build Your First AI Skill — Channel47"
+  description="Build a personalized AI skill in five minutes, or grab the ready-made skills from the Vibe Marketers session."
   class="build"
 >
 
@@ -23,108 +23,113 @@ import EmailSignup from '../components/EmailSignup.astro';
     </div>
 
     <!-- ═══════════════════════════════════════════
-         LANDING: Skills page (visible on load)
+         LANDING: Hero → Downloads → Secondary
          ═══════════════════════════════════════════ -->
     <section class="fp-step build__step--landing is-active" data-step="0">
-      <div class="fp-bar fp-bar--entry" aria-hidden="true"></div>
-      <p class="fp-label fp-label--accent">FROM THE SESSION</p>
-      <h1 class="fp-heading">Two skills. Ready to install.</h1>
-      <p class="fp-body">
-        These are the real skills from the session demos. Download, unzip, drop into your project folder.
-      </p>
 
-      <!-- Skill cards -->
-      <div class="build__skills">
-        <!-- Skill 1: Search Campaign (non-technical) -->
-        <div class="build__skill">
-          <div class="build__skill-header">
-            <span class="build__skill-index" aria-hidden="true">01</span>
-            <span class="build__skill-badge build__skill-badge--easy">NO CODE</span>
-          </div>
-          <h2 class="build__skill-name">Search Campaign Builder</h2>
-          <p class="build__skill-desc">Landing page URL in, full Google Search campaign out. Keywords, ad copy, negatives, extensions. The complete build.</p>
-          <div class="build__skill-meta">
-            <span class="build__skill-tag">Claude Desktop</span>
-            <span class="build__pipe" aria-hidden="true"></span>
-            <span class="build__skill-tag">Cowork</span>
-            <span class="build__pipe" aria-hidden="true"></span>
-            <span class="build__skill-size">19 KB</span>
-          </div>
-          <a
-            href="/skills/search-campaign-builder.zip"
-            download
-            class="fp-btn--ghost"
-          >
-            <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Skill
-          </a>
-        </div>
-
-        <!-- Skill 2: Creative Variants (technical) -->
-        <div class="build__skill">
-          <div class="build__skill-header">
-            <span class="build__skill-index" aria-hidden="true">02</span>
-            <span class="build__skill-badge build__skill-badge--technical">API KEY</span>
-          </div>
-          <h2 class="build__skill-name">Ad Creative Variant Generator</h2>
-          <p class="build__skill-desc">Winning ad image in, fresh variations out. Configurable divergence levels. Uses Gemini or OpenAI for image generation.</p>
-          <div class="build__skill-meta">
-            <span class="build__skill-tag">Claude Code</span>
-            <span class="build__pipe" aria-hidden="true"></span>
-            <span class="build__skill-tag">Cursor</span>
-            <span class="build__pipe" aria-hidden="true"></span>
-            <span class="build__skill-size">28 KB</span>
-          </div>
-          <a
-            href="/skills/creative-variant-generator.zip"
-            download
-            class="fp-btn--ghost"
-          >
-            <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Skill
-          </a>
-        </div>
-      </div>
-
-      <!-- Install guide -->
-      <div class="build__install">
-        <p class="fp-label">HOW TO INSTALL</p>
-        <div class="build__install-steps">
-          <div class="build__install-step">
-            <span class="build__install-num" aria-hidden="true">1</span>
-            <span class="build__install-text">Download &amp; unzip the skill folder</span>
-          </div>
-          <div class="build__install-step">
-            <span class="build__install-num" aria-hidden="true">2</span>
-            <span class="build__install-text">Drop it into your project's <code>.claude/skills/</code> directory</span>
-          </div>
-          <div class="build__install-step">
-            <span class="build__install-num" aria-hidden="true">3</span>
-            <span class="build__install-text">Start a conversation. Claude picks it up automatically</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── BRIDGE: Build Your Own (triggers funnel) ── -->
-      <div class="build__bridge">
-        <p class="fp-label">BUILD YOUR OWN</p>
+      <!-- ── ZONE 1: Hero — Build Your Own (HIGH density) ── -->
+      <div class="build__hero">
+        <div class="fp-bar fp-bar--entry" aria-hidden="true"></div>
+        <p class="fp-label fp-label--accent">SKILL BUILDER</p>
+        <h1 class="fp-heading">Build your first skill in five minutes.</h1>
         <p class="fp-body">
-          Want a skill tailored to your workflow? Answer 3 quick questions and get a personalized Claude prompt that builds it for you.
+          Three questions about how you work. You get a personalized Claude prompt that builds a skill around your actual workflow. No code. No setup.
         </p>
-        <button class="fp-btn fp-btn--secondary" id="startFunnel">
+        <button class="fp-btn fp-btn--primary fp-btn--lg" id="startFunnel">
           Start building <span class="fp-arrow" aria-hidden="true">-&gt;</span>
         </button>
       </div>
 
-      <!-- ── STRATEGIC: Email + Community ── -->
+      <!-- ── ZONE 2: Session Downloads (MEDIUM density) ── -->
+      <div class="build__downloads">
+        <p class="fp-label">FROM THE SESSION</p>
+        <p class="fp-body">
+          The skills from today's demos. Download, unzip, drop into your project folder.
+        </p>
+
+        <!-- Skill cards -->
+        <div class="build__skills">
+          <!-- Skill 1: Search Campaign (non-technical) -->
+          <div class="build__skill">
+            <div class="build__skill-header">
+              <span class="build__skill-index" aria-hidden="true">01</span>
+              <span class="build__skill-badge build__skill-badge--easy">NO CODE</span>
+            </div>
+            <h2 class="build__skill-name">Search Campaign Builder</h2>
+            <p class="build__skill-desc">Landing page URL in, full Google Search campaign out. Keywords, ad copy, negatives, extensions.</p>
+            <div class="build__skill-meta">
+              <span class="build__skill-tag">Claude Desktop</span>
+              <span class="build__pipe" aria-hidden="true"></span>
+              <span class="build__skill-tag">Cowork</span>
+              <span class="build__pipe" aria-hidden="true"></span>
+              <span class="build__skill-size">19 KB</span>
+            </div>
+            <a
+              href="/skills/search-campaign-builder.zip"
+              download
+              class="fp-btn--ghost"
+            >
+              <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Skill
+            </a>
+          </div>
+
+          <!-- Skill 2: Creative Variants (technical) -->
+          <div class="build__skill">
+            <div class="build__skill-header">
+              <span class="build__skill-index" aria-hidden="true">02</span>
+              <span class="build__skill-badge build__skill-badge--technical">API KEY</span>
+            </div>
+            <h2 class="build__skill-name">Ad Creative Variant Generator</h2>
+            <p class="build__skill-desc">Winning ad image in, fresh variations out. Configurable divergence levels. Uses Gemini or OpenAI for image generation.</p>
+            <div class="build__skill-meta">
+              <span class="build__skill-tag">Claude Code</span>
+              <span class="build__pipe" aria-hidden="true"></span>
+              <span class="build__skill-tag">Cursor</span>
+              <span class="build__pipe" aria-hidden="true"></span>
+              <span class="build__skill-size">28 KB</span>
+            </div>
+            <a
+              href="/skills/creative-variant-generator.zip"
+              download
+              class="fp-btn--ghost"
+            >
+              <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Skill
+            </a>
+          </div>
+        </div>
+
+        <!-- Install guide -->
+        <div class="build__install">
+          <p class="fp-label">HOW TO INSTALL</p>
+          <div class="build__install-steps">
+            <div class="build__install-step">
+              <span class="build__install-num" aria-hidden="true">1</span>
+              <span class="build__install-text">Download &amp; unzip the skill folder</span>
+            </div>
+            <div class="build__install-step">
+              <span class="build__install-num" aria-hidden="true">2</span>
+              <span class="build__install-text">Drop it into your project's <code>.claude/skills/</code> directory</span>
+            </div>
+            <div class="build__install-step">
+              <span class="build__install-num" aria-hidden="true">3</span>
+              <span class="build__install-text">Start a conversation. Claude picks it up automatically</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inline email capture (natural placement after downloads) -->
+        <div class="build__email-inline">
+          <span class="build__email-inline-text">Build notes, new skills, and what actually works. No fluff.</span>
+          <EmailSignup tag="build" submitText="Subscribe" placeholder="your@email.com" />
+        </div>
+      </div>
+
+      <!-- ── ZONE 3: Secondary CTAs (LOW density) ── -->
       <div class="build__secondary">
         <p class="fp-label">GO DEEPER</p>
         <div class="fp-cards">
-          <div class="fp-card build__cta--email">
-            <span class="fp-card__title">Get the build notes</span>
-            <span class="fp-card__desc">How each skill was built, new releases, what actually works. No fluff.</span>
-            <EmailSignup tag="build" submitText="Subscribe" placeholder="your@email.com" />
-          </div>
           <a
             href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
             target="_blank"
@@ -132,7 +137,7 @@ import EmailSignup from '../components/EmailSignup.astro';
             class="fp-card"
           >
             <span class="fp-card__title">Vibe Marketers on Skool</span>
-            <span class="fp-card__desc">Monthly live builds. Growing skill library. Free.</span>
+            <span class="fp-card__desc">Monthly live builds. Growing skill library. Join the community.</span>
           </a>
           <a
             href="https://www.thevibemarketer.com/skills"
@@ -152,18 +157,18 @@ import EmailSignup from '../components/EmailSignup.astro';
     </section>
 
     <!-- ═══════════════════════════════════════════
-         FUNNEL STEP 1: Role
+         FUNNEL STEP 1: Role (broadened for audience)
          ═══════════════════════════════════════════ -->
     <section class="fp-step" data-step="1">
       <button class="fp-back" data-back aria-label="Go back">&lt;- Back</button>
       <p class="fp-label fp-label--accent">STEP 1 OF 3</p>
-      <h1 class="fp-heading">What do you do?</h1>
+      <h1 class="fp-heading">What best describes you?</h1>
       <div class="fp-options" data-field="role">
-        <button class="fp-option" data-value="Media buyer / PPC">Media buyer / PPC</button>
-        <button class="fp-option" data-value="Content marketer">Content marketer</button>
-        <button class="fp-option" data-value="Email marketer">Email marketer</button>
-        <button class="fp-option" data-value="SEO">SEO</button>
-        <button class="fp-option" data-value="Social media">Social media</button>
+        <button class="fp-option" data-value="Entrepreneur / founder">Entrepreneur / founder</button>
+        <button class="fp-option" data-value="Marketer / agency">Marketer / agency</button>
+        <button class="fp-option" data-value="Small business owner">Small business owner</button>
+        <button class="fp-option" data-value="Content creator">Content creator</button>
+        <button class="fp-option" data-value="Builder / developer">Builder / developer</button>
         <button class="fp-option" data-value="other">Other</button>
       </div>
       <div class="fp-other" data-other="role" hidden>
@@ -180,17 +185,17 @@ import EmailSignup from '../components/EmailSignup.astro';
       </div>
     </section>
 
-    <!-- ── FUNNEL STEP 2: Task ── -->
+    <!-- ── FUNNEL STEP 2: Task (broadened) ── -->
     <section class="fp-step" data-step="2">
       <button class="fp-back" data-back aria-label="Go back">&lt;- Back</button>
       <p class="fp-label fp-label--accent">STEP 2 OF 3</p>
-      <h1 class="fp-heading fp-heading--sm">Pick a task you repeat weekly</h1>
+      <h1 class="fp-heading fp-heading--sm">What eats your time every week?</h1>
       <div class="fp-options" data-field="task">
-        <button class="fp-option" data-value="Write or review ad copy">Write or review ad copy</button>
-        <button class="fp-option" data-value="Pull performance reports">Pull performance reports</button>
-        <button class="fp-option" data-value="Audit accounts or campaigns">Audit accounts or campaigns</button>
-        <button class="fp-option" data-value="Draft emails or newsletters">Draft emails or newsletters</button>
-        <button class="fp-option" data-value="Research keywords or competitors">Research keywords or competitors</button>
+        <button class="fp-option" data-value="Write content or copy">Write content or copy</button>
+        <button class="fp-option" data-value="Manage projects or clients">Manage projects or clients</button>
+        <button class="fp-option" data-value="Run ads or campaigns">Run ads or campaigns</button>
+        <button class="fp-option" data-value="Research or analyze data">Research or analyze data</button>
+        <button class="fp-option" data-value="Build workflows or automations">Build workflows or automations</button>
         <button class="fp-option" data-value="other">Other</button>
       </div>
       <div class="fp-other" data-other="task" hidden>
@@ -207,17 +212,17 @@ import EmailSignup from '../components/EmailSignup.astro';
       </div>
     </section>
 
-    <!-- ── FUNNEL STEP 3: Tool ── -->
+    <!-- ── FUNNEL STEP 3: Tool (broadened) ── -->
     <section class="fp-step" data-step="3">
       <button class="fp-back" data-back aria-label="Go back">&lt;- Back</button>
       <p class="fp-label fp-label--accent">STEP 3 OF 3</p>
-      <h1 class="fp-heading">What tool do you mainly use?</h1>
+      <h1 class="fp-heading">What's your main tool?</h1>
       <div class="fp-options" data-field="tool">
-        <button class="fp-option" data-value="Google Ads">Google Ads</button>
-        <button class="fp-option" data-value="Meta Ads">Meta Ads</button>
-        <button class="fp-option" data-value="HubSpot">HubSpot</button>
-        <button class="fp-option" data-value="Mailchimp">Mailchimp</button>
-        <button class="fp-option" data-value="Google Sheets / Docs">Google Sheets / Docs</button>
+        <button class="fp-option" data-value="Google Workspace (Docs, Sheets)">Google Workspace (Docs, Sheets)</button>
+        <button class="fp-option" data-value="Notion / project management">Notion / project management</button>
+        <button class="fp-option" data-value="Ad platforms (Google, Meta)">Ad platforms (Google, Meta)</button>
+        <button class="fp-option" data-value="Email / CRM (HubSpot, Mailchimp)">Email / CRM (HubSpot, Mailchimp)</button>
+        <button class="fp-option" data-value="Code editors (VS Code, Cursor)">Code editors (VS Code, Cursor)</button>
         <button class="fp-option" data-value="other">Other</button>
       </div>
       <div class="fp-other" data-other="tool" hidden>
@@ -235,14 +240,14 @@ import EmailSignup from '../components/EmailSignup.astro';
     </section>
 
     <!-- ═══════════════════════════════════════════
-         FUNNEL RESULT: Personalized Claude link
+         FUNNEL RESULT: Claude link + Email capture
          ═══════════════════════════════════════════ -->
     <section class="fp-step build__step--result" data-step="4">
       <div class="fp-bar" aria-hidden="true"></div>
       <p class="fp-label fp-label--accent">YOUR SKILL PROMPT</p>
       <h1 class="fp-heading">Ready to build.</h1>
       <p class="fp-body">
-        Based on your answers, here's a personalized prompt to build your first skill. Claude will walk you through it step by step.
+        Based on your answers, here's a personalized prompt. Claude will walk you through building the skill step by step.
       </p>
       <a
         id="claudeLink"
@@ -253,6 +258,14 @@ import EmailSignup from '../components/EmailSignup.astro';
       >
         Open in Claude <span class="fp-arrow" aria-hidden="true">-&gt;</span>
       </a>
+
+      <!-- Post-funnel email capture (highest-intent moment) -->
+      <div class="build__result-email">
+        <p class="fp-label">KEEP GOING</p>
+        <span class="build__result-email-text">New skills and build notes, delivered when they ship.</span>
+        <EmailSignup tag="build-funnel" submitText="Subscribe" placeholder="your@email.com" />
+      </div>
+
       <button class="fp-back build__back--result" data-back-to-landing aria-label="Back to skills">
         &lt;- Back to skills
       </button>
@@ -315,11 +328,11 @@ import EmailSignup from '../components/EmailSignup.astro';
   }
 
   function buildClaudeLink() {
-    const role = answers.role || 'marketer';
-    const task = answers.task || 'repetitive marketing tasks';
-    const tool = answers.tool || 'various marketing tools';
+    const role = answers.role || 'professional';
+    const task = answers.task || 'repetitive tasks';
+    const tool = answers.tool || 'various tools';
 
-    const prompt = `My role: ${role}. Every week I ${task.toLowerCase()}, and it's my biggest time sink. My main tool is ${tool}. Help me build a Claude skill (a SKILL.md file for Claude's skill system) that automates or accelerates this. Walk me through it step by step. Start by asking 2-3 clarifying questions about my workflow, then build the skill.`;
+    const prompt = `I'm a ${role.toLowerCase()}. Every week I ${task.toLowerCase()}, and it takes too much of my time. My main tool is ${tool}. Help me build a Claude skill (a SKILL.md file for Claude's skill system) that automates or accelerates this. Walk me through it step by step. Start by asking 2-3 clarifying questions about my specific workflow, then build the complete skill.`;
 
     const link = document.getElementById('claudeLink') as HTMLAnchorElement;
     if (link) {
@@ -327,7 +340,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
   }
 
-  // ── Start funnel button (on landing page) ──
+  // ── Start funnel button (hero CTA) ──
   document.getElementById('startFunnel')?.addEventListener('click', () => {
     goToStep(1);
   });
@@ -474,6 +487,31 @@ import EmailSignup from '../components/EmailSignup.astro';
     justify-content: flex-start;
     max-width: 600px;
     margin: 0;
+  }
+
+  /* ══════════════════════════════════════
+     ZONE 1: Hero — Build Your Own
+     ══════════════════════════════════════ */
+  .build__hero {
+    width: 100%;
+    padding-bottom: var(--space-12);
+  }
+
+  .build__hero :global(.fp-body) {
+    margin-bottom: var(--space-6);
+  }
+
+  /* ══════════════════════════════════════
+     ZONE 2: Downloads
+     ══════════════════════════════════════ */
+  .build__downloads {
+    width: 100%;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .build__downloads > :global(.fp-body) {
+    margin-bottom: var(--space-6);
   }
 
   /* ── Skill Cards ── */
@@ -665,15 +703,21 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-size: inherit;
   }
 
-  /* ── Bridge: Build Your Own ── */
-  .build__bridge {
+  /* ── Inline email capture (after downloads) ── */
+  .build__email-inline {
     width: 100%;
-    padding: var(--space-8) 0;
+    padding: var(--space-6) 0;
     border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
   }
 
-  .build__bridge :global(.fp-body) {
-    margin-bottom: var(--space-4);
+  .build__email-inline-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
   }
 
   /* ── Next button (funnel-specific) ── */
@@ -721,15 +765,28 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* ── Secondary CTAs ── */
   .build__secondary {
-    margin-top: var(--space-12);
+    margin-top: var(--space-8);
     padding-top: var(--space-8);
     border-top: 1px solid var(--color-border);
     width: 100%;
   }
 
-  /* ── Email CTA card ── */
-  .build__cta--email {
-    cursor: default;
+  /* ── Post-funnel email capture (result page) ── */
+  .build__result-email {
+    width: 100%;
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .build__result-email-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
   }
 
   /* ── Back to skills variant ── */
