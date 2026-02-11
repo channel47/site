@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Skills: Teach AI How You Work</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Syne:wght@800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -669,6 +669,38 @@
         border-bottom-color: var(--chalk);
       }
 
+      /* ── VIBE MARKETER CO-BRAND ── */
+      .vm-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: -0.02em;
+        color: var(--dust);
+        text-decoration: none;
+      }
+
+      .vm-logo svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      .vm-hosted {
+        position: absolute;
+        bottom: 40px;
+        right: clamp(24px, 8vw, 120px);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .vm-hosted .label {
+        color: var(--ash);
+      }
+
       /* ── ANIMATIONS ── */
       @keyframes fadeUp {
         from {
@@ -783,7 +815,7 @@
         <span class="pipe"></span>
         <span class="label label-signal">@ctrlswing</span>
         <span class="pipe"></span>
-        <span class="label">Vibe Marketers</span>
+        <span class="vm-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 0L14.59 8.41L23 11L14.59 13.59L12 22L9.41 13.59L1 11L9.41 8.41L12 0Z" fill="#ffd60a"/></svg>Vibe Marketers</span>
       </div>
     </section>
 
@@ -2072,6 +2104,11 @@ my-skill/
           </p>
           <p class="label" style="color: var(--stone)">CHANNEL47.DEV/BUILD</p>
         </div>
+      </div>
+
+      <div class="vm-hosted">
+        <span class="label">HOSTED BY</span>
+        <span class="vm-logo" style="font-size: 14px; color: var(--bone)"><svg viewBox="0 0 24 24" fill="none" style="width: 18px; height: 18px"><path d="M12 0L14.59 8.41L23 11L14.59 13.59L12 22L9.41 13.59L1 11L9.41 8.41L12 0Z" fill="#ffd60a"/></svg>The Vibe Marketer</span>
       </div>
     </section>
 
