@@ -12,6 +12,11 @@
  * - Length validation for all inputs
  * - Security headers on responses
  *
+ * Tagging: Applies actual Kit tags (not just custom fields) so you
+ * can build automations and visual segments in Kit. Tags are resolved
+ * by name and cached in memory per cold start. If tagging fails,
+ * subscription still succeeds (graceful degradation).
+ *
  * Required environment variables:
  * - KIT_API_KEY: Your Kit API key (from Settings → Developer)
  */
@@ -28,6 +33,10 @@ const MAX_FIELD_VALUE_LENGTH = 1000;
 const MAX_FIELD_COUNT = 10;
 const ALLOWED_FIELD_KEYS = new Set(['name', 'scope', 'brief', 'budget']);
 const REQUEST_TIMEOUT_MS = 10000; // 10 seconds
+const KIT_BASE = 'https://api.kit.com/v4';
+
+// In-memory tag ID cache (persists across requests within a cold start)
+const tagIdCache = new Map<string, number>();
 
 /**
  * Validates email format according to RFC 5322 basic pattern
@@ -79,6 +88,70 @@ function sanitizeTag(tag: unknown): string | undefined {
 
   // Remove any potentially dangerous characters
   return trimmed.replace(/[<>\"\']/g, '');
+}
+
+/**
+ * Resolves a tag name to a Kit tag ID.
+ * Checks cache first, then lists existing tags, then creates if needed.
+ */
+async function resolveTagId(tagName: string, apiKey: string): Promise<number | null> {
+  // Check cache
+  const cached = tagIdCache.get(tagName);
+  if (cached) return cached;
+
+  const kitTagName = `ch47-${tagName}`;
+  const headers = { 'X-Kit-Api-Key': apiKey, 'Content-Type': 'application/json' };
+
+  try {
+    // List tags and search for our tag name
+    const listRes = await fetch(`${KIT_BASE}/tags?per_page=100`, { headers });
+    if (listRes.ok) {
+      const listData = await listRes.json();
+      const existing = listData.tags?.find((t: { name: string }) => t.name === kitTagName);
+      if (existing) {
+        tagIdCache.set(tagName, existing.id);
+        return existing.id;
+      }
+    }
+
+    // Tag doesn't exist yet, create it
+    const createRes = await fetch(`${KIT_BASE}/tags`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ name: kitTagName }),
+    });
+
+    if (createRes.ok || createRes.status === 201) {
+      const createData = await createRes.json();
+      const id = createData.tag?.id;
+      if (id) {
+        tagIdCache.set(tagName, id);
+        return id;
+      }
+    }
+
+    console.error('Failed to resolve Kit tag:', kitTagName);
+    return null;
+  } catch (err) {
+    console.error('Tag resolution error:', err);
+    return null;
+  }
+}
+
+/**
+ * Tags a subscriber by email address. Fire-and-forget style
+ * (errors are logged but don't block the subscription response).
+ */
+async function tagSubscriberByEmail(email: string, tagId: number, apiKey: string): Promise<void> {
+  try {
+    await fetch(`${KIT_BASE}/tags/${tagId}/subscribers`, {
+      method: 'POST',
+      headers: { 'X-Kit-Api-Key': apiKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email_address: email }),
+    });
+  } catch (err) {
+    console.error('Failed to tag subscriber:', err);
+  }
 }
 
 /**
@@ -196,11 +269,9 @@ export const POST: APIRoute = async ({ request }) => {
     // Build Kit payload
     const payload: {
       email_address: string;
-      state: string;
       fields?: Record<string, string>;
     } = {
       email_address: trimmedEmail,
-      state: 'active'
     };
 
     // Build custom fields — server fields override client fields
@@ -271,6 +342,14 @@ export const POST: APIRoute = async ({ request }) => {
         },
         response.status >= 500 ? 502 : 400
       );
+    }
+
+    // Apply Kit tag (non-blocking — subscription succeeds even if tagging fails)
+    if (sanitizedTag) {
+      const tagId = await resolveTagId(sanitizedTag, API_KEY);
+      if (tagId) {
+        await tagSubscriberByEmail(trimmedEmail, tagId, API_KEY);
+      }
     }
 
     // Success - Kit handles duplicates idempotently (returns 200 for existing subscribers)
