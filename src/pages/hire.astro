@@ -3,89 +3,181 @@
  * /hire — Consulting Intake
  * Custom AI skill build requests. Sends to Kit with "hire" tag + fields.
  *
- * Density within FormPageLayout constraints:
- * MEDIUM (heading) → HIGH (proof strip) → MEDIUM (form) → LOW (fallback)
+ * Density map (earned-ask structure):
+ * HIGH (hook + proof) → MEDIUM (examples) → LOW (process) → HIGH (form) → LOW (fallback)
+ *
+ * The form sits behind three credibility zones. By the time someone
+ * reaches the ask, they've seen what you build, how you build it,
+ * and proof that it ships.
  */
 import FormPageLayout from '../layouts/FormPageLayout.astro';
 ---
 
 <FormPageLayout
   title="Work With Me — Channel47"
-  description="Custom AI skills for marketers. Campaign generators, audit tools, email builders, creative pipelines. Limited availability."
+  description="Custom AI skills for your workflow. Workflow automations, content systems, campaign tools, reporting pipelines. Limited availability."
   class="hire"
 >
 
-  <!-- Form view -->
-  <section class="fp-section" data-hire-form-section>
-    <div class="fp-bar" aria-hidden="true"></div>
-    <p class="fp-label fp-label--accent">CUSTOM BUILDS</p>
-    <h1 class="fp-heading">Tell me what to build.</h1>
-    <p class="fp-body">
-      Campaign generators, audit tools, email builders, creative pipelines.
-      I take on a handful of projects at a time. Tell me what you need.
-    </p>
+  <!-- All page content (hidden on form success) -->
+  <div class="hire__content" data-hire-form-section>
 
-    <!-- Proof strip — compact credibility before the form -->
-    <div class="hire__proof">
-      <span class="hire__proof-item">25+ accounts managed</span>
-      <span class="hire__proof-pipe" aria-hidden="true"></span>
-      <span class="hire__proof-item">Production tools shipped</span>
-      <span class="hire__proof-pipe" aria-hidden="true"></span>
-      <span class="hire__proof-item">Open source</span>
-    </div>
+    <!-- =========================================
+         ZONE 1: Hook (HIGH density)
+         Outcome-focused. Say what you do,
+         prove you've done it, move on.
+         ========================================= -->
+    <section class="fp-section">
+      <div class="fp-bar" aria-hidden="true"></div>
+      <p class="fp-label fp-label--accent">CUSTOM BUILDS</p>
+      <h1 class="fp-heading">I build the tools you describe.</h1>
+      <p class="fp-body">
+        Workflow automations, reporting tools, content pipelines, campaign builders.
+        I take on a handful of projects at a time.
+      </p>
 
-    <form class="hire__form" data-hire-form>
-      <label class="visually-hidden" for="hire-email">Email</label>
-      <input
-        type="email"
-        id="hire-email"
-        class="fp-input"
-        placeholder="your@email.com"
-        required
-        autocomplete="email"
-      />
-      <label class="visually-hidden" for="hire-role">Role</label>
-      <input
-        type="text"
-        id="hire-role"
-        class="fp-input"
-        placeholder="Your role, e.g. Media buyer at an agency"
-        maxlength="200"
-      />
-      <label class="visually-hidden" for="hire-task">Task</label>
-      <textarea
-        id="hire-task"
-        class="fp-input hire__textarea"
-        placeholder="What should this skill do? Be specific."
-        rows="4"
-        maxlength="1000"
-      ></textarea>
-      <label class="visually-hidden" for="hire-budget">Budget range</label>
-      <select id="hire-budget" class="fp-input hire__select" required>
-        <option value="" disabled selected>Budget range</option>
-        <option value="under-500">Less than $500</option>
-        <option value="500-2k">$500 – $2K</option>
-        <option value="2k-5k">$2K – $5K</option>
-        <option value="5k-plus">$5K+</option>
-      </select>
-      <p class="hire__error" data-hire-error hidden></p>
-      <button type="submit" class="fp-btn fp-btn--primary fp-btn--lg" data-hire-submit>
-        Send it <span class="fp-arrow" aria-hidden="true">→</span>
-      </button>
-    </form>
+      <a href="#start" class="hire__scroll-cta">
+        Start a project <span class="fp-arrow" aria-hidden="true">↓</span>
+      </a>
 
-    <!-- Fallback CTA — exit ramp for people not ready -->
+      <div class="hire__proof">
+        <span class="hire__proof-item">25+ skills shipped</span>
+        <span class="hire__proof-pipe" aria-hidden="true"></span>
+        <span class="hire__proof-item">Running in production</span>
+        <span class="hire__proof-pipe" aria-hidden="true"></span>
+        <span class="hire__proof-item">Open source</span>
+      </div>
+    </section>
+
+    <!-- =========================================
+         ZONE 2: Examples (MEDIUM density)
+         Three real builds. Input → output framing.
+         Show the transformation, not features.
+         ========================================= -->
+    <section class="fp-section hire__examples">
+      <p class="fp-label">RECENT BUILDS</p>
+
+      <div class="hire__examples-list">
+        <div class="hire__example">
+          <span class="hire__example-name">Search Campaign Builder</span>
+          <span class="hire__example-io">Landing page URL in → complete Google Ads campaign out</span>
+        </div>
+
+        <div class="hire__example">
+          <span class="hire__example-name">Email Campaign Generator</span>
+          <span class="hire__example-io">Brand guidelines + product catalog in → production HTML emails out</span>
+        </div>
+
+        <div class="hire__example">
+          <span class="hire__example-name">Content Mining System</span>
+          <span class="hire__example-io">A week of builds and notes in → distribution-ready posts out</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         ZONE 3: Process (LOW density)
+         Three steps. Sparse. Confident.
+         The Index signature move (mono counters).
+         ========================================= -->
+    <section class="fp-section hire__process">
+      <p class="fp-label">HOW IT WORKS</p>
+      <h2 class="fp-heading fp-heading--sm">Three steps. That's it.</h2>
+
+      <div class="hire__steps">
+        <div class="hire__step">
+          <span class="hire__step-num" aria-hidden="true">01</span>
+          <div class="hire__step-body">
+            <p class="hire__step-title">You describe the workflow</p>
+            <p class="hire__step-desc">Tell me what the tool should do, who uses it, and what good output looks like.</p>
+          </div>
+        </div>
+
+        <div class="hire__step">
+          <span class="hire__step-num" aria-hidden="true">02</span>
+          <div class="hire__step-body">
+            <p class="hire__step-title">I build and test it</p>
+            <p class="hire__step-desc">Custom skill, tested against real data, documented.</p>
+          </div>
+        </div>
+
+        <div class="hire__step">
+          <span class="hire__step-num" aria-hidden="true">03</span>
+          <div class="hire__step-body">
+            <p class="hire__step-title">You run it yourself</p>
+            <p class="hire__step-desc">Your tool, your workflow. No dependency on me after delivery.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         ZONE 4: Form (HIGH density — the earned ask)
+         By now they've seen proof. The form feels
+         justified, not cold.
+         ========================================= -->
+    <section class="fp-section hire__form-zone" id="start">
+      <div class="fp-bar" aria-hidden="true"></div>
+      <p class="fp-label fp-label--accent">GET STARTED</p>
+      <h2 class="fp-heading fp-heading--sm">Tell me what you're working on.</h2>
+      <p class="fp-body">I review every inquiry and reply within 48 hours. If it's a fit, we'll schedule a call.</p>
+
+      <form class="hire__form" data-hire-form>
+        <label class="visually-hidden" for="hire-email">Email</label>
+        <input
+          type="email"
+          id="hire-email"
+          class="fp-input"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+        />
+        <label class="visually-hidden" for="hire-role">Role</label>
+        <input
+          type="text"
+          id="hire-role"
+          class="fp-input"
+          placeholder="Your role, e.g. Founder running a 5-person team"
+          maxlength="200"
+        />
+        <label class="visually-hidden" for="hire-task">What you're trying to solve</label>
+        <textarea
+          id="hire-task"
+          class="fp-input hire__textarea"
+          placeholder="What's the workflow you want to improve?"
+          rows="4"
+          maxlength="1000"
+        ></textarea>
+        <div class="hire__budget-group">
+          <p class="hire__budget-label">Budget range</p>
+          <div class="hire__budget-grid" data-budget-group>
+            <button type="button" class="hire__budget-btn" data-budget="under-500" aria-pressed="false">Under $500</button>
+            <button type="button" class="hire__budget-btn" data-budget="500-2k" aria-pressed="false">$500 – $2K</button>
+            <button type="button" class="hire__budget-btn" data-budget="2k-5k" aria-pressed="false">$2K – $5K</button>
+            <button type="button" class="hire__budget-btn" data-budget="5k-plus" aria-pressed="false">$5K+</button>
+          </div>
+        </div>
+        <input type="hidden" id="hire-budget" value="" />
+        <p class="hire__error" data-hire-error hidden></p>
+        <button type="submit" class="fp-btn fp-btn--primary fp-btn--lg" data-hire-submit>
+          Send inquiry <span class="fp-arrow" aria-hidden="true">→</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Zone 5: Fallback (LOW density exit ramp) -->
     <p class="hire__fallback">
       Not ready? <a href="/#signup" class="hire__fallback-link">Get the build notes</a> instead.
     </p>
-  </section>
+
+  </div>
 
   <!-- Success view (hidden by default) -->
   <section class="fp-section hire__success" hidden data-hire-success>
     <div class="fp-bar" aria-hidden="true"></div>
     <p class="fp-label fp-label--accent">RECEIVED</p>
-    <h1 class="fp-heading">Got it.</h1>
-    <p class="fp-body">I'll reply within 48 hours with next steps.</p>
+    <h1 class="fp-heading">Got it. I'll take a look.</h1>
+    <p class="fp-body">I review every inquiry personally. If it's a good fit, I'll reach out within 48 hours to schedule a call.</p>
     <a href="/" class="hire__back-link">← Back to channel47</a>
   </section>
 
@@ -102,6 +194,18 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     const errorEl = document.querySelector('[data-hire-error]') as HTMLElement;
     const formSection = document.querySelector('[data-hire-form-section]') as HTMLElement;
     const successSection = document.querySelector('[data-hire-success]') as HTMLElement;
+    const budgetHidden = form.querySelector('#hire-budget') as HTMLInputElement;
+    const budgetBtns = form.querySelectorAll('[data-budget]') as NodeListOf<HTMLButtonElement>;
+
+    // Budget button group — select one at a time
+    budgetBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        budgetBtns.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        budgetHidden.value = btn.getAttribute('data-budget') || '';
+        clearError();
+      });
+    });
 
     function showError(msg: string) {
       if (errorEl) {
@@ -124,7 +228,6 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       const emailInput = form.querySelector('#hire-email') as HTMLInputElement;
       const roleInput = form.querySelector('#hire-role') as HTMLInputElement;
       const taskInput = form.querySelector('#hire-task') as HTMLTextAreaElement;
-      const budgetInput = form.querySelector('#hire-budget') as HTMLSelectElement;
 
       const email = emailInput.value.trim();
 
@@ -134,9 +237,8 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
         return;
       }
 
-      if (!budgetInput.value) {
+      if (!budgetHidden.value) {
         showError('Please select a budget range.');
-        budgetInput.focus();
         return;
       }
 
@@ -149,7 +251,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
         const fields: Record<string, string> = {};
         if (roleInput.value.trim()) fields.scope = roleInput.value.trim();
         if (taskInput.value.trim()) fields.brief = taskInput.value.trim();
-        if (budgetInput.value) fields.budget = budgetInput.value;
+        if (budgetHidden.value) fields.budget = budgetHidden.value;
 
         const response = await fetch('/api/subscribe', {
           method: 'POST',
@@ -186,13 +288,71 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
 </script>
 
 <style>
+  /* =========================================
+   * HIRE PAGE — Earned-Ask Layout
+   *
+   * 5-zone structure: hook → examples → process → form → fallback
+   * Each zone earns the right to the next.
+   * Form sits behind credibility. The ask feels justified.
+   * ========================================= */
+
+  /* ---- Content wrapper ---- */
+  .hire__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: var(--space-20);
+  }
+
+  /* Reset fp-section top padding — wrapper gap handles spacing */
+  .hire__content > .fp-section {
+    padding-top: 0;
+  }
+
+  /* First section keeps top padding for logo clearance */
+  .hire__content > .fp-section:first-child {
+    padding-top: var(--space-16);
+  }
+
+  .hire__content[hidden] {
+    display: none;
+  }
+
+  /* ---- Scroll CTA (anti-CTA: plain statement, not a shout) ---- */
+  .hire__scroll-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+    text-decoration: none;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .hire__scroll-cta:hover {
+    color: var(--color-fg);
+  }
+
+  .hire__scroll-cta .fp-arrow {
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .hire__scroll-cta:hover .fp-arrow {
+    transform: translateY(3px);
+  }
+
   /* ---- Proof strip (HIGH density moment) ---- */
   .hire__proof {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: var(--space-8);
+    margin-top: var(--space-2);
     padding: var(--space-4) 0;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
@@ -212,6 +372,79 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     background: var(--color-border);
   }
 
+  /* ---- Examples list (MEDIUM density, flat & scannable) ---- */
+  .hire__examples-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    width: 100%;
+  }
+
+  .hire__example {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .hire__example-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+  }
+
+  .hire__example-io {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg);
+  }
+
+  /* ---- Process steps (LOW density, The Index) ---- */
+  .hire__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    width: 100%;
+  }
+
+  .hire__step {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .hire__step-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    color: var(--color-accent);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .hire__step-body {
+    flex: 1;
+  }
+
+  .hire__step-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-1);
+  }
+
+  .hire__step-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    line-height: var(--leading-relaxed);
+  }
+
   /* ---- Form ---- */
   .hire__form {
     display: flex;
@@ -229,17 +462,56 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     line-height: var(--leading-relaxed);
   }
 
-  .hire__select {
-    appearance: none;
-    padding-right: var(--space-10);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%2378716C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right var(--space-4) center;
-    cursor: pointer;
+  /* ---- Budget button group ---- */
+  .hire__budget-group {
+    width: 100%;
   }
 
-  .hire__select:invalid {
-    color: var(--color-fg-subtle);
+  .hire__budget-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .hire__budget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .hire__budget-btn {
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: center;
+    transition:
+      border-color 100ms var(--ease-sharp),
+      background-color 150ms var(--ease-out),
+      color 150ms var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .hire__budget-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-fg);
+    background: color-mix(in oklch, var(--color-accent) 4%, var(--color-bg-elevated));
+  }
+
+  .hire__budget-btn[aria-pressed="true"] {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg-elevated));
+  }
+
+  .hire__budget-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
 
   .hire__error {
@@ -258,8 +530,8 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     font-family: var(--font-mono);
     font-size: 12px;
     color: var(--color-fg-muted);
-    margin-top: var(--space-10);
     letter-spacing: 0.02em;
+    text-align: center;
   }
 
   .hire__fallback-link {
@@ -275,10 +547,6 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
   }
 
   /* ---- Success state ---- */
-  .hire__success {
-    /* inherits fp-section centering */
-  }
-
   .hire__back-link {
     font-family: var(--font-mono);
     font-size: 13px;
@@ -291,8 +559,52 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     color: var(--color-accent);
   }
 
+  /* ---- Smooth scroll for anchor link ---- */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
+    }
+  }
+
   /* ---- Responsive ---- */
+  @media (max-width: 767px) {
+    .hire__content {
+      gap: var(--space-14);
+    }
+
+    .hire__content > .fp-section:first-child {
+      padding-top: var(--space-6);
+    }
+
+    /* Progressive disclosure: strip supporting text on mobile */
+    .hire__step-desc {
+      display: none;
+    }
+
+    /* Tighter process step spacing */
+    .hire__steps {
+      gap: var(--space-5);
+    }
+
+    /* Tighter form inputs */
+    .hire__form {
+      gap: var(--space-4);
+    }
+
+    .hire__textarea {
+      min-height: 80px;
+    }
+  }
+
   @media (max-width: 480px) {
+    .hire__content {
+      gap: var(--space-10);
+    }
+
     .hire__proof {
       flex-direction: column;
       align-items: flex-start;
@@ -301,6 +613,17 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
 
     .hire__proof-pipe {
       display: none;
+    }
+
+    .hire__budget-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---- Reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .hire__budget-btn {
+      transition: none;
     }
   }
 </style>
