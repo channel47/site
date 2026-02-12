@@ -11,17 +11,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-16);
   padding: var(--space-6) 0;
   position: relative;
 }
 
-/* ── Logo ── */
-.fp-logo {
-  position: absolute;
-  top: var(--space-6);
-  left: clamp(24px, 5vw, 64px);
+/* ── Content column (logo + content share one left edge) ── */
+.fp-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  padding-inline: clamp(24px, 5vw, 64px);
+  padding-bottom: var(--space-16);
 }
+
+/* ── Logo ── */
+.fp-logo {}
 
 .fp-logo :global(.logo-animated) {
   font-size: var(--text-xs);
@@ -108,10 +114,8 @@
   display: none;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 540px;
   width: 100%;
   margin: auto 0;
-  padding-inline: clamp(24px, 5vw, 64px);
   opacity: 0;
   transform: translateY(16px);
 }
@@ -149,10 +153,8 @@
 
 /* ── Section (non-step pages like /hire) ── */
 .fp-section {
-  max-width: 540px;
   width: 100%;
   padding-top: var(--space-16);
-  padding-inline: clamp(24px, 5vw, 64px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -529,12 +531,8 @@
   }
 }
 
-/* ── Mobile: clear absolute-positioned logo ── */
+/* ── Mobile ── */
 @media (max-width: 767px) {
-  .fp-page {
-    padding-top: var(--space-16);
-  }
-
   .fp-section {
     padding-top: var(--space-6);
   }

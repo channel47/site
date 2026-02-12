@@ -22,12 +22,14 @@ const { title, description, image, class: className } = Astro.props;
 
 <BaseLayout title={title} description={description} image={image}>
   <main class:list={['fp-page', className]}>
-    <div class="fp-logo">
-      <a href="/" aria-label="Back to Channel47">
-        <LogoAnimated />
-      </a>
+    <div class="fp-column">
+      <div class="fp-logo">
+        <a href="/" aria-label="Back to Channel47">
+          <LogoAnimated />
+        </a>
+      </div>
+      <slot />
     </div>
-    <slot />
     <Footer class="fp-footer" />
   </main>
 </BaseLayout>
