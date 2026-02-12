@@ -16,13 +16,20 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
   class="build"
 >
 
+    <!-- Hide page instantly when ?start is present to prevent flash of landing step -->
+    <script is:inline>
+      if (new URLSearchParams(window.location.search).has('start')) {
+        document.documentElement.classList.add('build--skip-landing');
+      }
+    </script>
+
     <!-- ── PROGRESS (hidden on landing, visible during funnel) ── -->
     <div class="build__progress is-hidden" aria-hidden="true">
       <div class="build__progress-bar" id="progressBar"></div>
     </div>
 
     <!-- ═══════════════════════════════════════════
-         LANDING: Hero → Downloads → Secondary
+         LANDING: Hero → Downloads → Subscribe → Secondary
          ═══════════════════════════════════════════ -->
     <section class="fp-step build__step--landing is-active" data-step="0">
 
@@ -32,7 +39,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
         <p class="fp-label fp-label--accent">SKILL BUILDER</p>
         <h1 class="fp-heading">Build your first skill in five minutes.</h1>
         <p class="fp-body">
-          Three questions about how you work. You get a personalized Claude prompt that builds a skill around your actual workflow. No code. No setup.
+          Three questions. You get a Claude prompt built around your workflow. No code. No setup.
         </p>
         <button class="fp-btn fp-btn--primary fp-btn--lg" id="startFunnel">
           Start building <span class="fp-arrow" aria-hidden="true">-&gt;</span>
@@ -43,7 +50,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       <div class="build__downloads">
         <p class="fp-label">FROM THE SESSION</p>
         <p class="fp-body">
-          The skills from today's demos. Download, unzip, drop into your project folder.
+          Two skills from the demos. Download, unzip, drop into your project.
         </p>
 
         <div class="build__skills">
@@ -70,9 +77,9 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
           </div>
         </div>
 
-        <!-- Install guide (tabbed: Desktop / Code) -->
-        <div class="build__install">
-          <p class="fp-label">HOW TO INSTALL</p>
+        <!-- Install guide (collapsed, tabbed: Desktop / Code) -->
+        <details class="build__install">
+          <summary class="build__install-summary">HOW TO INSTALL</summary>
           <div class="build__install-toggle" role="tablist">
             <button role="tab" class="build__install-tab" aria-selected="true" data-install-tab="desktop">Desktop</button>
             <button role="tab" class="build__install-tab" aria-selected="false" data-install-tab="code">Claude Code</button>
@@ -107,11 +114,20 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
               <span class="build__install-text">Start a conversation. Claude picks it up.</span>
             </div>
           </div>
-        </div>
+        </details>
 
       </div>
 
-      <!-- ── ZONE 3: Secondary CTAs (LOW density) ── -->
+      <!-- ── ZONE 3: Subscribe (earned ask after value) ── -->
+      <div class="build__subscribe">
+        <p class="fp-label">THE BUILD NOTES</p>
+        <p class="build__subscribe-pitch">I break down a skill every week. How it works, why it works, what I'd change. You get the prompts.</p>
+        <a href="/subscribe" class="build__subscribe-cta">
+          Subscribe free <span class="fp-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <!-- ── ZONE 4: Secondary CTAs (LOW density) ── -->
       <div class="build__secondary">
         <p class="fp-label">GO DEEPER</p>
         <div class="fp-cards">
@@ -137,15 +153,6 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
         <a href="/hire" class="build__hire-cta">
           <span class="build__hire-cta-title">Hire me to build yours</span>
           <span class="fp-arrow" aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-
-      <!-- ── ZONE 4: Subscribe (LOW density, earned ask) ── -->
-      <div class="build__subscribe">
-        <p class="fp-label">THE BUILD NOTES</p>
-        <p class="build__subscribe-pitch">Every week I break down a new skill. How it works, why it works, what I'd change. You get the prompts and the process.</p>
-        <a href="/subscribe" class="build__subscribe-cta">
-          Subscribe free <span class="fp-arrow" aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </section>
@@ -241,7 +248,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       <p class="fp-label fp-label--accent">YOUR SKILL PROMPT</p>
       <h1 class="fp-heading">Ready to build.</h1>
       <p class="fp-body">
-        Based on your answers, here's a personalized prompt. Claude will walk you through building the skill step by step.
+        A prompt built from your answers. Claude walks you through the build step by step.
       </p>
       <a
         id="claudeLink"
@@ -254,7 +261,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       </a>
 
       <p class="build__result-subscribe">
-        <a href="/subscribe" class="build__result-subscribe-link">Get the build notes</a> — new skills and how they're made.
+        I break down a new skill every week. <a href="/subscribe" class="build__result-subscribe-link">Get the build notes</a>
       </p>
 
       <button class="fp-back build__back--result" data-back-to-landing aria-label="Back to skills">
@@ -427,6 +434,21 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
   // Init progress bar
   updateProgress();
 
+  // Auto-start funnel if ?start param is present (e.g. from homepage CTA)
+  if (new URLSearchParams(window.location.search).has('start')) {
+    // Skip the transition animation — just swap steps instantly
+    const landing = document.querySelector('[data-step="0"]');
+    const step1 = document.querySelector('[data-step="1"]');
+    if (landing && step1) {
+      landing.classList.remove('is-active');
+      step1.classList.add('is-active');
+      currentStep = 1;
+      updateProgress();
+    }
+    // Reveal the page now that the right step is showing
+    document.documentElement.classList.remove('build--skip-landing');
+  }
+
   // ── Install tab toggle ──
   document.querySelectorAll('[data-install-tab]').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -448,6 +470,11 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
 </script>
 
 <style>
+  /* ── Hide page until correct step is shown (prevents flash of landing on ?start) ── */
+  :global(.build--skip-landing) body {
+    visibility: hidden;
+  }
+
   /* ── Build page overrides ── */
   .build {
     justify-content: center;
@@ -620,12 +647,40 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     color: var(--color-fg-secondary);
   }
 
-  /* ── Install Guide ── */
+  /* ── Install Guide (collapsible) ── */
   .build__install {
     width: 100%;
-    padding: var(--space-6) 0;
-    margin-bottom: var(--space-4);
-    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-4);
+  }
+
+  .build__install-summary {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    list-style: none;
+    transition: color 150ms var(--ease-out);
+  }
+
+  .build__install-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .build__install-summary::after {
+    content: '+';
+    margin-left: var(--space-2);
+    transition: color 150ms var(--ease-out);
+  }
+
+  .build__install[open] .build__install-summary::after {
+    content: '\2212';
+  }
+
+  .build__install-summary:hover {
+    color: var(--color-accent);
   }
 
   .build__install-toggle {
