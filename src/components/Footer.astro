@@ -2,13 +2,15 @@
 /**
  * Footer — shared site footer.
  * Minimal. Border-top, flex row, muted text.
+ * CH47 mark has a hover scramble — characters cycle through
+ * random glyphs before locking back into the callsign.
  */
 const { class: className, ...props } = Astro.props;
 ---
 
 <footer class:list={["footer", className]} {...props}>
   <div class="footer__content">
-    <span class="footer__mark">CH47</span>
+    <span class="footer__mark" data-footer-scramble>CH47</span>
     <span class="footer__text">
       Built by
       <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="footer__link">@ctrlswing</a>.
@@ -16,6 +18,65 @@ const { class: className, ...props } = Astro.props;
     </span>
   </div>
 </footer>
+
+<script>
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789▓▒░█▀▄';
+  const TARGET = 'CH47';
+
+  function scrambleMark(mark: HTMLElement) {
+    const locked: boolean[] = new Array(TARGET.length).fill(false);
+    let frame: number;
+
+    // Scramble unlocked characters
+    function tick() {
+      let text = '';
+      for (let i = 0; i < TARGET.length; i++) {
+        text += locked[i] ? TARGET[i] : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      }
+      mark.textContent = text;
+      if (!locked.every(Boolean)) frame = requestAnimationFrame(tick);
+    }
+
+    frame = requestAnimationFrame(tick);
+    mark.classList.add('is-scrambling');
+
+    // Lock each character with staggered timing
+    const indices = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+    indices.forEach((charIdx, order) => {
+      setTimeout(() => {
+        locked[charIdx] = true;
+        if (locked.every(Boolean)) {
+          cancelAnimationFrame(frame);
+          mark.textContent = TARGET;
+          mark.classList.remove('is-scrambling');
+        }
+      }, 120 + order * 100);
+    });
+  }
+
+  function initFooterScramble() {
+    const mark = document.querySelector('[data-footer-scramble]') as HTMLElement;
+    if (!mark || mark.hasAttribute('data-initialized')) return;
+    mark.setAttribute('data-initialized', 'true');
+
+    let cooldown = false;
+    mark.addEventListener('mouseenter', () => {
+      if (cooldown) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      cooldown = true;
+      scrambleMark(mark);
+      setTimeout(() => { cooldown = false; }, 800);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFooterScramble);
+  } else {
+    initFooterScramble();
+  }
+
+  document.addEventListener('astro:page-load', initFooterScramble);
+</script>
 
 <style>
   .footer {
@@ -36,6 +97,18 @@ const { class: className, ...props } = Astro.props;
     font-weight: 600;
     color: var(--color-fg-subtle);
     letter-spacing: 0.1em;
+    cursor: default;
+    transition: color var(--duration-fast) var(--ease-sharp);
+  }
+
+  .footer__mark:hover {
+    color: var(--color-accent);
+  }
+
+  /* Scramble active — accent color + subtle glow */
+  .footer__mark:global(.is-scrambling) {
+    color: var(--color-accent);
+    text-shadow: 0 0 6px rgba(245, 158, 11, 0.25);
   }
 
   .footer__link {
