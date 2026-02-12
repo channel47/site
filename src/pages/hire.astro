@@ -30,23 +30,24 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     <section class="fp-section">
       <div class="fp-bar" aria-hidden="true"></div>
       <p class="fp-label fp-label--accent">CUSTOM BUILDS</p>
-      <h1 class="fp-heading">I build the tools you describe.</h1>
-      <p class="fp-body">
-        Workflow automations, reporting tools, content pipelines, campaign builders.
-        I take on a handful of projects at a time.
-      </p>
-
-      <a href="#start" class="hire__scroll-cta">
-        Start a project <span class="fp-arrow" aria-hidden="true">↓</span>
-      </a>
+      <h1 class="fp-heading">Describe the workflow.<br/>I'll build the tool.</h1>
 
       <div class="hire__proof">
-        <span class="hire__proof-item">25+ skills shipped</span>
+        <span class="hire__proof-item">10+ skills shipped</span>
         <span class="hire__proof-pipe" aria-hidden="true"></span>
         <span class="hire__proof-item">Running in production</span>
         <span class="hire__proof-pipe" aria-hidden="true"></span>
-        <span class="hire__proof-item">Open source</span>
+        <span class="hire__proof-item">300+ workshop attendees</span>
       </div>
+
+      <p class="fp-body">
+        Workflow automations, content pipelines, campaign builders.
+        I take on a handful of projects at a time.
+      </p>
+
+      <a href="#start" class="fp-btn fp-btn--primary hire__hero-cta">
+        Start a project <span class="fp-arrow" aria-hidden="true">→</span>
+      </a>
     </section>
 
     <!-- =========================================
@@ -159,7 +160,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
         </div>
         <input type="hidden" id="hire-budget" value="" />
         <p class="hire__error" data-hire-error hidden></p>
-        <button type="submit" class="fp-btn fp-btn--primary fp-btn--lg" data-hire-submit>
+        <button type="submit" class="fp-btn fp-btn--secondary fp-btn--lg" data-hire-submit>
           Send inquiry <span class="fp-arrow" aria-hidden="true">→</span>
         </button>
       </form>
@@ -167,7 +168,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
 
     <!-- Zone 5: Fallback (LOW density exit ramp) -->
     <p class="hire__fallback">
-      Not ready? <a href="/#signup" class="hire__fallback-link">Get the build notes</a> instead.
+      Not ready? <a href="/subscribe" class="hire__fallback-link">Get the build notes</a> instead.
     </p>
 
   </div>
@@ -319,31 +320,10 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     display: none;
   }
 
-  /* ---- Scroll CTA (anti-CTA: plain statement, not a shout) ---- */
-  .hire__scroll-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-accent);
-    text-decoration: none;
+  /* ---- Hero CTA (Signal-fill primary — one per page) ---- */
+  .hire__hero-cta {
     margin-top: var(--space-4);
-    margin-bottom: var(--space-2);
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-
-  .hire__scroll-cta:hover {
-    color: var(--color-fg);
-  }
-
-  .hire__scroll-cta .fp-arrow {
-    transition: transform var(--duration-normal) var(--ease-out);
-  }
-
-  .hire__scroll-cta:hover .fp-arrow {
-    transform: translateY(3px);
+    align-self: flex-start;
   }
 
   /* ---- Proof strip (HIGH density moment) ---- */
@@ -352,7 +332,8 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: var(--space-2);
+    margin-top: calc(-1 * var(--space-4));
+    margin-bottom: var(--space-4);
     padding: var(--space-4) 0;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
@@ -580,6 +561,22 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       padding-top: var(--space-6);
     }
 
+    /* Cleaner hero on mobile: hide proof strip (examples zone carries credibility) */
+    .hire__proof {
+      display: none;
+    }
+
+    /* Hero CTA stretches full-width on mobile */
+    .hire__hero-cta {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Form submit stretches full-width on mobile */
+    .hire__form [data-hire-submit] {
+      width: 100%;
+    }
+
     /* Progressive disclosure: strip supporting text on mobile */
     .hire__step-desc {
       display: none;
@@ -603,16 +600,6 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
   @media (max-width: 480px) {
     .hire__content {
       gap: var(--space-10);
-    }
-
-    .hire__proof {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .hire__proof-pipe {
-      display: none;
     }
 
     .hire__budget-grid {
