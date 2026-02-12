@@ -17,7 +17,7 @@ const { currentPath } = Astro.props;
   <div class="nav__links">
     <a href="/" class:list={[currentPath === '/' && 'nav__active']}>Home</a>
     <span class="nav__pipe" aria-hidden="true"></span>
-    <a href="/plugins" class:list={[currentPath === '/plugins' && 'nav__active']}>Plugins</a>
+    <a href="/build?start" class:list={[currentPath === '/build' && 'nav__active']}>Build</a>
   </div>
 </nav>
 
