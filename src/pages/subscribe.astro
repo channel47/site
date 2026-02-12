@@ -1,0 +1,143 @@
+---
+/**
+ * /subscribe — Newsletter signup
+ * Standalone capture page. No chrome. Centered. The Void.
+ * Linked from presentation, /build, index, plugins.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+import LogoAnimated from '../components/LogoAnimated.astro';
+---
+
+<BaseLayout
+  title="Build Notes — Channel47"
+  description="Short emails when something real ships. Working templates and the thinking behind them."
+>
+  <main class="subscribe">
+    <div class="subscribe__content">
+      <div class="subscribe__bar" aria-hidden="true"></div>
+      <p class="subscribe__label">BUILD NOTES</p>
+      <h1 class="subscribe__heading">Short emails when something ships.</h1>
+      <p class="subscribe__body">Working templates and the thinking behind them.</p>
+      <EmailSignup
+        placeholder="you@domain.com"
+        tag="subscribe"
+        submitText="Get notes"
+        variant="prominent"
+      />
+      <p class="subscribe__micro">Only when there's something worth sending.</p>
+      <a href="/" class="subscribe__mark" aria-label="Channel47">
+        <LogoAnimated delay={800} />
+      </a>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .subscribe {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6) clamp(20px, 5vw, 48px);
+  }
+
+  .subscribe__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 540px;
+    width: 100%;
+    opacity: 0;
+    animation: subscribe-enter 600ms var(--ease-out) 100ms forwards;
+  }
+
+  .subscribe__bar {
+    width: 40px;
+    height: 2px;
+    background: var(--color-accent);
+    margin-bottom: var(--space-6);
+    box-shadow: 0 0 8px var(--color-accent-subtle);
+    animation: subscribe-breathe 5s ease-in-out infinite;
+  }
+
+  .subscribe__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .subscribe__heading {
+    font-family: var(--font-display);
+    font-size: var(--fluid-3xl);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+
+  .subscribe__body {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-8);
+  }
+
+  .subscribe__micro {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    color: var(--color-fg-muted);
+    letter-spacing: 0.05em;
+    margin-top: var(--space-4);
+  }
+
+  .subscribe__mark {
+    margin-top: var(--space-12);
+    text-decoration: none;
+    opacity: 0.4;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .subscribe__mark:hover {
+    opacity: 0.8;
+  }
+
+  .subscribe__mark :global(.logo-animated) {
+    font-size: var(--text-sm);
+    animation-delay: 0.8s;
+  }
+
+  @keyframes subscribe-enter {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes subscribe-breathe {
+    0%, 100% { box-shadow: 0 0 4px var(--color-accent-subtle); }
+    50% { box-shadow: 0 0 12px var(--color-accent-glow); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .subscribe__content {
+      animation: none;
+      opacity: 1;
+    }
+
+    .subscribe__bar {
+      animation: none;
+    }
+  }
+</style>
