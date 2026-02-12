@@ -41,12 +41,14 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       </div>
 
       <p class="fp-body">
-        Workflow automations, content pipelines, campaign builders.
-        I take on a handful of projects at a time.
+        For founders and operators who keep losing hours to manual workflows.
+        You describe it once — I ship a tool that runs it. Yours to own.
       </p>
 
+      <p class="hire__scarcity">A handful of projects at a time.</p>
+
       <a href="#start" class="fp-btn fp-btn--primary hire__hero-cta">
-        Start a project <span class="fp-arrow" aria-hidden="true">→</span>
+        Describe your workflow <span class="fp-arrow" aria-hidden="true">→</span>
       </a>
     </section>
 
@@ -326,6 +328,16 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     align-self: flex-start;
   }
 
+  /* ---- Scarcity line (extracted for visual weight) ---- */
+  .hire__scarcity {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
   /* ---- Proof strip (HIGH density moment) ---- */
   .hire__proof {
     display: flex;
@@ -561,9 +573,22 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       padding-top: var(--space-6);
     }
 
-    /* Cleaner hero on mobile: hide proof strip (examples zone carries credibility) */
+    /* Compress proof strip on mobile (credibility stays above CTA) */
     .hire__proof {
+      border-top: none;
+      border-bottom: none;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: var(--space-3);
+      gap: 4px 8px;
+    }
+
+    .hire__proof-pipe {
       display: none;
+    }
+
+    .hire__proof-item {
+      font-size: 10px;
     }
 
     /* Hero CTA stretches full-width on mobile */

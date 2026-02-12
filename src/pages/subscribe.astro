@@ -1,34 +1,37 @@
 ---
 /**
  * /subscribe — Newsletter signup
- * Standalone capture page. No chrome. Centered. The Void.
- * Linked from presentation, /build, index, plugins.
+ * The Void. Logo, accent bar, pitch, form. Nothing else.
+ * Linked from presentation, /build, index.
+ *
+ * Density: LOW — hierarchy by withdrawal. Single left-aligned
+ * column, vertically centered. No footer, no nav.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EmailSignup from '../components/EmailSignup.astro';
 import LogoAnimated from '../components/LogoAnimated.astro';
+import EmailSignup from '../components/EmailSignup.astro';
 ---
 
 <BaseLayout
   title="Build Notes — Channel47"
-  description="Short emails when something real ships. Working templates and the thinking behind them."
+  description="Short emails when something ships. Skill breakdowns, build patterns, and what's new in Season 01."
 >
   <main class="subscribe">
-    <div class="subscribe__content">
+    <div class="subscribe__column">
+      <a href="/" class="subscribe__logo" aria-label="Back to Channel47">
+        <LogoAnimated />
+      </a>
       <div class="subscribe__bar" aria-hidden="true"></div>
       <p class="subscribe__label">BUILD NOTES</p>
-      <h1 class="subscribe__heading">Short emails when something ships.</h1>
-      <p class="subscribe__body">Working templates and the thinking behind them.</p>
-      <EmailSignup
-        placeholder="you@domain.com"
-        tag="subscribe"
-        submitText="Get notes"
-        variant="prominent"
-      />
-      <p class="subscribe__micro">Only when there's something worth sending.</p>
-      <a href="/" class="subscribe__mark" aria-label="Channel47">
-        <LogoAnimated delay={800} />
-      </a>
+      <p class="subscribe__pitch">One skill pulled apart per week. How it works, why, what I'd change. You get the prompts.</p>
+      <div class="subscribe__form">
+        <EmailSignup
+          placeholder="you@domain.com"
+          tag="subscribe"
+          submitText="Subscribe"
+          variant="prominent"
+        />
+      </div>
     </div>
   </main>
 </BaseLayout>
@@ -53,40 +56,60 @@ import LogoAnimated from '../components/LogoAnimated.astro';
       }
     }
 
-    // Clean URL
     window.history.replaceState({}, '', '/subscribe');
   }
 </script>
 
 <style>
+  /* Single left-aligned column, vertically centered. The void. */
   .subscribe {
+    --gutter: clamp(24px, 5vw, 64px);
     min-height: 100dvh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: var(--space-6) clamp(20px, 5vw, 48px);
+    padding: var(--gutter);
   }
 
-  .subscribe__content {
+  /* ── Column: logo → bar → label → pitch → form ── */
+  .subscribe__column {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 540px;
+    align-items: flex-start;
+    max-width: 480px;
     width: 100%;
-    opacity: 0;
-    animation: subscribe-enter 600ms var(--ease-out) 100ms forwards;
   }
 
+  /* ── Logo: inline, starts the column ── */
+  .subscribe__logo {
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: var(--space-8);
+  }
+
+  .subscribe__logo:hover {
+    text-decoration: none;
+  }
+
+  .subscribe__logo :global(.logo-animated) {
+    font-size: var(--text-xs);
+  }
+
+  @media (min-width: 768px) {
+    .subscribe__logo :global(.logo-animated) {
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* ── Accent bar: broadcast indicator ── */
   .subscribe__bar {
-    width: 40px;
+    width: 0;
     height: 2px;
     background: var(--color-accent);
     margin-bottom: var(--space-6);
-    box-shadow: 0 0 8px var(--color-accent-subtle);
-    animation: subscribe-breathe 5s ease-in-out infinite;
+    animation: subscribe-bar-draw 500ms var(--ease-out) 150ms forwards;
   }
 
+  /* ── Label: broadcast tag ── */
   .subscribe__label {
     font-family: var(--font-mono);
     font-size: var(--text-2xs);
@@ -95,54 +118,50 @@ import LogoAnimated from '../components/LogoAnimated.astro';
     letter-spacing: 0.15em;
     color: var(--color-accent);
     margin-bottom: var(--space-4);
+    opacity: 0;
+    animation: subscribe-fade-in 400ms var(--ease-out) 450ms forwards;
   }
 
-  .subscribe__heading {
-    font-family: var(--font-display);
-    font-size: var(--fluid-3xl);
-    font-weight: var(--font-semibold);
-    line-height: var(--leading-tight);
-    letter-spacing: -0.02em;
-    color: var(--color-fg);
-    margin-bottom: var(--space-3);
-  }
-
-  .subscribe__body {
+  /* ── Pitch ── */
+  .subscribe__pitch {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     line-height: var(--leading-relaxed);
     color: var(--color-fg-secondary);
-    margin-bottom: var(--space-8);
+    max-width: 38ch;
+    margin-bottom: var(--space-12);
+    opacity: 0;
+    animation: subscribe-fade-in 400ms var(--ease-out) 600ms forwards;
   }
 
-  .subscribe__micro {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    color: var(--color-fg-muted);
-    letter-spacing: 0.05em;
-    margin-top: var(--space-4);
+  /* ── Form: the ask ── */
+  .subscribe__form {
+    width: 100%;
+    opacity: 0;
+    animation: subscribe-rise 500ms var(--ease-out) 800ms forwards;
   }
 
-  .subscribe__mark {
-    margin-top: var(--space-12);
-    text-decoration: none;
-    opacity: 0.4;
-    transition: opacity var(--duration-normal) var(--ease-out);
+  /* ── Keyframes ── */
+  @keyframes subscribe-bar-draw {
+    from {
+      width: 0;
+      opacity: 0.5;
+    }
+    to {
+      width: 40px;
+      opacity: 1;
+    }
   }
 
-  .subscribe__mark:hover {
-    opacity: 0.8;
+  @keyframes subscribe-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
-  .subscribe__mark :global(.logo-animated) {
-    font-size: var(--text-sm);
-    animation-delay: 0.8s;
-  }
-
-  @keyframes subscribe-enter {
+  @keyframes subscribe-rise {
     from {
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -150,19 +169,18 @@ import LogoAnimated from '../components/LogoAnimated.astro';
     }
   }
 
-  @keyframes subscribe-breathe {
-    0%, 100% { box-shadow: 0 0 4px var(--color-accent-subtle); }
-    50% { box-shadow: 0 0 12px var(--color-accent-glow); }
-  }
-
+  /* ── Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
-    .subscribe__content {
+    .subscribe__bar,
+    .subscribe__label,
+    .subscribe__pitch,
+    .subscribe__form {
       animation: none;
       opacity: 1;
     }
 
     .subscribe__bar {
-      animation: none;
+      width: 40px;
     }
   }
 </style>
