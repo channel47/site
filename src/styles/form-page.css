@@ -39,12 +39,6 @@
   }
 }
 
-/* ── Footer positioning ── */
-.fp-footer {
-  margin-top: auto;
-  width: 100%;
-}
-
 /* ── Typography ── */
 .fp-label {
   font-family: var(--font-mono);

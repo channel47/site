@@ -32,7 +32,7 @@ Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `
 
 ## Form Page Design System
 
-`FormPageLayout.astro` wraps form-focused pages (no nav, logo top-left, footer bottom). Shared styles in `form-page.css` use `fp-` prefix (e.g., `fp-step`, `fp-heading`, `fp-btn--primary`). Page-specific styles stay scoped with BEM prefix (e.g., `build__skills`, `hire__form`).
+`FormPageLayout.astro` wraps form-focused pages (no nav, no footer, logo top-left). Shared styles in `form-page.css` use `fp-` prefix (e.g., `fp-step`, `fp-heading`, `fp-btn--primary`). Page-specific styles stay scoped with BEM prefix (e.g., `build__skills`, `hire__form`).
 
 ## Scroll Reveals (two layers)
 
@@ -49,4 +49,4 @@ Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `
 ## Gotchas
 
 - **`:global()` required** for cross-component ancestor selectors in scoped styles
-- **`/build` and `/hire`** use `FormPageLayout` (logo + footer, no nav)
+- **`/build` and `/hire`** use `FormPageLayout` (logo, no nav, no footer)
