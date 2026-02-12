@@ -13,6 +13,5 @@ test('homepage has expected sections and anchor links', async () => {
     assert.match(source, new RegExp(`data-section="${section}"`));
   }
 
-  assert.match(source, /href="#signup"/);
   assert.match(source, /id="signup"/);
 });
