@@ -7,8 +7,11 @@ Astro 5 → channel47.dev via Vercel. Static output + one serverless endpoint (`
 ```bash
 npm run dev      # localhost:4321+
 npm run build
+npm run preview  # Preview build output locally
 npm test         # node --test
 ```
+
+Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Environment
 
@@ -20,6 +23,7 @@ npm test         # node --test
 - `/plugins` — Marketplace
 - `/build` — Skill builder funnel (uses `FormPageLayout`)
 - `/hire` — Consulting intake form (uses `FormPageLayout`)
+- `/subscribe` — Email signup standalone page
 - `/api/subscribe` — POST, proxies to Kit API. Accepts optional `fields` object for custom Kit fields.
 
 ## CSS
