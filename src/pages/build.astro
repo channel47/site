@@ -264,6 +264,10 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
         I break down a new skill every week. <a href="/subscribe" class="build__result-subscribe-link">Get the build notes</a>
       </p>
 
+      <p class="build__result-hire">
+        Want me to build it instead? <a href="/hire" class="build__result-hire-link">Tell me the workflow</a>
+      </p>
+
       <button class="fp-back build__back--result" data-back-to-landing aria-label="Back to skills">
         &lt;- Back to skills
       </button>
@@ -516,7 +520,6 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
   .build__step--landing {
     padding-top: var(--space-16);
     justify-content: flex-start;
-    max-width: 600px;
     margin: 0;
   }
 
@@ -524,7 +527,6 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
   .build__step--result {
     padding-top: var(--space-16);
     justify-content: flex-start;
-    max-width: 600px;
     margin: 0;
   }
 
@@ -941,6 +943,27 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
   }
 
   .build__result-subscribe-link:hover {
+    color: var(--color-fg);
+  }
+
+  .build__result-hire {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-muted);
+    margin-top: var(--space-3);
+    width: 100%;
+  }
+
+  .build__result-hire-link {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color var(--duration-fast);
+  }
+
+  .build__result-hire-link:hover {
     color: var(--color-fg);
   }
 
