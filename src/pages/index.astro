@@ -42,22 +42,75 @@ import SocialLinks from '../components/SocialLinks.astro';
 
     <!-- =======================================
          ACT 2: PROOF STRIP (HIGH density)
-         Dense, quiet credibility. scale-in entrance.
+         Data portrait treatment: proportional bars + signal accent.
          ======================================= -->
     <section class="stats" data-section="stats">
       <div class="stats__item" data-animate="fade-up" data-stagger="1">
         <span class="stats__value">10+</span>
         <span class="stats__label">SKILLS BUILT</span>
+        <div class="stats__bar" aria-hidden="true">
+          <div class="stats__bar-fill" style="--bar-pct: 40%"></div>
+        </div>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
-      <div class="stats__item" data-animate="fade-up" data-stagger="3">
+      <div class="stats__item stats__item--signal" data-animate="fade-up" data-stagger="3">
         <span class="stats__value">300+</span>
         <span class="stats__label">WORKSHOP ATTENDEES</span>
+        <div class="stats__bar" aria-hidden="true">
+          <div class="stats__bar-fill stats__bar-fill--signal" style="--bar-pct: 100%"></div>
+        </div>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
       <div class="stats__item" data-animate="fade-up" data-stagger="5">
         <span class="stats__value">25+</span>
         <span class="stats__label">ACCOUNTS MANAGED</span>
+        <div class="stats__bar" aria-hidden="true">
+          <div class="stats__bar-fill" style="--bar-pct: 83%"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 2b: BUILD CADENCE (THE PULSE)
+         Data portrait heatmap grid — 26 weeks of shipping.
+         ======================================= -->
+    <section class="pulse" data-section="pulse">
+      <div class="pulse__content">
+        <span class="label pulse__label">BUILD CADENCE — 26 WEEKS</span>
+        <div class="pulse__grid" aria-label="Build activity over the last 26 weeks">
+          <!-- Intensity: 0=void, 1=low, 2=mid, 3=high (signal) -->
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="1"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="1"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="0"></div>
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="1"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="1"></div>
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="1"></div>
+          <div class="pulse__cell" data-intensity="0"></div>
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="2"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+          <div class="pulse__cell" data-intensity="3"></div>
+        </div>
+        <div class="pulse__meta">
+          <span class="pulse__meta-item">22 / 26 active weeks</span>
+          <span class="pulse__meta-sep" aria-hidden="true">/</span>
+          <span class="pulse__meta-item pulse__meta-item--signal">84% cadence</span>
+        </div>
       </div>
     </section>
 
@@ -102,25 +155,48 @@ import SocialLinks from '../components/SocialLinks.astro';
             I run Google Ads across 25+ accounts. These skills came from
             that work — real problems, real workflows, shipped and running.
           </p>
+          <a href="/hire" class="features__hire">
+            Need a custom build? <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
         <div class="features__panel features__panel--secondary">
           <span class="label">SKILLS</span>
           <div class="features__list">
             <div class="features__item" data-animate="fade-up" data-stagger="1">
               <span class="features__idx">001</span>
-              <span>Google Search Campaign Architect — URL in, full campaign out</span>
+              <div class="features__item-content">
+                <span>Google Search Campaign Architect — URL in, full campaign out</span>
+                <div class="features__rank-bar" aria-hidden="true">
+                  <div class="features__rank-fill features__rank-fill--signal" style="--rank-pct: 100%"></div>
+                </div>
+              </div>
             </div>
             <div class="features__item" data-animate="fade-up" data-stagger="3">
               <span class="features__idx">002</span>
-              <span>Branded HTML Email Generator — brand voice + catalog &rarr; production email</span>
+              <div class="features__item-content">
+                <span>Branded HTML Email Generator — brand voice + catalog &rarr; production email</span>
+                <div class="features__rank-bar" aria-hidden="true">
+                  <div class="features__rank-fill" style="--rank-pct: 82%"></div>
+                </div>
+              </div>
             </div>
             <div class="features__item" data-animate="fade-up" data-stagger="5">
               <span class="features__idx">003</span>
-              <span>Ad Creative Variation Generator — winning ad &rarr; fresh variations at 3 divergence levels</span>
+              <div class="features__item-content">
+                <span>Ad Creative Variation Generator — winning ad &rarr; fresh variations at 3 divergence levels</span>
+                <div class="features__rank-bar" aria-hidden="true">
+                  <div class="features__rank-fill" style="--rank-pct: 68%"></div>
+                </div>
+              </div>
             </div>
             <div class="features__item" data-animate="fade-up" data-stagger="7">
               <span class="features__idx">004</span>
-              <span>B-Roll Generator — script in, 8 consistent clips out (built in 2 hours, zero video experience)</span>
+              <div class="features__item-content">
+                <span>B-Roll Generator — script in, 8 consistent clips out (built in 2 hours, zero video experience)</span>
+                <div class="features__rank-bar" aria-hidden="true">
+                  <div class="features__rank-fill" style="--rank-pct: 55%"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -139,6 +215,18 @@ import SocialLinks from '../components/SocialLinks.astro';
         <div class="rupture__stat">
           <span class="rupture__number">2 hrs</span>
           <span class="rupture__unit">from zero video experience to 8 consistent b-roll clips.</span>
+        </div>
+        <div class="rupture__accent-line" aria-hidden="true"></div>
+        <div class="rupture__context">
+          <div class="rupture__context-item">
+            <span class="rupture__context-value">0</span>
+            <span class="rupture__context-label">prior video experience</span>
+          </div>
+          <span class="rupture__context-arrow" aria-hidden="true">&rarr;</span>
+          <div class="rupture__context-item">
+            <span class="rupture__context-value rupture__context-value--signal">8</span>
+            <span class="rupture__context-label">consistent clips shipped</span>
+          </div>
         </div>
         <p class="rupture__kicker">
           I built the presentation for my first skills workshop using two of
@@ -403,6 +491,32 @@ import SocialLinks from '../components/SocialLinks.astro';
     letter-spacing: 0.02em;
   }
 
+  .features__hire {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 24px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    transition: color 150ms var(--ease-out);
+  }
+
+  .features__hire:hover {
+    color: var(--color-accent);
+  }
+
+  .features__hire span {
+    display: inline-block;
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .features__hire:hover span {
+    transform: translateX(4px);
+  }
+
   .features__list {
     display: flex;
     flex-direction: column;
@@ -410,7 +524,7 @@ import SocialLinks from '../components/SocialLinks.astro';
 
   .features__item {
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
     gap: 16px;
     padding: 16px 8px;
     margin: 0 -8px;
@@ -437,6 +551,7 @@ import SocialLinks from '../components/SocialLinks.astro';
     letter-spacing: 0.1em;
     flex-shrink: 0;
     width: 32px;
+    padding-top: 3px;
     transition: color 100ms var(--ease-sharp);
   }
 
@@ -444,9 +559,45 @@ import SocialLinks from '../components/SocialLinks.astro';
     color: var(--color-accent);
   }
 
-  .features__item:hover > span:last-child {
+  .features__item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .features__item:hover .features__item-content > span {
     color: var(--color-fg-emphasis);
     transition: color 100ms var(--ease-sharp) 80ms;
+  }
+
+  /* THE RANK — proportional data bars */
+  .features__rank-bar {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-bg-overlay);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .features__rank-fill {
+    height: 100%;
+    width: 0;
+    background-color: var(--color-fg-muted);
+    border-radius: 1px;
+    transition: width 700ms var(--ease-out);
+  }
+
+  .features__rank-fill--signal {
+    background-color: var(--color-accent);
+  }
+
+  .features.is-visible .features__rank-fill {
+    width: var(--rank-pct);
+  }
+
+  .features__item:hover .features__rank-fill {
+    background-color: var(--color-accent);
   }
 
   /* ---- Rupture (Light inversion, LOW density — The Void) ---- */
@@ -492,12 +643,60 @@ import SocialLinks from '../components/SocialLinks.astro';
     max-width: 280px;
   }
 
+  /* THE SINGLE NUMBER — accent line + context strip */
+  .rupture__accent-line {
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin: clamp(24px, 4vh, 40px) 0;
+  }
+
+  .rupture__context {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 3vw, 32px);
+    margin-bottom: clamp(20px, 3vh, 40px);
+  }
+
+  .rupture__context-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rupture__context-value {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #1C1917;
+  }
+
+  .rupture__context-value--signal {
+    color: var(--color-accent);
+  }
+
+  .rupture__context-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+  }
+
+  .rupture__context-arrow {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: var(--color-fg-muted);
+  }
+
   .rupture__kicker {
     font-family: var(--font-mono);
     font-size: 14px;
     line-height: 1.7;
     color: var(--color-fg-muted);
-    margin-top: clamp(40px, 6vh, 80px);
+    margin-top: clamp(20px, 3vh, 40px);
     max-width: 480px;
     letter-spacing: 0.02em;
   }
@@ -623,9 +822,15 @@ import SocialLinks from '../components/SocialLinks.astro';
       width: 40px !important;
     }
 
+    .features__rank-fill {
+      width: var(--rank-pct) !important;
+      transition: none !important;
+    }
+
     .hero__cta,
     .features__item,
     .features__idx,
+    .features__rank-fill,
     .why__callout,
     .cta__link,
     .cta__link::after {
