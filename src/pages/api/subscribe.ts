@@ -31,7 +31,7 @@ const MAX_EMAIL_LENGTH = 254; // RFC 5321
 const MAX_TAG_LENGTH = 100;
 const MAX_FIELD_VALUE_LENGTH = 1000;
 const MAX_FIELD_COUNT = 10;
-const ALLOWED_FIELD_KEYS = new Set(['name', 'scope', 'brief', 'budget']);
+const ALLOWED_FIELD_KEYS = new Set(['name', 'scope', 'brief', 'budget', 'build_role', 'build_task', 'build_tool']);
 const REQUEST_TIMEOUT_MS = 10000; // 10 seconds
 const KIT_BASE = 'https://api.kit.com/v4';
 

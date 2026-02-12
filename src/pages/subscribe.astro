@@ -33,6 +33,31 @@ import LogoAnimated from '../components/LogoAnimated.astro';
   </main>
 </BaseLayout>
 
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('ref') === 'build') {
+    const form = document.querySelector('[data-signup-form]') as HTMLElement;
+    if (form) {
+      form.dataset.tag = 'build';
+
+      const role = params.get('role');
+      const task = params.get('task');
+      const tool = params.get('tool');
+      const fields: Record<string, string> = {};
+      if (role) fields.build_role = role;
+      if (task) fields.build_task = task;
+      if (tool) fields.build_tool = tool;
+
+      if (Object.keys(fields).length > 0) {
+        form.dataset.fields = JSON.stringify(fields);
+      }
+    }
+
+    // Clean URL
+    window.history.replaceState({}, '', '/subscribe');
+  }
+</script>
+
 <style>
   .subscribe {
     min-height: 100dvh;
