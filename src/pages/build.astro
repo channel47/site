@@ -8,7 +8,6 @@
  * Flow: Hero CTA → 3 questions → personalized claude.ai deep link → email capture
  */
 import FormPageLayout from '../layouts/FormPageLayout.astro';
-import EmailSignup from '../components/EmailSignup.astro';
 ---
 
 <FormPageLayout
@@ -47,83 +46,69 @@ import EmailSignup from '../components/EmailSignup.astro';
           The skills from today's demos. Download, unzip, drop into your project folder.
         </p>
 
-        <!-- Skill cards -->
         <div class="build__skills">
-          <!-- Skill 1: Search Campaign (non-technical) -->
           <div class="build__skill">
             <div class="build__skill-header">
-              <span class="build__skill-index" aria-hidden="true">01</span>
               <span class="build__skill-badge build__skill-badge--easy">NO CODE</span>
+              <h2 class="build__skill-name">Search Campaign Builder</h2>
             </div>
-            <h2 class="build__skill-name">Search Campaign Builder</h2>
             <p class="build__skill-desc">Landing page URL in, full Google Search campaign out. Keywords, ad copy, negatives, extensions.</p>
-            <div class="build__skill-meta">
-              <span class="build__skill-tag">Claude Desktop</span>
-              <span class="build__pipe" aria-hidden="true"></span>
-              <span class="build__skill-tag">Cowork</span>
-              <span class="build__pipe" aria-hidden="true"></span>
-              <span class="build__skill-size">19 KB</span>
-            </div>
-            <a
-              href="/skills/search-campaign-builder.zip"
-              download
-              class="fp-btn--ghost"
-            >
-              <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download Skill
+            <a href="/skills/search-campaign-builder.zip" download class="build__skill-dl">
+              Download skill <span class="build__skill-size">19 KB</span>
             </a>
           </div>
 
-          <!-- Skill 2: Creative Variants (technical) -->
           <div class="build__skill">
             <div class="build__skill-header">
-              <span class="build__skill-index" aria-hidden="true">02</span>
               <span class="build__skill-badge build__skill-badge--technical">API KEY</span>
+              <h2 class="build__skill-name">Ad Creative Variant Generator</h2>
             </div>
-            <h2 class="build__skill-name">Ad Creative Variant Generator</h2>
-            <p class="build__skill-desc">Winning ad image in, fresh variations out. Configurable divergence levels. Uses Gemini or OpenAI for image generation.</p>
-            <div class="build__skill-meta">
-              <span class="build__skill-tag">Claude Code</span>
-              <span class="build__pipe" aria-hidden="true"></span>
-              <span class="build__skill-tag">Cursor</span>
-              <span class="build__pipe" aria-hidden="true"></span>
-              <span class="build__skill-size">28 KB</span>
-            </div>
-            <a
-              href="/skills/creative-variant-generator.zip"
-              download
-              class="fp-btn--ghost"
-            >
-              <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download Skill
+            <p class="build__skill-desc">Winning ad image in, fresh variations out. Configurable divergence. Uses Gemini or OpenAI.</p>
+            <a href="/skills/creative-variant-generator.zip" download class="build__skill-dl">
+              Download skill <span class="build__skill-size">28 KB</span>
             </a>
           </div>
         </div>
 
-        <!-- Install guide -->
+        <!-- Install guide (tabbed: Desktop / Code) -->
         <div class="build__install">
           <p class="fp-label">HOW TO INSTALL</p>
-          <div class="build__install-steps">
+          <div class="build__install-toggle" role="tablist">
+            <button role="tab" class="build__install-tab" aria-selected="true" data-install-tab="desktop">Desktop</button>
+            <button role="tab" class="build__install-tab" aria-selected="false" data-install-tab="code">Claude Code</button>
+          </div>
+
+          <div class="build__install-steps" data-install-panel="desktop">
+            <div class="build__install-step">
+              <span class="build__install-num" aria-hidden="true">1</span>
+              <span class="build__install-text">Download the .zip above</span>
+            </div>
+            <div class="build__install-step">
+              <span class="build__install-num" aria-hidden="true">2</span>
+              <span class="build__install-text">Open Settings → Capabilities → Skills</span>
+            </div>
+            <div class="build__install-step">
+              <span class="build__install-num" aria-hidden="true">3</span>
+              <span class="build__install-text">Click Upload skill, select the .zip</span>
+            </div>
+          </div>
+
+          <div class="build__install-steps" data-install-panel="code" hidden>
             <div class="build__install-step">
               <span class="build__install-num" aria-hidden="true">1</span>
               <span class="build__install-text">Download &amp; unzip the skill folder</span>
             </div>
             <div class="build__install-step">
               <span class="build__install-num" aria-hidden="true">2</span>
-              <span class="build__install-text">Drop it into your project's <code>.claude/skills/</code> directory</span>
+              <span class="build__install-text">Drop it into <code>.claude/skills/</code> in your project</span>
             </div>
             <div class="build__install-step">
               <span class="build__install-num" aria-hidden="true">3</span>
-              <span class="build__install-text">Start a conversation. Claude picks it up automatically</span>
+              <span class="build__install-text">Start a conversation — Claude picks it up</span>
             </div>
           </div>
         </div>
 
-        <!-- Inline email capture (natural placement after downloads) -->
-        <div class="build__email-inline">
-          <span class="build__email-inline-text">Build notes, new skills, and what actually works. No fluff.</span>
-          <EmailSignup tag="build" submitText="Subscribe" placeholder="your@email.com" />
-        </div>
       </div>
 
       <!-- ── ZONE 3: Secondary CTAs (LOW density) ── -->
@@ -137,7 +122,7 @@ import EmailSignup from '../components/EmailSignup.astro';
             class="fp-card"
           >
             <span class="fp-card__title">Vibe Marketers on Skool</span>
-            <span class="fp-card__desc">Monthly live builds. Growing skill library. Join the community.</span>
+            <span class="fp-card__desc">We build new skills every month. Join the community.</span>
           </a>
           <a
             href="https://www.thevibemarketer.com/skills"
@@ -148,11 +133,20 @@ import EmailSignup from '../components/EmailSignup.astro';
             <span class="fp-card__title">Get 10 ready-made skills</span>
             <span class="fp-card__desc">Use code <span class="fp-code">EMPIRE50</span> for 50% off</span>
           </a>
-          <a href="/hire" class="fp-card">
-            <span class="fp-card__title">Hire me to build yours</span>
-            <span class="fp-card__desc">Custom skills for your workflow. A few projects at a time.</span>
-          </a>
         </div>
+        <a href="/hire" class="build__hire-cta">
+          <span class="build__hire-cta-title">Hire me to build yours</span>
+          <span class="fp-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <!-- ── ZONE 4: Subscribe (LOW density, earned ask) ── -->
+      <div class="build__subscribe">
+        <p class="fp-label">THE BUILD NOTES</p>
+        <p class="build__subscribe-pitch">Every week I break down a new skill — how it works, why it works, what I'd change. You get the prompts and the process.</p>
+        <a href="/subscribe" class="build__subscribe-cta">
+          Subscribe free <span class="fp-arrow" aria-hidden="true">&rarr;</span>
+        </a>
       </div>
     </section>
 
@@ -259,12 +253,9 @@ import EmailSignup from '../components/EmailSignup.astro';
         Open in Claude <span class="fp-arrow" aria-hidden="true">-&gt;</span>
       </a>
 
-      <!-- Post-funnel email capture (highest-intent moment) -->
-      <div class="build__result-email">
-        <p class="fp-label">KEEP GOING</p>
-        <span class="build__result-email-text">New skills and build notes, delivered when they ship.</span>
-        <EmailSignup tag="build-funnel" submitText="Subscribe" placeholder="your@email.com" />
-      </div>
+      <p class="build__result-subscribe">
+        <a href="/subscribe" class="build__result-subscribe-link">Get the build notes</a> — new skills and how they're made.
+      </p>
 
       <button class="fp-back build__back--result" data-back-to-landing aria-label="Back to skills">
         &lt;- Back to skills
@@ -429,6 +420,20 @@ import EmailSignup from '../components/EmailSignup.astro';
   // Init progress bar
   updateProgress();
 
+  // ── Install tab toggle ──
+  document.querySelectorAll('[data-install-tab]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = (tab as HTMLElement).dataset.installTab;
+      document.querySelectorAll('[data-install-tab]').forEach(t =>
+        t.setAttribute('aria-selected', 'false')
+      );
+      tab.setAttribute('aria-selected', 'true');
+      document.querySelectorAll('[data-install-panel]').forEach(p => {
+        (p as HTMLElement).hidden = (p as HTMLElement).dataset.installPanel !== target;
+      });
+    });
+  });
+
   // Reduced motion: disable transitions
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.classList.add('reduce-motion');
@@ -514,11 +519,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     margin-bottom: var(--space-6);
   }
 
-  /* ── Skill Cards ── */
+  /* ── Skill Downloads (flat, scannable) ── */
   .build__skills {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-6);
     width: 100%;
     margin-bottom: var(--space-8);
   }
@@ -526,44 +531,13 @@ import EmailSignup from '../components/EmailSignup.astro';
   .build__skill {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-6);
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    transition:
-      border-color 100ms var(--ease-sharp),
-      transform 200ms var(--ease-out),
-      box-shadow 200ms var(--ease-out),
-      background-color 200ms var(--ease-out);
-  }
-
-  .build__skill:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(245, 158, 11, 0.06);
-    background: color-mix(in oklch, var(--color-accent) 2%, var(--color-bg-elevated));
-  }
-
-  .build__skill:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition-duration: 50ms;
+    gap: var(--space-2);
   }
 
   .build__skill-header {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: var(--space-3);
-  }
-
-  .build__skill-index {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-weight: var(--font-semibold);
-    color: var(--color-accent);
-    letter-spacing: 0.05em;
   }
 
   .build__skill-badge {
@@ -574,6 +548,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     letter-spacing: 0.12em;
     padding: 2px 8px;
     border-radius: 2px;
+    flex-shrink: 0;
   }
 
   .build__skill-badge--easy {
@@ -588,11 +563,9 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   .build__skill-name {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
+    font-size: var(--text-sm);
     font-weight: var(--font-semibold);
     color: var(--color-fg);
-    letter-spacing: -0.01em;
-    line-height: var(--leading-tight);
   }
 
   .build__skill-desc {
@@ -602,40 +575,42 @@ import EmailSignup from '../components/EmailSignup.astro';
     color: var(--color-fg-secondary);
   }
 
-  .build__skill-meta {
-    display: flex;
+  .build__skill-dl {
+    display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .build__skill-tag {
     font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: var(--font-medium);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-fg-muted);
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    text-decoration: none;
+    width: fit-content;
+    border: 1px solid var(--color-accent);
+    border-radius: 2px;
+    padding: var(--space-2) var(--space-4);
+    transition:
+      color 150ms var(--ease-out),
+      background-color 150ms var(--ease-out),
+      border-color 100ms var(--ease-sharp);
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .build__pipe {
-    width: 1px;
-    height: 12px;
-    background: var(--color-border);
-    flex-shrink: 0;
+  .build__skill-dl:hover {
+    color: var(--color-fg);
+    background: color-mix(in oklch, var(--color-accent) 10%, transparent);
+    border-color: var(--color-fg);
   }
 
   .build__skill-size {
-    font-family: var(--font-mono);
     font-size: 10px;
-    color: var(--color-fg-subtle);
-    letter-spacing: 0.05em;
+    color: var(--color-fg-muted);
+    transition: color 150ms var(--ease-out);
   }
 
-  .build__dl-icon {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
+  .build__skill-dl:hover .build__skill-size {
+    color: var(--color-fg-secondary);
   }
 
   /* ── Install Guide ── */
@@ -646,11 +621,51 @@ import EmailSignup from '../components/EmailSignup.astro';
     border-top: 1px solid var(--color-border);
   }
 
+  .build__install-toggle {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  .build__install-tab {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-fg-muted);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    padding: var(--space-1) var(--space-3);
+    cursor: pointer;
+    transition:
+      border-color 100ms var(--ease-sharp),
+      color 150ms var(--ease-out),
+      background-color 150ms var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .build__install-tab:hover {
+    border-color: var(--color-accent);
+    color: var(--color-fg);
+  }
+
+  .build__install-tab[aria-selected="true"] {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: color-mix(in oklch, var(--color-accent) 8%, transparent);
+  }
+
   .build__install-steps {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
     margin-top: var(--space-4);
+  }
+
+  .build__install-steps[hidden] {
+    display: none;
   }
 
   .build__install-step {
@@ -703,21 +718,48 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-size: inherit;
   }
 
-  /* ── Inline email capture (after downloads) ── */
-  .build__email-inline {
+  /* ── Subscribe CTA (bottom of landing) ── */
+  .build__subscribe {
     width: 100%;
-    padding: var(--space-6) 0;
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
     border-top: 1px solid var(--color-border);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
   }
 
-  .build__email-inline-text {
+  .build__subscribe-pitch {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     line-height: var(--leading-relaxed);
     color: var(--color-fg-secondary);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-5);
+    max-width: 44ch;
+  }
+
+  .build__subscribe-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 150ms var(--ease-out);
+  }
+
+  .build__subscribe-cta:hover {
+    color: var(--color-fg);
+  }
+
+  .build__subscribe-cta :global(.fp-arrow) {
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .build__subscribe-cta:hover :global(.fp-arrow) {
+    transform: translateX(4px);
   }
 
   /* ── Next button (funnel-specific) ── */
@@ -771,22 +813,73 @@ import EmailSignup from '../components/EmailSignup.astro';
     width: 100%;
   }
 
-  /* ── Post-funnel email capture (result page) ── */
-  .build__result-email {
-    width: 100%;
-    margin-top: var(--space-10);
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--color-border);
+  /* ── Hire CTA (differentiated from community cards) ── */
+  .build__hire-cta {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     gap: var(--space-4);
+    width: 100%;
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    padding-left: calc(var(--space-5) - 2px);
+    border-left: 2px solid var(--color-accent);
+    text-decoration: none;
+    transition:
+      background-color 150ms var(--ease-out),
+      border-color 100ms var(--ease-sharp);
   }
 
-  .build__result-email-text {
+  .build__hire-cta:hover {
+    background: color-mix(in oklch, var(--color-accent) 3%, transparent);
+    text-decoration: none;
+  }
+
+  .build__hire-cta-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    transition: color 150ms var(--ease-out);
+  }
+
+  .build__hire-cta:hover .build__hire-cta-title {
+    color: var(--color-fg-emphasis);
+  }
+
+  .build__hire-cta :global(.fp-arrow) {
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    flex-shrink: 0;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .build__hire-cta:hover :global(.fp-arrow) {
+    transform: translateX(4px);
+  }
+
+  /* ── Post-funnel subscribe link (secondary, non-competing) ── */
+  .build__result-subscribe {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
+    color: var(--color-fg-muted);
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    width: 100%;
+  }
+
+  .build__result-subscribe-link {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color var(--duration-fast);
+  }
+
+  .build__result-subscribe-link:hover {
+    color: var(--color-fg);
   }
 
   /* ── Back to skills variant ── */
@@ -803,15 +896,15 @@ import EmailSignup from '../components/EmailSignup.astro';
       animation: none;
     }
 
-    .build__skill,
     .build__next,
     .build__install-step,
     .build__install-num,
-    .build__install-text {
+    .build__install-text,
+    .build__hire-cta,
+    .build__hire-cta-title {
       transition: none;
     }
 
-    .build__skill:hover,
     .build__next:hover {
       transform: none;
     }
