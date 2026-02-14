@@ -9,17 +9,15 @@ You signed up through Channel 47. This is the first email. Short ones when somet
 
 Yesterday after the workshop, Chris (a fellow marketer) sat down with me and we remixed one of the skills I'd demoed. An hour later we had a native ad generator that neither of us could have built from scratch.
 
-Here's how.
-
 ## What we started with
 
-The [Ad Creative Variant Generator](https://github.com/channel47/channel47/tree/main/plugins/media-buyer/skills/creative-variants). Feed it a winning ad image, it figures out what's working, generates variations at three divergence levels (subtle, moderate, dramatic). Runs on Google's Gemini image model. I built this a few weeks ago by remixing an image generation skill.
+The [Ad Creative Variant Generator](https://github.com/channel47/channel47/tree/main/plugins/media-buyer/skills/creative-variants). Feed it a winning ad image, it figures out what's working, generates variations at three divergence levels (subtle, moderate, dramatic). Runs on Google's Gemini image model. I built this a few weeks ago by remixing an image generation skill from OpenAI.
 
 Chris wanted to reshape it for native ad platforms. Taboola, Outbrain. With headlines. Running inside Claude Cowork.
 
 ## The block
 
-We loaded the skill in Cowork and ran it. Network restriction error. Claude couldn't reach Google's image API.
+We set up the Gemini API key, installed the dependencies in our project folder, loaded the skill in Cowork, and ran it. Network restriction error. Claude couldn't reach Google's image API.
 
 ## The fix
 
@@ -39,9 +37,21 @@ Chris isn't a developer. I'm barely one. We just had a clear picture of what we 
 
 ## Try it
 
-If you want to build your own, there's a walkthrough at [channel47.dev/build](https://channel47.dev/build). If you hit the same network block we did, check your allowed domains in Claude settings.
+The creative variant generator is [open source](https://github.com/channel47/channel47/tree/main/plugins/media-buyer/skills/creative-variants). It lives inside a Claude plugin I built, and has a few other skills in it too.
 
-More coming.
+To install, add the Channel 47 marketplace and pick the media-buyer plugin.
+
+**In Cowork:** Type `/plugins` to open the plugin browser. Add `channel47/channel47` as a marketplace, then select media-buyer from the list.
+
+**In Claude Code:**
+
+`/plugin marketplace add channel47/channel47`
+
+`/plugin install media-buyer@channel47`
+
+If you're in Cowork and hit the same network block, same fix from the story above.
+
+Reply to this email if you want to try it and get stuck. I'll walk you through setup.
 
 — Jackson
 

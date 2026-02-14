@@ -72,14 +72,14 @@
     }
 
     h2 {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
       letter-spacing: -0.02em;
       line-height: 1.3;
       color: #0C0A09;
-      margin-top: 44px;
-      margin-bottom: 18px;
-      padding-top: 28px;
+      margin-top: 48px;
+      margin-bottom: 20px;
+      padding-top: 32px;
       border-top: 1px solid #E7E5E4;
     }
 
@@ -87,8 +87,8 @@
     p {
       font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
       color: #1C1917;
-      font-size: 14px;
-      line-height: 1.85;
+      font-size: 15px;
+      line-height: 1.9;
       letter-spacing: 0.02em;
       word-spacing: 0.05em;
       margin: 0 0 20px 0;
@@ -100,8 +100,8 @@
     ul, ol {
       font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
       color: #1C1917;
-      font-size: 14px;
-      line-height: 1.85;
+      font-size: 15px;
+      line-height: 1.9;
       letter-spacing: 0.02em;
       word-spacing: 0.05em;
       padding-left: 20px;
@@ -125,14 +125,10 @@
       margin: 36px 0;
     }
 
-    /* ---- DARK MODE LOGO — hidden by default ---- */
-    .logo-dark { display: none; }
-
     /* ==== DARK MODE — Apple Mail, iOS Mail, Thunderbird ==== */
     @media (prefers-color-scheme: dark) {
       /* Surfaces */
       .email-bg { background-color: #0C0A09 !important; }
-      .email-card { background-color: #1C1917 !important; border-color: #44403C !important; }
 
       /* Typography */
       h1, h2, h3 { color: #F5F0EB !important; }
@@ -154,14 +150,10 @@
       .footer-pipe { color: #44403C !important; }
       .footer-address { color: #44403C !important; }
 
-      /* Logo swap */
-      .logo-light { display: none !important; }
-      .logo-dark { display: block !important; }
     }
 
     /* ==== OUTLOOK DARK MODE — Outlook.com, Outlook iOS/Android ==== */
     [data-ogsb] .email-bg { background-color: #0C0A09 !important; }
-    [data-ogsb] .email-card { background-color: #1C1917 !important; }
     [data-ogsb] blockquote { background-color: #292524 !important; }
 
     [data-ogsc] h1,
@@ -180,32 +172,29 @@
     [data-ogsc] .footer-pipe { color: #44403C !important; }
     [data-ogsc] .footer-address { color: #44403C !important; }
 
-    [data-ogsc] .logo-light { display: none !important; }
-    [data-ogsc] .logo-dark { display: block !important; }
-
     /* ==== MOBILE ==== */
     @media only screen and (max-width: 480px) {
-      .email-card-inner {
-        padding: 40px 24px 44px 24px !important;
+      .email-content {
+        padding: 32px 0 36px 0 !important;
       }
       .footer-inner {
         padding: 28px 24px 0 24px !important;
       }
       h2 {
-        font-size: 19px !important;
+        font-size: 21px !important;
         margin-top: 40px !important;
         margin-bottom: 16px !important;
         padding-top: 24px !important;
       }
       p {
-        font-size: 14px !important;
-        line-height: 1.95 !important;
+        font-size: 16px !important;
+        line-height: 2.0 !important;
         margin-bottom: 22px !important;
         word-spacing: 0.06em !important;
       }
       ul, ol, li, blockquote {
-        font-size: 14px !important;
-        line-height: 1.95 !important;
+        font-size: 16px !important;
+        line-height: 2.0 !important;
       }
       blockquote {
         padding: 14px 20px !important;
@@ -221,18 +210,6 @@
     <tr>
       <td align="center" style="padding: 40px 16px;">
 
-        <!-- Logo -->
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%;">
-          <tr>
-            <td style="padding: 0 0 24px 0;">
-              <a href="https://channel47.dev" style="text-decoration: none;">
-                <img class="logo-light" src="https://channel47.dev/logo-email.png" alt="Channel 47" width="54" height="30" style="display: block; width: 54px; height: 30px;">
-                <img class="logo-dark" src="https://channel47.dev/logo-email-light.png" alt="Channel 47" width="54" height="30" style="display: none; width: 54px; height: 30px;">
-              </a>
-            </td>
-          </tr>
-        </table>
-
         <!-- Accent Bar -->
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%;">
           <tr>
@@ -242,10 +219,10 @@
           </tr>
         </table>
 
-        <!-- Content Card -->
-        <table role="presentation" class="email-card" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%; background-color: #FAFAF9; border: 1px solid #E7E5E4; border-top: none; border-radius: 0 0 2px 2px;">
+        <!-- Content -->
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%;">
           <tr>
-            <td class="email-card-inner" style="padding: 48px 40px 52px 40px;">
+            <td class="email-content" style="padding: 36px 0 44px 0;">
 
               {{ message_content }}
 
