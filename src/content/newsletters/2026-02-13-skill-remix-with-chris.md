@@ -7,7 +7,7 @@ kit_broadcast_id: 22927212
 
 You signed up through Channel 47. This is the first email. Short ones when something ships.
 
-Yesterday after the workshop, Chris (my boss) sat down with me and we remixed one of the skills I'd demoed. An hour later we had a native ad generator that neither of us could have built from scratch.
+Yesterday after the workshop, Chris (a fellow marketer) sat down with me and we remixed one of the skills I'd demoed. An hour later we had a native ad generator that neither of us could have built from scratch.
 
 Here's how.
 
