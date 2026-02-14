@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Channel 47</title>
+  <!--[if mso]>
+  <style>
+    * { font-family: Consolas, 'Courier New', monospace !important; }
+    h2 { font-family: 'Arial', sans-serif !important; }
+  </style>
+  <![endif]-->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    /* Reset */
+    body, table, td, p, a, li { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+
+    body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: #0C0A09;
+      width: 100% !important;
+    }
+
+    /* Links — Signal amber, underline offset */
+    a { color: #F59E0B; text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { color: #D97706; }
+
+    /* Headings — Space Grotesk (The Broadcast voice) */
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      color: #F5F0EB;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #F5F0EB;
+      margin-top: 36px;
+      margin-bottom: 16px;
+    }
+
+    /* Body — JetBrains Mono (The Terminal voice) */
+    p {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      color: #E7E5E4;
+      font-size: 14px;
+      line-height: 1.75;
+      margin: 0 0 16px 0;
+    }
+
+    strong { color: #F5F0EB; font-weight: 600; }
+    em { color: #A8A29E; font-style: italic; }
+
+    ul, ol {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      color: #E7E5E4;
+      font-size: 14px;
+      line-height: 1.75;
+      padding-left: 20px;
+      margin: 0 0 16px 0;
+    }
+
+    li { margin-bottom: 8px; }
+
+    blockquote {
+      border-left: 2px solid #F59E0B;
+      margin: 20px 0;
+      padding: 4px 20px;
+      color: #A8A29E;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #44403C;
+      margin: 28px 0;
+    }
+
+    /* Dark mode overrides */
+    @media (prefers-color-scheme: light) {
+      .email-body { background-color: #0C0A09 !important; }
+      .email-container { background-color: #1C1917 !important; }
+    }
+
+    /* Mobile */
+    @media only screen and (max-width: 480px) {
+      .email-container-inner { padding: 32px 24px !important; }
+      .footer-inner { padding: 20px 24px 0 24px !important; }
+    }
+  </style>
+</head>
+<body class="email-body" style="margin: 0; padding: 0; background-color: #0C0A09;">
+
+  <!-- Outer wrapper -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0C0A09;">
+    <tr>
+      <td align="center" style="padding: 32px 16px;">
+
+        <!-- Header: Logo + Broadcast Label -->
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%;">
+          <tr>
+            <td style="padding: 0 0 20px 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <a href="https://channel47.dev" style="text-decoration: none;">
+                      <img src="https://channel47.dev/logo-square-transparent.png" alt="Channel 47" width="36" height="36" style="display: block; width: 36px; height: 36px; border-radius: 2px;">
+                    </a>
+                  </td>
+                  <td style="vertical-align: middle; text-align: right;">
+                    <span style="font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', 'Courier New', monospace; font-size: 11px; font-weight: 500; color: #78716C; letter-spacing: 0.15em; text-transform: uppercase;">Transmitting</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Accent Bar — The Broadcast Indicator -->
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%;">
+          <tr>
+            <td style="padding: 0;">
+              <div style="width: 40px; height: 2px; background-color: #F59E0B;"></div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Content container -->
+        <table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%; background-color: #1C1917; border: 1px solid #44403C; border-top: none; border-radius: 0 0 2px 2px;">
+          <tr>
+            <td class="email-container-inner" style="padding: 40px 36px 44px 36px;">
+
+              {{ message_content }}
+
+            </td>
+          </tr>
+        </table>
+
+        <!-- Footer -->
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%;">
+          <tr>
+            <td class="footer-inner" style="padding: 24px 0 0 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="text-align: left;">
+                    <span style="font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', 'Courier New', monospace; font-size: 11px; color: #78716C; letter-spacing: 0.05em;">
+                      <a href="https://channel47.dev" style="color: #78716C; text-decoration: none;">channel47.dev</a>
+                      <span style="color: #44403C; padding: 0 8px;">&#124;</span>
+                      <a href="{{ unsubscribe_url }}" style="color: #78716C; text-decoration: none;">unsubscribe</a>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
