@@ -23,7 +23,7 @@ import EmailSignup from '../components/EmailSignup.astro';
       </a>
       <div class="subscribe__bar" aria-hidden="true"></div>
       <p class="subscribe__label">BUILD NOTES</p>
-      <p class="subscribe__pitch">One skill pulled apart per week. How it works, why, what I'd change. You get the prompts.</p>
+      <h1 class="subscribe__pitch">One skill pulled apart per week. How it works, why, what I'd change. You get the prompts.</h1>
       <div class="subscribe__form">
         <EmailSignup
           placeholder="you@domain.com"
@@ -122,10 +122,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     animation: subscribe-fade-in 400ms var(--ease-out) 450ms forwards;
   }
 
-  /* ── Pitch ── */
+  /* ── Pitch (h1 styled as body text — intentional) ── */
   .subscribe__pitch {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
+    font-weight: var(--font-regular, 400);
     line-height: var(--leading-relaxed);
     color: var(--color-fg-secondary);
     max-width: 38ch;

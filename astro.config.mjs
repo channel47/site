@@ -12,5 +12,7 @@ export default defineConfig({
     functionPerRoute: false,
     runtime: 'nodejs20.x'
   }),
-  integrations: [sitemap()]
+  integrations: [sitemap({
+    filter: (page) => !page.includes('/plugins')
+  })]
 });

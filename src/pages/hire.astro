@@ -11,12 +11,26 @@
  * and proof that it ships.
  */
 import FormPageLayout from '../layouts/FormPageLayout.astro';
+
+const schema = {
+  '@type': 'Service',
+  'name': 'Custom AI Skill Building',
+  'url': 'https://channel47.dev/hire',
+  'description': 'Custom AI skills for your workflow. Workflow automations, content systems, campaign tools, reporting pipelines.',
+  'provider': {
+    '@type': 'Person',
+    'name': 'Jackson Dean',
+    'url': 'https://x.com/ctrlswing',
+  },
+  'serviceType': 'AI Workflow Consulting',
+};
 ---
 
 <FormPageLayout
   title="Work With Me — Channel47"
   description="Custom AI skills for your workflow. Workflow automations, content systems, campaign tools, reporting pipelines. Limited availability."
   class="hire"
+  schema={schema}
 >
 
   <!-- All page content (hidden on form success) -->

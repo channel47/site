@@ -15,9 +15,7 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Strategy Docs
 
-Both live in `.claude/` so marketing skills can reference them:
-- `.claude/positioning-brief.md` — market analysis, competitive landscape, messaging framework
-- `.claude/product-marketing-context.md` — audience, differentiation, voice, proof points, goals
+- `.claude/product-marketing-context.md` — single source of truth for positioning, competitive landscape, audience, differentiation, messaging, voice, proof points, metrics
 
 ## Environment
 

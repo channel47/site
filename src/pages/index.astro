@@ -11,11 +11,37 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+
+const schema = [
+  {
+    '@type': 'Organization',
+    'name': 'Channel 47',
+    'url': 'https://channel47.dev',
+    'logo': 'https://channel47.dev/og-image.png',
+    'description': 'Learn to build AI skills — reusable instructions AI follows every time.',
+    'founder': {
+      '@type': 'Person',
+      'name': 'Jackson Dean',
+      'url': 'https://x.com/ctrlswing',
+    },
+    'sameAs': [
+      'https://x.com/ctrlswing',
+      'https://github.com/ctrlswing',
+      'https://www.linkedin.com/in/jackson-d-9979a7a0/',
+    ],
+  },
+  {
+    '@type': 'WebSite',
+    'name': 'Channel 47',
+    'url': 'https://channel47.dev',
+  },
+];
 ---
 
 <BaseLayout
   title="Channel 47 — Learn to Build AI Skills"
   description="Learn to build AI skills — reusable instructions AI follows every time. Weekly breakdowns, free skill builder, live workshops. Season 01: Media Buyers."
+  schema={schema}
 >
   <main class="pg">
 

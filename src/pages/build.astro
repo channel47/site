@@ -8,12 +8,27 @@
  * Flow: Hero CTA → 3 questions → personalized claude.ai deep link → email capture
  */
 import FormPageLayout from '../layouts/FormPageLayout.astro';
+
+const schema = {
+  '@type': 'WebApplication',
+  'name': 'AI Skill Builder — Channel 47',
+  'url': 'https://channel47.dev/build',
+  'applicationCategory': 'EducationalApplication',
+  'operatingSystem': 'Web',
+  'description': 'Build a personalized AI skill in five minutes. Three questions, then Claude walks you through the build step by step.',
+  'offers': {
+    '@type': 'Offer',
+    'price': '0',
+    'priceCurrency': 'USD',
+  },
+};
 ---
 
 <FormPageLayout
   title="Build Your First AI Skill — Channel47"
   description="Build a personalized AI skill in five minutes, or grab the ready-made skills from the Vibe Marketers session."
   class="build"
+  schema={schema}
 >
 
     <!-- Hide page instantly when ?start is present to prevent flash of landing step -->

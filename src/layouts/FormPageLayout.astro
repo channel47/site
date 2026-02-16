@@ -14,13 +14,14 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  schema?: Record<string, any> | Record<string, any>[];
   class?: string;
 }
 
-const { title, description, image, class: className } = Astro.props;
+const { title, description, image, schema, class: className } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} image={image}>
+<BaseLayout title={title} description={description} image={image} schema={schema}>
   <main class:list={['fp-page', className]}>
     <div class="fp-column">
       <div class="fp-logo">
