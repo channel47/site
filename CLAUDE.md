@@ -13,6 +13,12 @@ npm test         # node --test
 
 Tests use `node:test` (no framework). Test files in `tests/`.
 
+## Strategy Docs
+
+Both live in `.claude/` so marketing skills can reference them:
+- `.claude/positioning-brief.md` — market analysis, competitive landscape, messaging framework
+- `.claude/product-marketing-context.md` — audience, differentiation, voice, proof points, goals
+
 ## Environment
 
 `KIT_API_KEY` required for subscribe endpoint. `PUBLIC_GA_*` / `PUBLIC_META_*` for analytics.
@@ -20,11 +26,45 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 ## Pages
 
 - `/` — Landing (hero, stats, why, features, rupture, signup, cta)
-- `/plugins` — Marketplace
+- `/plugins` — 301 redirect to `/`
 - `/build` — Skill builder funnel (uses `FormPageLayout`)
 - `/hire` — Consulting intake form (uses `FormPageLayout`)
 - `/subscribe` — Email signup standalone page
 - `/api/subscribe` — POST, proxies to Kit API. Accepts optional `fields` object for custom Kit fields.
+
+## Key Files
+
+```
+src/
+├── layouts/
+│   ├── BaseLayout.astro          # Default layout (nav + footer)
+│   └── FormPageLayout.astro      # Form pages (logo only, no nav/footer)
+├── pages/
+│   ├── index.astro               # Homepage
+│   ├── build.astro               # Skill builder funnel
+│   ├── hire.astro                # Consulting intake
+│   ├── subscribe.astro           # Email signup
+│   └── api/subscribe.ts          # Kit API proxy (serverless)
+├── styles/
+│   ├── design-tokens.css         # CSS custom properties
+│   ├── global.css                # Base/utility styles
+│   ├── sections.css              # Shared section styles (hero, stats, rupture)
+│   └── form-page.css             # Form page design system (fp- prefix)
+├── components/                   # Astro components
+├── scripts/                      # Vanilla JS (page-motion, etc.)
+└── content/
+    └── newsletters/              # Newsletter drafts (markdown + frontmatter)
+```
+
+## Subscribe API
+
+`POST /api/subscribe` proxies to Kit. Accepts JSON or form-encoded.
+
+- `email` (required) — subscriber email
+- `tag` (optional) — applies a Kit tag prefixed `ch47-` (e.g., `"home"` → `ch47-home`)
+- `fields` (optional) — custom Kit fields. Allowed keys: `name`, `scope`, `brief`, `budget`, `build_role`, `build_task`, `build_tool`
+
+Pages use these tags: `home` (homepage signup), `hire` (/hire form), `build` (/build funnel).
 
 ## CSS
 
@@ -50,3 +90,4 @@ Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `
 
 - **`:global()` required** for cross-component ancestor selectors in scoped styles
 - **`/build` and `/hire`** use `FormPageLayout` (logo, no nav, no footer)
+- **Newsletter content** lives in `src/content/newsletters/` as markdown with frontmatter (`title`, `date`, `status`, `kit_broadcast_id`)
