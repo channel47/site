@@ -3,8 +3,8 @@
  * Homepage
  * ch47 compositional narrative: density map, signature moves.
  *
- * Density: LOW (hero) → MEDIUM (what's a skill) → MEDIUM (signup) →
- *          LOW (cta void)
+ * Density: LOW (hero) → HIGH (proof strip) → MEDIUM (what's a skill) →
+ *          LOW/light (rupture) → MEDIUM (signup) → LOW (cta void)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
@@ -25,6 +25,7 @@ const schema = [
       'url': 'https://x.com/ctrlswing',
     },
     'sameAs': [
+      'https://github.com/channel47',
       'https://x.com/ctrlswing',
       'https://github.com/ctrlswing',
       'https://www.linkedin.com/in/jackson-d-9979a7a0/',
@@ -67,7 +68,28 @@ const schema = [
     </section>
 
     <!-- =======================================
-         ACT 2: WHY THIS EXISTS (MEDIUM density)
+         ACT 2: PROOF STRIP (HIGH density)
+         Dense. Understated. Quiet credibility.
+         ======================================= -->
+    <section class="stats" data-section="stats">
+      <div class="stats__item">
+        <span class="stats__value">25+</span>
+        <span class="stats__label">Ad accounts</span>
+      </div>
+      <span class="stats__pipe" aria-hidden="true"></span>
+      <div class="stats__item stats__item--signal">
+        <span class="stats__value">S01</span>
+        <span class="stats__label">Media buyers</span>
+      </div>
+      <span class="stats__pipe" aria-hidden="true"></span>
+      <div class="stats__item">
+        <span class="stats__value">1</span>
+        <span class="stats__label">File to start</span>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 3: WHY THIS EXISTS (MEDIUM density)
          Narrative. Contained prose.
          ======================================= -->
     <section class="why" data-section="why">
@@ -77,26 +99,42 @@ const schema = [
         <div class="why__prose">
           <p>Plain language. One file. If you can explain how you do
              something, you can turn it into a skill.</p>
-          <ul class="why__list">
-            <li>Capture what you already know — your process, your voice,
-                your standards. AI runs it the same way every time.</li>
-            <li>Build something you've never done — zero video experience
-                to 8 consistent b-roll clips. In 2 hours.</li>
-          </ul>
+          <div class="why__items">
+            <div class="why__item">
+              <span class="why__idx" aria-hidden="true">001</span>
+              <p>Capture what you already know — your process, your voice,
+                 your standards. AI runs it the same way every time.</p>
+            </div>
+            <div class="why__item">
+              <span class="why__idx" aria-hidden="true">002</span>
+              <p>Build something you've never done — zero video experience
+                 to 8 consistent b-roll clips. In 2 hours.</p>
+            </div>
+          </div>
           <div class="why__callout">
             <p>$3K/month in wasted ad spend — caught by one skill file.</p>
           </div>
-          <p>Skills don't replace judgment. They preserve it.</p>
         </div>
       </div>
     </section>
 
     <!-- =======================================
-         ACT 3: SIGNUP (MEDIUM density)
+         ACT 4: RUPTURE (LOW density, light surface)
+         The pattern break. Surface flip + density shift.
+         ======================================= -->
+    <section class="rupture" data-section="rupture">
+      <div class="rupture__bar" aria-hidden="true"></div>
+      <div class="rupture__inner">
+        <p class="rupture__label label">047 / THESIS</p>
+        <h2 class="rupture__headline rupture__headline--home">Skills don't replace judgment.<br />They preserve it.</h2>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 5: SIGNUP (MEDIUM density)
          ======================================= -->
     <section class="signup" id="signup" data-section="signup">
       <div class="signup__content">
-        <div class="accent-bar" aria-hidden="true"></div>
         <p class="label">BUILD NOTES</p>
         <h2 class="signup__title">Every week, one skill. Broken down.</h2>
         <ul class="signup__list">
@@ -110,11 +148,12 @@ const schema = [
     </section>
 
     <!-- =======================================
-         ACT 4: CTA (LOW density, The Void)
-         One element. Maximum space.
+         ACT 6: CTA (LOW density, The Void)
+         Confident close. Conversion first, social second.
          ======================================= -->
     <section class="cta" data-section="cta">
       <p class="label">TRANSMITTING</p>
+      <a class="cta__action" href="/build?start">Build your first skill</a>
       <nav class="cta__links" aria-label="Links">
         <SocialLinks />
       </nav>
@@ -151,9 +190,10 @@ const schema = [
     height: 44px;
     padding: 0 24px;
     font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.025em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
     color: var(--color-fg-inverse);
     background: var(--color-accent);
     border-radius: 2px;
@@ -227,42 +267,52 @@ const schema = [
     letter-spacing: 0.02em;
   }
 
-  .why__list {
-    margin: 0;
-    padding-left: 24px;
+  .why__items {
     display: grid;
-    gap: 6px;
+    gap: 16px;
   }
 
-  .why__list li {
+  .why__item {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+
+  .why__idx {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-border);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .why__item p {
     font-family: var(--font-mono);
     font-size: 14px;
     line-height: 1.7;
     color: var(--color-fg);
     letter-spacing: 0.02em;
-  }
-
-  .why__list li::marker {
-    color: var(--color-fg-muted);
+    margin: 0;
   }
 
   .why__callout {
     padding: 16px 20px;
-    background: #FAF7F2;
+    background: var(--color-light-canvas);
     border: none;
     border-left: 2px solid var(--color-accent);
     border-radius: 0 2px 2px 0;
     transition:
-      border-color 150ms var(--ease-sharp),
+      background-color 100ms var(--ease-sharp),
       box-shadow 200ms var(--ease-out);
   }
 
   .why__callout:hover {
+    background: var(--color-light-paper);
     box-shadow: 0 2px 12px rgba(245, 158, 11, 0.08);
   }
 
   .why__callout p {
-    color: #1C1917;
+    color: var(--color-light-ink);
     font-weight: 500;
   }
 
@@ -280,12 +330,7 @@ const schema = [
     transform: translateY(0);
   }
 
-  .signup__content .accent-bar {
-    width: 0;
-  }
-
   .signup__content .label {
-    margin-top: 20px;
     margin-bottom: 8px;
   }
 
@@ -328,55 +373,68 @@ const schema = [
   }
 
   /* ---- CTA (LOW density, The Void) ---- */
-  .cta__link {
+  .cta__links {
+    margin-top: 40px;
+  }
+
+  /* ---- Rupture (LOW density, light surface) ---- */
+  .rupture__inner {
+    padding: clamp(100px, 16vh, 180px) clamp(24px, 5vw, 64px);
+  }
+
+  .rupture__headline--home {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  /* ---- CTA Action (confident close) ---- */
+  .cta__action {
     font-family: var(--font-display);
-    font-size: clamp(1.25rem, 3.5vw, 2rem);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 500;
     color: var(--color-fg-emphasis);
     text-decoration: none;
     position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
     transition: color 150ms var(--ease-out);
   }
 
-  .cta__link::after {
+  .cta__action::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -4px;
+    bottom: -6px;
     width: 100%;
     height: 2px;
     background: var(--color-accent);
-    transform: scaleX(1);
     transform-origin: left;
     transition: transform 250ms var(--ease-out);
   }
 
-  .cta__link:hover {
+  .cta__action:hover {
     color: var(--color-accent);
-    text-decoration: none;
   }
 
-  .cta__link:hover::after {
+  .cta__action:hover::after {
     transform: scaleX(0);
     transform-origin: right;
   }
 
-  .cta__links {
-    margin-top: 40px;
-    opacity: 0.6;
-    transition: opacity var(--duration-normal) var(--ease-out);
-  }
-
-  .cta__links:hover {
-    opacity: 1;
+  .cta__action:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
   }
 
   /* ---- Reduced Motion ---- */
   @media (prefers-reduced-motion: reduce) {
-    .hero__cta,
+    .hero__cta {
+      opacity: 1 !important;
+      transition: none !important;
+    }
+
     .why__callout,
-    .cta__link,
-    .cta__link::after {
+    .cta__action,
+    .cta__action::after {
       transition: none !important;
     }
   }

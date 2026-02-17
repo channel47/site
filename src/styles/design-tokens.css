@@ -62,9 +62,11 @@
   );
   --gradient-text-subtle: linear-gradient(180deg, var(--color-fg) 0%, var(--color-fg-secondary) 100%);
 
-  /* Light mode (future use):
-   * Canvas #FAF7F2, Paper #F0EBE3, Ink #1C1917, border #D6D3CD, signal stays #F59E0B
-   */
+  /* Light Surface (used by rupture, callouts, light-mode overrides) */
+  --color-light-canvas: #FAF7F2;
+  --color-light-paper: #F0EBE3;
+  --color-light-ink: #1C1917;
+  --color-light-border: #D6D3CD;
 
   /* ========================================
    * TYPOGRAPHY - ch47 Type System

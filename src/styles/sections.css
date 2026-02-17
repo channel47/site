@@ -79,13 +79,14 @@
   color: var(--color-fg-emphasis);
   max-width: 800px;
   opacity: 0;
+  clip-path: inset(0 50% 0 50%);
   cursor: default;
   position: relative;
   display: inline-block;
 }
 
 [data-section="hero"].is-visible .hero__headline {
-  animation: fadeUp 700ms var(--ease-out) 400ms forwards;
+  animation: clipReveal 600ms var(--ease-out) 400ms forwards;
 }
 
 .hero__sub {
@@ -118,6 +119,11 @@
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+@keyframes clipReveal {
+  from { opacity: 0; clip-path: inset(0 50% 0 50%); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
 }
 
 /* ── Stats Strip (HIGH density, data portrait treatment) ── */
@@ -311,8 +317,8 @@
 
 /* ── Rupture (Light inversion) ── */
 .rupture {
-  background-color: #FAF7F2;
-  color: #1C1917;
+  background-color: var(--color-light-canvas);
+  color: var(--color-light-ink);
   position: relative;
   opacity: 0;
   filter: blur(6px);
@@ -350,7 +356,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  color: #1C1917;
+  color: var(--color-light-ink);
 }
 
 .rupture__body {
@@ -393,6 +399,11 @@
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+  }
+
+  .hero__headline {
+    opacity: 1 !important;
+    clip-path: none !important;
   }
 
   .hero__bar,
