@@ -6,5 +6,9 @@ src/data/tools.generated.json
 # Astro build cache
 .astro/data-store.json
 
+# Build output
+dist/
+
 # Local Claude settings
 .claude/
+node_modules/
