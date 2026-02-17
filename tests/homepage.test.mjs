@@ -9,8 +9,12 @@ test('homepage has expected sections and anchor links', async () => {
   const indexPath = resolve(__dirname, '../src/pages/index.astro');
   const source = await readFile(indexPath, 'utf8');
 
-  for (const section of ['hero', 'stats', 'why', 'features', 'rupture', 'signup', 'cta']) {
+  for (const section of ['hero', 'why', 'signup', 'cta']) {
     assert.match(source, new RegExp(`data-section="${section}"`));
+  }
+
+  for (const section of ['stats', 'features', 'rupture']) {
+    assert.doesNotMatch(source, new RegExp(`data-section="${section}"`));
   }
 
   assert.match(source, /id="signup"/);
