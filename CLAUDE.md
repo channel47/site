@@ -23,8 +23,7 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Pages
 
-- `/` — Landing (hero, stats, why, features, rupture, signup, cta)
-- `/plugins` — 301 redirect to `/`
+- `/` — Landing page
 - `/build` — Skill builder funnel (uses `FormPageLayout`)
 - `/hire` — Consulting intake form (uses `FormPageLayout`)
 - `/subscribe` — Email signup standalone page
