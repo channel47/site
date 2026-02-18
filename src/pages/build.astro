@@ -1,11 +1,8 @@
 ---
 /**
- * /build — Skill Builder + Session Downloads
- * Post-talk landing page for Vibe Marketers (Feb 12).
- * QR code destination.
- *
- * Conversion hierarchy: Build funnel (hero) → Downloads (promised) → Email → Secondary CTAs
- * Flow: Hero CTA → 3 questions → personalized claude.ai deep link → email capture
+ * /build — Skill Builder
+ * Interactive funnel: 3 questions → personalized Claude prompt.
+ * Homepage links here with ?start to skip landing and enter funnel directly.
  */
 import FormPageLayout from '../layouts/FormPageLayout.astro';
 
@@ -26,7 +23,7 @@ const schema = {
 
 <FormPageLayout
   title="Build Your First AI Skill — Channel47"
-  description="Build a personalized AI skill in five minutes, or grab the ready-made skills from the Vibe Marketers session."
+  description="Build a personalized AI skill in five minutes. Three questions, then Claude walks you through the build step by step."
   class="build"
   schema={schema}
 >
@@ -44,7 +41,7 @@ const schema = {
     </div>
 
     <!-- ═══════════════════════════════════════════
-         LANDING: Hero → Downloads → Subscribe → Secondary
+         LANDING: Hero → Start Funnel
          ═══════════════════════════════════════════ -->
     <section class="fp-step build__step--landing is-active" data-step="0">
 
@@ -59,116 +56,6 @@ const schema = {
         <button class="fp-btn fp-btn--primary fp-btn--lg" id="startFunnel">
           Start building <span class="fp-arrow" aria-hidden="true">-&gt;</span>
         </button>
-      </div>
-
-      <!-- ── ZONE 2: Session Downloads (MEDIUM density) ── -->
-      <div class="build__downloads">
-        <p class="fp-label">FROM THE SESSION</p>
-        <p class="fp-body">
-          Two skills from the demos. Download, unzip, drop into your project.
-        </p>
-
-        <div class="build__skills">
-          <div class="build__skill">
-            <div class="build__skill-header">
-              <span class="build__skill-badge build__skill-badge--easy">NO CODE</span>
-              <h2 class="build__skill-name">Search Campaign Builder</h2>
-            </div>
-            <p class="build__skill-desc">Landing page URL in, full Google Search campaign out. Keywords, ad copy, negatives, extensions.</p>
-            <a href="/skills/search-campaign-builder.zip" download class="build__skill-dl">
-              Download skill <span class="build__skill-size">19 KB</span>
-            </a>
-          </div>
-
-          <div class="build__skill">
-            <div class="build__skill-header">
-              <span class="build__skill-badge build__skill-badge--technical">API KEY</span>
-              <h2 class="build__skill-name">Ad Creative Variant Generator</h2>
-            </div>
-            <p class="build__skill-desc">Winning ad image in, fresh variations out. Configurable divergence. Uses Gemini or OpenAI.</p>
-            <a href="/skills/creative-variant-generator.zip" download class="build__skill-dl">
-              Download skill <span class="build__skill-size">28 KB</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Install guide (collapsed, tabbed: Desktop / Code) -->
-        <details class="build__install">
-          <summary class="build__install-summary">HOW TO INSTALL</summary>
-          <div class="build__install-toggle" role="tablist">
-            <button role="tab" class="build__install-tab" aria-selected="true" data-install-tab="desktop">Desktop</button>
-            <button role="tab" class="build__install-tab" aria-selected="false" data-install-tab="code">Claude Code</button>
-          </div>
-
-          <div class="build__install-steps" data-install-panel="desktop">
-            <div class="build__install-step">
-              <span class="build__install-num" aria-hidden="true">1</span>
-              <span class="build__install-text">Download the .zip above</span>
-            </div>
-            <div class="build__install-step">
-              <span class="build__install-num" aria-hidden="true">2</span>
-              <span class="build__install-text">Open Settings → Capabilities → Skills</span>
-            </div>
-            <div class="build__install-step">
-              <span class="build__install-num" aria-hidden="true">3</span>
-              <span class="build__install-text">Click Upload skill, select the .zip</span>
-            </div>
-          </div>
-
-          <div class="build__install-steps" data-install-panel="code" hidden>
-            <div class="build__install-step">
-              <span class="build__install-num" aria-hidden="true">1</span>
-              <span class="build__install-text">Download &amp; unzip the skill folder</span>
-            </div>
-            <div class="build__install-step">
-              <span class="build__install-num" aria-hidden="true">2</span>
-              <span class="build__install-text">Drop it into <code>.claude/skills/</code> in your project</span>
-            </div>
-            <div class="build__install-step">
-              <span class="build__install-num" aria-hidden="true">3</span>
-              <span class="build__install-text">Start a conversation. Claude picks it up.</span>
-            </div>
-          </div>
-        </details>
-
-      </div>
-
-      <!-- ── ZONE 3: Subscribe (earned ask after value) ── -->
-      <div class="build__subscribe">
-        <p class="fp-label">THE BUILD NOTES</p>
-        <p class="build__subscribe-pitch">I break down a skill every week. How it works, why it works, what I'd change. You get the prompts.</p>
-        <a href="/subscribe" class="build__subscribe-cta">
-          Subscribe free <span class="fp-arrow" aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-
-      <!-- ── ZONE 4: Secondary CTAs (LOW density) ── -->
-      <div class="build__secondary">
-        <p class="fp-label">GO DEEPER</p>
-        <div class="fp-cards">
-          <a
-            href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
-            target="_blank"
-            rel="noopener"
-            class="fp-card"
-          >
-            <span class="fp-card__title">Vibe Marketers on Skool</span>
-            <span class="fp-card__desc">We build new skills every month. Join the community.</span>
-          </a>
-          <a
-            href="https://www.thevibemarketer.com/skills"
-            target="_blank"
-            rel="noopener"
-            class="fp-card"
-          >
-            <span class="fp-card__title">Get 10 ready-made skills</span>
-            <span class="fp-card__desc">Use code <span class="fp-code">EMPIRE50</span> for 50% off</span>
-          </a>
-        </div>
-        <a href="/hire" class="build__hire-cta">
-          <span class="build__hire-cta-title">Hire me to build yours</span>
-          <span class="fp-arrow" aria-hidden="true">&rarr;</span>
-        </a>
       </div>
     </section>
 
@@ -468,20 +355,6 @@ const schema = {
     document.documentElement.classList.remove('build--skip-landing');
   }
 
-  // ── Install tab toggle ──
-  document.querySelectorAll('[data-install-tab]').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = (tab as HTMLElement).dataset.installTab;
-      document.querySelectorAll('[data-install-tab]').forEach(t =>
-        t.setAttribute('aria-selected', 'false')
-      );
-      tab.setAttribute('aria-selected', 'true');
-      document.querySelectorAll('[data-install-panel]').forEach(p => {
-        (p as HTMLElement).hidden = (p as HTMLElement).dataset.installPanel !== target;
-      });
-    });
-  });
-
   // Reduced motion: disable transitions
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.classList.add('reduce-motion');
@@ -557,290 +430,6 @@ const schema = {
     margin-bottom: var(--space-6);
   }
 
-  /* ══════════════════════════════════════
-     ZONE 2: Downloads
-     ══════════════════════════════════════ */
-  .build__downloads {
-    width: 100%;
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .build__downloads > :global(.fp-body) {
-    margin-bottom: var(--space-6);
-  }
-
-  /* ── Skill Downloads (flat, scannable) ── */
-  .build__skills {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-    width: 100%;
-    margin-bottom: var(--space-8);
-  }
-
-  .build__skill {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .build__skill-header {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-3);
-  }
-
-  .build__skill-badge {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 2px 8px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  .build__skill-badge--easy {
-    color: var(--color-success);
-    background: color-mix(in oklch, var(--color-success) 12%, transparent);
-  }
-
-  .build__skill-badge--technical {
-    color: var(--color-accent);
-    background: var(--color-accent-subtle);
-  }
-
-  .build__skill-name {
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-fg);
-  }
-
-  .build__skill-desc {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
-  }
-
-  .build__skill-dl {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-    text-decoration: none;
-    width: fit-content;
-    border: 1px solid var(--color-accent);
-    border-radius: 2px;
-    padding: var(--space-2) var(--space-4);
-    transition:
-      color 150ms var(--ease-out),
-      background-color 150ms var(--ease-out),
-      border-color 100ms var(--ease-sharp);
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .build__skill-dl:hover {
-    color: var(--color-fg);
-    background: color-mix(in oklch, var(--color-accent) 10%, transparent);
-    border-color: var(--color-fg);
-  }
-
-  .build__skill-size {
-    font-size: 10px;
-    color: var(--color-fg-muted);
-    transition: color 150ms var(--ease-out);
-  }
-
-  .build__skill-dl:hover .build__skill-size {
-    color: var(--color-fg-secondary);
-  }
-
-  /* ── Install Guide (collapsible) ── */
-  .build__install {
-    width: 100%;
-    margin-top: var(--space-4);
-  }
-
-  .build__install-summary {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-weight: var(--font-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-fg-muted);
-    cursor: pointer;
-    list-style: none;
-    transition: color 150ms var(--ease-out);
-  }
-
-  .build__install-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .build__install-summary::after {
-    content: '+';
-    margin-left: var(--space-2);
-    transition: color 150ms var(--ease-out);
-  }
-
-  .build__install[open] .build__install-summary::after {
-    content: '\2212';
-  }
-
-  .build__install-summary:hover {
-    color: var(--color-accent);
-  }
-
-  .build__install-toggle {
-    display: flex;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-  }
-
-  .build__install-tab {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-fg-muted);
-    background: none;
-    border: 1px solid var(--color-border);
-    border-radius: 2px;
-    padding: var(--space-1) var(--space-3);
-    cursor: pointer;
-    transition:
-      border-color 100ms var(--ease-sharp),
-      color 150ms var(--ease-out),
-      background-color 150ms var(--ease-out);
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .build__install-tab:hover {
-    border-color: var(--color-accent);
-    color: var(--color-fg);
-  }
-
-  .build__install-tab[aria-selected="true"] {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background: color-mix(in oklch, var(--color-accent) 8%, transparent);
-  }
-
-  .build__install-steps {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-  }
-
-  .build__install-steps[hidden] {
-    display: none;
-  }
-
-  .build__install-step {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-3);
-    padding: var(--space-2) var(--space-2);
-    margin: 0 calc(var(--space-2) * -1);
-    border-radius: 2px;
-    transition: background-color 150ms var(--ease-out);
-  }
-
-  .build__install-step:hover {
-    background-color: rgba(245, 158, 11, 0.03);
-  }
-
-  .build__install-num {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-weight: var(--font-semibold);
-    color: var(--color-accent);
-    flex-shrink: 0;
-    width: 16px;
-    text-align: center;
-    transition: text-shadow 150ms var(--ease-sharp);
-  }
-
-  .build__install-step:hover .build__install-num {
-    text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
-  }
-
-  .build__install-text {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
-    transition: color 150ms var(--ease-out) 50ms;
-  }
-
-  .build__install-step:hover .build__install-text {
-    color: var(--color-fg);
-  }
-
-  .build__install-text code {
-    color: var(--color-fg);
-    font-weight: var(--font-medium);
-    background: var(--color-bg-elevated);
-    padding: 1px 6px;
-    border-radius: 2px;
-    font-size: inherit;
-  }
-
-  /* ── Subscribe CTA (bottom of landing) ── */
-  .build__subscribe {
-    width: 100%;
-    margin-top: var(--space-8);
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .build__subscribe-pitch {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
-    margin-top: var(--space-3);
-    margin-bottom: var(--space-5);
-    max-width: 44ch;
-  }
-
-  .build__subscribe-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: color 150ms var(--ease-out);
-  }
-
-  .build__subscribe-cta:hover {
-    color: var(--color-fg);
-  }
-
-  .build__subscribe-cta :global(.fp-arrow) {
-    transition: transform var(--duration-normal) var(--ease-out);
-  }
-
-  .build__subscribe-cta:hover :global(.fp-arrow) {
-    transform: translateX(4px);
-  }
-
   /* ── Next button (funnel-specific) ── */
   .build__next {
     display: inline-flex;
@@ -881,59 +470,6 @@ const schema = {
   }
 
   .build__next:hover :global(.fp-arrow) {
-    transform: translateX(4px);
-  }
-
-  /* ── Secondary CTAs ── */
-  .build__secondary {
-    margin-top: var(--space-8);
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--color-border);
-    width: 100%;
-  }
-
-  /* ── Hire CTA (differentiated from community cards) ── */
-  .build__hire-cta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    width: 100%;
-    margin-top: var(--space-6);
-    padding: var(--space-5);
-    padding-left: calc(var(--space-5) - 2px);
-    border-left: 2px solid var(--color-accent);
-    text-decoration: none;
-    transition:
-      background-color 150ms var(--ease-out),
-      border-color 100ms var(--ease-sharp);
-  }
-
-  .build__hire-cta:hover {
-    background: color-mix(in oklch, var(--color-accent) 3%, transparent);
-    text-decoration: none;
-  }
-
-  .build__hire-cta-title {
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-fg);
-    transition: color 150ms var(--ease-out);
-  }
-
-  .build__hire-cta:hover .build__hire-cta-title {
-    color: var(--color-fg-emphasis);
-  }
-
-  .build__hire-cta :global(.fp-arrow) {
-    color: var(--color-accent);
-    font-size: var(--text-sm);
-    flex-shrink: 0;
-    transition: transform var(--duration-normal) var(--ease-out);
-  }
-
-  .build__hire-cta:hover :global(.fp-arrow) {
     transform: translateX(4px);
   }
 
@@ -996,12 +532,7 @@ const schema = {
       animation: none;
     }
 
-    .build__next,
-    .build__install-step,
-    .build__install-num,
-    .build__install-text,
-    .build__hire-cta,
-    .build__hire-cta-title {
+    .build__next {
       transition: none;
     }
 

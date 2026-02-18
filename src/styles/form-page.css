@@ -27,7 +27,9 @@
 }
 
 /* ── Logo ── */
-.fp-logo {}
+.fp-logo {
+  margin-bottom: var(--space-8);
+}
 
 .fp-logo :global(.logo-animated) {
   font-size: var(--text-xs);
