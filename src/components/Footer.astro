@@ -1,21 +1,41 @@
 ---
 /**
  * Footer — shared site footer.
- * Minimal. Border-top, flex row, muted text.
+ * Two rows: page links top, attribution + socials bottom.
  * CH47 mark has a hover scramble — characters cycle through
  * random glyphs before locking back into the callsign.
  */
+import SocialLinks from './SocialLinks.astro';
+
 const { class: className, ...props } = Astro.props;
 ---
 
 <footer class:list={["footer", className]} {...props}>
   <div class="footer__content">
-    <span class="footer__mark" data-footer-scramble>CH47</span>
-    <span class="footer__text">
-      Built by
-      <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="footer__link">@ctrlswing</a>.
-      2026.
-    </span>
+    <nav class="footer__pages" aria-label="Site links">
+      <a href="/notes" class="footer__page-link">Notes</a>
+      <span class="footer__pipe" aria-hidden="true"></span>
+      <a href="/ecosystem" class="footer__page-link">Ecosystem</a>
+      <span class="footer__pipe" aria-hidden="true"></span>
+      <a href="/build?start" class="footer__page-link">Build</a>
+      <span class="footer__pipe" aria-hidden="true"></span>
+      <a href="/hire" class="footer__page-link">Hire</a>
+      <span class="footer__pipe" aria-hidden="true"></span>
+      <a href="/subscribe" class="footer__page-link">Subscribe</a>
+    </nav>
+    <div class="footer__bottom">
+      <div class="footer__left">
+        <span class="footer__mark" data-footer-scramble>CH47</span>
+        <span class="footer__text">
+          Built by
+          <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="footer__link">@ctrlswing</a>.
+          2026.
+        </span>
+      </div>
+      <nav class="footer__socials" aria-label="Social links">
+        <SocialLinks />
+      </nav>
+    </div>
   </div>
 </footer>
 
@@ -81,16 +101,83 @@ const { class: className, ...props } = Astro.props;
 <style>
   .footer {
     border-top: 1px solid var(--color-border);
-    padding: 24px clamp(24px, 5vw, 64px);
+    padding: 0 clamp(24px, 5vw, 64px);
   }
 
   .footer__content {
-    display: flex;
-    align-items: center;
-    gap: 16px;
     font-family: var(--font-mono);
     font-size: 12px;
     color: var(--color-fg-muted);
+  }
+
+  /* Page links — top row */
+  .footer__pages {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-border);
+    flex-wrap: wrap;
+  }
+
+  .footer__page-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .footer__page-link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .footer__pipe {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+    flex-shrink: 0;
+  }
+
+  /* Bottom row — attribution + socials */
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 0;
+  }
+
+  .footer__left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer__socials :global(.social-links__link) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .footer__pages {
+      gap: 8px;
+    }
+
+    .footer__pipe {
+      display: none;
+    }
+
+    .footer__page-link {
+      font-size: 11px;
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
   }
 
   .footer__mark {

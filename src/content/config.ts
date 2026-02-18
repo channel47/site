@@ -1,7 +1,15 @@
-/**
- * Channel 47 Content Collections
- *
- * Placeholder for future content collections.
- */
+import { defineCollection, z } from 'astro:content';
 
-export const collections = {};
+const notes = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    tag: z.enum(['breakdown', 'story', 'guide']),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { notes };

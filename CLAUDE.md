@@ -24,6 +24,9 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 ## Pages
 
 - `/` — Landing page
+- `/notes` — Build Notes hub (content collection index)
+- `/notes/[slug]` — Individual note articles (dynamic route from `src/content/notes/`)
+- `/ecosystem` — Plugin ecosystem browser, install instructions, free assets
 - `/build` — Skill builder funnel (uses `FormPageLayout`)
 - `/hire` — Consulting intake form (uses `FormPageLayout`)
 - `/subscribe` — Email signup standalone page
@@ -50,6 +53,7 @@ src/
 ├── components/                   # Astro components
 ├── scripts/                      # Vanilla JS (page-motion, etc.)
 └── content/
+    ├── notes/                    # Published web notes (markdown + frontmatter, `notes` collection)
     └── newsletters/              # Newsletter drafts (markdown + frontmatter)
 ```
 

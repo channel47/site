@@ -1,0 +1,611 @@
+---
+/**
+ * Note Article Page
+ * Dynamic route for individual Build Notes articles.
+ *
+ * Density: LOW (hero) → MEDIUM (article body + author) →
+ *          LOW/LIGHT (rupture signup) → Footer
+ *
+ * Alignment: Hero and body share the same left edge via
+ * consistent page padding + max-width. No centering.
+ */
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  return notes.map((note) => ({
+    params: { slug: note.id.replace(/\.md$/, '') },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+
+const { title, description, date, tag } = note.data;
+
+const formatted = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const tagLabel = tag.toUpperCase();
+
+const schema = {
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: date.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Jackson Dean',
+    url: 'https://x.com/ctrlswing',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Channel 47',
+    url: 'https://channel47.dev',
+  },
+};
+---
+
+<BaseLayout
+  title={`${title} — Channel 47`}
+  description={description}
+  schema={schema}
+>
+  <!-- Reading progress — Signal line, scroll-driven -->
+  <div class="reading-progress" aria-hidden="true"></div>
+
+  <main class="pg article-pg">
+
+    <!-- =======================================
+         HERO (LOW density)
+         Accent bar → meta → title → description.
+         Commanding top. Breathing room.
+         ======================================= -->
+    <section class="article-hero" data-section="hero">
+      <Nav currentPath="/notes" />
+      <div class="article-hero__content">
+        <div class="article-hero__bar" aria-hidden="true"></div>
+        <div class="article-hero__meta">
+          <span class:list={['article-hero__tag', `article-hero__tag--${tag}`]}>{tagLabel}</span>
+          <span class="article-hero__pipe" aria-hidden="true"></span>
+          <time class="article-hero__date" datetime={date.toISOString()}>{formatted}</time>
+        </div>
+        <h1 class="article-hero__title">{title}</h1>
+        <p class="article-hero__desc">{description}</p>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ARTICLE (MEDIUM density)
+         Mono body, display headings, left-aligned.
+         Same max-width + padding as hero = aligned left edges.
+         Author sign-off lives inside as article footer.
+         ======================================= -->
+    <article class="article-body" data-section="article-body">
+      <div class="article-body__inner">
+        <div class="article-prose">
+          <Content />
+        </div>
+
+        <footer class="article-endmatter">
+          <div class="article-endmatter__bar" aria-hidden="true"></div>
+          <p class="article-endmatter__name">Jackson Dean</p>
+          <p class="article-endmatter__role">Media buyer. Building tools from real workflows.</p>
+          <a href="/notes" class="article-endmatter__back">&larr; All notes</a>
+        </footer>
+      </div>
+    </article>
+
+    <!-- =======================================
+         SIGNUP RUPTURE (LOW density, light surface)
+         Surface flip = the pattern break.
+         Density shift + background change = real rupture.
+         ======================================= -->
+    <section class="article-signup" data-section="article-signup">
+      <div class="article-signup__inner">
+        <div class="article-signup__bar" aria-hidden="true"></div>
+        <p class="article-signup__label">BUILD NOTES</p>
+        <h2 class="article-signup__title">Get breakdowns like this weekly.</h2>
+        <p class="article-signup__micro">No spam. Unsubscribe anytime.</p>
+        <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Subscribe" />
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+
+  <script>
+    import { initPageMotion } from '../../scripts/page-motion';
+    initPageMotion();
+
+    // Reading progress bar — JS fallback for browsers without animation-timeline
+    function initReadingProgress() {
+      const bar = document.querySelector('.reading-progress') as HTMLElement;
+      if (!bar) return;
+
+      // Skip if CSS handles it natively
+      if (CSS.supports?.('animation-timeline: scroll()')) return;
+
+      function update() {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+        bar.style.transform = `scaleX(${progress})`;
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    }
+
+    initReadingProgress();
+  </script>
+</BaseLayout>
+
+<style is:global>
+  @import '../../styles/sections.css';
+</style>
+
+<style>
+  /* ========================================
+   * Article Page — density-mapped layout
+   *
+   * LOW  → hero (accent bar, title, breathing room)
+   * MED  → article body + author sign-off
+   * LOW  → signup rupture (light surface flip)
+   * ======================================== */
+
+  /* ---- Reading Progress Bar ---- */
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent);
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: var(--z-max);
+    pointer-events: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .reading-progress {
+      animation: reading-progress-fill linear forwards;
+      animation-timeline: scroll();
+    }
+
+    @keyframes reading-progress-fill {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+  }
+
+  /* ---- Article Hero (LOW density) ---- */
+  .article-hero {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 clamp(24px, 5vw, 64px);
+  }
+
+  .article-hero__content {
+    padding: clamp(80px, 12vh, 140px) 0 clamp(48px, 8vh, 80px);
+    max-width: 672px;
+  }
+
+  .article-hero__bar {
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin-bottom: 24px;
+  }
+
+  [data-section="hero"].is-visible .article-hero__bar {
+    animation: drawH 600ms var(--ease-out) 200ms forwards;
+  }
+
+  .article-hero__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    opacity: 0;
+  }
+
+  [data-section="hero"].is-visible .article-hero__meta {
+    animation: fadeIn 200ms var(--ease-out) 300ms forwards;
+  }
+
+  .article-hero__tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: var(--color-bg-elevated);
+    color: var(--color-fg-muted);
+  }
+
+  .article-hero__tag--breakdown {
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+  }
+
+  .article-hero__tag--story,
+  .article-hero__tag--guide {
+    background: var(--color-bg-elevated);
+    color: var(--color-fg-secondary);
+  }
+
+  .article-hero__pipe {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+  }
+
+  .article-hero__date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .article-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+    color: var(--color-fg-emphasis);
+    margin-bottom: 20px;
+    opacity: 0;
+    clip-path: inset(0 50% 0 50%);
+  }
+
+  [data-section="hero"].is-visible .article-hero__title {
+    animation: clipReveal 600ms var(--ease-out) 400ms forwards;
+  }
+
+  .article-hero__desc {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--color-fg-secondary);
+    max-width: 540px;
+    letter-spacing: 0.02em;
+    opacity: 0;
+  }
+
+  [data-section="hero"].is-visible .article-hero__desc {
+    animation: fadeUp 400ms var(--ease-out) 600ms forwards;
+  }
+
+  /* ---- Article Body (MEDIUM density) ----
+   * Left-aligned, same padding as hero.
+   * max-width on inner container = shared left edge. */
+  .article-body {
+    padding: 0 clamp(24px, 5vw, 64px);
+    border-top: 1px solid var(--color-border);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .article-body.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .article-body__inner {
+    max-width: 672px;
+    padding: clamp(48px, 8vh, 72px) 0 clamp(60px, 10vh, 80px);
+  }
+
+  /* ---- Article Prose ---- */
+  .article-prose {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    color: var(--color-fg);
+  }
+
+  /* H2 — section breaks within the article */
+  .article-prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg-emphasis);
+    margin-top: 56px;
+    margin-bottom: 20px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .article-prose :global(h2:first-child) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .article-prose :global(h3) {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-fg-emphasis);
+    margin-top: 40px;
+    margin-bottom: 12px;
+  }
+
+  .article-prose :global(p) {
+    color: var(--color-fg);
+    margin-bottom: 24px;
+  }
+
+  .article-prose :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .article-prose :global(strong) {
+    font-weight: 600;
+    color: var(--color-fg-emphasis);
+  }
+
+  .article-prose :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .article-prose :global(a:hover) {
+    color: var(--color-accent-hover);
+  }
+
+  /* Blockquote — accent border + The Guest (serif).
+   * Earned context: editorial long-form only. */
+  .article-prose :global(blockquote) {
+    border-left: 2px solid var(--color-accent);
+    padding: 4px 0 4px 24px;
+    margin: 32px 0;
+  }
+
+  .article-prose :global(blockquote p) {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.65;
+    letter-spacing: 0;
+    color: var(--color-fg-secondary);
+  }
+
+  .article-prose :global(ul),
+  .article-prose :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 24px;
+  }
+
+  .article-prose :global(li) {
+    margin-bottom: 10px;
+    color: var(--color-fg);
+  }
+
+  .article-prose :global(li:last-child) {
+    margin-bottom: 0;
+  }
+
+  .article-prose :global(li::marker) {
+    color: var(--color-fg-muted);
+  }
+
+  .article-prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--color-bg-elevated);
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: var(--color-fg-emphasis);
+  }
+
+  .article-prose :global(pre) {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    padding: 20px 24px;
+    margin: 32px 0;
+    overflow-x: auto;
+  }
+
+  .article-prose :global(pre code) {
+    background: transparent;
+    padding: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-fg);
+  }
+
+  .article-prose :global(hr) {
+    border: none;
+    height: 1px;
+    background: var(--color-border);
+    margin: 48px 0;
+  }
+
+  /* ---- Author Endmatter (LOW density within article) ----
+   * Hierarchy by withdrawal. Minimal. The restraint is the emphasis. */
+  .article-endmatter {
+    margin-top: clamp(56px, 8vh, 80px);
+    padding-top: clamp(48px, 8vh, 72px);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .article-endmatter__bar {
+    width: 32px;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin-bottom: 20px;
+  }
+
+  .article-endmatter__name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-fg-emphasis);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .article-endmatter__role {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+  }
+
+  .article-endmatter__back {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    transition: color var(--duration-fast) var(--ease-sharp);
+  }
+
+  .article-endmatter__back:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  /* ---- Signup Rupture (LOW density, light surface) ----
+   * Surface flip. Density shift. The one pattern break.
+   * Entrance uses blur-sharpen ("tuning a signal"). */
+  .article-signup {
+    background: var(--color-light-canvas);
+    color: var(--color-light-ink);
+    padding: clamp(80px, 14vh, 140px) clamp(24px, 5vw, 64px);
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(12px);
+    transition: opacity 600ms var(--ease-out),
+                filter 600ms var(--ease-out),
+                transform 600ms var(--ease-out);
+  }
+
+  .article-signup.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+
+  .article-signup__inner {
+    max-width: 480px;
+  }
+
+  .article-signup__bar {
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin-bottom: 24px;
+  }
+
+  .article-signup.is-visible .article-signup__bar {
+    animation: drawH 400ms var(--ease-out) 200ms forwards;
+  }
+
+  .article-signup__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-fg-muted);
+    margin-bottom: 12px;
+  }
+
+  .article-signup__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--color-light-ink);
+    margin-bottom: 12px;
+  }
+
+  .article-signup__micro {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--color-fg-muted);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  /* EmailSignup overrides for light surface */
+  .article-signup :global(.email-signup__input) {
+    background: var(--color-light-paper);
+    border-color: var(--color-light-border);
+    color: var(--color-light-ink);
+  }
+
+  .article-signup :global(.email-signup__input::placeholder) {
+    color: var(--color-fg-muted);
+  }
+
+  .article-signup :global(.email-signup__input:focus) {
+    background: #fff;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+  }
+
+  /* ---- Reduced Motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress {
+      display: none;
+    }
+
+    .article-hero__meta,
+    .article-hero__title,
+    .article-hero__desc {
+      opacity: 1 !important;
+      clip-path: none !important;
+    }
+
+    .article-hero__bar,
+    .article-endmatter__bar,
+    .article-signup__bar {
+      width: 40px !important;
+    }
+
+    .article-signup {
+      filter: none !important;
+    }
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 640px) {
+    .article-hero__content {
+      padding-top: clamp(60px, 10vh, 80px);
+    }
+
+    .article-hero__title {
+      font-size: clamp(1.75rem, 8vw, 2.25rem);
+    }
+  }
+</style>

@@ -3,14 +3,19 @@
  * Homepage
  * ch47 compositional narrative: density map, signature moves.
  *
- * Density: LOW (hero) → HIGH (proof strip) → MEDIUM (what's a skill) →
- *          LOW/light (rupture) → MEDIUM (signup) → LOW (cta void)
+ * Density: LOW (hero) → HIGH (proof strip) → MEDIUM (how it works) →
+ *          LOW/light (rupture/thesis) → MEDIUM (signup) → LOW (cta void)
  */
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import EmailSignup from '../components/EmailSignup.astro';
-import SocialLinks from '../components/SocialLinks.astro';
+import ContentCard from '../components/ContentCard.astro';
+
+const allNotes = (await getCollection('notes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const latestNote = allNotes.find((n) => n.data.featured) || allNotes[0];
 
 const schema = [
   {
@@ -18,7 +23,7 @@ const schema = [
     'name': 'Channel 47',
     'url': 'https://channel47.dev',
     'logo': 'https://channel47.dev/og-image.png',
-    'description': 'Learn to build AI skills — reusable instructions AI follows every time.',
+    'description': 'Open-source plugin ecosystem for Claude Code. Skills replace tasks. Plugins package professions.',
     'founder': {
       '@type': 'Person',
       'name': 'Jackson Dean',
@@ -40,8 +45,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Channel 47 — Learn to Build AI Skills"
-  description="Learn to build AI skills — reusable instructions AI follows every time. Weekly breakdowns, free skill builder, live workshops. Season 01: Media Buyers."
+  title="Channel 47 — AI Plugins for Every Profession"
+  description="Skills replace tasks. Plugins replace professions. Open-source AI skills ecosystem organized by what you do for work. Season 01: Media Buyer."
   schema={schema}
 >
   <main class="pg">
@@ -56,12 +61,13 @@ const schema = [
         <div class="hero__bar" aria-hidden="true"></div>
         <p class="label">SEASON 01 — MEDIA BUYERS</p>
         <h1 class="hero__headline" id="hero-headline">
-          Stop renting tools.<br />Start building skills.
+          Plugins that package professions.
         </h1>
         <p class="hero__sub">
-          One markdown file. Your workflow, your rules. AI follows it every
-          time you run it. I build them across 25+ ad accounts — every week
-          I break one down so you can build yours.
+          Open-source plugins for Claude Code. Season 01 ships the
+          media buyer. Every skill, script, and hook a paid-search practitioner
+          needs, built from managing 25+ accounts. Install it and go. Or build
+          your own.
         </p>
         <a class="hero__cta" href="/build?start">Build your first skill</a>
       </div>
@@ -74,7 +80,7 @@ const schema = [
     <section class="stats" data-section="stats">
       <div class="stats__item">
         <span class="stats__value">25+</span>
-        <span class="stats__label">Ad accounts</span>
+        <span class="stats__label">Accounts managed</span>
       </div>
       <span class="stats__pipe" aria-hidden="true"></span>
       <div class="stats__item stats__item--signal">
@@ -83,8 +89,8 @@ const schema = [
       </div>
       <span class="stats__pipe" aria-hidden="true"></span>
       <div class="stats__item">
-        <span class="stats__value">1</span>
-        <span class="stats__label">File to start</span>
+        <span class="stats__value">10+</span>
+        <span class="stats__label">Skills shipped</span>
       </div>
     </section>
 
@@ -95,28 +101,96 @@ const schema = [
     <section class="why" data-section="why">
       <div class="why__content">
         <div class="accent-bar" aria-hidden="true"></div>
-        <p class="label">WHAT'S A SKILL</p>
+        <p class="label">WHAT'S IN A PLUGIN</p>
         <div class="why__prose">
-          <p>Plain language. One file. If you can explain how you do
-             something, you can turn it into a skill.</p>
+          <p>A plugin packages everything a profession needs. Three layers,
+             one install.</p>
           <div class="why__items">
             <div class="why__item">
               <span class="why__idx" aria-hidden="true">001</span>
-              <p>Capture what you already know — your process, your voice,
-                 your standards. AI runs it the same way every time.</p>
+              <p><strong>Skills</strong> — Markdown instructions AI follows every time.
+                 Your process, your standards, your judgment calls. Reusable across
+                 every account, every client.</p>
             </div>
             <div class="why__item">
               <span class="why__idx" aria-hidden="true">002</span>
-              <p>Build something you've never done — zero video experience
-                 to 8 consistent b-roll clips. In 2 hours.</p>
+              <p><strong>MCP Servers</strong> — Pre-wired API connections. Google Ads,
+                 Bing Ads, keyword research. Bundled and ready. No separate setup.</p>
+            </div>
+            <div class="why__item">
+              <span class="why__idx" aria-hidden="true">003</span>
+              <p><strong>Hooks</strong> — Safety layer. Every mutation gets intercepted,
+                 previewed, and approved before execution. You stay in control.</p>
             </div>
           </div>
           <div class="why__callout">
-            <p>$3K/month in wasted ad spend — caught by one skill file.</p>
+            <p>$3K/month in wasted ad spend. Caught by one skill inside the plugin.</p>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- =======================================
+         ACT 3.5: FEATURED PLUGIN (MEDIUM density)
+         Showcase the media buyer skills.
+         ======================================= -->
+    <section class="plugin" data-section="plugin">
+      <div class="plugin__content">
+        <p class="label">SEASON 01 — MEDIA BUYER</p>
+        <p class="plugin__intro">Five skills. Two ad platforms. One install.</p>
+        <div class="plugin__skills">
+          <div class="plugin__skill">
+            <span class="plugin__idx" aria-hidden="true">001</span>
+            <span class="plugin__name">Platform Setup</span>
+            <span class="plugin__desc">Connect Google Ads and Bing Ads. Verify account access.</span>
+          </div>
+          <div class="plugin__skill">
+            <span class="plugin__idx" aria-hidden="true">002</span>
+            <span class="plugin__name">Morning Brief</span>
+            <span class="plugin__desc">Daily cross-platform health summary with anomaly detection.</span>
+          </div>
+          <div class="plugin__skill">
+            <span class="plugin__idx" aria-hidden="true">003</span>
+            <span class="plugin__name">Waste Detector</span>
+            <span class="plugin__desc">Find spend leaks, quantify in dollars, auto-remediate.</span>
+          </div>
+          <div class="plugin__skill">
+            <span class="plugin__idx" aria-hidden="true">004</span>
+            <span class="plugin__name">Search Term Verdict</span>
+            <span class="plugin__desc">Classify terms: NEGATE, PROMOTE, INVESTIGATE, or KEEP.</span>
+          </div>
+          <div class="plugin__skill">
+            <span class="plugin__idx" aria-hidden="true">005</span>
+            <span class="plugin__name">PMax Decoder</span>
+            <span class="plugin__desc">Crack open Performance Max — search terms, channels, assets.</span>
+          </div>
+        </div>
+        <div class="plugin__actions">
+          <a class="plugin__cta-primary" href="#signup">Get the breakdowns</a>
+          <a class="plugin__cta-secondary" href="https://github.com/channel47/channel47" target="_blank" rel="noopener">GitHub →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 3.75: LATEST NOTE (MEDIUM density)
+         Keeps homepage alive with flowing content.
+         ======================================= -->
+    {latestNote && (
+      <section class="latest" data-section="latest">
+        <div class="latest__content">
+          <p class="label">LATEST FROM BUILD NOTES</p>
+          <ContentCard
+            title={latestNote.data.title}
+            description={latestNote.data.description}
+            date={latestNote.data.date}
+            tag={latestNote.data.tag}
+            slug={latestNote.id.replace(/\.md$/, '')}
+          />
+          <a href="/notes" class="latest__all">All notes &rarr;</a>
+        </div>
+      </section>
+    )}
 
     <!-- =======================================
          ACT 4: RUPTURE (LOW density, light surface)
@@ -126,7 +200,7 @@ const schema = [
       <div class="rupture__bar" aria-hidden="true"></div>
       <div class="rupture__inner">
         <p class="rupture__label label">047 / THESIS</p>
-        <h2 class="rupture__headline rupture__headline--home">Skills don't replace judgment.<br />They preserve it.</h2>
+        <h2 class="rupture__headline rupture__headline--home">Skills replace tasks.<br />Plugins replace professions.</h2>
       </div>
     </section>
 
@@ -136,11 +210,11 @@ const schema = [
     <section class="signup" id="signup" data-section="signup">
       <div class="signup__content">
         <p class="label">BUILD NOTES</p>
-        <h2 class="signup__title">Every week, one skill. Broken down.</h2>
+        <h2 class="signup__title">Every week, one skill from the ecosystem. Broken down.</h2>
         <ul class="signup__list">
-          <li>How it was built and why it works.</li>
+          <li>How it was built and why the design decisions matter.</li>
           <li>What I'd change next time.</li>
-          <li>Templates you can take and remix.</li>
+          <li>Templates you can take, remix, and contribute back.</li>
         </ul>
         <p class="signup__micro">No spam. Unsubscribe anytime.</p>
         <EmailSignup placeholder="you@domain.com" tag="home" submitText="Get the breakdowns" />
@@ -154,9 +228,6 @@ const schema = [
     <section class="cta" data-section="cta">
       <p class="label">TRANSMITTING</p>
       <a class="cta__action" href="/build?start">Build your first skill</a>
-      <nav class="cta__links" aria-label="Links">
-        <SocialLinks />
-      </nav>
     </section>
 
     <!-- Footer -->
@@ -295,6 +366,11 @@ const schema = [
     margin: 0;
   }
 
+  .why__item strong {
+    font-weight: 600;
+    color: var(--color-fg-emphasis);
+  }
+
   .why__callout {
     padding: 16px 20px;
     background: var(--color-light-canvas);
@@ -372,9 +448,122 @@ const schema = [
     text-transform: uppercase;
   }
 
-  /* ---- CTA (LOW density, The Void) ---- */
-  .cta__links {
-    margin-top: 40px;
+  /* ---- Plugin Feature (HIGH density) ---- */
+  .plugin {
+    padding: clamp(40px, 6vh, 60px) clamp(24px, 5vw, 64px);
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .plugin.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .plugin__content .label {
+    margin-bottom: 8px;
+  }
+
+  .plugin__intro {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 500;
+    color: var(--color-fg-emphasis);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .plugin__skills {
+    display: grid;
+    gap: 0;
+    margin-bottom: 24px;
+    max-width: 600px;
+  }
+
+  .plugin__skill {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .plugin__skill:last-child {
+    border-bottom: none;
+  }
+
+  .plugin__idx {
+    grid-row: 1 / -1;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-border);
+    letter-spacing: 0.1em;
+    padding-top: 2px;
+  }
+
+  .plugin__name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-fg);
+    letter-spacing: 0.02em;
+  }
+
+  .plugin__desc {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  .plugin__actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .plugin__cta-primary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    transition: color 150ms var(--ease-sharp);
+  }
+
+  .plugin__cta-primary:hover {
+    color: var(--color-fg);
+  }
+
+  .plugin__cta-primary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  .plugin__cta-secondary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    transition: color 150ms var(--ease-sharp);
+  }
+
+  .plugin__cta-secondary:hover {
+    color: var(--color-fg-secondary);
+  }
+
+  .plugin__cta-secondary:focus-visible {
+    outline: 2px solid var(--color-fg-muted);
+    outline-offset: 4px;
   }
 
   /* ---- Rupture (LOW density, light surface) ---- */
@@ -425,6 +614,44 @@ const schema = [
     outline-offset: 4px;
   }
 
+  /* ---- Latest Note (MEDIUM density) ---- */
+  .latest {
+    padding: clamp(40px, 6vh, 60px) clamp(24px, 5vw, 64px);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .latest.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .latest__content {
+    max-width: 600px;
+  }
+
+  .latest__content .label {
+    margin-bottom: 8px;
+  }
+
+  .latest__all {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    transition: color 150ms var(--ease-sharp);
+  }
+
+  .latest__all:hover {
+    color: var(--color-accent);
+  }
+
   /* ---- Reduced Motion ---- */
   @media (prefers-reduced-motion: reduce) {
     .hero__cta {
@@ -433,9 +660,17 @@ const schema = [
     }
 
     .why__callout,
+    .plugin,
+    .plugin__install,
+    .latest,
     .cta__action,
     .cta__action::after {
       transition: none !important;
+    }
+
+    .plugin,
+    .latest {
+      opacity: 1 !important;
     }
   }
 </style>
