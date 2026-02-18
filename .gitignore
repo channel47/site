@@ -4,7 +4,7 @@
 src/data/tools.generated.json
 
 # Astro build cache
-.astro/data-store.json
+.astro/
 
 # Build output
 dist/
