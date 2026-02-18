@@ -10,7 +10,7 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: var(--space-6) 0;
   position: relative;
 }
