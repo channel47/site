@@ -446,6 +446,47 @@ const schema = {
     margin: 48px 0;
   }
 
+  /* ---- Inline CTA Aside ----
+   * Accent Bar + Broadcast Label + Confident CTA.
+   * Editorial pause, not a banner. Stays on dark surface.
+   * Distinct from bottom rupture (which flips to light). */
+  .article-prose :global(.note-cta) {
+    border-left: 2px solid var(--color-accent);
+    padding: 16px 0 16px 24px;
+    margin: 48px 0;
+  }
+
+  .article-prose :global(.note-cta__label) {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    margin-bottom: 6px;
+  }
+
+  .article-prose :global(.note-cta__text) {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--color-fg-secondary);
+    margin-bottom: 0;
+  }
+
+  .article-prose :global(.note-cta__text a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    font-weight: 500;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .article-prose :global(.note-cta__text a:hover) {
+    color: var(--color-accent-hover);
+  }
+
   /* ---- Author Endmatter (LOW density within article) ----
    * Hierarchy by withdrawal. Minimal. The restraint is the emphasis. */
   .article-endmatter {
