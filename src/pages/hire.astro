@@ -4,7 +4,7 @@
  * Custom AI skill build requests. Sends to Kit with "hire" tag + fields.
  *
  * Density map (earned-ask structure):
- * HIGH (hook + proof) → MEDIUM (examples) → LOW (process) → HIGH (form) → LOW (fallback)
+ * HIGH (hook + proof) → MEDIUM (packages) → LOW (process) → HIGH (CTA + form) → LOW (fallback)
  *
  * The form sits behind three credibility zones. By the time someone
  * reaches the ask, they've seen what you build, how you build it,
@@ -44,14 +44,14 @@ const schema = {
     <section class="fp-section">
       <div class="fp-bar" aria-hidden="true"></div>
       <p class="fp-label fp-label--accent">CUSTOM BUILDS</p>
-      <h1 class="fp-heading">Describe the workflow.<br/>I'll build the tool.</h1>
+      <h1 class="fp-heading">I build the tool.<br/>You describe the workflow.</h1>
 
       <div class="hire__proof">
-        <span class="hire__proof-item">10+ skills shipped</span>
+        <span class="hire__proof-item">25+ ad accounts managed daily</span>
         <span class="hire__proof-pipe" aria-hidden="true"></span>
-        <span class="hire__proof-item">Running in production</span>
+        <span class="hire__proof-item">$3K/mo waste caught by one skill</span>
         <span class="hire__proof-pipe" aria-hidden="true"></span>
-        <span class="hire__proof-item">300+ workshop attendees</span>
+        <span class="hire__proof-item">~250 live workshop attendees</span>
       </div>
 
       <p class="fp-body">
@@ -61,33 +61,45 @@ const schema = {
 
       <p class="hire__scarcity">A handful of projects at a time.</p>
 
-      <a href="#start" class="fp-btn fp-btn--primary hire__hero-cta">
-        Describe your workflow <span class="fp-arrow" aria-hidden="true">→</span>
+      <a href="#packages" class="fp-btn fp-btn--secondary hire__hero-cta">
+        See packages <span class="fp-arrow" aria-hidden="true">↓</span>
       </a>
     </section>
 
     <!-- =========================================
-         ZONE 2: Examples (MEDIUM density)
-         Three real builds. Input → output framing.
-         Show the transformation, not features.
+         ZONE 2: Packages (MEDIUM density)
+         Three tiers with transparent pricing.
+         Middle tier featured with accent border.
          ========================================= -->
-    <section class="fp-section hire__examples">
-      <p class="fp-label">RECENT BUILDS</p>
+    <section class="fp-section hire__packages" id="packages">
+      <p class="fp-label">PACKAGES</p>
 
-      <div class="hire__examples-list">
-        <div class="hire__example">
-          <span class="hire__example-name">Search Campaign Builder</span>
-          <span class="hire__example-io">Landing page URL in → complete Google Ads campaign out</span>
+      <div class="hire__tiers">
+        <div class="fp-card hire__tier">
+          <span class="hire__tier-label">Tier 1</span>
+          <span class="hire__tier-name">Skill Build</span>
+          <span class="hire__tier-price">$500</span>
+          <span class="hire__tier-scope">One Claude Code skill, scoped from a 10-minute call.</span>
+          <span class="hire__tier-example">URL in → ad campaign out</span>
+          <span class="hire__tier-delivery">Delivery: 3–5 days</span>
         </div>
 
-        <div class="hire__example">
-          <span class="hire__example-name">Email Campaign Generator</span>
-          <span class="hire__example-io">Brand guidelines + product catalog in → production HTML emails out</span>
+        <div class="fp-card hire__tier hire__tier--featured">
+          <span class="hire__tier-label">Tier 2</span>
+          <span class="hire__tier-name">Workflow Kit</span>
+          <span class="hire__tier-price">$2,500</span>
+          <span class="hire__tier-scope">Multi-step workflow connecting 2–3 skills. Tested against real data.</span>
+          <span class="hire__tier-example">Brand brief in → campaign assets out</span>
+          <span class="hire__tier-delivery">Delivery: 1–2 weeks</span>
         </div>
 
-        <div class="hire__example">
-          <span class="hire__example-name">Content Mining System</span>
-          <span class="hire__example-io">A week of builds and notes in → distribution-ready posts out</span>
+        <div class="fp-card hire__tier">
+          <span class="hire__tier-label">Tier 3</span>
+          <span class="hire__tier-name">Custom System</span>
+          <span class="hire__tier-price">From $5,000</span>
+          <span class="hire__tier-scope">End-to-end pipeline with documentation, monitoring, and handoff.</span>
+          <span class="hire__tier-example">Daily notes in → distributed content out</span>
+          <span class="hire__tier-delivery">Delivery: 2–4 weeks</span>
         </div>
       </div>
     </section>
@@ -105,8 +117,8 @@ const schema = {
         <div class="hire__step">
           <span class="hire__step-num" aria-hidden="true">01</span>
           <div class="hire__step-body">
-            <p class="hire__step-title">You describe the workflow</p>
-            <p class="hire__step-desc">Tell me what the tool should do, who uses it, and what good output looks like.</p>
+            <p class="hire__step-title">Talk through the workflow</p>
+            <p class="hire__step-desc">A 10-minute conversation scopes the build.</p>
           </div>
         </div>
 
@@ -129,15 +141,19 @@ const schema = {
     </section>
 
     <!-- =========================================
-         ZONE 4: Form (HIGH density — the earned ask)
-         By now they've seen proof. The form feels
-         justified, not cold.
+         ZONE 4: CTA + Form (HIGH density — RUPTURE)
+         "LIVE" label signals real-time availability.
+         Primary CTA is the one Signal-fill button.
+         Form is the async fallback path.
          ========================================= -->
     <section class="fp-section hire__form-zone" id="start">
       <div class="fp-bar" aria-hidden="true"></div>
-      <p class="fp-label fp-label--accent">GET STARTED</p>
-      <h2 class="fp-heading fp-heading--sm">Tell me what you're working on.</h2>
-      <p class="fp-body">I review every inquiry and reply within 48 hours. If it's a fit, we'll schedule a call.</p>
+      <p class="fp-label fp-label--accent">LIVE</p>
+      <h2 class="fp-heading fp-heading--sm">Start the conversation now.</h2>
+
+      <button type="button" class="fp-btn fp-btn--primary hire__cta-primary" data-hire-cta>
+        Start a conversation <span class="fp-arrow" aria-hidden="true">→</span>
+      </button>
 
       <form class="hire__form" data-hire-form>
         <label class="visually-hidden" for="hire-email">Email</label>
@@ -149,14 +165,6 @@ const schema = {
           required
           autocomplete="email"
         />
-        <label class="visually-hidden" for="hire-role">Role</label>
-        <input
-          type="text"
-          id="hire-role"
-          class="fp-input"
-          placeholder="Your role, e.g. Founder running a 5-person team"
-          maxlength="200"
-        />
         <label class="visually-hidden" for="hire-task">What you're trying to solve</label>
         <textarea
           id="hire-task"
@@ -164,6 +172,7 @@ const schema = {
           placeholder="What's the workflow you want to improve?"
           rows="4"
           maxlength="1000"
+          required
         ></textarea>
         <div class="hire__budget-group">
           <p class="hire__budget-label">Budget range</p>
@@ -213,6 +222,15 @@ const schema = {
     const successSection = document.querySelector('[data-hire-success]') as HTMLElement;
     const budgetHidden = form.querySelector('#hire-budget') as HTMLInputElement;
     const budgetBtns = form.querySelectorAll('[data-budget]') as NodeListOf<HTMLButtonElement>;
+    const ctaBtn = document.querySelector('[data-hire-cta]') as HTMLButtonElement;
+
+    // Primary CTA — focus email input (placeholder for voice agent)
+    if (ctaBtn) {
+      ctaBtn.addEventListener('click', () => {
+        const emailInput = form.querySelector('#hire-email') as HTMLInputElement;
+        if (emailInput) emailInput.focus();
+      });
+    }
 
     // Budget button group — select one at a time
     budgetBtns.forEach((btn) => {
@@ -243,14 +261,20 @@ const schema = {
       clearError();
 
       const emailInput = form.querySelector('#hire-email') as HTMLInputElement;
-      const roleInput = form.querySelector('#hire-role') as HTMLInputElement;
       const taskInput = form.querySelector('#hire-task') as HTMLTextAreaElement;
 
       const email = emailInput.value.trim();
+      const brief = taskInput.value.trim();
 
       if (!email || email.length > 254 || !EMAIL_REGEX.test(email)) {
         showError('Please enter a valid email address.');
         emailInput.focus();
+        return;
+      }
+
+      if (!brief) {
+        showError('Please describe the workflow.');
+        taskInput.focus();
         return;
       }
 
@@ -266,8 +290,7 @@ const schema = {
 
       try {
         const fields: Record<string, string> = {};
-        if (roleInput.value.trim()) fields.scope = roleInput.value.trim();
-        if (taskInput.value.trim()) fields.brief = taskInput.value.trim();
+        if (brief) fields.brief = brief;
         if (budgetHidden.value) fields.budget = budgetHidden.value;
 
         const response = await fetch('/api/subscribe', {
@@ -308,7 +331,7 @@ const schema = {
   /* =========================================
    * HIRE PAGE — Earned-Ask Layout
    *
-   * 5-zone structure: hook → examples → process → form → fallback
+   * 5-zone structure: hook → packages → process → CTA+form → fallback
    * Each zone earns the right to the next.
    * Form sits behind credibility. The ask feels justified.
    * ========================================= */
@@ -336,7 +359,7 @@ const schema = {
     display: none;
   }
 
-  /* ---- Hero CTA (Signal-fill primary — one per page) ---- */
+  /* ---- Hero CTA ---- */
   .hire__hero-cta {
     margin-top: var(--space-4);
     align-self: flex-start;
@@ -379,34 +402,77 @@ const schema = {
     background: var(--color-border);
   }
 
-  /* ---- Examples list (MEDIUM density, flat & scannable) ---- */
-  .hire__examples-list {
+  /* ---- Tier packages (MEDIUM density) ---- */
+  .hire__tiers {
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-4);
     width: 100%;
   }
 
-  .hire__example {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+  .hire__tier {
+    cursor: default;
   }
 
-  .hire__example-name {
+  .hire__tier:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--color-border);
+    background: var(--color-bg-elevated);
+  }
+
+  .hire__tier--featured {
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .hire__tier-label {
     font-family: var(--font-mono);
     font-size: var(--text-2xs);
-    font-weight: var(--font-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
+    color: var(--color-fg-muted);
+  }
+
+  .hire__tier-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+  }
+
+  .hire__tier-price {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
     color: var(--color-accent);
   }
 
-  .hire__example-io {
+  .hire__tier-scope {
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
+    color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-    color: var(--color-fg);
+  }
+
+  .hire__tier-example {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    font-style: italic;
+  }
+
+  .hire__tier-delivery {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-fg-muted);
+  }
+
+  /* ---- Primary CTA (Signal-fill — one per page) ---- */
+  .hire__cta-primary {
+    margin-bottom: var(--space-6);
+    align-self: flex-start;
   }
 
   /* ---- Process steps (LOW density, The Index) ---- */
@@ -587,7 +653,7 @@ const schema = {
       padding-top: var(--space-6);
     }
 
-    /* Compress proof strip on mobile (credibility stays above CTA) */
+    /* Compress proof strip on mobile */
     .hire__proof {
       border-top: none;
       border-bottom: none;
@@ -605,13 +671,17 @@ const schema = {
       font-size: 10px;
     }
 
-    /* Hero CTA stretches full-width on mobile */
+    /* CTAs stretch full-width on mobile */
     .hire__hero-cta {
       width: 100%;
       text-align: center;
     }
 
-    /* Form submit stretches full-width on mobile */
+    .hire__cta-primary {
+      width: 100%;
+      text-align: center;
+    }
+
     .hire__form [data-hire-submit] {
       width: 100%;
     }
@@ -621,12 +691,10 @@ const schema = {
       display: none;
     }
 
-    /* Tighter process step spacing */
     .hire__steps {
       gap: var(--space-5);
     }
 
-    /* Tighter form inputs */
     .hire__form {
       gap: var(--space-4);
     }
