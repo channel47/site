@@ -101,10 +101,10 @@ const schema = [
     <section class="why" data-section="why">
       <div class="why__content">
         <div class="accent-bar" aria-hidden="true"></div>
-        <p class="label">WHAT'S IN A PLUGIN</p>
+        <p class="label">WHAT'S IN THE TOOLKIT</p>
         <div class="why__prose">
-          <p>A plugin packages everything a profession needs. Three layers,
-             one install.</p>
+          <p>Three layers that cover an entire profession. Use them together
+             or pull what you need.</p>
           <div class="why__items">
             <div class="why__item">
               <span class="why__idx" aria-hidden="true">001</span>
@@ -114,8 +114,8 @@ const schema = [
             </div>
             <div class="why__item">
               <span class="why__idx" aria-hidden="true">002</span>
-              <p><strong>MCP Servers</strong> — Pre-wired API connections. Google Ads,
-                 Bing Ads, keyword research. Bundled and ready. No separate setup.</p>
+              <p><strong>MCP Servers</strong> — Standalone API connections. Google Ads,
+                 Bing Ads, image generation. Use them independently or let the plugin bundle them.</p>
             </div>
             <div class="why__item">
               <span class="why__idx" aria-hidden="true">003</span>
@@ -124,51 +124,30 @@ const schema = [
             </div>
           </div>
           <div class="why__callout">
-            <p>$3K/month in wasted ad spend. Caught by one skill inside the plugin.</p>
+            <p>$3K/month in wasted ad spend. Caught by one skill inside the toolkit.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =======================================
-         ACT 3.5: FEATURED PLUGIN (MEDIUM density)
-         Showcase the media buyer skills.
+         ACT 3.5: TOOLKIT TEASER (MEDIUM density)
+         Compact summary driving to /tools.
          ======================================= -->
-    <section class="plugin" data-section="plugin">
-      <div class="plugin__content">
-        <p class="label">SEASON 01 — MEDIA BUYER</p>
-        <p class="plugin__intro">Five skills. Two ad platforms. One install.</p>
-        <div class="plugin__skills">
-          <div class="plugin__skill">
-            <span class="plugin__idx" aria-hidden="true">001</span>
-            <span class="plugin__name">Platform Setup</span>
-            <span class="plugin__desc">Connect Google Ads and Bing Ads. Verify account access.</span>
-          </div>
-          <div class="plugin__skill">
-            <span class="plugin__idx" aria-hidden="true">002</span>
-            <span class="plugin__name">Morning Brief</span>
-            <span class="plugin__desc">Daily cross-platform health summary with anomaly detection.</span>
-          </div>
-          <div class="plugin__skill">
-            <span class="plugin__idx" aria-hidden="true">003</span>
-            <span class="plugin__name">Waste Detector</span>
-            <span class="plugin__desc">Find spend leaks, quantify in dollars, auto-remediate.</span>
-          </div>
-          <div class="plugin__skill">
-            <span class="plugin__idx" aria-hidden="true">004</span>
-            <span class="plugin__name">Search Term Verdict</span>
-            <span class="plugin__desc">Classify terms: NEGATE, PROMOTE, INVESTIGATE, or KEEP.</span>
-          </div>
-          <div class="plugin__skill">
-            <span class="plugin__idx" aria-hidden="true">005</span>
-            <span class="plugin__name">PMax Decoder</span>
-            <span class="plugin__desc">Crack open Performance Max — search terms, channels, assets.</span>
-          </div>
+    <section class="teaser" data-section="teaser">
+      <div class="teaser__content">
+        <p class="label">SEASON 01 — THE TOOLKIT</p>
+        <p class="teaser__intro">
+          Three MCP servers. Five skills. One plugin. Built from managing 25+ accounts daily.
+        </p>
+        <div class="teaser__stats">
+          <span class="teaser__stat">3 MCP Servers</span>
+          <span class="teaser__pipe" aria-hidden="true"></span>
+          <span class="teaser__stat">5 Skills</span>
+          <span class="teaser__pipe" aria-hidden="true"></span>
+          <span class="teaser__stat teaser__stat--accent">1 Plugin</span>
         </div>
-        <div class="plugin__actions">
-          <a class="plugin__cta-primary" href="#signup">Get the breakdowns</a>
-          <a class="plugin__cta-secondary" href="https://github.com/channel47/channel47" target="_blank" rel="noopener">GitHub →</a>
-        </div>
+        <a class="teaser__cta" href="/tools">Explore the toolkit &rarr;</a>
       </div>
     </section>
 
@@ -448,8 +427,8 @@ const schema = [
     text-transform: uppercase;
   }
 
-  /* ---- Plugin Feature (HIGH density) ---- */
-  .plugin {
+  /* ---- Toolkit Teaser (MEDIUM density) ---- */
+  .teaser {
     padding: clamp(40px, 6vh, 60px) clamp(24px, 5vw, 64px);
     background: var(--color-bg-elevated);
     border-top: 1px solid var(--color-border);
@@ -460,76 +439,51 @@ const schema = [
                 transform 400ms var(--ease-out);
   }
 
-  .plugin.is-visible {
+  .teaser.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .plugin__content .label {
+  .teaser__content .label {
     margin-bottom: 8px;
   }
 
-  .plugin__intro {
+  .teaser__intro {
     font-family: var(--font-display);
     font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     font-weight: 500;
     color: var(--color-fg-emphasis);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     letter-spacing: -0.02em;
+    max-width: 540px;
   }
 
-  .plugin__skills {
-    display: grid;
-    gap: 0;
-    margin-bottom: 24px;
-    max-width: 600px;
-  }
-
-  .plugin__skill {
-    display: grid;
-    grid-template-columns: 32px 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .plugin__skill:last-child {
-    border-bottom: none;
-  }
-
-  .plugin__idx {
-    grid-row: 1 / -1;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--color-border);
-    letter-spacing: 0.1em;
-    padding-top: 2px;
-  }
-
-  .plugin__name {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-fg);
-    letter-spacing: 0.02em;
-  }
-
-  .plugin__desc {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--color-fg-muted);
-    letter-spacing: 0.02em;
-    line-height: 1.5;
-  }
-
-  .plugin__actions {
+  .teaser__stats {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: clamp(12px, 2vw, 24px);
+    margin-bottom: 20px;
   }
 
-  .plugin__cta-primary {
+  .teaser__stat {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-fg-muted);
+  }
+
+  .teaser__stat--accent {
+    color: var(--color-accent);
+  }
+
+  .teaser__pipe {
+    width: 1px;
+    height: 16px;
+    background: var(--color-border);
+  }
+
+  .teaser__cta {
     font-family: var(--font-mono);
     font-size: 11px;
     font-weight: 600;
@@ -539,30 +493,12 @@ const schema = [
     transition: color 150ms var(--ease-sharp);
   }
 
-  .plugin__cta-primary:hover {
+  .teaser__cta:hover {
     color: var(--color-fg);
   }
 
-  .plugin__cta-primary:focus-visible {
+  .teaser__cta:focus-visible {
     outline: 2px solid var(--color-accent);
-    outline-offset: 4px;
-  }
-
-  .plugin__cta-secondary {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: var(--tracking-widest);
-    text-transform: uppercase;
-    color: var(--color-fg-muted);
-    transition: color 150ms var(--ease-sharp);
-  }
-
-  .plugin__cta-secondary:hover {
-    color: var(--color-fg-secondary);
-  }
-
-  .plugin__cta-secondary:focus-visible {
-    outline: 2px solid var(--color-fg-muted);
     outline-offset: 4px;
   }
 
@@ -660,15 +596,15 @@ const schema = [
     }
 
     .why__callout,
-    .plugin,
-    .plugin__install,
+    .teaser,
+    .teaser__cta,
     .latest,
     .cta__action,
     .cta__action::after {
       transition: none !important;
     }
 
-    .plugin,
+    .teaser,
     .latest {
       opacity: 1 !important;
     }

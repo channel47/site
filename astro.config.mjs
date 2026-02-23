@@ -13,6 +13,6 @@ export default defineConfig({
     runtime: 'nodejs20.x'
   }),
   integrations: [sitemap({
-    filter: (page) => !page.includes('/plugins')
+    filter: (page) => !page.includes('/plugins') && !page.includes('/ecosystem')
   })]
 });
