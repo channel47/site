@@ -163,7 +163,7 @@ const schema = {
       </a>
 
       <p class="build__result-subscribe">
-        I break down a new skill every week. <a href="/subscribe" class="build__result-subscribe-link">Get the build notes</a>
+        Bring this to the next Skills Lab. <a href="/labs" class="build__result-subscribe-link">See when &rarr;</a>
       </p>
 
       <p class="build__result-hire">
@@ -243,11 +243,10 @@ const schema = {
       link.href = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
     }
 
-    // Update subscribe link with funnel context
+    // Point subscribe link to labs
     const subscribeLink = document.querySelector('.build__result-subscribe-link') as HTMLAnchorElement;
     if (subscribeLink) {
-      const params = new URLSearchParams({ ref: 'build', role, task, tool });
-      subscribeLink.href = `/subscribe?${params.toString()}`;
+      subscribeLink.href = '/labs';
     }
   }
 

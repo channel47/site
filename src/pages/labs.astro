@@ -1,0 +1,565 @@
+---
+/**
+ * /labs — Skills Labs
+ * Monthly live build sessions → Skool community signup.
+ *
+ * Density: LOW (hero) → HIGH (proof strip) → MEDIUM (how it works) →
+ *          MEDIUM (next session) → MEDIUM (past labs) → MEDIUM (signup) →
+ *          LOW (hire fallback) → LOW (cta void)
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+
+const SKOOL_LINK = 'https://www.skool.com/the-vibe-marketers/about?ref=a005b4a2e4e9420e814a94e5e1c2e708';
+
+const pastLabs = [
+  { idx: '001', name: 'Waste Detector', date: 'Jan 2026', topic: 'Find and kill wasted ad spend with one skill' },
+  { idx: '002', name: 'Morning Brief', date: 'Feb 2026', topic: 'Daily cross-platform health check — anomaly detection' },
+];
+---
+
+<BaseLayout
+  title="Skills Labs — Channel 47"
+  description="Monthly live build sessions. Watch a skill get built from scratch, ask questions, take it home. Join The Vibe Marketers community."
+>
+  <main class="pg">
+
+    <!-- =======================================
+         ACT 1: HERO (LOW density)
+         ======================================= -->
+    <section class="hero" data-section="hero">
+      <Nav currentPath="/labs" />
+      <div class="hero__content">
+        <div class="hero__bar" aria-hidden="true"></div>
+        <p class="label">SKILLS LABS</p>
+        <h1 class="hero__headline">Build skills live.<br />Every month.</h1>
+        <p class="hero__sub">
+          One skill, built from scratch in front of you. Ask questions while it
+          happens. Take the finished skill home. Free inside The Vibe Marketers.
+        </p>
+        <a class="labs__cta" href={SKOOL_LINK} target="_blank" rel="noopener">
+          Join The Vibe Marketers <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 2: PROOF STRIP (HIGH density)
+         ======================================= -->
+    <section class="stats" data-section="labs-proof">
+      <div class="stats__item">
+        <span class="stats__value">500+</span>
+        <span class="stats__label">Registrations</span>
+      </div>
+      <span class="stats__pipe" aria-hidden="true"></span>
+      <div class="stats__item stats__item--signal">
+        <span class="stats__value">~250</span>
+        <span class="stats__label">Live attendees</span>
+      </div>
+      <span class="stats__pipe" aria-hidden="true"></span>
+      <div class="stats__item">
+        <span class="stats__value">Monthly</span>
+        <span class="stats__label">Cadence</span>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 3: HOW IT WORKS (MEDIUM density)
+         ======================================= -->
+    <section class="labs__how" data-section="labs-how">
+      <div class="labs__how-content">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <p class="label">HOW IT WORKS</p>
+        <div class="labs__how-items">
+          <div class="labs__how-item">
+            <span class="labs__how-idx" aria-hidden="true">001</span>
+            <p><strong>Live build</strong> — I pick a real workflow from my day job
+               and build a Claude skill from scratch. You watch the whole process,
+               decisions included.</p>
+          </div>
+          <div class="labs__how-item">
+            <span class="labs__how-idx" aria-hidden="true">002</span>
+            <p><strong>Q&A</strong> — Ask anything during the build. How it works,
+               why I made that choice, how to adapt it to your stack.</p>
+          </div>
+          <div class="labs__how-item">
+            <span class="labs__how-idx" aria-hidden="true">003</span>
+            <p><strong>Take it home</strong> — Every lab ships a finished skill you
+               can install and use immediately. No homework, no fluff.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 4: NEXT SESSION (MEDIUM density)
+         ======================================= -->
+    <section class="labs__next" data-section="labs-next">
+      <div class="labs__next-content">
+        <p class="label">NEXT LAB</p>
+        <h2 class="labs__next-title">March 2026</h2>
+        <p class="labs__next-body">
+          Skill and date announced inside the community. Members get first access.
+        </p>
+        <a class="labs__text-link" href={SKOOL_LINK} target="_blank" rel="noopener">
+          Join The Vibe Marketers &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 5: PAST LABS (MEDIUM density)
+         ======================================= -->
+    <section class="labs__past" data-section="labs-past">
+      <div class="labs__past-content">
+        <p class="label">PAST LABS</p>
+        <div class="labs__past-list">
+          {pastLabs.map((lab) => (
+            <div class="labs__past-row">
+              <span class="labs__past-idx">{lab.idx}</span>
+              <div class="labs__past-info">
+                <span class="labs__past-name">{lab.name}</span>
+                <span class="labs__past-topic">{lab.topic}</span>
+              </div>
+              <span class="labs__past-date">{lab.date}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 6: SIGNUP (MEDIUM density)
+         ======================================= -->
+    <section class="labs__signup" data-section="labs-signup">
+      <div class="labs__signup-content">
+        <p class="label">GET NOTIFIED</p>
+        <h2 class="labs__signup-title">Lab announcements, straight to your inbox.</h2>
+        <p class="labs__signup-micro">No spam. Unsubscribe anytime.</p>
+        <EmailSignup placeholder="you@domain.com" tag="labs" submitText="Notify me" />
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 7: HIRE FALLBACK (LOW density)
+         ======================================= -->
+    <section class="labs__hire" data-section="labs-hire">
+      <div class="labs__hire-content">
+        <p class="label">RATHER NOT WAIT?</p>
+        <h2 class="labs__hire-headline">I'll build the skill for you.</h2>
+        <a class="labs__text-link" href="/hire">Tell me the workflow &rarr;</a>
+      </div>
+    </section>
+
+    <!-- =======================================
+         ACT 8: CTA VOID (LOW density)
+         ======================================= -->
+    <section class="cta" data-section="labs-cta">
+      <p class="label">TRANSMITTING</p>
+      <a class="cta__action" href={SKOOL_LINK} target="_blank" rel="noopener">Join the next lab</a>
+    </section>
+
+    <Footer />
+  </main>
+
+  <script>
+    import { initPageMotion } from '../scripts/page-motion';
+    initPageMotion();
+  </script>
+</BaseLayout>
+
+<style is:global>
+  @import '../styles/sections.css';
+</style>
+
+<style>
+  /* ========================================
+   * Labs — page-specific styles
+   * ======================================== */
+
+  /* ---- Hero CTA (amber button) ---- */
+  .labs__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-fg-inverse);
+    background: var(--color-accent);
+    border-radius: 2px;
+    width: fit-content;
+    margin-top: 32px;
+    opacity: 0;
+    transition:
+      background-color 150ms var(--ease-sharp),
+      color 100ms var(--ease-sharp),
+      box-shadow 200ms var(--ease-out),
+      transform 200ms var(--ease-out);
+  }
+
+  [data-section="hero"].is-visible .labs__cta {
+    animation: fadeUp 400ms var(--ease-out) 900ms forwards;
+  }
+
+  .labs__cta:hover {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .labs__cta:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition-duration: 50ms;
+  }
+
+  .labs__cta:focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 2px;
+  }
+
+  /* ---- How it works (MEDIUM density) ---- */
+  .labs__how {
+    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .labs__how.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .labs__how-content .accent-bar {
+    width: 0;
+  }
+
+  .labs__how-content .label {
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
+
+  .labs__how-items {
+    display: grid;
+    gap: 16px;
+    max-width: 600px;
+  }
+
+  .labs__how-item {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+
+  .labs__how-idx {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-border);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .labs__how-item p {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--color-fg);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+
+  .labs__how-item strong {
+    font-weight: 600;
+    color: var(--color-fg-emphasis);
+  }
+
+  /* ---- Next session (MEDIUM density) ---- */
+  .labs__next {
+    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .labs__next.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .labs__next-content .label {
+    margin-bottom: 8px;
+  }
+
+  .labs__next-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--color-fg-emphasis);
+    margin-bottom: 12px;
+  }
+
+  .labs__next-body {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--color-fg-secondary);
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+    max-width: 480px;
+  }
+
+  /* ---- Shared text link style ---- */
+  .labs__text-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    transition: color 150ms var(--ease-sharp);
+  }
+
+  .labs__text-link:hover {
+    color: var(--color-fg);
+  }
+
+  .labs__text-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  /* ---- Past labs (MEDIUM density) ---- */
+  .labs__past {
+    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .labs__past.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .labs__past-content .label {
+    margin-bottom: 24px;
+  }
+
+  .labs__past-list {
+    display: grid;
+    gap: 0;
+    max-width: 600px;
+  }
+
+  .labs__past-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .labs__past-row:first-child {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .labs__past-idx {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-border);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .labs__past-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .labs__past-name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-fg-emphasis);
+    letter-spacing: 0.02em;
+  }
+
+  .labs__past-topic {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .labs__past-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  /* ---- Signup (MEDIUM density) ---- */
+  .labs__signup {
+    padding: clamp(80px, 12vh, 120px) clamp(24px, 5vw, 64px) clamp(60px, 10vh, 100px);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .labs__signup.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .labs__signup-content .label {
+    margin-bottom: 8px;
+  }
+
+  .labs__signup-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--color-fg-emphasis);
+    margin-bottom: 20px;
+  }
+
+  .labs__signup-micro {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--color-fg-muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  /* ---- Hire fallback (LOW density) ---- */
+  .labs__hire {
+    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
+    border-top: 1px solid var(--color-border);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 400ms var(--ease-out),
+                transform 400ms var(--ease-out);
+  }
+
+  .labs__hire.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .labs__hire-content .label {
+    margin-bottom: 8px;
+  }
+
+  .labs__hire-headline {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--color-fg-emphasis);
+    margin-bottom: 16px;
+  }
+
+  /* ---- CTA Action (confident close) ---- */
+  .cta__action {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 500;
+    color: var(--color-fg-emphasis);
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
+    transition: color 150ms var(--ease-out);
+  }
+
+  .cta__action::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent);
+    transform-origin: left;
+    transition: transform 250ms var(--ease-out);
+  }
+
+  .cta__action:hover {
+    color: var(--color-accent);
+  }
+
+  .cta__action:hover::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+
+  .cta__action:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  /* ---- Reduced Motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .labs__cta {
+      opacity: 1 !important;
+      transition: none !important;
+    }
+
+    .labs__how,
+    .labs__next,
+    .labs__past,
+    .labs__signup,
+    .labs__hire {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .labs__text-link,
+    .cta__action,
+    .cta__action::after {
+      transition: none !important;
+    }
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 640px) {
+    .labs__past-row {
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+
+    .labs__past-date {
+      width: 100%;
+      padding-left: calc(11px * 3 + 16px); /* align with name text past idx */
+    }
+  }
+</style>

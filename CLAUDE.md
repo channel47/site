@@ -27,6 +27,7 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 - `/notes` — Build Notes hub (content collection index)
 - `/notes/[slug]` — Individual note articles (dynamic route from `src/content/notes/`)
 - `/ecosystem` — Plugin ecosystem browser, install instructions, free assets
+- `/labs` — Skills Labs landing page (monthly live builds → Skool community)
 - `/build` — Skill builder funnel (uses `FormPageLayout`)
 - `/hire` — Consulting intake form (uses `FormPageLayout`)
 - `/subscribe` — Email signup standalone page
@@ -65,7 +66,7 @@ src/
 - `tag` (optional) — applies a Kit tag prefixed `ch47-` (e.g., `"home"` → `ch47-home`)
 - `fields` (optional) — custom Kit fields. Allowed keys: `name`, `scope`, `brief`, `budget`, `build_role`, `build_task`, `build_tool`
 
-Pages use these tags: `home` (homepage signup), `hire` (/hire form), `build` (/build funnel).
+Pages use these tags: `home` (homepage signup), `hire` (/hire form), `build` (/build funnel), `labs` (/labs signup).
 
 ## CSS
 

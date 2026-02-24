@@ -61,15 +61,16 @@ const schema = [
         <div class="hero__bar" aria-hidden="true"></div>
         <p class="label">SEASON 01 — MEDIA BUYERS</p>
         <h1 class="hero__headline" id="hero-headline">
-          Plugins that package professions.
+          Build skills for your actual job.
         </h1>
         <p class="hero__sub">
-          Open-source plugins for Claude Code. Season 01 ships the
-          media buyer. Every skill, script, and hook a paid-search practitioner
-          needs, built from managing 25+ accounts. Install it and go. Or build
-          your own.
+          AI skills built from managing 25+ ad accounts daily. Open-source
+          plugins for Claude Code. Join the monthly Skills Lab or build your own.
         </p>
-        <a class="hero__cta" href="/build?start">Build your first skill</a>
+        <div class="hero__ctas">
+          <a class="hero__cta" href="/labs">Join the next Lab</a>
+          <a class="hero__cta-secondary" href="/build?start">Build your first skill &rarr;</a>
+        </div>
       </div>
     </section>
 
@@ -232,6 +233,15 @@ const schema = [
    * Homepage — page-specific styles
    * ======================================== */
 
+  /* ---- Hero CTAs container ---- */
+  .hero__ctas {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
   /* ---- Hero CTA button ---- */
   .hero__cta {
     display: inline-flex;
@@ -248,7 +258,6 @@ const schema = [
     background: var(--color-accent);
     border-radius: 2px;
     width: fit-content;
-    margin-top: 32px;
     opacity: 0;
     transition:
       background-color 150ms var(--ease-sharp),
@@ -277,6 +286,31 @@ const schema = [
   .hero__cta:focus-visible {
     outline: 2px solid var(--color-fg);
     outline-offset: 2px;
+  }
+
+  /* ---- Hero secondary CTA (text link) ---- */
+  .hero__cta-secondary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    opacity: 0;
+    transition: color 150ms var(--ease-sharp);
+  }
+
+  [data-section="hero"].is-visible .hero__cta-secondary {
+    animation: fadeUp 400ms var(--ease-out) 1100ms forwards;
+  }
+
+  .hero__cta-secondary:hover {
+    color: var(--color-accent);
+  }
+
+  .hero__cta-secondary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
   }
 
   /* ---- Why Section (MEDIUM density) ---- */
@@ -590,7 +624,8 @@ const schema = [
 
   /* ---- Reduced Motion ---- */
   @media (prefers-reduced-motion: reduce) {
-    .hero__cta {
+    .hero__cta,
+    .hero__cta-secondary {
       opacity: 1 !important;
       transition: none !important;
     }
