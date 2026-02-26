@@ -12,4 +12,19 @@ const notes = defineCollection({
   }),
 });
 
-export const collections = { notes };
+const tools = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    type: z.enum(['skill', 'mcp', 'subagent', 'plugin']),
+    author: z.string(),
+    source: z.enum(['channel47', 'curated', 'community']),
+    repo: z.string().url().optional(),
+    install: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+  }),
+});
+
+export const collections = { notes, tools };
