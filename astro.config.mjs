@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
+import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://channel47.dev',
@@ -13,9 +14,12 @@ export default defineConfig({
     functionPerRoute: false,
     runtime: 'nodejs20.x'
   }),
-  integrations: [sitemap({
-    filter: (page) => !page.includes('/plugins') && !page.includes('/ecosystem')
-  })],
+  integrations: [
+    react(),
+    sitemap({
+      filter: (page) => !page.includes('/plugins') && !page.includes('/ecosystem')
+    })
+  ],
   vite: {
     plugins: [tailwindcss()]
   }
