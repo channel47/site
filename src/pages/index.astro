@@ -113,10 +113,10 @@ const schema = [
           </div>
         )}
 
-        <!-- All tools -->
+        <!-- All tools (excluding featured to avoid duplicates) -->
         <p class="label mb-4">ALL TOOLS</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="tools-grid">
-          {allTools.map((tool) => (
+          {allTools.filter(t => !t.data.featured).map((tool) => (
             <ToolCard
               name={tool.data.name}
               description={tool.data.description}
@@ -184,6 +184,11 @@ const schema = [
 
     <Footer />
   </main>
+
+  <script>
+    import { initPageMotion } from '../scripts/page-motion';
+    initPageMotion();
+  </script>
 
   <!-- Filter tab logic -->
   <script>
