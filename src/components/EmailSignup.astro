@@ -43,18 +43,19 @@ const isProminent = variant === 'prominent';
       placeholder={placeholder}
       required
       class:list={[
-        'email-signup__input w-full px-4 font-mono text-gray-700 bg-gray-100/80 border border-gray-300 rounded-md outline-none transition-all duration-100',
-        'placeholder:text-gray-500 hover:border-gray-400 focus:border-amber focus:bg-gray-50 focus:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]',
+        'email-signup__input w-full px-4 font-mono text-gray-700 bg-gray-100/80 border border-gray-300 rounded-md outline-none transition-[color,background-color,border-color,box-shadow] duration-100',
+        'placeholder:text-gray-500 hover:border-gray-400 focus-visible:border-amber focus-visible:bg-gray-50 focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]',
         isProminent ? 'h-[52px] text-base' : 'h-12 text-sm'
       ]}
       autocomplete="email"
+      spellcheck="false"
       style="font-size: max(16px, inherit);"
     />
   </div>
   <button
     type="submit"
     class:list={[
-      'email-signup__submit flex items-center justify-center gap-2 w-full sm:w-auto sm:shrink-0 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-0 bg-amber border-none rounded-md cursor-pointer whitespace-nowrap transition-all duration-100',
+      'email-signup__submit flex items-center justify-center gap-2 w-full sm:w-auto sm:shrink-0 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-0 bg-amber border-none rounded-md cursor-pointer whitespace-nowrap transition-[color,background-color,box-shadow,opacity,transform] duration-100',
       'hover:bg-gray-700 hover:text-gray-0 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-gray-700 focus-visible:outline-offset-2 disabled:opacity-70 disabled:cursor-default',
       isProminent ? 'h-[52px]' : 'h-12'
     ]}

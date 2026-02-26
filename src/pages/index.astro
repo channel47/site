@@ -53,7 +53,7 @@ const schema = [
 >
   <Nav currentPath="/" />
 
-  <main>
+  <main id="main-content">
     <!-- ═══════════════════════════════════════════
          HERO — Compact, not full viewport
          ═══════════════════════════════════════════ -->
@@ -77,11 +77,11 @@ const schema = [
 
         <!-- Filter tabs -->
         <div class="flex items-center gap-1 mt-8" id="filter-tabs">
-          <button data-filter="all" class="font-mono text-[13px] text-gray-700 bg-gray-100 px-3.5 py-1.5 rounded-pill border-none cursor-pointer">All</button>
-          <button data-filter="skill" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100">Skills</button>
-          <button data-filter="mcp" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100">MCPs</button>
-          <button data-filter="subagent" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100">Subagents</button>
-          <button data-filter="plugin" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100">Plugins</button>
+          <button data-filter="all" class="font-mono text-[13px] text-gray-700 bg-gray-100 px-3.5 py-1.5 rounded-pill border-none cursor-pointer focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">All</button>
+          <button data-filter="skill" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">Skills</button>
+          <button data-filter="mcp" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">MCPs</button>
+          <button data-filter="subagent" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">Subagents</button>
+          <button data-filter="plugin" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">Plugins</button>
         </div>
 
         <div class="border-b border-gray-200 mt-8"></div>
@@ -177,9 +177,9 @@ const schema = [
     <section class="py-[clamp(80px,12vh,128px)] px-8 text-center" data-animate="fade-up">
       <p class="label mb-3">ch47</p>
       <p class="font-mono text-sm text-gray-600 tracking-wide mb-6">Built by practitioners. Open to all.</p>
-      <a href="#" class="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-amber hover:text-amber-bright transition-colors duration-100" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      <button type="button" class="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-amber hover:text-amber-bright transition-colors duration-100 bg-transparent border-none cursor-pointer focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm" onclick="window.scrollTo({top:0,behavior:'smooth'})">
         Browse the registry &uarr;
-      </a>
+      </button>
     </section>
 
     <Footer />

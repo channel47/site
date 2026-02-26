@@ -22,7 +22,7 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
   description="Weekly breakdowns from the Channel 47 ecosystem. Stories, guides, and skill teardowns from building AI plugins for real work."
 >
   <Nav currentPath="/notes" />
-  <main class="pg">
+  <main id="main-content" class="pg">
 
     <!-- HERO (LOW density) -->
     <section class="hero" data-section="hero">
@@ -149,6 +149,10 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     transition: color 100ms var(--ease-signature),
                 border-color 100ms var(--ease-signature),
                 background-color 100ms var(--ease-signature);
+  }
+  .notes-grid__tag:focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
   }
   .notes-grid__tag:hover {
     color: #e7e5e4;

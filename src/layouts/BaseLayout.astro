@@ -32,10 +32,11 @@ const ogImage = Astro.site
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style="color-scheme: dark;">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
@@ -80,6 +81,7 @@ const ogImage = Astro.site
     <Analytics />
   </head>
   <body>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-amber focus:text-gray-0 focus:rounded-md focus:text-sm focus:font-mono">Skip to content</a>
     <slot />
 
     <!-- Scroll Animation Observer -->

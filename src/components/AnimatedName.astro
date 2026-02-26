@@ -154,6 +154,9 @@ const {
   // Touch device handling: toggle on tap for better mobile UX
   function initAnimatedNames() {
     document.querySelectorAll('.animated-name').forEach((el) => {
+      if (el.hasAttribute('data-initialized')) return;
+      el.setAttribute('data-initialized', 'true');
+
       let isTouchDevice = false;
 
       el.addEventListener('touchstart', () => {
