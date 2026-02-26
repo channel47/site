@@ -2,39 +2,31 @@
 /**
  * Footer — shared site footer.
  * Two rows: page links top, attribution + socials bottom.
- * CH47 mark has a hover scramble — characters cycle through
- * random glyphs before locking back into the callsign.
+ * CH47 mark has a hover scramble animation.
  */
 import SocialLinks from './SocialLinks.astro';
-
 const { class: className, ...props } = Astro.props;
 ---
 
-<footer class:list={["footer", className]} {...props}>
-  <div class="footer__content">
-    <nav class="footer__pages" aria-label="Site links">
-      <a href="/notes" class="footer__page-link">Notes</a>
-      <span class="footer__pipe" aria-hidden="true"></span>
-      <a href="/tools" class="footer__page-link">Tools</a>
-      <span class="footer__pipe" aria-hidden="true"></span>
-      <a href="/labs" class="footer__page-link">Labs</a>
-      <span class="footer__pipe" aria-hidden="true"></span>
-      <a href="/build?start" class="footer__page-link">Build</a>
-      <span class="footer__pipe" aria-hidden="true"></span>
-      <a href="/hire" class="footer__page-link">Hire</a>
-      <span class="footer__pipe" aria-hidden="true"></span>
-      <a href="/subscribe" class="footer__page-link">Subscribe</a>
+<footer class:list={["border-t border-gray-200 px-[clamp(24px,5vw,64px)]", className]} {...props}>
+  <div class="font-mono text-xs text-gray-500">
+    <nav class="flex items-center gap-3 py-5 border-b border-gray-200 flex-wrap" aria-label="Site links">
+      <a href="/notes" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100">Notes</a>
+      <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
+      <a href="/labs" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100">Labs</a>
+      <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
+      <a href="/subscribe" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100">Subscribe</a>
     </nav>
-    <div class="footer__bottom">
-      <div class="footer__left">
-        <span class="footer__mark" data-footer-scramble>CH47</span>
-        <span class="footer__text">
+    <div class="flex items-center justify-between gap-4 py-5 max-sm:flex-col max-sm:items-start max-sm:gap-3">
+      <div class="flex items-center gap-4">
+        <span class="footer__mark font-semibold text-gray-400 tracking-widest cursor-default hover:text-amber transition-colors duration-100" data-footer-scramble>CH47</span>
+        <span>
           Built by
-          <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="footer__link">@ctrlswing</a>.
+          <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="text-gray-500 hover:text-amber transition-colors duration-100">@ctrlswing</a>.
           2026.
         </span>
       </div>
-      <nav class="footer__socials" aria-label="Social links">
+      <nav aria-label="Social links">
         <SocialLinks />
       </nav>
     </div>
@@ -101,113 +93,9 @@ const { class: className, ...props } = Astro.props;
 </script>
 
 <style>
-  .footer {
-    border-top: 1px solid var(--color-border);
-    padding: 0 clamp(24px, 5vw, 64px);
-  }
-
-  .footer__content {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--color-fg-muted);
-  }
-
-  /* Page links — top row */
-  .footer__pages {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--color-border);
-    flex-wrap: wrap;
-  }
-
-  .footer__page-link {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--color-fg-muted);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-
-  .footer__page-link:hover {
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  .footer__pipe {
-    width: 1px;
-    height: 12px;
-    background: var(--color-border);
-    flex-shrink: 0;
-  }
-
-  /* Bottom row — attribution + socials */
-  .footer__bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 20px 0;
-  }
-
-  .footer__left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .footer__socials :global(.social-links__link) {
-    font-size: 12px;
-  }
-
-  @media (max-width: 640px) {
-    .footer__pages {
-      gap: 8px;
-    }
-
-    .footer__pipe {
-      display: none;
-    }
-
-    .footer__page-link {
-      font-size: 11px;
-    }
-
-    .footer__bottom {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
-  }
-
-  .footer__mark {
-    font-weight: 600;
-    color: var(--color-fg-subtle);
-    letter-spacing: 0.1em;
-    cursor: default;
-    transition: color var(--duration-fast) var(--ease-sharp);
-  }
-
-  .footer__mark:hover {
-    color: var(--color-accent);
-  }
-
-  /* Scramble active — accent color + subtle glow */
+  /* Only keep styles needed for JS-driven states */
   .footer__mark:global(.is-scrambling) {
-    color: var(--color-accent);
+    color: #f59e0b;
     text-shadow: 0 0 6px rgba(245, 158, 11, 0.25);
-  }
-
-  .footer__link {
-    color: var(--color-fg-muted);
-    text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-
-  .footer__link:hover {
-    color: var(--color-accent);
-    text-decoration: none;
   }
 </style>
