@@ -23,9 +23,7 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
 >
   <main class="pg">
 
-    <!-- =======================================
-         HERO (LOW density)
-         ======================================= -->
+    <!-- HERO (LOW density) -->
     <section class="hero" data-section="hero">
       <Nav currentPath="/notes" />
       <div class="hero__content">
@@ -39,12 +37,10 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
       </div>
     </section>
 
-    <!-- =======================================
-         CONTENT GRID (MEDIUM density)
-         ======================================= -->
-    <section class="notes-grid" data-section="notes-grid">
-      <div class="notes-grid__controls">
-        <div class="notes-grid__tags" data-tag-filter>
+    <!-- CONTENT GRID (MEDIUM density) -->
+    <section class="notes-grid py-[clamp(40px,6vh,60px)] px-[clamp(24px,5vw,64px)]" data-section="notes-grid">
+      <div class="mb-6">
+        <div class="flex gap-2 flex-wrap" data-tag-filter>
           {tags.map((t) => (
             <button
               class:list={['notes-grid__tag', t === 'all' && 'is-active']}
@@ -55,7 +51,7 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
           ))}
         </div>
       </div>
-      <div class="notes-grid__list">
+      <div class="max-w-[672px]">
         {notes.map((note, i) => (
           <div data-animate="fade-up" data-stagger={String(Math.min(i + 1, 6))} data-tag-value={note.data.tag}>
             <ContentCard
@@ -69,25 +65,21 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
         ))}
       </div>
       {notes.length === 0 && (
-        <p class="notes-grid__empty">First notes are coming soon.</p>
+        <p class="font-mono text-sm text-gray-500 py-10">First notes are coming soon.</p>
       )}
     </section>
 
-    <!-- =======================================
-         SIGNUP (MEDIUM density)
-         ======================================= -->
-    <section class="notes-signup" data-section="notes-signup">
-      <div class="notes-signup__content">
-        <p class="label">BUILD NOTES</p>
-        <h2 class="notes-signup__title">Get these in your inbox.</h2>
-        <p class="notes-signup__micro">No spam. Unsubscribe anytime.</p>
+    <!-- SIGNUP (MEDIUM density) -->
+    <section class="py-[clamp(60px,10vh,100px)] px-[clamp(24px,5vw,64px)] border-t border-gray-200" data-section="notes-signup">
+      <div>
+        <p class="label mb-2">BUILD NOTES</p>
+        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] text-primary mb-3" style="font-family: var(--font-family-heading);">Get these in your inbox.</h2>
+        <p class="font-mono text-[11px] tracking-wide text-gray-500 uppercase mb-4">No spam. Unsubscribe anytime.</p>
         <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Subscribe" />
       </div>
     </section>
 
-    <!-- =======================================
-         CTA VOID (LOW density)
-         ======================================= -->
+    <!-- CTA VOID (LOW density) -->
     <section class="cta" data-section="cta">
       <p class="label">TRANSMITTING</p>
       <a class="cta__action" href="/build?start">Build your first skill</a>
@@ -140,37 +132,10 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
   </script>
 </BaseLayout>
 
-<style is:global>
-  @import '../../styles/sections.css';
-</style>
-
 <style>
-  /* ---- Notes Grid (MEDIUM density) ---- */
-  .notes-grid {
-    padding: clamp(40px, 6vh, 60px) clamp(24px, 5vw, 64px);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .notes-grid.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .notes-grid__controls {
-    margin-bottom: 24px;
-  }
-
-  .notes-grid__tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
+  /* Tag filter buttons — interactive states */
   .notes-grid__tag {
-    font-family: var(--font-mono);
+    font-family: var(--font-family-mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.15em;
@@ -178,88 +143,34 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     padding: 6px 12px;
     border-radius: 2px;
     background: transparent;
-    color: var(--color-fg-muted);
-    border: 1px solid var(--color-border);
+    color: #8a857e;
+    border: 1px solid #292929;
     cursor: pointer;
-    transition:
-      color var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out);
+    transition: color 100ms var(--ease-signature),
+                border-color 100ms var(--ease-signature),
+                background-color 100ms var(--ease-signature);
   }
-
   .notes-grid__tag:hover {
-    color: var(--color-fg);
-    border-color: var(--color-fg-muted);
+    color: #e7e5e4;
+    border-color: #504b46;
   }
-
   .notes-grid__tag.is-active {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-    background: var(--color-accent-subtle);
+    color: #f59e0b;
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
   }
 
-  .notes-grid__list {
-    max-width: 672px;
-  }
-
-  .notes-grid__empty {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    color: var(--color-fg-muted);
-    padding: 40px 0;
-  }
-
-  /* ---- Notes Signup (MEDIUM density) ---- */
-  .notes-signup {
-    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
-    border-top: 1px solid var(--color-border);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .notes-signup.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .notes-signup__content .label {
-    margin-bottom: 8px;
-  }
-
-  .notes-signup__title {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--color-fg-emphasis);
-    margin-bottom: 12px;
-  }
-
-  .notes-signup__micro {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--color-fg-muted);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-
-  /* ---- CTA Action (reuse from sections.css, page-specific) ---- */
+  /* CTA action link */
   .cta__action {
-    font-family: var(--font-display);
+    font-family: var(--font-family-heading);
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 500;
-    color: var(--color-fg-emphasis);
-    text-decoration: none;
+    color: #f5f5f4;
     position: relative;
     display: inline-block;
     margin-bottom: 40px;
-    transition: color 150ms var(--ease-out);
+    transition: color 150ms var(--ease-signature);
   }
-
   .cta__action::after {
     content: '';
     position: absolute;
@@ -267,34 +178,16 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     bottom: -6px;
     width: 100%;
     height: 2px;
-    background: var(--color-accent);
+    background: #f59e0b;
     transform-origin: left;
-    transition: transform 250ms var(--ease-out);
+    transition: transform 250ms var(--ease-signature);
   }
+  .cta__action:hover { color: #f59e0b; }
+  .cta__action:hover::after { transform: scaleX(0); transform-origin: right; }
+  .cta__action:focus-visible { outline: 2px solid #f59e0b; outline-offset: 4px; }
 
-  .cta__action:hover {
-    color: var(--color-accent);
-  }
-
-  .cta__action:hover::after {
-    transform: scaleX(0);
-    transform-origin: right;
-  }
-
-  .cta__action:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 4px;
-  }
-
-  /* ---- Reduced Motion ---- */
   @media (prefers-reduced-motion: reduce) {
-    .notes-grid__tag {
-      transition: none;
-    }
-
-    .cta__action,
-    .cta__action::after {
-      transition: none;
-    }
+    .notes-grid__tag { transition: none; }
+    .cta__action, .cta__action::after { transition: none; }
   }
 </style>

@@ -5,7 +5,6 @@
  *
  * Motion design: Soft blur-through crossfade with Y-axis shift.
  * The blur creates a gentle "focus pull" effect—like adjusting a camera lens.
- * Refined, editorial. Not flashy.
  */
 interface Props {
   alias?: string;
@@ -36,24 +35,21 @@ const {
     display: inline-block;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    /* Ensure container doesn't collapse */
     min-width: max-content;
-    /* Touch target padding for mobile */
-    padding: var(--space-1) var(--space-2);
-    margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-2));
+    padding: 4px 8px;
+    margin: -4px -8px;
   }
 
-  /* Interactivity hint - subtle underline that signals clickability */
   .animated-name::after {
     content: '';
     position: absolute;
-    left: var(--space-2);
-    right: var(--space-2);
-    bottom: calc(var(--space-1) - 2px);
+    left: 8px;
+    right: 8px;
+    bottom: 2px;
     height: 1px;
-    background: var(--color-border-subtle);
+    background: #292929;
     opacity: 0.6;
-    transition: opacity var(--duration-normal) var(--ease-out);
+    transition: opacity 200ms var(--ease-signature);
   }
 
   .animated-name:hover::after,
@@ -77,35 +73,25 @@ const {
 
   .animated-name__text {
     display: inline-block;
-    font-family: var(--font-sans);
-    /*
-     * Motion recipe: opacity + transform + filter
-     * Three properties, one cohesive transition.
-     * Timing: --duration-normal (250ms) with --ease-out for natural deceleration.
-     */
+    font-family: var(--font-family-heading);
     transition:
-      opacity var(--duration-normal) var(--ease-out),
-      transform var(--duration-normal) var(--ease-out),
-      filter var(--duration-normal) var(--ease-out);
+      opacity 200ms var(--ease-signature),
+      transform 200ms var(--ease-signature),
+      filter 200ms var(--ease-signature);
   }
 
-  /* Default state: alias visible */
   .animated-name__text--alias {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
   }
 
-  /* Default state: real name hidden */
   .animated-name__text--real {
     position: absolute;
-    /* Account for touch-target padding on mobile */
-    left: var(--space-2);
-    top: var(--space-1);
+    left: 8px;
+    top: 4px;
     opacity: 0;
-    /* Start slightly below - will rise into place */
     transform: translateY(3px);
-    /* Blur creates the "focus pull" effect */
     filter: blur(4px);
     white-space: nowrap;
   }
@@ -117,10 +103,6 @@ const {
     }
   }
 
-  /*
-   * Reveal state: hover, focus, or touch-activated
-   * Alias fades up and out of focus, real name rises into focus
-   */
   .animated-name:hover .animated-name__text--alias,
   .animated-name:focus .animated-name__text--alias,
   .animated-name.is-revealed .animated-name__text--alias {
@@ -137,9 +119,8 @@ const {
     filter: blur(0);
   }
 
-  /* Keyboard focus indicator */
   .animated-name:focus-visible {
-    outline: 1px solid var(--color-border);
+    outline: 1px solid #292929;
     outline-offset: 4px;
     border-radius: 2px;
   }
@@ -148,18 +129,13 @@ const {
     outline: none;
   }
 
-  /* Active state feedback for touch */
   .animated-name:active {
     transform: scale(0.98);
   }
 
-  /*
-   * Reduced motion: instant swap, no blur/transform
-   * Still functional, just faster and simpler
-   */
   @media (prefers-reduced-motion: reduce) {
     .animated-name__text {
-      transition: opacity var(--duration-fast) var(--ease-out);
+      transition: opacity 100ms var(--ease-signature);
       transform: none !important;
       filter: none !important;
     }
@@ -176,26 +152,21 @@ const {
 
 <script>
   // Touch device handling: toggle on tap for better mobile UX
-  // Hover doesn't work reliably on touch, so we use a toggle state
   function initAnimatedNames() {
     document.querySelectorAll('.animated-name').forEach((el) => {
       let isTouchDevice = false;
 
-      // Detect touch interaction
       el.addEventListener('touchstart', () => {
         isTouchDevice = true;
       }, { once: true, passive: true });
 
-      // Toggle on click (catches both touch and mouse)
       el.addEventListener('click', (e) => {
-        // Only use toggle behavior for touch devices
         if (isTouchDevice) {
           e.preventDefault();
           el.classList.toggle('is-revealed');
         }
       });
 
-      // Handle keyboard activation
       el.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -205,9 +176,6 @@ const {
     });
   }
 
-  // Run on initial load
   initAnimatedNames();
-
-  // Re-run after Astro view transitions
   document.addEventListener('astro:after-swap', initAnimatedNames);
 </script>

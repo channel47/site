@@ -1,10 +1,7 @@
 ---
 /**
- * Logo Component
- *
- * 47 in block style with subtle glow effect.
+ * Logo — 47 in block style with subtle glow effect.
  */
-
 interface Props {
   class?: string;
 }
@@ -12,43 +9,9 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<span class={`logo ${className || ''}`.trim()} role="img" aria-label="CH47 Logo">
-  <span class="logo__glyph" aria-hidden="true">
-    <span class="logo__line">█ █ ▀▀█</span>
-    <span class="logo__line">▀▀█  █</span>
+<span class:list={['inline-flex flex-col font-mono text-xs leading-none text-gray-700 whitespace-pre select-none', className]} role="img" aria-label="CH47 Logo" style="letter-spacing: -0.08em;">
+  <span class="flex flex-col" style="text-shadow: 0 0 1px rgba(231,229,228,0.5), 0 0 4px rgba(231,229,228,0.35), 0 0 10px rgba(231,229,228,0.15);">
+    <span class="block h-[1em]" style="font-variant-ligatures: none;">█ █ ▀▀█</span>
+    <span class="block h-[1em]" style="font-variant-ligatures: none;">▀▀█  █</span>
   </span>
 </span>
-
-<style>
-  .logo {
-    --logo-glow: color-mix(in srgb, var(--color-fg) 35%, transparent);
-    --logo-glow-mid: color-mix(in srgb, var(--color-fg) 50%, transparent);
-
-    display: inline-flex;
-    flex-direction: column;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    line-height: 1;
-    font-weight: normal;
-    color: var(--color-fg);
-    white-space: pre;
-    user-select: none;
-    letter-spacing: -0.08em;
-  }
-
-  .logo__glyph {
-    display: flex;
-    flex-direction: column;
-    text-shadow:
-      0 0 1px var(--logo-glow-mid),
-      0 0 4px var(--logo-glow),
-      0 0 10px color-mix(in srgb, var(--color-fg) 15%, transparent);
-  }
-
-  .logo__line {
-    display: block;
-    height: 1em;
-    font-variant-ligatures: none;
-    font-feature-settings: normal;
-  }
-</style>

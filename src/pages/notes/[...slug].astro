@@ -5,9 +5,6 @@
  *
  * Density: LOW (hero) → MEDIUM (article body + author) →
  *          LOW/LIGHT (rupture signup) → Footer
- *
- * Alignment: Hero and body share the same left edge via
- * consistent page padding + max-width. No centering.
  */
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -64,57 +61,44 @@ const schema = {
 
   <main class="pg article-pg">
 
-    <!-- =======================================
-         HERO (LOW density)
-         Accent bar → meta → title → description.
-         Commanding top. Breathing room.
-         ======================================= -->
+    <!-- HERO (LOW density) -->
     <section class="article-hero" data-section="hero">
       <Nav currentPath="/notes" />
       <div class="article-hero__content">
         <div class="article-hero__bar" aria-hidden="true"></div>
         <div class="article-hero__meta">
           <span class:list={['article-hero__tag', `article-hero__tag--${tag}`]}>{tagLabel}</span>
-          <span class="article-hero__pipe" aria-hidden="true"></span>
-          <time class="article-hero__date" datetime={date.toISOString()}>{formatted}</time>
+          <span class="w-px h-3 bg-gray-300" aria-hidden="true"></span>
+          <time class="font-mono text-[11px] text-gray-500 tracking-[0.05em]" datetime={date.toISOString()}>{formatted}</time>
         </div>
         <h1 class="article-hero__title">{title}</h1>
         <p class="article-hero__desc">{description}</p>
       </div>
     </section>
 
-    <!-- =======================================
-         ARTICLE (MEDIUM density)
-         Mono body, display headings, left-aligned.
-         Same max-width + padding as hero = aligned left edges.
-         Author sign-off lives inside as article footer.
-         ======================================= -->
+    <!-- ARTICLE (MEDIUM density) -->
     <article class="article-body" data-section="article-body">
       <div class="article-body__inner">
         <div class="article-prose">
           <Content />
         </div>
 
-        <footer class="article-endmatter">
-          <div class="article-endmatter__bar" aria-hidden="true"></div>
-          <p class="article-endmatter__name">Jackson Dean</p>
-          <p class="article-endmatter__role">Media buyer. Building tools from real workflows.</p>
-          <a href="/notes" class="article-endmatter__back">&larr; All notes</a>
+        <footer class="mt-[clamp(56px,8vh,80px)] pt-[clamp(48px,8vh,72px)] border-t border-gray-200">
+          <div class="w-8 h-0.5 bg-amber mb-5" aria-hidden="true"></div>
+          <p class="text-base font-semibold text-primary tracking-[-0.01em] mb-1" style="font-family: var(--font-family-heading);">Jackson Dean</p>
+          <p class="font-mono text-xs text-gray-500 tracking-[0.02em] mb-6">Media buyer. Building tools from real workflows.</p>
+          <a class="font-mono text-[11px] font-semibold tracking-[0.1em] uppercase text-gray-500 hover:text-amber transition-colors duration-100" href="/notes">&larr; All notes</a>
         </footer>
       </div>
     </article>
 
-    <!-- =======================================
-         SIGNUP RUPTURE (LOW density, light surface)
-         Surface flip = the pattern break.
-         Density shift + background change = real rupture.
-         ======================================= -->
+    <!-- SIGNUP RUPTURE (LOW density, light surface) -->
     <section class="article-signup" data-section="article-signup">
-      <div class="article-signup__inner">
+      <div class="max-w-[480px]">
         <div class="article-signup__bar" aria-hidden="true"></div>
-        <p class="article-signup__label">BUILD NOTES</p>
-        <h2 class="article-signup__title">Get breakdowns like this weekly.</h2>
-        <p class="article-signup__micro">No spam. Unsubscribe anytime.</p>
+        <p class="font-mono text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-3">BUILD NOTES</p>
+        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-heading); color: var(--color-light-ink);">Get breakdowns like this weekly.</h2>
+        <p class="font-mono text-[11px] tracking-[0.1em] text-gray-500 uppercase mb-5">No spam. Unsubscribe anytime.</p>
         <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Subscribe" />
       </div>
     </section>
@@ -149,17 +133,9 @@ const schema = {
   </script>
 </BaseLayout>
 
-<style is:global>
-  @import '../../styles/sections.css';
-</style>
-
 <style>
   /* ========================================
    * Article Page — density-mapped layout
-   *
-   * LOW  → hero (accent bar, title, breathing room)
-   * MED  → article body + author sign-off
-   * LOW  → signup rupture (light surface flip)
    * ======================================== */
 
   /* ---- Reading Progress Bar ---- */
@@ -169,7 +145,7 @@ const schema = {
     left: 0;
     width: 100%;
     height: 2px;
-    background: var(--color-accent);
+    background: #f59e0b;
     transform-origin: left;
     transform: scaleX(0);
     z-index: var(--z-max);
@@ -204,12 +180,12 @@ const schema = {
   .article-hero__bar {
     width: 0;
     height: 2px;
-    background-color: var(--color-accent);
+    background-color: #f59e0b;
     margin-bottom: 24px;
   }
 
   [data-section="hero"].is-visible .article-hero__bar {
-    animation: drawH 600ms var(--ease-out) 200ms forwards;
+    animation: drawH 600ms var(--ease-signature) 200ms forwards;
   }
 
   .article-hero__meta {
@@ -221,85 +197,70 @@ const schema = {
   }
 
   [data-section="hero"].is-visible .article-hero__meta {
-    animation: fadeIn 200ms var(--ease-out) 300ms forwards;
+    animation: fadeIn 200ms var(--ease-signature) 300ms forwards;
   }
 
   .article-hero__tag {
-    font-family: var(--font-mono);
+    font-family: var(--font-family-mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     padding: 3px 8px;
     border-radius: 2px;
-    background: var(--color-bg-elevated);
-    color: var(--color-fg-muted);
+    background: #141414;
+    color: #8a857e;
   }
 
   .article-hero__tag--breakdown {
-    background: var(--color-accent-subtle);
-    color: var(--color-accent);
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
   }
 
   .article-hero__tag--story,
   .article-hero__tag--guide {
-    background: var(--color-bg-elevated);
-    color: var(--color-fg-secondary);
-  }
-
-  .article-hero__pipe {
-    width: 1px;
-    height: 12px;
-    background: var(--color-border);
-  }
-
-  .article-hero__date {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--color-fg-muted);
-    letter-spacing: 0.05em;
+    background: #141414;
+    color: #a8a29e;
   }
 
   .article-hero__title {
-    font-family: var(--font-display);
+    font-family: var(--font-family-heading);
     font-size: clamp(2.25rem, 6vw, 3.5rem);
     line-height: 1;
     letter-spacing: -0.035em;
     font-weight: 600;
-    color: var(--color-fg-emphasis);
+    color: #f5f5f4;
     margin-bottom: 20px;
     opacity: 0;
     clip-path: inset(0 50% 0 50%);
   }
 
   [data-section="hero"].is-visible .article-hero__title {
-    animation: clipReveal 600ms var(--ease-out) 400ms forwards;
+    animation: clipReveal 600ms var(--ease-signature) 400ms forwards;
   }
 
   .article-hero__desc {
-    font-family: var(--font-mono);
+    font-family: var(--font-family-mono);
     font-size: 14px;
     line-height: 1.7;
-    color: var(--color-fg-secondary);
+    color: #a8a29e;
     max-width: 540px;
     letter-spacing: 0.02em;
     opacity: 0;
   }
 
   [data-section="hero"].is-visible .article-hero__desc {
-    animation: fadeUp 400ms var(--ease-out) 600ms forwards;
+    animation: fadeUp 400ms var(--ease-signature) 600ms forwards;
   }
 
-  /* ---- Article Body (MEDIUM density) ----
-   * Left-aligned, same padding as hero.
-   * max-width on inner container = shared left edge. */
+  /* ---- Article Body (MEDIUM density) ---- */
   .article-body {
     padding: 0 clamp(24px, 5vw, 64px);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid #1f1f1f;
     opacity: 0;
     transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
+    transition: opacity 400ms var(--ease-signature),
+                transform 400ms var(--ease-signature);
   }
 
   .article-body.is-visible {
@@ -314,25 +275,24 @@ const schema = {
 
   /* ---- Article Prose ---- */
   .article-prose {
-    font-family: var(--font-mono);
+    font-family: var(--font-family-mono);
     font-size: 14px;
     line-height: 1.8;
     letter-spacing: 0.02em;
-    color: var(--color-fg);
+    color: #e7e5e4;
   }
 
-  /* H2 — section breaks within the article */
   .article-prose :global(h2) {
-    font-family: var(--font-display);
+    font-family: var(--font-family-heading);
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: var(--color-fg-emphasis);
+    color: #f5f5f4;
     margin-top: 56px;
     margin-bottom: 20px;
     padding-top: 32px;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid #1f1f1f;
   }
 
   .article-prose :global(h2:first-child) {
@@ -342,17 +302,17 @@ const schema = {
   }
 
   .article-prose :global(h3) {
-    font-family: var(--font-display);
+    font-family: var(--font-family-heading);
     font-size: clamp(1.05rem, 2vw, 1.25rem);
     font-weight: 600;
     letter-spacing: -0.015em;
-    color: var(--color-fg-emphasis);
+    color: #f5f5f4;
     margin-top: 40px;
     margin-bottom: 12px;
   }
 
   .article-prose :global(p) {
-    color: var(--color-fg);
+    color: #e7e5e4;
     margin-bottom: 24px;
   }
 
@@ -362,36 +322,34 @@ const schema = {
 
   .article-prose :global(strong) {
     font-weight: 600;
-    color: var(--color-fg-emphasis);
+    color: #f5f5f4;
   }
 
   .article-prose :global(a) {
-    color: var(--color-accent);
+    color: #f59e0b;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    transition: color var(--duration-fast) var(--ease-out);
+    transition: color 100ms var(--ease-signature);
   }
 
   .article-prose :global(a:hover) {
-    color: var(--color-accent-hover);
+    color: #D97706;
   }
 
-  /* Blockquote — accent border + The Guest (serif).
-   * Earned context: editorial long-form only. */
   .article-prose :global(blockquote) {
-    border-left: 2px solid var(--color-accent);
+    border-left: 2px solid #f59e0b;
     padding: 4px 0 4px 24px;
     margin: 32px 0;
   }
 
   .article-prose :global(blockquote p) {
-    font-family: var(--font-serif);
+    font-family: var(--font-family-editorial);
     font-size: 17px;
     font-style: italic;
     line-height: 1.65;
     letter-spacing: 0;
-    color: var(--color-fg-secondary);
+    color: #a8a29e;
   }
 
   .article-prose :global(ul),
@@ -402,7 +360,7 @@ const schema = {
 
   .article-prose :global(li) {
     margin-bottom: 10px;
-    color: var(--color-fg);
+    color: #e7e5e4;
   }
 
   .article-prose :global(li:last-child) {
@@ -410,21 +368,21 @@ const schema = {
   }
 
   .article-prose :global(li::marker) {
-    color: var(--color-fg-muted);
+    color: #8a857e;
   }
 
   .article-prose :global(code) {
-    font-family: var(--font-mono);
+    font-family: var(--font-family-mono);
     font-size: 0.9em;
-    background: var(--color-bg-elevated);
+    background: #141414;
     padding: 2px 6px;
     border-radius: 2px;
-    color: var(--color-fg-emphasis);
+    color: #f5f5f4;
   }
 
   .article-prose :global(pre) {
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
+    background: #141414;
+    border: 1px solid #1f1f1f;
     border-radius: 2px;
     padding: 20px 24px;
     margin: 32px 0;
@@ -436,107 +394,55 @@ const schema = {
     padding: 0;
     font-size: 13px;
     line-height: 1.6;
-    color: var(--color-fg);
+    color: #e7e5e4;
   }
 
   .article-prose :global(hr) {
     border: none;
     height: 1px;
-    background: var(--color-border);
+    background: #1f1f1f;
     margin: 48px 0;
   }
 
-  /* ---- Inline CTA Aside ----
-   * Accent Bar + Broadcast Label + Confident CTA.
-   * Editorial pause, not a banner. Stays on dark surface.
-   * Distinct from bottom rupture (which flips to light). */
+  /* Inline CTA Aside */
   .article-prose :global(.note-cta) {
-    border-left: 2px solid var(--color-accent);
+    border-left: 2px solid #f59e0b;
     padding: 16px 0 16px 24px;
     margin: 48px 0;
   }
 
   .article-prose :global(.note-cta__label) {
-    font-family: var(--font-mono);
+    font-family: var(--font-family-mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--color-fg-muted);
+    color: #8a857e;
     margin-bottom: 6px;
   }
 
   .article-prose :global(.note-cta__text) {
-    font-family: var(--font-mono);
+    font-family: var(--font-family-mono);
     font-size: 13px;
     letter-spacing: 0.02em;
-    color: var(--color-fg-secondary);
+    color: #a8a29e;
     margin-bottom: 0;
   }
 
   .article-prose :global(.note-cta__text a) {
-    color: var(--color-accent);
+    color: #f59e0b;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
     font-weight: 500;
-    transition: color var(--duration-fast) var(--ease-out);
+    transition: color 100ms var(--ease-signature);
   }
 
   .article-prose :global(.note-cta__text a:hover) {
-    color: var(--color-accent-hover);
+    color: #D97706;
   }
 
-  /* ---- Author Endmatter (LOW density within article) ----
-   * Hierarchy by withdrawal. Minimal. The restraint is the emphasis. */
-  .article-endmatter {
-    margin-top: clamp(56px, 8vh, 80px);
-    padding-top: clamp(48px, 8vh, 72px);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .article-endmatter__bar {
-    width: 32px;
-    height: 2px;
-    background-color: var(--color-accent);
-    margin-bottom: 20px;
-  }
-
-  .article-endmatter__name {
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-fg-emphasis);
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-
-  .article-endmatter__role {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--color-fg-muted);
-    letter-spacing: 0.02em;
-    margin-bottom: 24px;
-  }
-
-  .article-endmatter__back {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: var(--tracking-widest);
-    text-transform: uppercase;
-    color: var(--color-fg-muted);
-    transition: color var(--duration-fast) var(--ease-sharp);
-  }
-
-  .article-endmatter__back:hover {
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  /* ---- Signup Rupture (LOW density, light surface) ----
-   * Surface flip. Density shift. The one pattern break.
-   * Entrance uses blur-sharpen ("tuning a signal"). */
+  /* ---- Signup Rupture (LOW density, light surface) ---- */
   .article-signup {
     background: var(--color-light-canvas);
     color: var(--color-light-ink);
@@ -544,9 +450,9 @@ const schema = {
     opacity: 0;
     filter: blur(4px);
     transform: translateY(12px);
-    transition: opacity 600ms var(--ease-out),
-                filter 600ms var(--ease-out),
-                transform 600ms var(--ease-out);
+    transition: opacity 600ms var(--ease-signature),
+                filter 600ms var(--ease-signature),
+                transform 600ms var(--ease-signature);
   }
 
   .article-signup.is-visible {
@@ -555,47 +461,15 @@ const schema = {
     transform: translateY(0);
   }
 
-  .article-signup__inner {
-    max-width: 480px;
-  }
-
   .article-signup__bar {
     width: 0;
     height: 2px;
-    background-color: var(--color-accent);
+    background-color: #f59e0b;
     margin-bottom: 24px;
   }
 
   .article-signup.is-visible .article-signup__bar {
-    animation: drawH 400ms var(--ease-out) 200ms forwards;
-  }
-
-  .article-signup__label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-fg-muted);
-    margin-bottom: 12px;
-  }
-
-  .article-signup__title {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--color-light-ink);
-    margin-bottom: 12px;
-  }
-
-  .article-signup__micro {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--color-fg-muted);
-    margin-bottom: 20px;
-    text-transform: uppercase;
+    animation: drawH 400ms var(--ease-signature) 200ms forwards;
   }
 
   /* EmailSignup overrides for light surface */
@@ -606,12 +480,12 @@ const schema = {
   }
 
   .article-signup :global(.email-signup__input::placeholder) {
-    color: var(--color-fg-muted);
+    color: #8a857e;
   }
 
   .article-signup :global(.email-signup__input:focus) {
     background: #fff;
-    border-color: var(--color-accent);
+    border-color: #f59e0b;
     box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
   }
 
@@ -629,7 +503,6 @@ const schema = {
     }
 
     .article-hero__bar,
-    .article-endmatter__bar,
     .article-signup__bar {
       width: 40px !important;
     }

@@ -1,8 +1,6 @@
 ---
 /**
- * SocialLinks
- * Broadcast outposts. Pipe-separated, compound hover.
- * ch47 ecosystem first, personal channels second.
+ * SocialLinks — pipe-separated social links.
  */
 interface Props {
   class?: string;
@@ -17,12 +15,12 @@ const links = [
 ];
 ---
 
-<ul class:list={['social-links', className]} role="list">
-  {links.map((link) => (
-    <li class="social-links__item">
+<ul class:list={['flex items-center gap-4 list-none p-0 m-0', className]} role="list">
+  {links.map((link, i) => (
+    <li class:list={[i > 0 && 'pl-4 border-l border-gray-200']}>
       <a
         href={link.href}
-        class="social-links__link"
+        class="font-mono text-[13px] tracking-wide text-gray-500 hover:text-amber transition-colors duration-100 relative"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -31,65 +29,3 @@ const links = [
     </li>
   ))}
 </ul>
-
-<style>
-  .social-links {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    padding: 0;
-    margin: 0;
-  }
-
-  .social-links__item + .social-links__item {
-    padding-left: var(--space-4);
-    border-left: 1px solid var(--color-border);
-  }
-
-  .social-links__link {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    letter-spacing: 0.025em;
-    color: var(--color-fg-muted);
-    text-decoration: none;
-    position: relative;
-    padding-bottom: 2px;
-    transition: color 150ms var(--ease-out);
-  }
-
-  /* Underline draw — arrives first */
-  .social-links__link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--color-accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 100ms var(--ease-sharp);
-  }
-
-  .social-links__link:hover {
-    color: var(--color-accent);
-  }
-
-  .social-links__link:hover::after {
-    transform: scaleX(1);
-  }
-
-  .social-links__link:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .social-links__link,
-    .social-links__link::after {
-      transition: none !important;
-    }
-  }
-</style>

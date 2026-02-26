@@ -63,6 +63,15 @@
   /* Accent alpha variants */
   --amber-dim: rgba(245, 158, 11, 0.12);
   --amber-glow: rgba(245, 158, 11, 0.25);
+
+  /* Light surface (rupture / callout) */
+  --color-light-canvas: #FAF7F2;
+  --color-light-paper: #F0EBE3;
+  --color-light-ink: #1C1917;
+  --color-light-border: #D6D3CD;
+
+  /* Z-index */
+  --z-max: 9999;
 }
 
 /* ═══════════════════════════════════════════
@@ -175,6 +184,180 @@
 @keyframes draw-v {
   from { height: 0; }
   to { height: var(--bar-height, 100%); }
+}
+
+/* Legacy aliases (used by sections.css-dependent pages) */
+@keyframes drawH {
+  to { width: 40px; }
+}
+
+@keyframes drawV {
+  to { height: 40px; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes clipReveal {
+  from { opacity: 0; clip-path: inset(0 50% 0 50%); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* ═══════════════════════════════════════════
+   SHARED SECTION PATTERNS
+   Replaces sections.css for hero, stats, CTA
+   ═══════════════════════════════════════════ */
+
+@layer components {
+  /* Page wrapper */
+  .pg { position: relative; }
+  .pg a { color: inherit; text-decoration: none; }
+
+  /* Hero (LOW density, 90vh) */
+  .hero {
+    min-height: 90vh;
+    min-height: 90dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 clamp(24px, 5vw, 64px);
+  }
+  .hero__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: clamp(60px, 10vh, 100px);
+  }
+  .hero__bar {
+    width: 0;
+    height: 2px;
+    background-color: #f59e0b;
+    margin-bottom: 24px;
+  }
+  [data-section="hero"].is-visible .hero__bar {
+    animation: drawH 600ms var(--ease-signature) 200ms forwards;
+  }
+  .hero__content > .label {
+    opacity: 0;
+    margin-bottom: 20px;
+  }
+  [data-section="hero"].is-visible .hero__content > .label {
+    animation: fadeIn 200ms var(--ease-signature) 300ms forwards;
+  }
+  .hero__headline {
+    font-family: var(--font-family-heading);
+    font-size: clamp(2.75rem, 8vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    color: #f5f5f4;
+    max-width: 800px;
+    opacity: 0;
+    clip-path: inset(0 50% 0 50%);
+    cursor: default;
+    position: relative;
+    display: inline-block;
+  }
+  [data-section="hero"].is-visible .hero__headline {
+    animation: clipReveal 600ms var(--ease-signature) 400ms forwards;
+  }
+  .hero__sub {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #a8a29e;
+    max-width: 480px;
+    margin-top: 32px;
+    opacity: 0;
+  }
+  [data-section="hero"].is-visible .hero__sub {
+    animation: fadeUp 400ms var(--ease-signature) 700ms forwards;
+  }
+
+  /* Stats strip (HIGH density) */
+  .stats {
+    border-top: 1px solid #1f1f1f;
+    border-bottom: 1px solid #1f1f1f;
+    padding: 24px clamp(24px, 5vw, 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(16px, 3vw, 40px);
+  }
+  .stats__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 20px;
+    border-radius: 2px;
+    transition: background-color 150ms var(--ease-signature);
+    min-width: 140px;
+  }
+  .stats__item:hover { background-color: rgba(245, 158, 11, 0.03); }
+  .stats__item--signal .stats__value { color: #f59e0b; }
+  .stats__value {
+    font-family: var(--font-family-heading);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #f5f5f4;
+  }
+  .stats__label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #8a857e;
+  }
+  .stats__pipe {
+    width: 1px;
+    height: 32px;
+    background: #1f1f1f;
+  }
+
+  /* CTA Void (LOW density) */
+  .cta {
+    padding: clamp(100px, 16vh, 200px) clamp(24px, 5vw, 64px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .cta > .label { margin-bottom: 24px; }
+
+  /* Accent bar (shared draw-in) */
+  .accent-bar {
+    width: 0;
+    height: 2px;
+    background-color: #f59e0b;
+    margin-bottom: 24px;
+  }
+  .is-visible > .accent-bar,
+  .is-visible .accent-bar {
+    animation: drawH 400ms var(--ease-signature) 200ms forwards;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats { flex-direction: column; gap: 16px; }
+  .stats__pipe { display: none; }
 }
 
 /* ═══════════════════════════════════════════

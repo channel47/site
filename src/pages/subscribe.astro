@@ -2,10 +2,6 @@
 /**
  * /subscribe — Newsletter signup
  * The Void. Logo, accent bar, pitch, form. Nothing else.
- * Linked from presentation, /build, index.
- *
- * Density: LOW — hierarchy by withdrawal. Single left-aligned
- * column, vertically centered. No footer, no nav.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LogoAnimated from '../components/LogoAnimated.astro';
@@ -16,15 +12,15 @@ import EmailSignup from '../components/EmailSignup.astro';
   title="Build Notes — Channel47"
   description="Short emails when something ships. Skill breakdowns, build patterns, and what's new in Season 01."
 >
-  <main class="subscribe">
-    <div class="subscribe__column">
-      <a href="/" class="subscribe__logo" aria-label="Back to Channel47">
+  <main class="min-h-dvh flex items-center p-[clamp(24px,5vw,64px)]">
+    <div class="flex flex-col items-start max-w-[480px] w-full">
+      <a href="/" class="mb-8" aria-label="Back to Channel47">
         <LogoAnimated />
       </a>
-      <div class="subscribe__bar" aria-hidden="true"></div>
-      <p class="subscribe__label">BUILD NOTES</p>
-      <h1 class="subscribe__pitch">One skill pulled apart per week. How it works, why, what I'd change. You get the prompts.</h1>
-      <div class="subscribe__form">
+      <div class="subscribe__bar w-0 h-0.5 bg-amber mb-6" aria-hidden="true"></div>
+      <p class="label mb-4 opacity-0 subscribe__label">BUILD NOTES</p>
+      <h1 class="font-mono text-sm font-normal leading-relaxed text-gray-600 max-w-[38ch] mb-12 opacity-0 subscribe__pitch">One skill pulled apart per week. How it works, why, what I'd change. You get the prompts.</h1>
+      <div class="w-full opacity-0 subscribe__form">
         <EmailSignup
           placeholder="you@domain.com"
           tag="subscribe"
@@ -61,116 +57,32 @@ import EmailSignup from '../components/EmailSignup.astro';
 </script>
 
 <style>
-  /* Single left-aligned column, vertically centered. The void. */
-  .subscribe {
-    --gutter: clamp(24px, 5vw, 64px);
-    min-height: 100dvh;
-    display: flex;
-    align-items: center;
-    padding: var(--gutter);
-  }
-
-  /* ── Column: logo → bar → label → pitch → form ── */
-  .subscribe__column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 480px;
-    width: 100%;
-  }
-
-  /* ── Logo: inline, starts the column ── */
-  .subscribe__logo {
-    text-decoration: none;
-    color: inherit;
-    margin-bottom: var(--space-8);
-  }
-
-  .subscribe__logo:hover {
-    text-decoration: none;
-  }
-
-  .subscribe__logo :global(.logo-animated) {
-    font-size: var(--text-xs);
-  }
-
-  @media (min-width: 768px) {
-    .subscribe__logo :global(.logo-animated) {
-      font-size: var(--text-sm);
-    }
-  }
-
-  /* ── Accent bar: broadcast indicator ── */
   .subscribe__bar {
-    width: 0;
-    height: 2px;
-    background: var(--color-accent);
-    margin-bottom: var(--space-6);
-    animation: subscribe-bar-draw 500ms var(--ease-out) 150ms forwards;
+    animation: subscribe-bar-draw 500ms var(--ease-signature) 150ms forwards;
   }
-
-  /* ── Label: broadcast tag ── */
   .subscribe__label {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-weight: var(--font-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-accent);
-    margin-bottom: var(--space-4);
-    opacity: 0;
-    animation: subscribe-fade-in 400ms var(--ease-out) 450ms forwards;
+    animation: subscribe-fade-in 400ms var(--ease-signature) 450ms forwards;
   }
-
-  /* ── Pitch (h1 styled as body text — intentional) ── */
   .subscribe__pitch {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular, 400);
-    line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
-    max-width: 38ch;
-    margin-bottom: var(--space-12);
-    opacity: 0;
-    animation: subscribe-fade-in 400ms var(--ease-out) 600ms forwards;
+    animation: subscribe-fade-in 400ms var(--ease-signature) 600ms forwards;
   }
-
-  /* ── Form: the ask ── */
   .subscribe__form {
-    width: 100%;
-    opacity: 0;
-    animation: subscribe-rise 500ms var(--ease-out) 800ms forwards;
+    animation: subscribe-rise 500ms var(--ease-signature) 800ms forwards;
   }
 
-  /* ── Keyframes ── */
   @keyframes subscribe-bar-draw {
-    from {
-      width: 0;
-      opacity: 0.5;
-    }
-    to {
-      width: 40px;
-      opacity: 1;
-    }
+    from { width: 0; opacity: 0.5; }
+    to { width: 40px; opacity: 1; }
   }
-
   @keyframes subscribe-fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
   }
-
   @keyframes subscribe-rise {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
     .subscribe__bar,
     .subscribe__label,
@@ -179,9 +91,6 @@ import EmailSignup from '../components/EmailSignup.astro';
       animation: none;
       opacity: 1;
     }
-
-    .subscribe__bar {
-      width: 40px;
-    }
+    .subscribe__bar { width: 40px; }
   }
 </style>
