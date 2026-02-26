@@ -17,7 +17,12 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !page.includes('/plugins') && !page.includes('/ecosystem')
+      filter: (page) =>
+        !page.includes('/plugins') &&
+        !page.includes('/ecosystem') &&
+        !page.includes('/tools') &&
+        !page.includes('/build') &&
+        !page.includes('/hire')
     })
   ],
   vite: {
