@@ -201,7 +201,12 @@ const isProminent = variant === 'prominent';
   .email-signup.is-error .email-signup__input { border-color: #ef4444; animation: error-shake 0.3s var(--ease-signature); }
   .email-signup.is-error .email-signup__input::placeholder { color: #ef4444; }
 
-  /* Server error */
-  .email-signup.is-server-error .email-signup__input { border-color: #ef4444; }
+  /* Server error — gentler pulse (distinct from validation shake) */
+  .email-signup.is-server-error .email-signup__input { border-color: #ef4444; animation: error-pulse 1.2s var(--ease-signature); }
   .email-signup.is-server-error .email-signup__input::placeholder { color: #ef4444; }
+
+  @keyframes error-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
 </style>

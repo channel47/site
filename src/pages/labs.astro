@@ -139,7 +139,7 @@ const pastLabs = [
     <!-- CTA VOID (LOW density) -->
     <section class="cta" data-section="labs-cta">
       <p class="label">TRANSMITTING</p>
-      <a class="labs-cta-action" href={SKOOL_LINK} target="_blank" rel="noopener" style="font-family: var(--font-family-heading); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 500; color: #f5f5f4; position: relative; display: inline-block; margin-bottom: 40px; transition: color 150ms var(--ease-signature);">Join the next lab</a>
+      <a class="labs-cta-action" href={SKOOL_LINK} target="_blank" rel="noopener" style="font-family: var(--font-family-heading); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 500; color: var(--color-primary); position: relative; display: inline-block; margin-bottom: 40px; transition: color 150ms var(--ease-signature);">Join the next lab</a>
     </section>
 
     <Footer />
@@ -165,11 +165,11 @@ const pastLabs = [
     bottom: -6px;
     width: 100%;
     height: 2px;
-    background: #f59e0b;
+    background: var(--color-amber);
     transform-origin: left;
     transition: transform 250ms var(--ease-signature);
   }
-  .labs-cta-action:hover { color: #f59e0b; }
+  .labs-cta-action:hover { color: var(--color-amber); }
   .labs-cta-action:hover::after { transform: scaleX(0); transform-origin: right; }
-  .labs-cta-action:focus-visible { outline: 2px solid #f59e0b; outline-offset: 4px; }
+  .labs-cta-action:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }
 </style>

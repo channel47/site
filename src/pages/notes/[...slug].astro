@@ -145,7 +145,7 @@ const schema = {
     left: 0;
     width: 100%;
     height: 2px;
-    background: #f59e0b;
+    background: var(--color-amber);
     transform-origin: left;
     transform: scaleX(0);
     z-index: var(--z-max);
@@ -180,7 +180,7 @@ const schema = {
   .article-hero__bar {
     width: 0;
     height: 2px;
-    background-color: #f59e0b;
+    background-color: var(--color-amber);
     margin-bottom: 24px;
   }
 
@@ -208,19 +208,19 @@ const schema = {
     text-transform: uppercase;
     padding: 3px 8px;
     border-radius: 2px;
-    background: #141414;
-    color: #8a857e;
+    background: var(--color-gray-100);
+    color: var(--color-gray-500);
   }
 
   .article-hero__tag--breakdown {
-    background: rgba(245, 158, 11, 0.12);
-    color: #f59e0b;
+    background: var(--amber-dim);
+    color: var(--color-amber);
   }
 
   .article-hero__tag--story,
   .article-hero__tag--guide {
-    background: #141414;
-    color: #a8a29e;
+    background: var(--color-gray-100);
+    color: var(--color-gray-600);
   }
 
   .article-hero__title {
@@ -229,7 +229,7 @@ const schema = {
     line-height: 1;
     letter-spacing: -0.035em;
     font-weight: 600;
-    color: #f5f5f4;
+    color: var(--color-primary);
     margin-bottom: 20px;
     opacity: 0;
     clip-path: inset(0 50% 0 50%);
@@ -243,7 +243,7 @@ const schema = {
     font-family: var(--font-family-mono);
     font-size: 14px;
     line-height: 1.7;
-    color: #a8a29e;
+    color: var(--color-gray-600);
     max-width: 540px;
     letter-spacing: 0.02em;
     opacity: 0;
@@ -256,7 +256,7 @@ const schema = {
   /* ---- Article Body (MEDIUM density) ---- */
   .article-body {
     padding: 0 clamp(24px, 5vw, 64px);
-    border-top: 1px solid #1f1f1f;
+    border-top: 1px solid var(--color-gray-200);
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 400ms var(--ease-signature),
@@ -279,7 +279,7 @@ const schema = {
     font-size: 14px;
     line-height: 1.8;
     letter-spacing: 0.02em;
-    color: #e7e5e4;
+    color: var(--color-gray-700);
   }
 
   .article-prose :global(h2) {
@@ -288,11 +288,11 @@ const schema = {
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: #f5f5f4;
+    color: var(--color-primary);
     margin-top: 56px;
     margin-bottom: 20px;
     padding-top: 32px;
-    border-top: 1px solid #1f1f1f;
+    border-top: 1px solid var(--color-gray-200);
   }
 
   .article-prose :global(h2:first-child) {
@@ -306,13 +306,13 @@ const schema = {
     font-size: clamp(1.05rem, 2vw, 1.25rem);
     font-weight: 600;
     letter-spacing: -0.015em;
-    color: #f5f5f4;
+    color: var(--color-primary);
     margin-top: 40px;
     margin-bottom: 12px;
   }
 
   .article-prose :global(p) {
-    color: #e7e5e4;
+    color: var(--color-gray-700);
     margin-bottom: 24px;
   }
 
@@ -322,11 +322,11 @@ const schema = {
 
   .article-prose :global(strong) {
     font-weight: 600;
-    color: #f5f5f4;
+    color: var(--color-primary);
   }
 
   .article-prose :global(a) {
-    color: #f59e0b;
+    color: var(--color-amber);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -338,7 +338,7 @@ const schema = {
   }
 
   .article-prose :global(blockquote) {
-    border-left: 2px solid #f59e0b;
+    border-left: 2px solid var(--color-amber);
     padding: 4px 0 4px 24px;
     margin: 32px 0;
   }
@@ -349,7 +349,7 @@ const schema = {
     font-style: italic;
     line-height: 1.65;
     letter-spacing: 0;
-    color: #a8a29e;
+    color: var(--color-gray-600);
   }
 
   .article-prose :global(ul),
@@ -360,7 +360,7 @@ const schema = {
 
   .article-prose :global(li) {
     margin-bottom: 10px;
-    color: #e7e5e4;
+    color: var(--color-gray-700);
   }
 
   .article-prose :global(li:last-child) {
@@ -368,21 +368,21 @@ const schema = {
   }
 
   .article-prose :global(li::marker) {
-    color: #8a857e;
+    color: var(--color-gray-500);
   }
 
   .article-prose :global(code) {
     font-family: var(--font-family-mono);
     font-size: 0.9em;
-    background: #141414;
+    background: var(--color-gray-100);
     padding: 2px 6px;
     border-radius: 2px;
-    color: #f5f5f4;
+    color: var(--color-primary);
   }
 
   .article-prose :global(pre) {
-    background: #141414;
-    border: 1px solid #1f1f1f;
+    background: var(--color-gray-100);
+    border: 1px solid var(--color-gray-200);
     border-radius: 2px;
     padding: 20px 24px;
     margin: 32px 0;
@@ -394,19 +394,19 @@ const schema = {
     padding: 0;
     font-size: 13px;
     line-height: 1.6;
-    color: #e7e5e4;
+    color: var(--color-gray-700);
   }
 
   .article-prose :global(hr) {
     border: none;
     height: 1px;
-    background: #1f1f1f;
+    background: var(--color-gray-200);
     margin: 48px 0;
   }
 
   /* Inline CTA Aside */
   .article-prose :global(.note-cta) {
-    border-left: 2px solid #f59e0b;
+    border-left: 2px solid var(--color-amber);
     padding: 16px 0 16px 24px;
     margin: 48px 0;
   }
@@ -417,7 +417,7 @@ const schema = {
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #8a857e;
+    color: var(--color-gray-500);
     margin-bottom: 6px;
   }
 
@@ -425,12 +425,12 @@ const schema = {
     font-family: var(--font-family-mono);
     font-size: 13px;
     letter-spacing: 0.02em;
-    color: #a8a29e;
+    color: var(--color-gray-600);
     margin-bottom: 0;
   }
 
   .article-prose :global(.note-cta__text a) {
-    color: #f59e0b;
+    color: var(--color-amber);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -464,7 +464,7 @@ const schema = {
   .article-signup__bar {
     width: 0;
     height: 2px;
-    background-color: #f59e0b;
+    background-color: var(--color-amber);
     margin-bottom: 24px;
   }
 
@@ -480,12 +480,12 @@ const schema = {
   }
 
   .article-signup :global(.email-signup__input::placeholder) {
-    color: #8a857e;
+    color: var(--color-gray-500);
   }
 
   .article-signup :global(.email-signup__input:focus) {
     background: #fff;
-    border-color: #f59e0b;
+    border-color: var(--color-amber);
     box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
   }
 

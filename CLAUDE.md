@@ -60,7 +60,7 @@ src/
 │   ├── tools/                    # Tool registry entries (YAML, `tools` collection)
 │   └── newsletters/              # Newsletter drafts (markdown)
 └── scripts/
-    └── page-motion.js            # IntersectionObserver scroll reveal
+    └── page-motion.ts            # IntersectionObserver scroll reveal
 ```
 
 ## Subscribe API
@@ -84,7 +84,7 @@ Tailwind CSS v4 via `@tailwindcss/vite`. Single entry point: `src/styles/main.cs
 ## Scroll Reveals (two layers)
 
 1. **Section-level**: `data-section="name"` + IO (threshold 0.15). Adds `.is-visible`. Hero gets it immediately via JS, not IO.
-2. **Element-level**: `BaseLayout` observes `[data-animate]` (threshold 0.1). One-time trigger. Stagger with `data-stagger="1..12"`.
+2. **Element-level**: `BaseLayout` observes `[data-animate]` (threshold 0.1). One-time trigger. Stagger with `data-stagger="1..6"`.
 
 ## Component Conventions
 
