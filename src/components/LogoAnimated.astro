@@ -236,33 +236,21 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
 
 <style>
   .logo-animated {
-    --logo-glow: color-mix(in srgb, var(--color-fg) 30%, transparent);
+    --logo-glow: rgba(231, 229, 228, 0.3);
 
     position: relative;
     display: inline-flex;
     flex-direction: column;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
     line-height: 1;
     font-weight: normal;
-    color: var(--color-fg);
+    color: #e7e5e4;
     white-space: pre;
     user-select: none;
     letter-spacing: -0.08em;
     cursor: pointer;
-
-    /* Fade-up entry to match page animations */
-    opacity: 0;
-    transform: translateY(8px);
-    animation: logo-enter 0.5s var(--ease-out) forwards;
-    animation-delay: 0.6s;
-  }
-
-  @keyframes logo-enter {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    text-shadow: 0 0 8px rgba(231, 229, 228, 0.15);
   }
 
   .logo-animated__glyph {
@@ -299,7 +287,7 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
   .logo-animated__char.is-flashing {
     text-shadow:
       0 0 6px var(--logo-glow),
-      0 0 12px color-mix(in srgb, var(--color-accent) 25%, transparent);
+      0 0 12px rgba(245, 158, 11, 0.25);
   }
 
   /* Completed state - glow with breathing animation */
@@ -307,7 +295,7 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     text-shadow:
       0 0 1px var(--logo-glow),
       0 0 8px var(--logo-glow);
-    animation: logo-breathe 4s var(--ease-in-out) infinite;
+    animation: logo-breathe 4s ease-in-out infinite;
     animation-delay: 1s;
   }
 
@@ -321,7 +309,7 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
       text-shadow:
         0 0 2px var(--logo-glow),
         0 0 12px var(--logo-glow),
-        0 0 20px color-mix(in srgb, var(--color-fg) 18%, transparent);
+        0 0 20px rgba(231, 229, 228, 0.18);
     }
   }
 
