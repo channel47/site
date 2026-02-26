@@ -1,0 +1,53 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  type: 'skill' | 'mcp' | 'subagent' | 'plugin';
+  author: string;
+  source: 'channel47' | 'curated' | 'community';
+  tags?: string[];
+  repo?: string;
+}
+
+const { name, description, type, author, source, tags = [], repo } = Astro.props;
+
+const typeLabels: Record<string, string> = {
+  skill: 'SKILL',
+  mcp: 'MCP',
+  subagent: 'SUBAGENT',
+  plugin: 'PLUGIN',
+};
+---
+
+<a
+  href={repo || '#'}
+  target={repo ? '_blank' : undefined}
+  rel={repo ? 'noopener' : undefined}
+  class="block p-5 bg-gray-50 shadow-[var(--ring)] rounded-md group transition-all duration-200 hover:bg-gray-100 hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgba(245,158,11,0.15),0_4px_16px_rgba(245,158,11,0.08)]"
+  data-type={type}
+>
+  <div class="flex items-center gap-3 mb-3">
+    <span class="font-mono text-[10px] font-medium tracking-[0.1em] uppercase text-amber bg-[var(--amber-dim)] px-2 py-0.5 rounded-tight">
+      {typeLabels[type]}
+    </span>
+    {source === 'channel47' && (
+      <span class="font-mono text-[10px] font-medium tracking-[0.1em] uppercase text-amber">
+        BY CH47
+      </span>
+    )}
+    {source === 'curated' && (
+      <span class="font-mono text-[10px] tracking-[0.1em] uppercase text-gray-500 border border-gray-300 px-1.5 py-0.5 rounded-tight">
+        CURATED
+      </span>
+    )}
+  </div>
+  <h3 class="font-mono text-sm text-primary mb-1 group-hover:text-amber transition-colors duration-100">{name}</h3>
+  <p class="font-mono text-sm text-gray-600 leading-relaxed tracking-wide line-clamp-2 mb-3">{description}</p>
+  {tags.length > 0 && (
+    <div class="flex items-center gap-2 flex-wrap">
+      {tags.slice(0, 3).map((tag) => (
+        <span class="font-mono text-[10px] text-gray-500">{tag}</span>
+      ))}
+    </div>
+  )}
+</a>
