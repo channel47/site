@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://channel47.dev',
@@ -14,5 +15,8 @@ export default defineConfig({
   }),
   integrations: [sitemap({
     filter: (page) => !page.includes('/plugins') && !page.includes('/ecosystem')
-  })]
+  })],
+  vite: {
+    plugins: [tailwindcss()]
+  }
 });

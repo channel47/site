@@ -14,8 +14,10 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.6.1",
     "@astrojs/vercel": "^9.0.3",
+    "@tailwindcss/vite": "^4.2.1",
     "@vercel/analytics": "^1.6.1",
-    "astro": "^5.16.9"
+    "astro": "^5.16.9",
+    "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
     "typescript": "^5.7.2"
