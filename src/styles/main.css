@@ -32,7 +32,7 @@
 
   /* ── Font Families ── */
   --font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --font-family-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-family-heading: 'Space Grotesk', system-ui, sans-serif;
   --font-family-editorial: 'Source Serif 4', Georgia, serif;
 
   /* ── Radius ── */
@@ -117,7 +117,8 @@
     @apply max-w-[65ch] text-gray-700 leading-[1.75];
   }
   .prose h1, .prose h2, .prose h3 {
-    @apply font-display font-semibold text-primary tracking-tight;
+    font-family: var(--font-family-heading);
+    @apply font-semibold text-primary tracking-tight;
   }
   .prose h1 { @apply text-3xl mt-12 mb-4; }
   .prose h2 { @apply text-2xl mt-10 mb-3; }
