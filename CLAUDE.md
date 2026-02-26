@@ -23,39 +23,44 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Pages
 
-- `/` — Landing page
+- `/` — Homepage / tool registry with filter tabs
 - `/notes` — Build Notes hub (content collection index)
 - `/notes/[slug]` — Individual note articles (dynamic route from `src/content/notes/`)
-- `/ecosystem` — Plugin ecosystem browser, install instructions, free assets
 - `/labs` — Skills Labs landing page (monthly live builds → Skool community)
-- `/build` — Skill builder funnel (uses `FormPageLayout`)
-- `/hire` — Consulting intake form (uses `FormPageLayout`)
 - `/subscribe` — Email signup standalone page
 - `/api/subscribe` — POST, proxies to Kit API. Accepts optional `fields` object for custom Kit fields.
+- `/ecosystem`, `/tools`, `/build`, `/hire` — 301 redirects to `/`
 
 ## Key Files
 
 ```
 src/
 ├── layouts/
-│   ├── BaseLayout.astro          # Default layout (nav + footer)
-│   └── FormPageLayout.astro      # Form pages (logo only, no nav/footer)
+│   └── BaseLayout.astro          # Default layout (meta, fonts, scroll reveal)
 ├── pages/
-│   ├── index.astro               # Homepage
-│   ├── build.astro               # Skill builder funnel
-│   ├── hire.astro                # Consulting intake
+│   ├── index.astro               # Homepage — tool registry with filter tabs
+│   ├── labs.astro                 # Skills Labs
 │   ├── subscribe.astro           # Email signup
+│   ├── notes/index.astro         # Build Notes hub
+│   ├── notes/[...slug].astro     # Article page
 │   └── api/subscribe.ts          # Kit API proxy (serverless)
 ├── styles/
-│   ├── design-tokens.css         # CSS custom properties
-│   ├── global.css                # Base/utility styles
-│   ├── sections.css              # Shared section styles (hero, stats, rupture)
-│   └── form-page.css             # Form page design system (fp- prefix)
-├── components/                   # Astro components
-├── scripts/                      # Vanilla JS (page-motion, etc.)
-└── content/
-    ├── notes/                    # Published web notes (markdown + frontmatter, `notes` collection)
-    └── newsletters/              # Newsletter drafts (markdown + frontmatter)
+│   └── main.css                  # Single CSS entry — Tailwind v4 @theme tokens,
+│                                 #   @layer components, keyframes, scroll reveal
+├── components/
+│   ├── Nav.astro                 # Fixed glass nav bar
+│   ├── Footer.astro              # Site footer
+│   ├── EmailSignup.astro         # Email capture form (JS state handling)
+│   ├── ContentCard.astro         # Note card for grid
+│   ├── ToolCard.astro            # Tool card for registry
+│   ├── ui/button.tsx             # shadcn/ui Button (React)
+│   └── ui/input.tsx              # shadcn/ui Input (React)
+├── content/
+│   ├── notes/                    # Published web notes (markdown, `notes` collection)
+│   ├── tools/                    # Tool registry entries (YAML, `tools` collection)
+│   └── newsletters/              # Newsletter drafts (markdown)
+└── scripts/
+    └── page-motion.js            # IntersectionObserver scroll reveal
 ```
 
 ## Subscribe API
@@ -66,15 +71,15 @@ src/
 - `tag` (optional) — applies a Kit tag prefixed `ch47-` (e.g., `"home"` → `ch47-home`)
 - `fields` (optional) — custom Kit fields. Allowed keys: `name`, `scope`, `brief`, `budget`, `build_role`, `build_task`, `build_tool`
 
-Pages use these tags: `home` (homepage signup), `hire` (/hire form), `build` (/build funnel), `labs` (/labs signup).
-
 ## CSS
 
-Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `global.css` for base/utilities, component `<style>` blocks are Astro-scoped. Body text is JetBrains Mono (mono-first is intentional). Single accent: amber `#F59E0B`.
+Tailwind CSS v4 via `@tailwindcss/vite`. Single entry point: `src/styles/main.css`.
 
-## Form Page Design System
-
-`FormPageLayout.astro` wraps form-focused pages (no nav, no footer, logo top-left). Shared styles in `form-page.css` use `fp-` prefix (e.g., `fp-step`, `fp-heading`, `fp-btn--primary`). Page-specific styles stay scoped with BEM prefix (e.g., `build__skills`, `hire__form`).
+- `@theme` block defines the design token system: warm gray scale, amber accent, font families, radius, animations
+- `@layer components` for shared patterns: `.label`, `.wrap`, `.prose`, `.hero`, `.stats`, `.cta`, `.accent-bar`
+- Scoped `<style>` blocks for component-specific CSS (animation triggers, JS state classes, `:global()` overrides)
+- Body text is JetBrains Mono (mono-first is intentional). Single accent: amber `#F59E0B`
+- shadcn/ui semantic tokens (`background`, `foreground`, `ring`, etc.) defined in `@theme` for React component compatibility
 
 ## Scroll Reveals (two layers)
 
@@ -86,10 +91,10 @@ Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `
 - Guard double-init with `data-initialized` attribute
 - State classes: `.is-visible`, `.is-loading`, `.is-success`, `.is-error`, `.is-server-error`
 - Prefer `[data-*]` attributes over classes for JS targeting
-- Vanilla JS only — no client frameworks
+- Vanilla JS for Astro components, React for shadcn/ui components
 
 ## Gotchas
 
 - **`:global()` required** for cross-component ancestor selectors in scoped styles
-- **`/build` and `/hire`** use `FormPageLayout` (logo, no nav, no footer)
 - **Newsletter content** lives in `src/content/newsletters/` as markdown with frontmatter (`title`, `date`, `status`, `kit_broadcast_id`)
+- **Gray scale is inverted** — `gray-0` is black, `gray-700` is near-white. Dark-first design.

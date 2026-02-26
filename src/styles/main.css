@@ -29,6 +29,20 @@
   /* ── Status ── */
   --color-success: #22c55e;
   --color-error: #ef4444;
+  --color-destructive: #ef4444;
+
+  /* ── shadcn semantic tokens ── */
+  --color-background: #000000;
+  --color-foreground: #e7e5e4;
+  --color-primary-foreground: #0a0a0a;
+  --color-secondary: #292929;
+  --color-secondary-foreground: #e7e5e4;
+  --color-accent: #1f1f1f;
+  --color-accent-foreground: #e7e5e4;
+  --color-muted-foreground: #8a857e;
+  --color-border: #292929;
+  --color-input: #292929;
+  --color-ring: #f59e0b;
 
   /* ── Font Families ── */
   --font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
