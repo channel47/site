@@ -402,8 +402,9 @@
   transform: translateY(0);
 }
 
-/* Hero doesn't slide — it fades */
+/* Hero is visible by default — above the fold, never hidden */
 [data-section="hero"] {
+  opacity: 1;
   transform: none;
 }
 
