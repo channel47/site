@@ -24,6 +24,8 @@ const tools = defineCollection({
     install: z.string().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    compatibleWith: z.array(z.string()).default([]),
+    relatedTools: z.array(z.string()).default([]),
   }),
 });
 

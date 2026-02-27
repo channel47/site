@@ -40,6 +40,12 @@ test('coming-soon page exists with email signup', async () => {
   assert.match(source, /EmailSignup/);
 });
 
+test('tools schema supports compatibleWith and relatedTools fields', async () => {
+  const source = await readFile(resolve(__dirname, '../src/content/config.ts'), 'utf8');
+  assert.match(source, /compatibleWith/);
+  assert.match(source, /relatedTools/);
+});
+
 test('homepage has hero with email signup, search input, and tool list', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
 
