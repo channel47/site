@@ -1,101 +1,27 @@
 ---
 /**
- * Footer — shared site footer.
- * Two rows: page links top, attribution + socials bottom.
- * CH47 mark has a hover scramble animation.
+ * Footer — minimal site footer.
+ * Links row + attribution.
  */
-import SocialLinks from './SocialLinks.astro';
 const { class: className, ...props } = Astro.props;
 ---
 
 <footer class:list={["border-t border-gray-200 px-[clamp(24px,5vw,64px)]", className]} {...props}>
-  <div class="font-mono text-xs text-gray-500">
+  <div class="max-w-[1060px] mx-auto font-mono text-xs text-gray-500">
     <nav class="flex items-center gap-3 py-5 border-b border-gray-200 flex-wrap" aria-label="Site links">
       <a href="/notes" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Notes</a>
       <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
       <a href="/labs" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Labs</a>
       <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
       <a href="/subscribe" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Subscribe</a>
+      <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
+      <a href="/privacy" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Privacy</a>
     </nav>
-    <div class="flex items-center justify-between gap-4 py-5 max-sm:flex-col max-sm:items-start max-sm:gap-3">
-      <div class="flex items-center gap-4">
-        <span class="footer__mark font-semibold text-gray-400 tracking-widest cursor-default hover:text-amber transition-colors duration-100" data-footer-scramble>CH47</span>
-        <span>
-          Built by
-          <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="text-gray-500 hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">@ctrlswing</a>.
-          2026.
-        </span>
-      </div>
-      <nav aria-label="Social links">
-        <SocialLinks />
-      </nav>
+    <div class="py-5">
+      <span>
+        Built by
+        <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="text-gray-500 hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">ctrlswing</a>
+      </span>
     </div>
   </div>
 </footer>
-
-<script>
-  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789▓▒░█▀▄';
-  const TARGET = 'CH47';
-
-  function scrambleMark(mark: HTMLElement) {
-    const locked: boolean[] = new Array(TARGET.length).fill(false);
-    let frame: number;
-
-    // Scramble unlocked characters
-    function tick() {
-      let text = '';
-      for (let i = 0; i < TARGET.length; i++) {
-        text += locked[i] ? TARGET[i] : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-      }
-      mark.textContent = text;
-      if (!locked.every(Boolean)) frame = requestAnimationFrame(tick);
-    }
-
-    frame = requestAnimationFrame(tick);
-    mark.classList.add('is-scrambling');
-
-    // Lock each character with staggered timing
-    const indices = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
-    indices.forEach((charIdx, order) => {
-      setTimeout(() => {
-        locked[charIdx] = true;
-        if (locked.every(Boolean)) {
-          cancelAnimationFrame(frame);
-          mark.textContent = TARGET;
-          mark.classList.remove('is-scrambling');
-        }
-      }, 120 + order * 100);
-    });
-  }
-
-  function initFooterScramble() {
-    const mark = document.querySelector('[data-footer-scramble]') as HTMLElement;
-    if (!mark || mark.hasAttribute('data-initialized')) return;
-    mark.setAttribute('data-initialized', 'true');
-
-    let cooldown = false;
-    mark.addEventListener('mouseenter', () => {
-      if (cooldown) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      cooldown = true;
-      scrambleMark(mark);
-      setTimeout(() => { cooldown = false; }, 800);
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initFooterScramble);
-  } else {
-    initFooterScramble();
-  }
-
-  document.addEventListener('astro:page-load', initFooterScramble);
-</script>
-
-<style>
-  /* Only keep styles needed for JS-driven states */
-  .footer__mark:global(.is-scrambling) {
-    color: #f59e0b;
-    text-shadow: 0 0 6px rgba(245, 158, 11, 0.25);
-  }
-</style>
