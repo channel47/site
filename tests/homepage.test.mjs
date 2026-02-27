@@ -94,3 +94,23 @@ test('detail page routes exist for skills, mcps, and plugins', async () => {
   assert.match(pluginPage, /getStaticPaths/);
   assert.match(pluginPage, /plugin/);
 });
+
+test('hub pages exist for skills, mcps, and plugins', async () => {
+  const skillsHub = await readFile(resolve(__dirname, '../src/pages/skills/index.astro'), 'utf8');
+  const mcpsHub = await readFile(resolve(__dirname, '../src/pages/mcps/index.astro'), 'utf8');
+  const pluginsHub = await readFile(resolve(__dirname, '../src/pages/plugins/index.astro'), 'utf8');
+
+  assert.match(skillsHub, /Marketing skills for agents/);
+  assert.match(mcpsHub, /MCP servers for marketing workflows/);
+  assert.match(pluginsHub, /Claude Code plugins for marketers/);
+
+  // All should have Breadcrumbs
+  assert.match(skillsHub, /Breadcrumbs/);
+  assert.match(mcpsHub, /Breadcrumbs/);
+  assert.match(pluginsHub, /Breadcrumbs/);
+
+  // None should have EmailSignup (pure utility pages)
+  assert.doesNotMatch(skillsHub, /EmailSignup/);
+  assert.doesNotMatch(mcpsHub, /EmailSignup/);
+  assert.doesNotMatch(pluginsHub, /EmailSignup/);
+});
