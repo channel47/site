@@ -25,12 +25,15 @@ test('Footer has Notes, Labs, Subscribe, Privacy links and ctrlswing attribution
   assert.doesNotMatch(source, /SocialLinks/);
 });
 
-test('ToolCard renders as full-width row with search data attributes', async () => {
+test('ToolCard accepts href prop and has search data attributes', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/ToolCard.astro'), 'utf8');
   assert.doesNotMatch(source, /grid-cols/);
   assert.match(source, /data-type/);
   assert.match(source, /data-name/);
   assert.match(source, /data-description/);
+  assert.match(source, /href/);
+  // No longer derives href from repo
+  assert.doesNotMatch(source, /coming-soon/);
 });
 
 test('PaidBriefsCard exists with correct structure', async () => {

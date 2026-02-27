@@ -3,10 +3,10 @@ interface Props {
   name: string;
   description: string;
   type: 'skill' | 'mcp' | 'subagent' | 'plugin';
-  repo?: string;
+  href: string;
 }
 
-const { name, description, type, repo } = Astro.props;
+const { name, description, type, href } = Astro.props;
 
 const typeLabels: Record<string, string> = {
   skill: 'SKILL',
@@ -14,16 +14,11 @@ const typeLabels: Record<string, string> = {
   subagent: 'SUBAGENT',
   plugin: 'PLUGIN',
 };
-
-const href = repo || '/coming-soon';
-const isExternal = !!repo;
 ---
 
 <a
   href={href}
-  target={isExternal ? '_blank' : undefined}
-  rel={isExternal ? 'noopener' : undefined}
-  class="tool-card block py-4 border-b border-gray-200 cursor-pointer transition-colors duration-100 hover:bg-gray-50/50"
+  class="tool-card block py-4 border-b border-gray-200 cursor-pointer transition-colors duration-100 hover:bg-gray-100"
   data-type={type}
   data-name={name.toLowerCase()}
   data-description={description.toLowerCase()}
