@@ -6,18 +6,23 @@ import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-test('Nav contains only logo link, no other nav links', async () => {
+test('Nav has logo and Subscribe link', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/Nav.astro'), 'utf8');
   assert.match(source, /href="\/"/);
+  assert.match(source, /href="\/subscribe"/);
   assert.doesNotMatch(source, /href="\/notes"/);
   assert.doesNotMatch(source, /href="\/labs"/);
 });
 
-test('Footer has Notes, Labs, Subscribe links', async () => {
+test('Footer has Notes, Labs, Subscribe, Privacy links and ctrlswing attribution', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/Footer.astro'), 'utf8');
   assert.match(source, /href="\/notes"/);
   assert.match(source, /href="\/labs"/);
   assert.match(source, /href="\/subscribe"/);
+  assert.match(source, /href="\/privacy"/);
+  assert.match(source, /ctrlswing/);
+  // No longer imports SocialLinks
+  assert.doesNotMatch(source, /SocialLinks/);
 });
 
 test('ToolCard renders as full-width row with search data attributes', async () => {
