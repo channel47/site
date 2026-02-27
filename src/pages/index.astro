@@ -27,7 +27,7 @@ const typePrefix: Record<string, string> = {
 
 function toolHref(tool: { id: string; data: { type: string } }) {
   if (tool.data.type === 'subagent') return '/coming-soon';
-  const slug = tool.id.split('/').pop();
+  const slug = tool.id.split('/').pop()?.replace(/\.md$/, '');
   return `/${typePrefix[tool.data.type]}/${slug}`;
 }
 

@@ -47,7 +47,7 @@ const mcps = allTools.filter(t => t.data.type === 'mcp');
             name={tool.data.name}
             description={tool.data.description}
             type={tool.data.type}
-            href={`/mcps/${tool.id.split('/').pop()}`}
+            href={`/mcps/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
           />
         ))}
       </div>

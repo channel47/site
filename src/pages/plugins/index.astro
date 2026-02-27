@@ -47,7 +47,7 @@ const plugins = allTools.filter(t => t.data.type === 'plugin');
             name={tool.data.name}
             description={tool.data.description}
             type={tool.data.type}
-            href={`/plugins/${tool.id.split('/').pop()}`}
+            href={`/plugins/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
           />
         ))}
       </div>

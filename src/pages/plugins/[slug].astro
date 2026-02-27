@@ -12,7 +12,7 @@ export async function getStaticPaths() {
   return tools
     .filter(t => t.data.type === 'plugin')
     .map(tool => ({
-      params: { slug: tool.id.split('/').pop() },
+      params: { slug: tool.id.split('/').pop()?.replace(/\.md$/, '') },
       props: { tool },
     }));
 }
@@ -25,7 +25,7 @@ const typePrefix: Record<string, string> = { skill: 'skills', mcp: 'mcps', plugi
 // Resolve related tools
 const allTools = await getCollection('tools');
 const related = relatedTools.length > 0
-  ? allTools.filter(t => relatedTools.includes(t.id.split('/').pop()!))
+  ? allTools.filter(t => relatedTools.includes(t.id.split('/').pop()?.replace(/\.md$/, '')!))
   : allTools.filter(t => t.data.type === type && t.id !== tool.id).slice(0, 3);
 
 const schema = {
@@ -86,7 +86,7 @@ const schema = {
               name={t.data.name}
               description={t.data.description}
               type={t.data.type}
-              href={`/${typePrefix[t.data.type]}/${t.id.split('/').pop()}`}
+              href={`/${typePrefix[t.data.type]}/${t.id.split('/').pop()?.replace(/\.md$/, '')}`}
             />
           ))}
         </div>

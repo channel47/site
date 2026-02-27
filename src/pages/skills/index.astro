@@ -47,7 +47,7 @@ const skills = allTools.filter(t => t.data.type === 'skill');
             name={tool.data.name}
             description={tool.data.description}
             type={tool.data.type}
-            href={`/skills/${tool.id.split('/').pop()}`}
+            href={`/skills/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
           />
         ))}
       </div>
