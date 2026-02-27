@@ -1,9 +1,8 @@
 ---
 /**
- * Homepage — Browsable registry of AI tools.
+ * Homepage — Newsletter landing page with tool list as proof-of-work.
  *
- * Density: MEDIUM (hero + filter) → HIGH (card grid) →
- *          LOW (email rupture) → HIGH (PB callout) → LOW (closing)
+ * Structure: Hero (headline + email) → Search → Tool cards → Footer
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -11,13 +10,13 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 import ToolCard from '../components/ToolCard.astro';
+import PaidBriefsCard from '../components/PaidBriefsCard.astro';
 
 const allTools = await getCollection('tools');
-const featured = allTools.filter(t => t.data.featured);
 const toolCount = allTools.length;
-const skillCount = allTools.filter(t => t.data.type === 'skill').length;
-const mcpCount = allTools.filter(t => t.data.type === 'mcp').length;
-const pluginCount = allTools.filter(t => t.data.type === 'plugin').length;
+
+// Insert Paid Briefs card roughly mid-list
+const midpoint = Math.floor(allTools.length / 2);
 
 const schema = [
   {
@@ -25,7 +24,7 @@ const schema = [
     'name': 'Channel 47',
     'url': 'https://channel47.dev',
     'logo': 'https://channel47.dev/og-image.png',
-    'description': 'Open registry of skills, MCP servers, and plugins for Claude Code.',
+    'description': 'AI tools built from real work. Skills, MCP servers, and plugins for Claude Code.',
     'founder': {
       '@type': 'Person',
       'name': 'Jackson Dean',
@@ -48,138 +47,64 @@ const schema = [
 
 <BaseLayout
   title="Channel 47 — AI Tools Built from Real Work"
-  description="Open registry of skills, MCP servers, and plugins for Claude Code. Browse, install, contribute. Open source."
+  description="New tools and breakdowns every week. Skills, MCP servers, and plugins for Claude Code. Subscribe to Build Notes."
   schema={schema}
 >
   <Nav />
 
   <main id="main-content">
     <!-- ═══════════════════════════════════════════
-         HERO — Compact, not full viewport
+         HERO — Headline + email capture
          ═══════════════════════════════════════════ -->
-    <section class="pt-32 pb-12 px-[clamp(24px,5vw,64px)]" data-section="hero">
+    <section class="pt-32 pb-16 px-[clamp(24px,5vw,64px)]" data-section="hero">
       <div class="max-w-[1060px] mx-auto">
-        <div class="flex items-start gap-6">
-          <div class="w-[3px] h-16 bg-amber rounded-full shrink-0 mt-1" aria-hidden="true"></div>
-          <div>
-            <p class="label mb-3">REGISTRY</p>
-            <h1 class="font-heading text-[clamp(1.75rem,4vw,2.75rem)] font-semibold text-primary tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-heading);">
-              AI tools built from real work.
-            </h1>
-            <p class="font-mono text-sm text-gray-600 leading-relaxed tracking-wide max-w-[520px] mb-4">
-              Skills, MCP servers, and plugins for Claude Code. Open source. Install anything.
-            </p>
-            <p class="font-mono text-[11px] text-gray-500">
-              {toolCount} tools &middot; {mcpCount} MCPs &middot; {pluginCount} plugins &middot; open source
-            </p>
-          </div>
-        </div>
-
-        <!-- Filter tabs -->
-        <div class="flex items-center gap-1 mt-8" id="filter-tabs">
-          <button data-filter="all" class="font-mono text-[13px] text-gray-700 bg-gray-100 px-3.5 py-1.5 rounded-pill border-none cursor-pointer focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">All</button>
-          <button data-filter="skill" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">Skills</button>
-          <button data-filter="mcp" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">MCPs</button>
-          <button data-filter="subagent" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">Subagents</button>
-          <button data-filter="plugin" class="font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0">Plugins</button>
-        </div>
-
-        <div class="border-b border-gray-200 mt-8"></div>
+        <h1 class="font-heading text-[clamp(1.75rem,4vw,2.75rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-heading);">
+          <span class="text-primary">AI tools</span>
+          <span class="text-gray-600"> built from real work.</span>
+        </h1>
+        <p class="font-mono text-sm text-gray-600 leading-relaxed tracking-wide max-w-[520px] mb-8">
+          New tools and breakdowns every week. Subscribe to Build Notes.
+        </p>
+        <EmailSignup placeholder="you@domain.com" tag="home" submitText="Subscribe" />
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════════
-         FEATURED + CARD GRID — High density
+         SEARCH + TOOL LIST — Proof of work
          ═══════════════════════════════════════════ -->
-    <section class="py-8 px-[clamp(24px,5vw,64px)]" data-animate="fade-up">
+    <section class="px-[clamp(24px,5vw,64px)] pb-16" data-animate="fade-up">
       <div class="max-w-[1060px] mx-auto">
-        <!-- Featured strip -->
-        {featured.length > 0 && (
-          <div class="mb-10">
-            <p class="label mb-4">FEATURED</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="featured-grid">
-              {featured.map((tool) => (
-                <ToolCard
-                  name={tool.data.name}
-                  description={tool.data.description}
-                  type={tool.data.type}
-                  author={tool.data.author}
-                  source={tool.data.source}
-                  tags={tool.data.tags}
-                  repo={tool.data.repo}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        <div class="border-t border-gray-200 pt-8 mb-6">
+          <label for="tool-search" class="sr-only">Search tools</label>
+          <input
+            type="text"
+            id="tool-search"
+            placeholder="Search tools..."
+            class="w-full px-4 h-12 font-mono text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-md outline-none transition-[border-color,box-shadow] duration-100 placeholder:text-gray-500 hover:border-gray-400 focus-visible:border-amber focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
 
-        <!-- All tools (excluding featured to avoid duplicates) -->
-        <p class="label mb-4">ALL TOOLS</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="tools-grid">
-          {allTools.filter(t => !t.data.featured).map((tool) => (
-            <ToolCard
-              name={tool.data.name}
-              description={tool.data.description}
-              type={tool.data.type}
-              author={tool.data.author}
-              source={tool.data.source}
-              tags={tool.data.tags}
-              repo={tool.data.repo}
-            />
+        <p class="font-mono text-[11px] text-gray-500 mb-6">{toolCount} tools shipped</p>
+
+        <div id="tool-list">
+          {allTools.map((tool, i) => (
+            <Fragment>
+              {i === midpoint && <PaidBriefsCard />}
+              <ToolCard
+                name={tool.data.name}
+                description={tool.data.description}
+                type={tool.data.type}
+                repo={tool.data.repo}
+              />
+            </Fragment>
           ))}
+          {allTools.length <= midpoint && <PaidBriefsCard />}
         </div>
-      </div>
-    </section>
 
-    <!-- ═══════════════════════════════════════════
-         EMAIL CAPTURE RUPTURE — Light surface
-         ═══════════════════════════════════════════ -->
-    <section class="bg-[#f5f3ef] py-[clamp(80px,12vh,128px)] px-[clamp(24px,5vw,64px)]" data-animate="fade-up">
-      <div class="max-w-[600px] mx-auto">
-        <div class="flex items-start gap-6">
-          <div class="w-[3px] self-stretch bg-amber rounded-full shrink-0" aria-hidden="true"></div>
-          <div>
-            <p class="font-mono text-[11px] font-medium tracking-[0.14em] uppercase text-amber/80 mb-3">SIGNAL</p>
-            <h2 class="font-heading text-[clamp(1.5rem,3vw,2rem)] font-semibold text-[#1a1a1a] tracking-tight leading-[1.15] mb-6" style="font-family: var(--font-family-heading);">
-              New tools drop weekly. Get them first.
-            </h2>
-            <EmailSignup placeholder="you@domain.com" tag="home" submitText="Subscribe" />
-          </div>
-        </div>
+        <p id="no-results" class="font-mono text-sm text-gray-500 py-8 hidden">No tools match your search.</p>
       </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════
-         PAID BRIEFS CALLOUT
-         ═══════════════════════════════════════════ -->
-    <section class="py-12 px-[clamp(24px,5vw,64px)]" data-animate="fade-up">
-      <div class="max-w-[1060px] mx-auto">
-        <a
-          href="https://paidbriefs.com"
-          target="_blank"
-          rel="noopener"
-          class="block p-6 border-2 border-dashed border-[var(--amber-dim)] rounded-md hover:border-amber/30 transition-colors duration-200 group"
-        >
-          <div class="flex items-center gap-3 mb-2">
-            <span class="font-mono text-[10px] font-medium tracking-[0.1em] uppercase text-amber bg-[var(--amber-dim)] px-2 py-0.5 rounded-tight">PRODUCT</span>
-            <span class="font-mono text-[10px] font-medium tracking-[0.1em] uppercase text-amber">BY CH47</span>
-          </div>
-          <p class="font-mono text-sm text-primary group-hover:text-amber transition-colors duration-100">
-            Paid Briefs — AI-powered Google Ads briefs. Coming soon. &rarr;
-          </p>
-        </a>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════
-         CLOSING CTA VOID — Low density
-         ═══════════════════════════════════════════ -->
-    <section class="py-[clamp(80px,12vh,128px)] px-8 text-center" data-animate="fade-up">
-      <p class="label mb-3">ch47</p>
-      <p class="font-mono text-sm text-gray-600 tracking-wide mb-6">Built by practitioners. Open to all.</p>
-      <button type="button" class="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-amber hover:text-amber-bright transition-colors duration-100 bg-transparent border-none cursor-pointer focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        Browse the registry &uarr;
-      </button>
     </section>
 
     <Footer />
@@ -190,63 +115,50 @@ const schema = [
     initPageMotion();
   </script>
 
-  <!-- Filter tab logic -->
+  <!-- Search filter logic -->
   <script>
-    function initFilters() {
-      const tabs = document.querySelectorAll('#filter-tabs button');
-      const grid = document.getElementById('tools-grid');
-      const featuredGrid = document.getElementById('featured-grid');
-      if (!tabs.length || !grid) return;
+    function initSearch() {
+      const input = document.getElementById('tool-search') as HTMLInputElement;
+      const list = document.getElementById('tool-list');
+      const noResults = document.getElementById('no-results');
+      if (!input || !list) return;
 
-      const cards = grid.querySelectorAll('[data-type]');
-      const featuredCards = featuredGrid ? featuredGrid.querySelectorAll('[data-type]') : [];
-      const featuredSection = featuredGrid?.closest('.mb-10') as HTMLElement | null;
+      const cards = list.querySelectorAll('[data-name]');
 
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const filter = tab.getAttribute('data-filter');
+      input.addEventListener('input', () => {
+        const query = input.value.toLowerCase().trim();
+        let visibleCount = 0;
 
-          // Update active tab styles
-          tabs.forEach(t => {
-            t.className = 'font-mono text-[13px] text-gray-500 px-3.5 py-1.5 rounded-pill hover:text-gray-700 hover:bg-gray-100 border-none cursor-pointer transition-colors duration-100';
-          });
-          tab.className = 'font-mono text-[13px] text-gray-700 bg-gray-100 px-3.5 py-1.5 rounded-pill border-none cursor-pointer';
-
-          // Filter main grid cards
-          cards.forEach(card => {
-            if (filter === 'all' || card.getAttribute('data-type') === filter) {
-              (card as HTMLElement).style.display = '';
-            } else {
-              (card as HTMLElement).style.display = 'none';
-            }
-          });
-
-          // Filter featured cards
-          if (featuredSection) {
-            if (filter === 'all') {
-              featuredSection.style.display = '';
-            } else {
-              let anyVisible = false;
-              featuredCards.forEach(card => {
-                if (card.getAttribute('data-type') === filter) {
-                  (card as HTMLElement).style.display = '';
-                  anyVisible = true;
-                } else {
-                  (card as HTMLElement).style.display = 'none';
-                }
-              });
-              featuredSection.style.display = anyVisible ? '' : 'none';
-            }
-          }
+        cards.forEach(card => {
+          const name = card.getAttribute('data-name') || '';
+          const desc = card.getAttribute('data-description') || '';
+          const type = card.getAttribute('data-type') || '';
+          const matches = !query || name.includes(query) || desc.includes(query) || type.includes(query);
+          (card as HTMLElement).style.display = matches ? '' : 'none';
+          if (matches) visibleCount++;
         });
+
+        // Show/hide Paid Briefs card based on search
+        const pbCard = list.querySelector('[data-type="product"]') as HTMLElement;
+        if (pbCard) {
+          const pbName = pbCard.getAttribute('data-name') || '';
+          const pbDesc = pbCard.getAttribute('data-description') || '';
+          const pbMatches = !query || pbName.includes(query) || pbDesc.includes(query) || 'product'.includes(query);
+          pbCard.style.display = pbMatches ? '' : 'none';
+          if (pbMatches) visibleCount++;
+        }
+
+        if (noResults) {
+          noResults.classList.toggle('hidden', visibleCount > 0);
+        }
       });
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initFilters);
+      document.addEventListener('DOMContentLoaded', initSearch);
     } else {
-      initFilters();
+      initSearch();
     }
-    document.addEventListener('astro:page-load', initFilters);
+    document.addEventListener('astro:page-load', initSearch);
   </script>
 </BaseLayout>
