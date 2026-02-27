@@ -10,7 +10,7 @@ Yesterday after a workshop, Chris (a fellow marketer) sat down with me and we re
 
 ## What we started with
 
-The [Ad Creative Variant Generator](https://github.com/channel47/channel47/tree/main/plugins/media-buyer/skills/creative-variants). Feed it a winning ad image, it figures out what's working, generates variations at three divergence levels (subtle, moderate, dramatic). Runs on Google's Gemini image model. I built this a few weeks ago by remixing an image generation skill from OpenAI.
+The [Ad Creative Variant Generator](https://github.com/channel47/plugins/tree/main/plugins/media-buyer/skills/creative-variants). Feed it a winning ad image, it figures out what's working, generates variations at three divergence levels (subtle, moderate, dramatic). Runs on Google's Gemini image model. I built this a few weeks ago by remixing an image generation skill from OpenAI.
 
 Chris wanted to reshape it for native ad platforms. Taboola, Outbrain. With headlines. Running inside Claude Cowork.
 
@@ -36,16 +36,16 @@ Chris isn't a developer. I'm barely one. We just had a clear picture of what we 
 
 ## Try it
 
-The creative variant generator is [open source](https://github.com/channel47/channel47/tree/main/plugins/media-buyer/skills/creative-variants). It lives inside a Claude plugin, and has a few other skills in it too.
+The creative variant generator is [open source](https://github.com/channel47/plugins/tree/main/plugins/media-buyer/skills/creative-variants). It lives inside a Claude plugin, and has a few other skills in it too.
 
 To install, add the Channel 47 marketplace and pick the media-buyer plugin.
 
-**In Cowork:** Type `/plugins` to open the plugin browser. Add `channel47/channel47` as a marketplace, then select media-buyer from the list.
+**In Cowork:** Type `/plugins` to open the plugin browser. Add `channel47/plugins` as a marketplace, then select media-buyer from the list.
 
 **In Claude Code:**
 
 ```
-/plugin marketplace add channel47/channel47
+/plugin marketplace add channel47/plugins
 /plugin install media-buyer@channel47
 ```
 

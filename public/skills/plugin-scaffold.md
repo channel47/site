@@ -42,7 +42,7 @@ profession-name/
     "url": "https://your-site.dev"
   },
   "homepage": "https://channel47.dev/plugins/profession-name",
-  "repository": "https://github.com/channel47/channel47",
+  "repository": "https://github.com/channel47/plugins",
   "keywords": [
     "profession",
     "skill-area-1",
@@ -97,6 +97,6 @@ profession-name/
 
 ## Resources
 
-- [Channel 47 Ecosystem](https://github.com/channel47/channel47) — browse existing plugins
-- [Contributing Guide](https://github.com/channel47/channel47/blob/main/CONTRIBUTING.md) — submit your plugin
+- [Channel 47 Ecosystem](https://github.com/channel47/plugins) — browse existing plugins
+- [Contributing Guide](https://github.com/channel47/plugins/blob/main/CONTRIBUTING.md) — submit your plugin
 - [skill-template.md](/skills/skill-template.md) — starter template for individual skills

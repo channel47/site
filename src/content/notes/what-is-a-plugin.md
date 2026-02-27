@@ -53,11 +53,11 @@ Five skills. Two platforms. One install.
 **In Claude Code:**
 
 ```
-/plugin marketplace add channel47/channel47
+/plugin marketplace add channel47/plugins
 /plugin install media-buyer@channel47
 ```
 
-**In Cowork:** Open the plugin browser with `/plugins`, add `channel47/channel47` as a marketplace, and select media-buyer.
+**In Cowork:** Open the plugin browser with `/plugins`, add `channel47/plugins` as a marketplace, and select media-buyer.
 
 You'll need API keys for the ad platforms you want to connect. The plugin's setup skill walks you through it.
 
@@ -67,7 +67,7 @@ Most people use AI by typing instructions from scratch every time. That works fo
 
 Plugins solve this by packaging expertise into something installable. You don't need to know how to write a skill or configure an MCP server. You install the plugin and start working.
 
-And if you want to go deeper — remix a skill, contribute a new one, build something for your own profession — everything is [open source](https://github.com/channel47/channel47).
+And if you want to go deeper — remix a skill, contribute a new one, build something for your own profession — everything is [open source](https://github.com/channel47/plugins).
 
 The ecosystem grows when practitioners contribute their knowledge. Your expertise could be the next plugin.
 
