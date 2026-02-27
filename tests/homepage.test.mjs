@@ -4,18 +4,14 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
-test('homepage has expected sections and anchor links', async () => {
+test('Nav contains only logo link, no other nav links', async () => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
-  const indexPath = resolve(__dirname, '../src/pages/index.astro');
-  const source = await readFile(indexPath, 'utf8');
+  const navPath = resolve(__dirname, '../src/components/Nav.astro');
+  const source = await readFile(navPath, 'utf8');
 
-  for (const section of ['hero', 'why', 'signup', 'cta']) {
-    assert.match(source, new RegExp(`data-section="${section}"`));
-  }
-
-  for (const section of ['stats', 'features', 'rupture']) {
-    assert.doesNotMatch(source, new RegExp(`data-section="${section}"`));
-  }
-
-  assert.match(source, /id="signup"/);
+  // Logo link should exist
+  assert.match(source, /href="\/"/);
+  // No Notes or Labs links
+  assert.doesNotMatch(source, /href="\/notes"/);
+  assert.doesNotMatch(source, /href="\/labs"/);
 });
