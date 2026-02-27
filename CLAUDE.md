@@ -23,7 +23,8 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Pages
 
-- `/` — Homepage / tool registry with filter tabs
+- `/` — Homepage: newsletter landing page (hero + email signup) with searchable tool list as proof-of-work
+- `/coming-soon` — Shared empty state with email signup for tools not yet public
 - `/notes` — Build Notes hub (content collection index)
 - `/notes/[slug]` — Individual note articles (dynamic route from `src/content/notes/`)
 - `/labs` — Skills Labs landing page (monthly live builds → Skool community)
@@ -38,7 +39,8 @@ src/
 ├── layouts/
 │   └── BaseLayout.astro          # Default layout (meta, fonts, scroll reveal)
 ├── pages/
-│   ├── index.astro               # Homepage — tool registry with filter tabs
+│   ├── index.astro               # Homepage — newsletter landing + searchable tool list
+│   ├── coming-soon.astro         # Shared empty state with email signup
 │   ├── labs.astro                 # Skills Labs
 │   ├── subscribe.astro           # Email signup
 │   ├── notes/index.astro         # Build Notes hub
@@ -48,11 +50,12 @@ src/
 │   └── main.css                  # Single CSS entry — Tailwind v4 @theme tokens,
 │                                 #   @layer components, keyframes, scroll reveal
 ├── components/
-│   ├── Nav.astro                 # Fixed glass nav bar
+│   ├── Nav.astro                 # Fixed glass nav bar (logo only)
 │   ├── Footer.astro              # Site footer
 │   ├── EmailSignup.astro         # Email capture form (JS state handling)
 │   ├── ContentCard.astro         # Note card for grid
-│   ├── ToolCard.astro            # Tool card for registry
+│   ├── ToolCard.astro            # Full-width tool row with search data attributes
+│   ├── PaidBriefsCard.astro      # Featured product card for Paid Briefs (dashed amber border)
 │   ├── ui/button.tsx             # shadcn/ui Button (React)
 │   └── ui/input.tsx              # shadcn/ui Input (React)
 ├── content/
