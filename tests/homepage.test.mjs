@@ -49,3 +49,12 @@ test('PaidBriefsCard exists with correct structure', async () => {
   assert.match(source, /PRODUCT/);
   assert.match(source, /border-dashed/);
 });
+
+test('coming-soon page exists with email signup', async () => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const pagePath = resolve(__dirname, '../src/pages/coming-soon.astro');
+  const source = await readFile(pagePath, 'utf8');
+
+  assert.match(source, /EmailSignup/);
+  assert.match(source, /coming-soon/i);
+});
