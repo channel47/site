@@ -23,7 +23,14 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Pages
 
-- `/` — Homepage: newsletter landing page (hero + email signup) with searchable tool list as proof-of-work
+- `/` — Homepage: marketing AI directory (hero + newsletter bar + filtered tool list)
+- `/skills/` — Skills hub — filtered listing
+- `/skills/[slug]` — Individual skill detail page
+- `/mcps/` — MCPs hub — filtered listing
+- `/mcps/[slug]` — Individual MCP detail page
+- `/plugins/` — Plugins hub — filtered listing
+- `/plugins/[slug]` — Individual plugin detail page
+- `/privacy` — Privacy policy
 - `/coming-soon` — Shared empty state with email signup for tools not yet public
 - `/notes` — Build Notes hub (content collection index)
 - `/notes/[slug]` — Individual note articles (dynamic route from `src/content/notes/`)
@@ -39,7 +46,14 @@ src/
 ├── layouts/
 │   └── BaseLayout.astro          # Default layout (meta, fonts, scroll reveal)
 ├── pages/
-│   ├── index.astro               # Homepage — newsletter landing + searchable tool list
+│   ├── index.astro               # Marketing AI directory with filter tabs and tool list
+│   ├── skills/index.astro        # Skills hub — filtered listing
+│   ├── skills/[slug].astro       # Skill detail page
+│   ├── mcps/index.astro          # MCPs hub — filtered listing
+│   ├── mcps/[slug].astro         # MCP detail page
+│   ├── plugins/index.astro       # Plugins hub — filtered listing
+│   ├── plugins/[slug].astro      # Plugin detail page
+│   ├── privacy.astro             # Privacy policy
 │   ├── coming-soon.astro         # Shared empty state with email signup
 │   ├── labs.astro                 # Skills Labs
 │   ├── subscribe.astro           # Email signup
@@ -50,11 +64,12 @@ src/
 │   └── main.css                  # Single CSS entry — Tailwind v4 @theme tokens,
 │                                 #   @layer components, keyframes, scroll reveal
 ├── components/
-│   ├── Nav.astro                 # Fixed glass nav bar (logo only)
-│   ├── Footer.astro              # Site footer
+│   ├── Nav.astro                 # Fixed glass nav bar (logo left, Subscribe right)
+│   ├── Footer.astro              # Notes · Labs · Subscribe · Privacy links + ctrlswing attribution
+│   ├── Breadcrumbs.astro         # Breadcrumb navigation for hub and detail pages
 │   ├── EmailSignup.astro         # Email capture form (JS state handling)
 │   ├── ContentCard.astro         # Note card for grid
-│   ├── ToolCard.astro            # Full-width tool row with search data attributes
+│   ├── ToolCard.astro            # Full-width tool row, accepts href prop for detail page links
 │   ├── PaidBriefsCard.astro      # Featured product card for Paid Briefs (dashed amber border)
 │   ├── ui/button.tsx             # shadcn/ui Button (React)
 │   └── ui/input.tsx              # shadcn/ui Input (React)
