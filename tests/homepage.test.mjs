@@ -25,3 +25,17 @@ test('Footer has Notes, Labs, Subscribe links', async () => {
   assert.match(source, /href="\/labs"/);
   assert.match(source, /href="\/subscribe"/);
 });
+
+test('ToolCard renders as full-width row with name, description, and type badge', async () => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const cardPath = resolve(__dirname, '../src/components/ToolCard.astro');
+  const source = await readFile(cardPath, 'utf8');
+
+  // Should NOT have grid card classes
+  assert.doesNotMatch(source, /grid-cols/);
+  // Should have full-width layout indicators
+  assert.match(source, /data-type/);
+  // Should have data attributes for search filtering
+  assert.match(source, /data-name/);
+  assert.match(source, /data-description/);
+});
