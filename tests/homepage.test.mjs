@@ -39,3 +39,13 @@ test('ToolCard renders as full-width row with name, description, and type badge'
   assert.match(source, /data-name/);
   assert.match(source, /data-description/);
 });
+
+test('PaidBriefsCard exists with correct structure', async () => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const cardPath = resolve(__dirname, '../src/components/PaidBriefsCard.astro');
+  const source = await readFile(cardPath, 'utf8');
+
+  assert.match(source, /paidbriefs\.com/);
+  assert.match(source, /PRODUCT/);
+  assert.match(source, /border-dashed/);
+});
