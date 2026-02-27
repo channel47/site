@@ -71,3 +71,10 @@ test('homepage has hero with email signup, search input, and tool list', async (
   // Does NOT have email rupture section (light background)
   assert.doesNotMatch(source, /bg-\[#f5f3ef\]/);
 });
+
+test('Breadcrumbs component exists with correct structure', async () => {
+  const source = await readFile(resolve(__dirname, '../src/components/Breadcrumbs.astro'), 'utf8');
+  assert.match(source, /nav/);
+  assert.match(source, /aria-label="Breadcrumb"/);
+  assert.match(source, /items/);
+});
