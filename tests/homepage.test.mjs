@@ -81,3 +81,16 @@ test('Breadcrumbs component exists with correct structure', async () => {
   assert.match(source, /aria-label="Breadcrumb"/);
   assert.match(source, /items/);
 });
+
+test('detail page routes exist for skills, mcps, and plugins', async () => {
+  const skillPage = await readFile(resolve(__dirname, '../src/pages/skills/[slug].astro'), 'utf8');
+  const mcpPage = await readFile(resolve(__dirname, '../src/pages/mcps/[slug].astro'), 'utf8');
+  const pluginPage = await readFile(resolve(__dirname, '../src/pages/plugins/[slug].astro'), 'utf8');
+
+  assert.match(skillPage, /getStaticPaths/);
+  assert.match(skillPage, /skill/);
+  assert.match(mcpPage, /getStaticPaths/);
+  assert.match(mcpPage, /mcp/);
+  assert.match(pluginPage, /getStaticPaths/);
+  assert.match(pluginPage, /plugin/);
+});
