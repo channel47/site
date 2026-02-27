@@ -54,25 +54,26 @@ test('tools schema supports compatibleWith and relatedTools fields', async () =>
   assert.match(source, /relatedTools/);
 });
 
-test('homepage has hero with email signup, search input, and tool list', async () => {
+test('homepage has directory headline, newsletter bar, filter tabs, and tool list', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
 
   // Has hero section
   assert.match(source, /data-section="hero"/);
-  // Has EmailSignup in hero
+  // Has new headline
+  assert.match(source, /The marketing AI directory/);
+  // Has EmailSignup
   assert.match(source, /EmailSignup/);
+  // Has filter tabs
+  assert.match(source, /id="filter-tabs"/);
   // Has search input
   assert.match(source, /id="tool-search"/);
   // Has tool list section
   assert.match(source, /id="tool-list"/);
   // Has PaidBriefsCard
   assert.match(source, /PaidBriefsCard/);
-  // Does NOT have filter tabs
-  assert.doesNotMatch(source, /id="filter-tabs"/);
-  // Does NOT have featured grid
-  assert.doesNotMatch(source, /id="featured-grid"/);
-  // Does NOT have email rupture section (light background)
-  assert.doesNotMatch(source, /bg-\[#f5f3ef\]/);
+  // Tool links go to detail pages (type prefix in href)
+  assert.match(source, /\/skills\//);
+  assert.match(source, /\/mcps\//);
 });
 
 test('Breadcrumbs component exists with correct structure', async () => {
