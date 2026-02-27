@@ -7,4 +7,6 @@ source: "curated"
 tags: ["payments", "stripe"]
 featured: false
 repo: "https://github.com/stripe/stripe-mcp"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

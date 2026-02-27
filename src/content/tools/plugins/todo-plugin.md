@@ -7,4 +7,6 @@ source: "curated"
 tags: ["tasks", "productivity"]
 featured: false
 repo: "https://github.com/anthropics/claude-code-plugins"
+compatibleWith: ["Claude Code"]
+relatedTools: []
 ---

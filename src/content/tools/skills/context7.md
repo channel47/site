@@ -7,4 +7,7 @@ source: "curated"
 tags: ["documentation", "libraries"]
 featured: false
 repo: "https://github.com/context7/context7"
+install: "npx skills add vercel-labs/skills --skill context7"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

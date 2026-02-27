@@ -7,4 +7,6 @@ source: "curated"
 tags: ["slack", "messaging"]
 featured: false
 repo: "https://github.com/slackapi/slack-mcp"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

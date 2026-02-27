@@ -6,4 +6,6 @@ author: "Jackson Dean"
 source: "channel47"
 tags: ["strategy", "analysis"]
 featured: false
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

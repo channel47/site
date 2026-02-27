@@ -6,4 +6,6 @@ author: "Jackson Dean"
 source: "channel47"
 tags: ["google-ads", "pmax", "analysis"]
 featured: false
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

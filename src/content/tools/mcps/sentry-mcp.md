@@ -7,4 +7,6 @@ source: "curated"
 tags: ["monitoring", "errors"]
 featured: false
 repo: "https://github.com/getsentry/sentry-mcp"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

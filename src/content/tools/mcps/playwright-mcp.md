@@ -7,4 +7,6 @@ source: "curated"
 tags: ["browser", "testing", "automation"]
 featured: false
 repo: "https://github.com/microsoft/playwright-mcp"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

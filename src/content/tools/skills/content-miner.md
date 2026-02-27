@@ -6,4 +6,7 @@ author: "Jackson Dean"
 source: "channel47"
 tags: ["content", "distribution"]
 featured: false
+install: "npx skills add channel47/skills --skill content-miner"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

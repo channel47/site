@@ -7,4 +7,6 @@ source: "curated"
 tags: ["project-management", "issues"]
 featured: false
 repo: "https://github.com/linear/linear-mcp"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

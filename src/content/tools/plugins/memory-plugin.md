@@ -7,4 +7,6 @@ source: "curated"
 tags: ["memory", "persistence"]
 featured: false
 repo: "https://github.com/anthropics/claude-code-plugins"
+compatibleWith: ["Claude Code"]
+relatedTools: []
 ---

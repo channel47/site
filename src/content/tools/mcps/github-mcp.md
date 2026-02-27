@@ -7,4 +7,6 @@ source: "curated"
 tags: ["github", "api", "dev-tools"]
 featured: false
 repo: "https://github.com/github/github-mcp-server"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

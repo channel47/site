@@ -7,4 +7,6 @@ source: "curated"
 tags: ["web-scraping", "skill-gen"]
 featured: false
 repo: "https://github.com/mendableai/firecrawl"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

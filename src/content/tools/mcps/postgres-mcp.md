@@ -7,4 +7,6 @@ source: "curated"
 tags: ["database", "postgres"]
 featured: false
 repo: "https://github.com/supabase-community/postgres-mcp"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

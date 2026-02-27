@@ -7,4 +7,6 @@ source: "curated"
 tags: ["filesystem", "security"]
 featured: false
 repo: "https://github.com/anthropics/anthropic-quickstarts"
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---

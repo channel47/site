@@ -6,4 +6,6 @@ author: "Jackson Dean"
 source: "channel47"
 tags: ["bing-ads", "api", "mcp"]
 featured: false
+compatibleWith: ["Claude Code", "Cursor", "Cline", "Windsurf", "Codex CLI"]
+relatedTools: []
 ---
