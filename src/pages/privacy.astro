@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy — Channel 47"
+  description="How Channel 47 handles your data."
+>
+  <Nav />
+
+  <main id="main-content" class="pt-28 pb-16 px-[clamp(24px,5vw,64px)]">
+    <div class="max-w-[640px] mx-auto prose">
+      <h1 class="font-heading text-xl font-semibold tracking-tight mb-8" style="font-family: var(--font-family-heading);">Privacy Policy</h1>
+
+      <p>Last updated: February 2026</p>
+
+      <h2>What we collect</h2>
+      <p>When you subscribe to our newsletter, we collect your email address. That's it.</p>
+
+      <h2>How we use it</h2>
+      <p>Your email is used to send you Build Notes, our weekly newsletter about new tools and breakdowns. We use Kit (formerly ConvertKit) to manage our mailing list.</p>
+
+      <h2>What we don't do</h2>
+      <ul>
+        <li>We don't sell your email to anyone</li>
+        <li>We don't share your data with third parties (beyond Kit for email delivery)</li>
+        <li>We don't track you across the web</li>
+      </ul>
+
+      <h2>Analytics</h2>
+      <p>We use basic analytics to understand how people use the site. No personal data is collected through analytics.</p>
+
+      <h2>Cookies</h2>
+      <p>This site uses minimal cookies required for basic functionality. No tracking cookies.</p>
+
+      <h2>Your rights</h2>
+      <p>You can unsubscribe from our newsletter at any time using the link in every email. To request deletion of your data, email jackson@channel47.dev.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy? Email jackson@channel47.dev.</p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

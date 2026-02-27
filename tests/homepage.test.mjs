@@ -115,3 +115,9 @@ test('hub pages exist for skills, mcps, and plugins', async () => {
   assert.doesNotMatch(mcpsHub, /EmailSignup/);
   assert.doesNotMatch(pluginsHub, /EmailSignup/);
 });
+
+test('privacy page exists', async () => {
+  const source = await readFile(resolve(__dirname, '../src/pages/privacy.astro'), 'utf8');
+  assert.match(source, /Privacy/i);
+  assert.match(source, /email/i);
+});
