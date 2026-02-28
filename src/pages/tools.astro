@@ -128,14 +128,16 @@ const schema = [
           </p>
           <div id="voice-widget-container">
             <!-- ElevenLabs widget injected here by JS -->
-            <elevenlabs-convai agent-id="placeholder"></elevenlabs-convai>
+            <elevenlabs-convai
+              agent-id={import.meta.env.PUBLIC_ELEVENLABS_AGENT_ID || 'not-configured'}
+            ></elevenlabs-convai>
           </div>
           <p id="voice-status" class="font-mono text-[11px] text-stone"></p>
           <button
             id="skip-voice"
             class="mt-4 font-mono text-[11px] text-stone underline underline-offset-2 hover:text-dust transition-colors hidden"
           >
-            Done talking? Continue -
+            Done talking? Continue ->
           </button>
         </div>
       </div>
@@ -167,6 +169,8 @@ const schema = [
     <Footer />
   </main>
 
+  <script is:inline src="https://unpkg.com/@11labs/convai-widget-embed"></script>
+
   <script>
     function initSkillBuilder() {
       const form = document.getElementById('builder-form') as HTMLFormElement | null;
@@ -180,6 +184,7 @@ const schema = [
       form.setAttribute('data-initialized', 'true');
 
       let formData: { role: string; platform: string; workflow: string } | null = null;
+      const widget = widgetContainer?.querySelector('elevenlabs-convai');
 
       function revealEmailSection() {
         const voiceBox = voiceSection?.querySelector('.border');
@@ -216,18 +221,15 @@ const schema = [
 
         if (widgetContainer) {
           const agentId = widgetContainer.querySelector('elevenlabs-convai')?.getAttribute('agent-id');
-          if (agentId && agentId !== 'placeholder') {
-            const widget = widgetContainer.querySelector('elevenlabs-convai');
-            if (widget) {
-              widget.setAttribute(
-                'dynamic-variables',
-                JSON.stringify({
-                  user_role: formData.role,
-                  user_platform: formData.platform,
-                  user_workflow: formData.workflow,
-                })
-              );
-            }
+          if (agentId && agentId !== 'not-configured' && widget) {
+            widget.setAttribute(
+              'dynamic-variables',
+              JSON.stringify({
+                user_role: formData.role,
+                user_platform: formData.platform,
+                user_workflow: formData.workflow,
+              })
+            );
           }
         }
 
@@ -239,8 +241,21 @@ const schema = [
 
         setTimeout(() => {
           skipButton?.classList.remove('hidden');
-        }, 10000);
+        }, 15000);
       });
+
+      if (widget) {
+        widget.addEventListener('elevenlabs-convai:call-ended', () => {
+          revealEmailSection();
+        });
+
+        widget.addEventListener('elevenlabs-convai:error', () => {
+          if (voiceStatus) {
+            voiceStatus.textContent = 'Something went wrong. You can still continue.';
+          }
+          skipButton?.classList.remove('hidden');
+        });
+      }
 
       skipButton?.addEventListener('click', () => {
         revealEmailSection();
