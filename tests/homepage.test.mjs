@@ -79,10 +79,8 @@ test('tools page is skill builder with form and voice section', async () => {
 
 test('homepage top-level tool links point to /plugins directory', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
-  assert.match(source, /href="\/plugins" class="directory__link">View all<\/a>/);
   assert.match(source, /href="\/plugins" class="rupture__link">Browse all tools<\/a>/);
   assert.match(source, /href="\/plugins" class="cta__headline">Browse the tools\.<\/a>/);
-  assert.doesNotMatch(source, /href="\/tools" class="directory__link">View all<\/a>/);
   assert.doesNotMatch(source, /href="\/tools" class="rupture__link">Browse all tools<\/a>/);
   assert.doesNotMatch(source, /href="\/tools" class="cta__headline">Browse the tools\.<\/a>/);
 });
@@ -111,7 +109,7 @@ test('tools schema supports compatibleWith and relatedTools fields', async () =>
   assert.match(source, /relatedTools/);
 });
 
-test('homepage has hero, proof bar, value grid, directory, rupture, product callout, CTA', async () => {
+test('homepage has hero, proof bar, value grid, rupture, product callout, CTA', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
 
   // Has hero with is-visible
@@ -124,17 +122,12 @@ test('homepage has hero, proof bar, value grid, directory, rupture, product call
   assert.match(source, /proof-bar/);
   // Has value grid
   assert.match(source, /value-grid/);
-  // Has directory section
-  assert.match(source, /directory/);
   // Has rupture
   assert.match(source, /rupture/);
   // Has ProductCallout
   assert.match(source, /ProductCallout/);
   // Has CTA void
   assert.match(source, /class="cta"/);
-  // Tool links go to detail pages via typePrefix mapping
-  assert.match(source, /skill.*skills/);
-  assert.match(source, /mcp.*mcps/);
 });
 
 test('Breadcrumbs component exists with correct structure', async () => {
