@@ -11,15 +11,15 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class="font-mono text-xs text-gray-500 mb-6">
+<nav aria-label="Breadcrumb" class="font-mono text-xs text-stone mb-6">
   <ol class="flex items-center gap-1.5 list-none p-0 m-0">
     {items.map((item, i) => (
       <li class="flex items-center gap-1.5">
-        {i > 0 && <span aria-hidden="true" class="text-gray-400">&gt;</span>}
+        {i > 0 && <span aria-hidden="true" class="text-ash">&gt;</span>}
         {item.href ? (
-          <a href={item.href} class="text-gray-500 hover:text-amber transition-colors duration-100">{item.label}</a>
+          <a href={item.href} class="text-stone hover:text-signal transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">{item.label}</a>
         ) : (
-          <span class="text-gray-400">{item.label}</span>
+          <span class="text-ash">{item.label}</span>
         )}
       </li>
     ))}

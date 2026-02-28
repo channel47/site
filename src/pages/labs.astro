@@ -1,7 +1,11 @@
 ---
 /**
- * /labs — Skills Labs
- * Monthly live build sessions → Skool community signup.
+ * /labs — Skill Remix Lab
+ * Monthly live build sessions in the Vibe Marketers community.
+ *
+ * Density: LOW (hero) → HIGH (stats) → MEDIUM (how it works) →
+ *          RUPTURE (next session) → MEDIUM (past labs) →
+ *          MEDIUM (signup) → LOW (CTA void)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
@@ -17,24 +21,24 @@ const pastLabs = [
 ---
 
 <BaseLayout
-  title="Skills Labs — Channel 47"
-  description="Monthly live build sessions. Watch a skill get built from scratch, ask questions, take it home. Join The Vibe Marketers community."
+  title="Skill Remix Lab — Channel 47"
+  description="Monthly live build sessions. Pick a skill. Break it down. Rebuild it yours. Free inside The Vibe Marketers."
 >
   <Nav />
-  <main id="main-content" class="pg">
+  <main id="main-content">
 
     <!-- HERO (LOW density) -->
     <section class="hero" data-section="hero">
-      <div class="hero__content">
+      <div class="hero__inner">
         <div class="hero__bar" aria-hidden="true"></div>
-        <p class="label">SKILLS LABS</p>
-        <h1 class="hero__headline">Build skills live.<br />Every month.</h1>
+        <p class="label">SKILL REMIX LAB</p>
+        <h1 class="hero__headline">Build with us, live.</h1>
         <p class="hero__sub">
-          One skill, built from scratch in front of you. Ask questions while it
-          happens. Take the finished skill home. Free inside The Vibe Marketers.
+          Monthly live sessions in the Vibe Marketers community. Pick a skill.
+          Break it down. Rebuild it yours.
         </p>
         <a
-          class="labs-cta inline-flex items-center justify-center gap-2 h-11 px-6 font-mono text-[11px] font-semibold tracking-widest uppercase text-gray-0 bg-amber rounded-tight w-fit mt-8 opacity-0 transition-[color,background-color,box-shadow,transform] duration-200 hover:bg-gray-700 hover:text-gray-0 hover:shadow-md hover:-translate-y-px active:translate-y-0 focus-visible:outline-2 focus-visible:outline-gray-700 focus-visible:outline-offset-2"
+          class="labs-cta btn-signal mt-8 opacity-0 self-start"
           href={SKOOL_LINK}
           target="_blank"
           rel="noopener"
@@ -45,72 +49,74 @@ const pastLabs = [
     </section>
 
     <!-- PROOF STRIP (HIGH density) -->
-    <section class="stats" data-section="labs-proof">
-      <div class="stats__item">
-        <span class="stats__value">500+</span>
+    <section class="stats" data-reveal-stagger>
+      <div class="stats__item" data-reveal-child data-stagger="1">
+        <span class="stats__value" data-counter="500">500+</span>
         <span class="stats__label">Registrations</span>
       </div>
       <span class="stats__pipe" aria-hidden="true"></span>
-      <div class="stats__item stats__item--signal">
+      <div class="stats__item stats__item--signal" data-reveal-child data-stagger="2">
         <span class="stats__value">~250</span>
         <span class="stats__label">Live attendees</span>
       </div>
       <span class="stats__pipe" aria-hidden="true"></span>
-      <div class="stats__item">
+      <div class="stats__item" data-reveal-child data-stagger="3">
         <span class="stats__value">Monthly</span>
         <span class="stats__label">Cadence</span>
       </div>
     </section>
 
     <!-- HOW IT WORKS (MEDIUM density) -->
-    <section class="py-[clamp(60px,10vh,100px)] px-[clamp(24px,5vw,64px)]" data-section="labs-how">
-      <div>
+    <section class="py-[clamp(60px,10vh,100px)]" data-reveal-stagger>
+      <div class="wrap">
         <div class="accent-bar" aria-hidden="true"></div>
         <p class="label mt-5 mb-6">HOW IT WORKS</p>
-        <div class="grid gap-4 max-w-[600px]">
-          <div class="flex gap-4 items-baseline">
-            <span class="font-mono text-[11px] text-gray-300 tracking-wide shrink-0">001</span>
-            <p class="font-mono text-sm leading-[1.7] text-gray-700 tracking-wide m-0"><strong class="font-semibold text-primary">Live build</strong> — I pick a real workflow from my day job and build a Claude skill from scratch. You watch the whole process, decisions included.</p>
+        <div class="grid gap-0 max-w-[600px] border-t border-smoke">
+          <div class="flex gap-4 items-baseline py-4 border-b border-smoke" data-reveal-child data-stagger="1">
+            <span class="font-mono text-[11px] text-stone tracking-[0.08em] shrink-0 min-w-[28px]">001</span>
+            <p class="font-mono text-sm leading-[1.7] text-bone tracking-wide m-0"><strong class="font-semibold text-chalk">Live build</strong> — I pick a real workflow from my day job and build a Claude skill from scratch. You watch the whole process, decisions included.</p>
           </div>
-          <div class="flex gap-4 items-baseline">
-            <span class="font-mono text-[11px] text-gray-300 tracking-wide shrink-0">002</span>
-            <p class="font-mono text-sm leading-[1.7] text-gray-700 tracking-wide m-0"><strong class="font-semibold text-primary">Q&A</strong> — Ask anything during the build. How it works, why I made that choice, how to adapt it to your stack.</p>
+          <div class="flex gap-4 items-baseline py-4 border-b border-smoke" data-reveal-child data-stagger="2">
+            <span class="font-mono text-[11px] text-stone tracking-[0.08em] shrink-0 min-w-[28px]">002</span>
+            <p class="font-mono text-sm leading-[1.7] text-bone tracking-wide m-0"><strong class="font-semibold text-chalk">Q&A</strong> — Ask anything during the build. How it works, why I made that choice, how to adapt it to your stack.</p>
           </div>
-          <div class="flex gap-4 items-baseline">
-            <span class="font-mono text-[11px] text-gray-300 tracking-wide shrink-0">003</span>
-            <p class="font-mono text-sm leading-[1.7] text-gray-700 tracking-wide m-0"><strong class="font-semibold text-primary">Take it home</strong> — Every lab ships a finished skill you can install and use immediately. No homework, no fluff.</p>
+          <div class="flex gap-4 items-baseline py-4 border-b border-smoke" data-reveal-child data-stagger="3">
+            <span class="font-mono text-[11px] text-stone tracking-[0.08em] shrink-0 min-w-[28px]">003</span>
+            <p class="font-mono text-sm leading-[1.7] text-bone tracking-wide m-0"><strong class="font-semibold text-chalk">Take it home</strong> — Every lab ships a finished skill you can install and use immediately. No homework, no fluff.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- NEXT SESSION (MEDIUM density) -->
-    <section class="py-[clamp(60px,10vh,100px)] px-[clamp(24px,5vw,64px)] bg-gray-100 border-t border-b border-gray-200" data-section="labs-next">
-      <div>
-        <p class="label mb-2">NEXT LAB</p>
-        <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] text-primary mb-3" style="font-family: var(--font-family-heading);">March 2026</h2>
-        <p class="font-mono text-sm leading-[1.7] text-gray-600 tracking-wide mb-5 max-w-[480px]">
+    <!-- NEXT SESSION (rupture — light surface) -->
+
+    <section class="rupture" data-reveal>
+      <div class="relative pl-8 max-w-[640px] mx-auto">
+        <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
+        <p class="label mb-2" style="color: var(--color-ink); opacity: 0.5;">NEXT LAB</p>
+        <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-display); color: var(--color-ink);">March 2026</h2>
+        <p class="font-mono text-sm leading-[1.7] tracking-wide mb-5 max-w-[480px]" style="color: var(--color-ink); opacity: 0.7;">
           Skill and date announced inside the community. Members get first access.
         </p>
-        <a class="font-mono text-[11px] font-semibold tracking-widest uppercase text-amber hover:text-gray-700 transition-colors duration-100" href={SKOOL_LINK} target="_blank" rel="noopener">
+        <a class="font-mono text-[11px] font-semibold tracking-widest uppercase text-signal hover:text-[#D97706] transition-colors duration-100" href={SKOOL_LINK} target="_blank" rel="noopener">
           Join The Vibe Marketers &rarr;
         </a>
       </div>
     </section>
 
     <!-- PAST LABS (MEDIUM density) -->
-    <section class="py-[clamp(60px,10vh,100px)] px-[clamp(24px,5vw,64px)]" data-section="labs-past">
-      <div>
+    <section class="py-[clamp(60px,10vh,100px)]" data-reveal-stagger>
+      <div class="wrap">
         <p class="label mb-6">PAST LABS</p>
         <div class="max-w-[600px]">
-          {pastLabs.map((lab) => (
-            <div class="flex items-baseline gap-4 py-3 border-b border-gray-200 first:border-t max-sm:flex-wrap max-sm:gap-y-1">
-              <span class="font-mono text-[11px] text-gray-300 tracking-wide shrink-0">{lab.idx}</span>
+          {pastLabs.map((lab, i) => (
+            <div class="directory-row max-sm:flex-wrap max-sm:gap-y-1" data-reveal-child data-stagger={String(i + 1)}>
+              <span class="directory-row__idx">{lab.idx}</span>
               <div class="flex flex-col gap-0.5 flex-1 min-w-0">
-                <span class="font-mono text-sm font-semibold text-primary tracking-wide">{lab.name}</span>
-                <span class="font-mono text-xs text-gray-500 tracking-wide">{lab.topic}</span>
+                <span class="font-mono text-sm font-semibold text-chalk tracking-wide">{lab.name}</span>
+                <span class="font-mono text-xs text-stone tracking-wide">{lab.topic}</span>
               </div>
-              <span class="font-mono text-[11px] text-gray-500 tracking-wide shrink-0 uppercase">{lab.date}</span>
+              <span class="font-mono text-[11px] text-stone tracking-wide shrink-0 uppercase">{lab.date}</span>
             </div>
           ))}
         </div>
@@ -118,58 +124,32 @@ const pastLabs = [
     </section>
 
     <!-- SIGNUP (MEDIUM density) -->
-    <section class="py-[clamp(80px,12vh,120px)] px-[clamp(24px,5vw,64px)]" data-section="labs-signup">
-      <div>
+    <section class="py-[clamp(80px,12vh,120px)]" data-reveal>
+      <div class="wrap">
         <p class="label mb-2">GET NOTIFIED</p>
-        <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] text-primary mb-5" style="font-family: var(--font-family-heading);">Lab announcements, straight to your inbox.</h2>
-        <p class="font-mono text-[11px] tracking-wide text-gray-500 uppercase mb-4">No spam. Unsubscribe anytime.</p>
+        <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-5" style="font-family: var(--font-family-display);">Lab announcements, straight to your inbox.</h2>
         <EmailSignup placeholder="you@domain.com" tag="labs" submitText="Notify me" />
       </div>
     </section>
 
-    <!-- HIRE FALLBACK (LOW density) -->
-    <section class="py-[clamp(60px,10vh,100px)] px-[clamp(24px,5vw,64px)] border-t border-gray-200" data-section="labs-hire">
-      <div>
-        <p class="label mb-2">NEED IT BUILT?</p>
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] text-primary mb-4" style="font-family: var(--font-family-heading);">Ask in the community.</h2>
-        <a class="font-mono text-[11px] font-semibold tracking-widest uppercase text-amber hover:text-gray-700 transition-colors duration-100" href={SKOOL_LINK} target="_blank" rel="noopener">The Vibe Marketers &rarr;</a>
-      </div>
-    </section>
-
     <!-- CTA VOID (LOW density) -->
-    <section class="cta" data-section="labs-cta">
-      <p class="label">TRANSMITTING</p>
-      <a class="labs-cta-action" href={SKOOL_LINK} target="_blank" rel="noopener" style="font-family: var(--font-family-heading); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 500; color: var(--color-primary); position: relative; display: inline-block; margin-bottom: 40px; transition: color 150ms var(--ease-signature);">Join the next lab</a>
+    <section class="cta" data-reveal>
+      <p class="label">CH47</p>
+      <a class="cta__headline" href="/">Browse the directory</a>
+      <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
     </section>
 
     <Footer />
   </main>
-
-  <script>
-    import { initPageMotion } from '../scripts/page-motion';
-    initPageMotion();
-  </script>
 </BaseLayout>
 
 <style>
   /* Hero CTA animation trigger */
   [data-section="hero"].is-visible .labs-cta {
-    animation: fadeUp 400ms var(--ease-signature) 900ms forwards;
+    animation: fade-up 400ms var(--ease-out) 900ms forwards;
   }
 
-  /* CTA action underline */
-  .labs-cta-action::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 2px;
-    background: var(--color-amber);
-    transform-origin: left;
-    transition: transform 250ms var(--ease-signature);
+  @media (prefers-reduced-motion: reduce) {
+    .labs-cta { opacity: 1 !important; }
   }
-  .labs-cta-action:hover { color: var(--color-amber); }
-  .labs-cta-action:hover::after { transform: scaleX(0); transform-origin: right; }
-  .labs-cta-action:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 4px; }
 </style>

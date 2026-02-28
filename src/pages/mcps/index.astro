@@ -1,4 +1,8 @@
 ---
+/**
+ * MCPs Hub — filtered listing of MCP servers.
+ * Density: LOW (hero) → HIGH (directory) → LOW (CTA void)
+ */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
@@ -8,88 +12,88 @@ import ToolCard from '../../components/ToolCard.astro';
 
 const allTools = await getCollection('tools');
 const mcps = allTools.filter(t => t.data.type === 'mcp');
+
+const schema = {
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
+    { '@type': 'ListItem', 'position': 2, 'name': 'MCPs' },
+  ],
+};
 ---
 
 <BaseLayout
-  title="MCP Servers for Marketing Workflows — Channel 47"
-  description="MCP servers for marketing workflows. Connect Claude Code, Cursor, and other agents to marketing APIs."
+  title="MCP Servers — Channel 47"
+  description="API access for marketing platforms. Connect Claude to Google Ads, Bing Ads, and more. Real API calls, real data, real accounts."
+  schema={schema}
 >
   <Nav />
 
-  <main id="main-content" class="pt-24 pb-12 px-[clamp(24px,5vw,64px)]">
-    <div class="max-w-[1060px] mx-auto">
-      <Breadcrumbs items={[
-        { label: 'Home', href: '/' },
-        { label: 'MCPs' },
-      ]} />
+  <main id="main-content">
 
-      <h1 class="font-heading text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-6" style="font-family: var(--font-family-heading);">
-        MCP servers for marketing workflows.
-      </h1>
-
-      <div class="mb-5">
-        <label for="mcp-search" class="sr-only">Search MCPs</label>
-        <input
-          type="text"
-          id="mcp-search"
-          placeholder="Search MCPs..."
-          class="w-full px-4 h-12 font-mono text-sm text-gray-700 bg-gray-100/80 border border-gray-300 rounded-tight outline-none transition-[border-color,box-shadow] duration-100 placeholder:text-gray-500 hover:border-gray-400 focus-visible:border-amber focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]"
-          autocomplete="off"
-          spellcheck="false"
-        />
+    <section class="pt-28 pb-0" data-section="hero">
+      <div class="wrap">
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'MCPs' },
+        ]} />
+        <div class="accent-bar mt-4" aria-hidden="true"></div>
+        <p class="label mt-5 mb-4">MCP SERVERS</p>
+        <h1 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-3" style="font-family: var(--font-family-display);">
+          API access for marketing platforms.
+        </h1>
+        <p class="font-mono text-sm text-dust tracking-wide mb-2">Connect Claude to Google Ads, Bing Ads, and more. Real API calls, real data, real accounts.</p>
+        <p class="font-mono text-[11px] text-stone mt-6 mb-0"><span id="visible-count">{mcps.length}</span> MCP servers</p>
       </div>
+    </section>
 
-      <p class="font-mono text-[11px] text-gray-500 mb-6">{mcps.length} MCPs</p>
-
-      <div id="hub-list">
-        {mcps.map(tool => (
-          <ToolCard
-            name={tool.data.name}
-            description={tool.data.description}
-            type={tool.data.type}
-            href={`/mcps/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
+    <section class="py-8" data-section="mcps-directory">
+      <div class="wrap">
+        <div class="mb-5">
+          <label for="mcp-search" class="sr-only">Search MCPs</label>
+          <input
+            type="text"
+            id="mcp-search"
+            placeholder="Search MCPs..."
+            class="w-full px-4 h-10 font-mono text-sm text-bone bg-soot/80 border border-smoke rounded-tight outline-none transition-[border-color,box-shadow] duration-100 placeholder:text-stone hover:border-ash focus-visible:border-signal focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]"
+            autocomplete="off"
+            spellcheck="false"
+            data-hub-search
           />
-        ))}
-      </div>
+        </div>
 
-      <p id="no-results" class="font-mono text-sm text-gray-500 py-8 hidden">No MCPs match your search.</p>
-    </div>
+        <div id="hub-list">
+          {mcps.map((tool, i) => (
+            <ToolCard
+              name={tool.data.name}
+              description={tool.data.description}
+              type={tool.data.type}
+              href={`/mcps/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
+              index={i + 1}
+            />
+          ))}
+        </div>
+
+        <p id="no-results" class="font-mono text-sm text-stone py-8 hidden">No MCPs match your search.</p>
+      </div>
+    </section>
+
+    <section class="cta" data-section="mcps-cta">
+      <p class="label">CH47</p>
+      <a class="cta__headline" href="/">Browse the full directory</a>
+      <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
+    </section>
+
+    <Footer />
   </main>
 
-  <Footer />
-
   <script>
-    function initHubSearch() {
-      const input = document.querySelector('[id$="-search"]') as HTMLInputElement;
-      const list = document.getElementById('hub-list');
-      const noResults = document.getElementById('no-results');
-      if (!input || !list) return;
+    import { initHubSearch } from '../../scripts/hub-search';
 
-      const cards = list.querySelectorAll('[data-name]');
-
-      input.addEventListener('input', () => {
-        const query = input.value.toLowerCase().trim();
-        let visibleCount = 0;
-
-        cards.forEach(card => {
-          const name = card.getAttribute('data-name') || '';
-          const desc = card.getAttribute('data-description') || '';
-          const matches = !query || name.includes(query) || desc.includes(query);
-          (card as HTMLElement).style.display = matches ? '' : 'none';
-          if (matches) visibleCount++;
-        });
-
-        if (noResults) {
-          noResults.classList.toggle('hidden', visibleCount > 0);
-        }
-      });
-    }
-
+    function init() { initHubSearch(); }
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initHubSearch);
-    } else {
-      initHubSearch();
-    }
-    document.addEventListener('astro:page-load', initHubSearch);
+      document.addEventListener('DOMContentLoaded', init);
+    } else { init(); }
+    document.addEventListener('astro:page-load', init);
   </script>
 </BaseLayout>

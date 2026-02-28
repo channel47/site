@@ -1,0 +1,139 @@
+---
+/**
+ * ToolDetail — shared layout for tool detail pages.
+ * Hero (breadcrumbs + accent bar + label + name + description) →
+ * install block (copy-to-clipboard) → metadata → related tools →
+ * signup rupture (light surface) → CTA void.
+ */
+import Breadcrumbs from './Breadcrumbs.astro';
+import ToolCard from './ToolCard.astro';
+import EmailSignup from './EmailSignup.astro';
+
+interface Props {
+  tool: any;
+  hubLabel: string;
+  hubHref: string;
+  typeLabel: string;
+  related: any[];
+}
+
+const { tool, hubLabel, hubHref, typeLabel, related } = Astro.props;
+const { name, description, install, compatibleWith, tags, author, source } = tool.data;
+
+const typePrefix: Record<string, string> = { skill: 'skills', mcp: 'mcps', plugin: 'plugins', subagent: 'coming-soon' };
+---
+
+<!-- HERO -->
+<section class="pt-28 pb-8" data-section="hero">
+  <div class="wrap">
+    <Breadcrumbs items={[
+      { label: 'Home', href: '/' },
+      { label: hubLabel, href: hubHref },
+      { label: name },
+    ]} />
+    <div class="accent-bar mt-4" aria-hidden="true"></div>
+    <p class="label mt-5 mb-4">{typeLabel}</p>
+    <h1 class="text-[clamp(1.5rem,3.5vw,2.25rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-3" style="font-family: var(--font-family-display);">{name}</h1>
+    <p class="font-mono text-sm text-dust leading-relaxed tracking-wide max-w-[640px]">{description}</p>
+  </div>
+</section>
+
+<!-- INSTALL + META -->
+<section class="pb-8" data-section="tool-content">
+  <div class="wrap">
+    {install && (
+      <div class="mb-8">
+        <div class="install-block relative font-mono text-sm text-dust bg-soot border border-smoke rounded-tight px-4 py-3 overflow-x-auto">
+          <code>{install}</code>
+          <button
+            class="install-copy absolute top-2 right-2 font-mono text-[10px] uppercase tracking-[0.1em] text-stone hover:text-signal bg-void border border-smoke rounded-tight px-2 py-1 cursor-pointer transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:outline-none"
+            data-install={install}
+            aria-label="Copy install command"
+          >Copy</button>
+        </div>
+      </div>
+    )}
+
+    <div class="font-mono text-xs text-stone space-y-1.5 mb-8">
+      <p>By {author} <span class="inline-block w-px h-2.5 bg-ash mx-2 align-middle" aria-hidden="true"></span> Source: {source}</p>
+      {tags.length > 0 && <p>Tags: {tags.join(', ')}</p>}
+      {compatibleWith.length > 0 && <p>Works with: {compatibleWith.join(', ')}</p>}
+    </div>
+
+    {related.length > 0 && (
+      <div class="border-t border-smoke pt-8 mb-8">
+        <p class="label mb-4">Related Tools</p>
+        {related.map((t: any, i: number) => (
+          <ToolCard
+            name={t.data.name}
+            description={t.data.description}
+            type={t.data.type}
+            href={`/${typePrefix[t.data.type]}/${t.id.split('/').pop()?.replace(/\.md$/, '')}`}
+            index={i + 1}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- SIGNUP RUPTURE -->
+<section class="rupture" data-section="tool-signup">
+  <div class="max-w-[480px] mx-auto relative pl-8">
+    <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
+    <p class="label mb-2" style="color: var(--color-ink); opacity: 0.5;">BUILD NOTES</p>
+    <h2 class="text-[clamp(1.25rem,3vw,1.75rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-display); color: var(--color-ink);">New tools and breakdowns weekly.</h2>
+    <EmailSignup placeholder="you@domain.com" tag="tool-detail" submitText="Subscribe" />
+  </div>
+</section>
+
+<!-- CTA VOID -->
+<section class="cta" data-section="tool-cta">
+  <p class="label">CH47</p>
+  <a class="cta__headline" href={hubHref}>Browse all {hubLabel.toLowerCase()}</a>
+</section>
+
+<script>
+  function initCopyButtons() {
+    document.querySelectorAll('[data-install]').forEach(btn => {
+      if (btn.hasAttribute('data-initialized')) return;
+      btn.setAttribute('data-initialized', 'true');
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-install');
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          const el = btn as HTMLElement;
+          el.textContent = 'Copied';
+          el.setAttribute('aria-label', 'Copied to clipboard');
+          setTimeout(() => {
+            el.textContent = 'Copy';
+            el.setAttribute('aria-label', 'Copy install command');
+          }, 1500);
+        } catch { /* clipboard API may fail in insecure contexts */ }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCopyButtons);
+  } else {
+    initCopyButtons();
+  }
+  document.addEventListener('astro:page-load', initCopyButtons);
+</script>
+
+<style>
+  /* Light-surface EmailSignup overrides */
+  .rupture :global(.email-signup__input) {
+    background: var(--color-paper);
+    border-color: var(--color-light-border);
+    color: var(--color-ink);
+  }
+  .rupture :global(.email-signup__input::placeholder) { color: var(--color-stone); }
+  .rupture :global(.email-signup__input:focus) {
+    background: #fff;
+    border-color: var(--color-signal);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+  }
+</style>

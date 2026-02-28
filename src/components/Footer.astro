@@ -1,27 +1,22 @@
 ---
 /**
- * Footer — minimal site footer.
- * Links row + attribution.
+ * Footer — simplified pipe-separated links + attribution.
  */
-const { class: className, ...props } = Astro.props;
 ---
 
-<footer class:list={["border-t border-gray-200 px-[clamp(24px,5vw,64px)]", className]} {...props}>
-  <div class="max-w-[1060px] mx-auto font-mono text-xs text-gray-500">
-    <nav class="flex items-center gap-3 py-5 border-b border-gray-200 flex-wrap" aria-label="Site links">
-      <a href="/notes" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Notes</a>
-      <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
-      <a href="/labs" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Labs</a>
-      <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
-      <a href="/subscribe" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Subscribe</a>
-      <span class="w-px h-3 bg-gray-300 shrink-0" aria-hidden="true"></span>
-      <a href="/privacy" class="text-gray-500 tracking-wide hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">Privacy</a>
-    </nav>
-    <div class="py-5">
-      <span>
-        Built by
-        <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="text-gray-500 hover:text-amber transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-gray-0 rounded-sm">ctrlswing</a>
-      </span>
+<footer class="py-12 pb-8">
+  <div class="max-w-[1060px] mx-auto px-[clamp(24px,5vw,64px)] font-mono text-xs text-stone">
+    <div class="flex items-center justify-between flex-wrap gap-y-3">
+      <nav class="flex items-center gap-3 flex-wrap" aria-label="Site links">
+        <a href="/notes" class="text-stone tracking-wide hover:text-signal transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Notes</a>
+        <span class="w-px h-3 bg-ash shrink-0" aria-hidden="true"></span>
+        <a href="/labs" class="text-stone tracking-wide hover:text-signal transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Labs</a>
+        <span class="w-px h-3 bg-ash shrink-0" aria-hidden="true"></span>
+        <a href="/subscribe" class="text-stone tracking-wide hover:text-signal transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Subscribe</a>
+        <span class="w-px h-3 bg-ash shrink-0" aria-hidden="true"></span>
+        <a href="/privacy" class="text-stone tracking-wide hover:text-signal transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Privacy</a>
+      </nav>
+      <span>Built by <a href="https://x.com/ctrlswing" target="_blank" rel="noopener noreferrer" class="text-stone hover:text-signal transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">jackson</a></span>
     </div>
   </div>
 </footer>

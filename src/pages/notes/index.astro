@@ -1,8 +1,7 @@
 ---
 /**
  * Notes Hub — Build Notes index page.
- *
- * Density: LOW (hero) → MEDIUM (content grid) → MEDIUM (signup) → LOW (cta void)
+ * Density: LOW (hero) → MEDIUM (content grid) → LOW (rupture signup) → LOW (cta void)
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -19,26 +18,26 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
 
 <BaseLayout
   title="Build Notes — Channel 47"
-  description="Weekly breakdowns from the Channel 47 ecosystem. Stories, guides, and skill teardowns from building AI plugins for real work."
+  description="Skill breakdowns, build process, and the dead ends that led somewhere."
 >
   <Nav />
-  <main id="main-content" class="pg">
+  <main id="main-content">
 
-    <!-- HERO (LOW density) -->
-    <section class="hero" data-section="hero">
-      <div class="hero__content">
+    <!-- HERO -->
+    <section class="hero" data-section="hero" style="min-height: 60vh; min-height: 60dvh;">
+      <div class="hero__inner">
         <div class="hero__bar" aria-hidden="true"></div>
-        <p class="label">FROM THE WORKSHOP</p>
-        <h1 class="hero__headline">Build Notes</h1>
+        <p class="label hero__label">BUILD NOTES</p>
+        <h1 class="hero__headline" style="max-width: 12ch;">From the workshop.</h1>
         <p class="hero__sub">
-          Stories, guides, and breakdowns from building AI plugins for real work.
-          Every week, one skill from the ecosystem. Taken apart.
+          Skill breakdowns, build process, and the dead ends that led somewhere.
         </p>
       </div>
     </section>
 
-    <!-- CONTENT GRID (MEDIUM density) -->
-    <section class="notes-grid py-[clamp(40px,6vh,60px)] px-[clamp(24px,5vw,64px)]" data-section="notes-grid">
+    <!-- CONTENT GRID -->
+    <section class="notes-grid py-[clamp(40px,6vh,60px)]" data-section="notes-grid">
+      <div class="wrap">
       <div class="mb-6">
         <div class="flex gap-2 flex-wrap" data-tag-filter>
           {tags.map((t) => (
@@ -65,35 +64,32 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
         ))}
       </div>
       {notes.length === 0 && (
-        <p class="font-mono text-sm text-gray-500 py-10">First notes are coming soon.</p>
+        <p class="font-mono text-sm text-stone py-10">First notes are coming soon.</p>
       )}
+      </div>
     </section>
 
-    <!-- SIGNUP (MEDIUM density) -->
-    <section class="py-[clamp(60px,10vh,100px)] px-[clamp(24px,5vw,64px)] border-t border-gray-200" data-section="notes-signup">
-      <div>
-        <p class="label mb-2">BUILD NOTES</p>
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] text-primary mb-3" style="font-family: var(--font-family-heading);">Get these in your inbox.</h2>
-        <p class="font-mono text-[11px] tracking-wide text-gray-500 uppercase mb-4">No spam. Unsubscribe anytime.</p>
+    <!-- SIGNUP RUPTURE -->
+    <section class="rupture" data-section="notes-signup">
+      <div class="max-w-[640px] mx-auto relative pl-8">
+        <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
+        <p class="label mb-2" style="color: var(--color-ink); opacity: 0.5;">BUILD NOTES</p>
+        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-display); color: var(--color-ink);">Get breakdowns like this weekly.</h2>
         <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Subscribe" />
       </div>
     </section>
 
-    <!-- CTA VOID (LOW density) -->
+    <!-- CTA VOID -->
     <section class="cta" data-section="cta">
-      <p class="label">TRANSMITTING</p>
-      <a class="cta__action" href="/">Browse the registry</a>
+      <p class="label">CH47</p>
+      <a class="cta__headline" href="/">Browse the directory</a>
+      <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
     </section>
 
     <Footer />
   </main>
 
-  <script>
-    import { initPageMotion } from '../../scripts/page-motion';
-    initPageMotion();
-  </script>
-
-  <!-- Tag filter (minimal JS toggle) -->
+  <!-- Tag filter -->
   <script>
     function initTagFilter() {
       const container = document.querySelector('[data-tag-filter]');
@@ -127,13 +123,11 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     } else {
       initTagFilter();
     }
-
     document.addEventListener('astro:page-load', initTagFilter);
   </script>
 </BaseLayout>
 
 <style>
-  /* Tag filter buttons — interactive states */
   .notes-grid__tag {
     font-family: var(--font-family-mono);
     font-size: 10px;
@@ -141,57 +135,37 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     padding: 6px 12px;
-    border-radius: 2px;
+    border-radius: var(--radius-tight);
     background: transparent;
-    color: #8a857e;
-    border: 1px solid #292929;
+    color: var(--color-stone);
+    border: 1px solid var(--color-smoke);
     cursor: pointer;
-    transition: color 100ms var(--ease-signature),
-                border-color 100ms var(--ease-signature),
-                background-color 100ms var(--ease-signature);
+    transition: color 100ms var(--ease-out),
+                border-color 100ms var(--ease-out),
+                background-color 100ms var(--ease-out);
   }
-  .notes-grid__tag:focus-visible {
-    outline: 2px solid #f59e0b;
-    outline-offset: 2px;
-  }
-  .notes-grid__tag:hover {
-    color: #e7e5e4;
-    border-color: #504b46;
-  }
+  .notes-grid__tag:focus-visible { outline: 2px solid var(--color-signal); outline-offset: 2px; }
+  .notes-grid__tag:hover { color: var(--color-bone); border-color: var(--color-ash); }
   .notes-grid__tag.is-active {
-    color: #f59e0b;
-    border-color: #f59e0b;
-    background: rgba(245, 158, 11, 0.12);
+    color: var(--color-signal);
+    border-color: var(--color-signal);
+    background: var(--signal-dim-alpha);
   }
 
-  /* CTA action link */
-  .cta__action {
-    font-family: var(--font-family-heading);
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 500;
-    color: #f5f5f4;
-    position: relative;
-    display: inline-block;
-    margin-bottom: 40px;
-    transition: color 150ms var(--ease-signature);
+  /* Light-surface EmailSignup overrides */
+  .rupture :global(.email-signup__input) {
+    background: var(--color-paper);
+    border-color: var(--color-light-border);
+    color: var(--color-ink);
   }
-  .cta__action::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 2px;
-    background: #f59e0b;
-    transform-origin: left;
-    transition: transform 250ms var(--ease-signature);
+  .rupture :global(.email-signup__input::placeholder) { color: var(--color-stone); }
+  .rupture :global(.email-signup__input:focus) {
+    background: #fff;
+    border-color: var(--color-signal);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
   }
-  .cta__action:hover { color: #f59e0b; }
-  .cta__action:hover::after { transform: scaleX(0); transform-origin: right; }
-  .cta__action:focus-visible { outline: 2px solid #f59e0b; outline-offset: 4px; }
 
   @media (prefers-reduced-motion: reduce) {
     .notes-grid__tag { transition: none; }
-    .cta__action, .cta__action::after { transition: none; }
   }
 </style>

@@ -3,9 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import ToolCard from '../../components/ToolCard.astro';
-import EmailSignup from '../../components/EmailSignup.astro';
+import ToolDetail from '../../components/ToolDetail.astro';
 
 export async function getStaticPaths() {
   const tools = await getCollection('tools');
@@ -18,110 +16,40 @@ export async function getStaticPaths() {
 }
 
 const { tool } = Astro.props;
-const { name, description, type, install, compatibleWith, tags, author, source, relatedTools } = tool.data;
 
-const typePrefix: Record<string, string> = { skill: 'skills', mcp: 'mcps', plugin: 'plugins', subagent: 'coming-soon' };
-
-// Resolve related tools
 const allTools = await getCollection('tools');
-const related = relatedTools.length > 0
-  ? allTools.filter(t => relatedTools.includes(t.id.split('/').pop()?.replace(/\.md$/, '')!))
-  : allTools.filter(t => t.data.type === type && t.id !== tool.id).slice(0, 3);
+const related = tool.data.relatedTools.length > 0
+  ? allTools.filter(t => tool.data.relatedTools.includes(t.id.split('/').pop()?.replace(/\.md$/, '')!))
+  : allTools.filter(t => t.data.type === 'mcp' && t.id !== tool.id).slice(0, 3);
 
-const schema = {
-  '@type': 'SoftwareApplication',
-  'name': name,
-  'description': description,
-  'applicationCategory': 'MCP Server',
-  'operatingSystem': 'Cross-platform',
-  'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-};
+const slug = tool.id.split('/').pop()?.replace(/\.md$/, '');
+
+const schema = [
+  {
+    '@type': 'SoftwareApplication',
+    'name': tool.data.name,
+    'description': tool.data.description,
+    'applicationCategory': 'MCP Server',
+    'operatingSystem': 'Cross-platform',
+    'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+    'author': { '@type': 'Person', 'name': tool.data.author || 'Jackson Dean' },
+    'url': `https://channel47.dev/mcps/${slug}`,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
+      { '@type': 'ListItem', 'position': 2, 'name': 'MCPs', 'item': 'https://channel47.dev/mcps/' },
+      { '@type': 'ListItem', 'position': 3, 'name': tool.data.name },
+    ],
+  },
+];
 ---
 
-<BaseLayout
-  title={`${name} — Channel 47`}
-  description={description}
-  schema={schema}
->
+<BaseLayout title={`${tool.data.name} — Channel 47`} description={tool.data.description} schema={schema}>
   <Nav />
-
-  <main id="main-content" class="pt-24 pb-12 px-[clamp(24px,5vw,64px)]">
-    <div class="max-w-[1060px] mx-auto">
-      <Breadcrumbs items={[
-        { label: 'Home', href: '/' },
-        { label: 'MCPs', href: '/mcps' },
-        { label: name },
-      ]} />
-
-      <div class="flex items-start justify-between gap-4 mb-4">
-        <h1 class="font-mono text-lg text-primary">{name}</h1>
-        <span class="font-mono text-[10px] font-medium tracking-[0.1em] uppercase text-amber bg-[var(--amber-dim)] px-2 py-0.5 rounded-tight shrink-0 mt-1">MCP</span>
-      </div>
-
-      <p class="font-mono text-sm text-gray-600 leading-relaxed tracking-wide max-w-[640px] mb-8">{description}</p>
-
-      {install && (
-        <div class="mb-8">
-          <div class="install-block relative font-mono text-sm text-gray-400 bg-gray-100/50 border border-gray-200 rounded-tight px-4 py-3 overflow-x-auto">
-            <code>{install}</code>
-            <button
-              class="install-copy absolute top-2 right-2 font-mono text-[10px] uppercase tracking-[0.1em] text-gray-500 hover:text-amber bg-gray-100 border border-gray-300 rounded-tight px-2 py-1 cursor-pointer transition-colors duration-100"
-              data-install={install}
-            >Copy</button>
-          </div>
-        </div>
-      )}
-
-      <div class="font-mono text-xs text-gray-500 space-y-1.5 mb-8">
-        <p>By {author} · Source: {source}</p>
-        {tags.length > 0 && <p>Tags: {tags.join(', ')}</p>}
-        {compatibleWith.length > 0 && <p>Works with: {compatibleWith.join(', ')}</p>}
-      </div>
-
-      {related.length > 0 && (
-        <div class="border-t border-gray-200 pt-8 mb-8">
-          <p class="font-mono text-[11px] text-gray-500 uppercase tracking-[0.1em] mb-4">Related Tools</p>
-          {related.map(t => (
-            <ToolCard
-              name={t.data.name}
-              description={t.data.description}
-              type={t.data.type}
-              href={`/${typePrefix[t.data.type]}/${t.id.split('/').pop()?.replace(/\.md$/, '')}`}
-            />
-          ))}
-        </div>
-      )}
-
-      <div class="border-t border-gray-200 pt-8">
-        <p class="font-mono text-sm text-gray-600 leading-relaxed tracking-wide mb-4">New tools and breakdowns weekly.</p>
-        <EmailSignup placeholder="you@domain.com" tag="tool-detail" submitText="Subscribe" />
-      </div>
-    </div>
+  <main id="main-content">
+    <ToolDetail tool={tool} hubLabel="MCPs" hubHref="/mcps" typeLabel="MCP" related={related} />
+    <Footer />
   </main>
-
-  <Footer />
-
-  <script>
-    function initCopyButtons() {
-      document.querySelectorAll('[data-install]').forEach(btn => {
-        if (btn.hasAttribute('data-initialized')) return;
-        btn.setAttribute('data-initialized', 'true');
-        btn.addEventListener('click', async () => {
-          const text = btn.getAttribute('data-install');
-          if (!text) return;
-          await navigator.clipboard.writeText(text);
-          const el = btn as HTMLElement;
-          el.textContent = 'Copied';
-          setTimeout(() => { el.textContent = 'Copy'; }, 1500);
-        });
-      });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initCopyButtons);
-    } else {
-      initCopyButtons();
-    }
-    document.addEventListener('astro:page-load', initCopyButtons);
-  </script>
 </BaseLayout>

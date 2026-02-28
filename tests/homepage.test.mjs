@@ -6,12 +6,12 @@ import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-test('Nav has logo and Subscribe link', async () => {
+test('Nav has logo, Notes, Labs, and Subscribe links', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/Nav.astro'), 'utf8');
   assert.match(source, /href="\/"/);
   assert.match(source, /href="\/subscribe"/);
-  assert.doesNotMatch(source, /href="\/notes"/);
-  assert.doesNotMatch(source, /href="\/labs"/);
+  assert.match(source, /href="\/notes"/);
+  assert.match(source, /href="\/labs"/);
 });
 
 test('Footer has Notes, Labs, Subscribe, Privacy links and ctrlswing attribution', async () => {
@@ -36,11 +36,11 @@ test('ToolCard accepts href prop and has search data attributes', async () => {
   assert.doesNotMatch(source, /coming-soon/);
 });
 
-test('PaidBriefsCard exists with correct structure', async () => {
-  const source = await readFile(resolve(__dirname, '../src/components/PaidBriefsCard.astro'), 'utf8');
-  assert.match(source, /paidbriefs\.com/);
-  assert.match(source, /PRODUCT/);
-  assert.match(source, /border-dashed/);
+test('ProductCallout exists with correct structure', async () => {
+  const source = await readFile(resolve(__dirname, '../src/components/ProductCallout.astro'), 'utf8');
+  assert.match(source, /paidbrief\.com/);
+  assert.match(source, /PRODUCT/i);
+  assert.match(source, /Paid Briefs/);
 });
 
 test('coming-soon page exists with email signup', async () => {
@@ -54,26 +54,30 @@ test('tools schema supports compatibleWith and relatedTools fields', async () =>
   assert.match(source, /relatedTools/);
 });
 
-test('homepage has directory headline, newsletter bar, filter tabs, and tool list', async () => {
+test('homepage has hero, proof bar, value grid, directory, rupture, product callout, CTA', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
 
-  // Has hero section
-  assert.match(source, /data-section="hero"/);
+  // Has hero with is-visible
+  assert.match(source, /class="hero/);
   // Has new headline
   assert.match(source, /The marketing AI directory/);
   // Has EmailSignup
   assert.match(source, /EmailSignup/);
-  // Has filter tabs
-  assert.match(source, /id="filter-tabs"/);
-  // Has search input
-  assert.match(source, /id="tool-search"/);
-  // Has tool list section
-  assert.match(source, /id="tool-list"/);
-  // Has PaidBriefsCard
-  assert.match(source, /PaidBriefsCard/);
-  // Tool links go to detail pages (type prefix in href)
-  assert.match(source, /\/skills\//);
-  assert.match(source, /\/mcps\//);
+  // Has proof bar
+  assert.match(source, /proof-bar/);
+  // Has value grid
+  assert.match(source, /value-grid/);
+  // Has directory section
+  assert.match(source, /directory/);
+  // Has rupture
+  assert.match(source, /rupture/);
+  // Has ProductCallout
+  assert.match(source, /ProductCallout/);
+  // Has CTA void
+  assert.match(source, /class="cta"/);
+  // Tool links go to detail pages via typePrefix mapping
+  assert.match(source, /skill.*skills/);
+  assert.match(source, /mcp.*mcps/);
 });
 
 test('Breadcrumbs component exists with correct structure', async () => {
@@ -102,18 +106,18 @@ test('hub pages exist for skills, mcps, and plugins', async () => {
   const pluginsHub = await readFile(resolve(__dirname, '../src/pages/plugins/index.astro'), 'utf8');
 
   assert.match(skillsHub, /Marketing skills for agents/);
-  assert.match(mcpsHub, /MCP servers for marketing workflows/);
-  assert.match(pluginsHub, /Claude Code plugins for marketers/);
+  assert.match(mcpsHub, /API access for marketing platforms/);
+  assert.match(pluginsHub, /Everything your role needs/);
 
   // All should have Breadcrumbs
   assert.match(skillsHub, /Breadcrumbs/);
   assert.match(mcpsHub, /Breadcrumbs/);
   assert.match(pluginsHub, /Breadcrumbs/);
 
-  // None should have EmailSignup (pure utility pages)
-  assert.doesNotMatch(skillsHub, /EmailSignup/);
-  assert.doesNotMatch(mcpsHub, /EmailSignup/);
-  assert.doesNotMatch(pluginsHub, /EmailSignup/);
+  // All should have hub search
+  assert.match(skillsHub, /data-hub-search/);
+  assert.match(mcpsHub, /data-hub-search/);
+  assert.match(pluginsHub, /data-hub-search/);
 });
 
 test('privacy page exists', async () => {

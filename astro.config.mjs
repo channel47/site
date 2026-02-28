@@ -18,7 +18,6 @@ export default defineConfig({
     react(),
     sitemap({
       filter: (page) =>
-        !page.includes('/plugins') &&
         !page.includes('/ecosystem') &&
         !page.includes('/tools') &&
         !page.includes('/build') &&

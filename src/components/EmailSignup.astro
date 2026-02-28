@@ -1,40 +1,39 @@
 ---
 /**
- * EmailSignup — email capture with editorial restraint.
- * Contained input + submit button. JS handles states.
+ * EmailSignup — three variants, all posting to /api/subscribe.
+ *
+ * Variants:
+ * - inline: Hero. Side-by-side input+button. No gap. Split radius.
+ * - default: Most pages. Stacked mobile, row desktop.
+ * - prominent: /subscribe, /coming-soon. Larger, standalone.
  */
 interface Props {
   placeholder?: string;
   tag?: string;
   submitText?: string;
   class?: string;
-  variant?: 'default' | 'prominent';
+  variant?: 'inline' | 'default' | 'prominent';
 }
 
 const {
   placeholder = 'your@email.com',
   tag = 'general',
-  submitText = 'Get access',
+  submitText = 'Subscribe',
   class: className = '',
   variant = 'default'
 } = Astro.props;
 
 const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
-const isProminent = variant === 'prominent';
 ---
 
-<form
-  id={formId}
-  class:list={[
-    'email-signup flex flex-col gap-3 w-full',
-    isProminent ? 'max-w-[560px]' : 'max-w-[520px]',
-    'sm:flex-row sm:items-stretch',
-    className
-  ]}
-  data-signup-form
-  data-tag={tag}
->
-  <div class="w-full">
+{variant === 'inline' ? (
+  <!-- Inline: flush input+button, no gap, split radius -->
+  <form
+    id={formId}
+    class:list={['email-signup email-form', className]}
+    data-signup-form
+    data-tag={tag}
+  >
     <label for={`${formId}-email`} class="sr-only">Email address</label>
     <input
       type="email"
@@ -42,40 +41,68 @@ const isProminent = variant === 'prominent';
       name="email"
       placeholder={placeholder}
       required
-      class:list={[
-        'email-signup__input w-full px-4 font-mono text-gray-700 bg-gray-100/80 border border-gray-300 rounded-tight outline-none transition-[color,background-color,border-color,box-shadow] duration-100',
-        'placeholder:text-gray-500 hover:border-gray-400 focus-visible:border-amber focus-visible:bg-gray-50 focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]',
-        isProminent ? 'h-[52px] text-base' : 'h-12 text-sm'
-      ]}
+      class="email-form__input"
       autocomplete="email"
       spellcheck="false"
-      style="font-size: max(16px, inherit);"
     />
-  </div>
-  <button
-    type="submit"
+    <button type="submit" class="email-form__btn email-signup__submit">
+      <span class="email-signup__submit-text">{submitText}</span>
+      <span class="email-signup__submit-icons relative w-4 h-4 shrink-0 inline-flex items-center">
+        <svg class="email-signup__icon email-signup__icon--arrow absolute inset-0 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg class="email-signup__icon email-signup__icon--check absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+        <svg class="email-signup__icon email-signup__icon--loading absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+  </form>
+) : (
+  <!-- Default / Prominent -->
+  <form
+    id={formId}
     class:list={[
-      'email-signup__submit flex items-center justify-center gap-2 w-full sm:w-auto sm:shrink-0 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-0 bg-amber border-none rounded-tight cursor-pointer whitespace-nowrap transition-[color,background-color,box-shadow,opacity,transform] duration-100',
-      'hover:bg-gray-700 hover:text-gray-0 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-gray-700 focus-visible:outline-offset-2 disabled:opacity-70 disabled:cursor-default',
-      isProminent ? 'h-[52px]' : 'h-12'
+      'email-signup flex flex-col gap-3 w-full',
+      variant === 'prominent' ? 'max-w-[560px]' : 'max-w-[520px]',
+      'sm:flex-row sm:items-stretch',
+      className
     ]}
-    aria-label="Subscribe"
+    data-signup-form
+    data-tag={tag}
   >
-    <span class="email-signup__submit-text">{submitText}</span>
-    <span class="email-signup__submit-icons relative w-4 h-4 shrink-0">
-      <svg class="email-signup__icon email-signup__icon--arrow absolute inset-0 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-      <svg class="email-signup__icon email-signup__icon--check absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12l5 5L20 7"/>
-      </svg>
-      <svg class="email-signup__icon email-signup__icon--loading absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.25"/>
-        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </span>
-  </button>
-</form>
+    <div class="w-full">
+      <label for={`${formId}-email`} class="sr-only">Email address</label>
+      <input
+        type="email"
+        id={`${formId}-email`}
+        name="email"
+        placeholder={placeholder}
+        required
+        class:list={[
+          'email-signup__input w-full px-4 font-mono text-bone bg-soot/80 border border-smoke rounded-tight outline-none transition-[color,background-color,border-color,box-shadow] duration-100',
+          'placeholder:text-stone hover:border-ash focus-visible:border-signal focus-visible:bg-void focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]',
+          variant === 'prominent' ? 'h-[52px] text-base' : 'h-12 text-sm'
+        ]}
+        autocomplete="email"
+        spellcheck="false"
+        style="font-size: max(16px, inherit);"
+      />
+    </div>
+    <button
+      type="submit"
+      class:list={[
+        'email-signup__submit flex items-center justify-center gap-2 w-full sm:w-auto sm:shrink-0 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-void bg-signal border-none rounded-tight cursor-pointer whitespace-nowrap transition-[color,background-color,box-shadow,opacity,transform] duration-100',
+        'hover:bg-[#FBBF24] hover:shadow-[0_2px_8px_rgba(245,158,11,0.25)] hover:-translate-y-px active:scale-[0.97] active:translate-y-0 focus-visible:outline-2 focus-visible:outline-bone focus-visible:outline-offset-2 disabled:opacity-70 disabled:cursor-default',
+        variant === 'prominent' ? 'h-[52px]' : 'h-12'
+      ]}
+      aria-label="Subscribe"
+    >
+      <span class="email-signup__submit-text">{submitText}</span>
+      <span class="email-signup__submit-icons relative w-4 h-4 shrink-0">
+        <svg class="email-signup__icon email-signup__icon--arrow absolute inset-0 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg class="email-signup__icon email-signup__icon--check absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+        <svg class="email-signup__icon email-signup__icon--loading absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+  </form>
+)}
 
 <script>
   function initEmailSignup() {
@@ -93,19 +120,24 @@ const isProminent = variant === 'prominent';
 
       const formElement = form as HTMLFormElement;
       const emailInput = formElement.querySelector('input[name="email"]') as HTMLInputElement;
+      if (!emailInput) return;
       const originalPlaceholder = emailInput.placeholder;
 
+      // Inline validation on blur
       emailInput.addEventListener('blur', () => {
         const email = emailInput.value.trim();
         if (email && !validateEmail(email)) {
           formElement.classList.add('is-error');
+          emailInput.setAttribute('aria-invalid', 'true');
         } else {
           formElement.classList.remove('is-error');
+          emailInput.removeAttribute('aria-invalid');
         }
       });
 
       emailInput.addEventListener('input', () => {
         formElement.classList.remove('is-error');
+        emailInput.removeAttribute('aria-invalid');
         if (emailInput.placeholder !== originalPlaceholder) {
           emailInput.placeholder = originalPlaceholder;
         }
@@ -122,6 +154,7 @@ const isProminent = variant === 'prominent';
 
         if (!validateEmail(email)) {
           formElement.classList.add('is-error');
+          emailInput.setAttribute('aria-invalid', 'true');
           emailInput.focus();
           return;
         }
@@ -181,9 +214,9 @@ const isProminent = variant === 'prominent';
 </script>
 
 <style>
-  /* JS-driven state styles only — base layout is Tailwind */
+  /* JS-driven state styles */
   .email-signup__icon {
-    transition: opacity 100ms var(--ease-signature), transform 100ms var(--ease-signature);
+    transition: opacity 100ms var(--ease-out), transform 100ms var(--ease-out);
   }
 
   /* Loading */
@@ -194,16 +227,22 @@ const isProminent = variant === 'prominent';
   /* Success */
   .email-signup.is-success .email-signup__icon--arrow { opacity: 0; transform: scale(0.8); }
   .email-signup.is-success .email-signup__icon--check { opacity: 1; transform: scale(1); }
-  .email-signup.is-success .email-signup__submit { background: #22c55e; }
-  .email-signup.is-success .email-signup__input { border-color: #22c55e; }
+  .email-signup.is-success .email-signup__submit,
+  .email-signup.is-success .email-form__btn { background: var(--color-success); }
+  .email-signup.is-success .email-signup__input,
+  .email-signup.is-success .email-form__input { border-color: var(--color-success); }
 
   /* Error */
-  .email-signup.is-error .email-signup__input { border-color: #ef4444; animation: error-shake 0.3s var(--ease-signature); }
-  .email-signup.is-error .email-signup__input::placeholder { color: #ef4444; }
+  .email-signup.is-error .email-signup__input,
+  .email-signup.is-error .email-form__input { border-color: var(--color-destructive); animation: error-shake 0.3s var(--ease-out); }
+  .email-signup.is-error .email-signup__input::placeholder,
+  .email-signup.is-error .email-form__input::placeholder { color: var(--color-destructive); }
 
-  /* Server error — gentler pulse (distinct from validation shake) */
-  .email-signup.is-server-error .email-signup__input { border-color: #ef4444; animation: error-pulse 1.2s var(--ease-signature); }
-  .email-signup.is-server-error .email-signup__input::placeholder { color: #ef4444; }
+  /* Server error */
+  .email-signup.is-server-error .email-signup__input,
+  .email-signup.is-server-error .email-form__input { border-color: var(--color-destructive); animation: error-pulse 1.2s var(--ease-out); }
+  .email-signup.is-server-error .email-signup__input::placeholder,
+  .email-signup.is-server-error .email-form__input::placeholder { color: var(--color-destructive); }
 
   @keyframes error-pulse {
     0%, 100% { opacity: 1; }
