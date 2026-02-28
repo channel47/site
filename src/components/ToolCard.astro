@@ -2,7 +2,7 @@
 /**
  * ToolCard — two variants:
  * - compact: Homepage directory row (index, name, type badge, arrow, no description)
- * - default: Hub pages (full row with description)
+ * - default: Hub pages (full row with description, uses directory-row shared CSS)
  */
 interface Props {
   name: string;
@@ -11,15 +11,22 @@ interface Props {
   href: string;
   index?: number;
   variant?: 'compact' | 'default';
+  status?: 'live' | 'dev' | 'soon';
 }
 
-const { name, description, type, href, index, variant = 'default' } = Astro.props;
+const { name, description, type, href, index, variant = 'default', status } = Astro.props;
 
 const typeLabels: Record<string, string> = {
   skill: 'SKILL',
   mcp: 'MCP',
   subagent: 'SUBAGENT',
   plugin: 'PLUGIN',
+};
+
+const statusLabels: Record<string, string> = {
+  live: 'Live',
+  dev: 'In Dev',
+  soon: 'Soon',
 };
 
 const indexStr = index ? String(index).padStart(3, '0') : undefined;
@@ -32,34 +39,30 @@ const indexStr = index ? String(index).padStart(3, '0') : undefined;
       {indexStr && <span class="directory-row__idx">{indexStr}</span>}
       <span class="directory-row__name">{name}</span>
       <span class="directory-row__type">{typeLabels[type]}</span>
-      <span class="directory-row__arrow" aria-hidden="true">&rarr;</span>
     </a>
   </li>
 ) : (
   <!-- Default: hub page full row with description -->
-  <a
-    href={href}
-    class="tool-card group block py-4 border-b border-smoke cursor-pointer card-hover focus-visible:ring-2 focus-visible:ring-signal focus-visible:outline-none rounded-tight"
-    data-type={type}
-    data-name={name.toLowerCase()}
-    data-description={description.toLowerCase()}
-  >
-    <div class="flex items-start justify-between gap-4">
-      <div class="flex items-start gap-3 min-w-0">
-        {indexStr && (
-          <span class="font-mono text-[11px] tracking-[0.08em] text-ash shrink-0 mt-0.5 hidden sm:inline">{indexStr}</span>
-        )}
+  <div class="directory-row" data-type={type} data-name={name.toLowerCase()} data-description={description.toLowerCase()}>
+    <a href={href} class="directory-row__link directory-row__link--full">
+      <div class="directory-row__main">
+        {indexStr && <span class="directory-row__idx">{indexStr}</span>}
         <div class="min-w-0">
-          <h3 class="font-mono text-sm text-chalk">{name}</h3>
-          <p class="font-mono text-sm text-dust leading-relaxed tracking-wide mt-1">{description}</p>
+          <span class="directory-row__name">{name}</span>
+          <p class="directory-row__desc">{description}</p>
         </div>
       </div>
-      <div class="flex items-center gap-3 shrink-0 mt-0.5">
-        <span class="font-mono text-[10px] font-medium tracking-[0.1em] uppercase text-signal bg-[var(--signal-dim-alpha)] px-2 py-0.5 rounded-tight">
-          {typeLabels[type]}
-        </span>
-        <span class="font-mono text-sm text-ash transition-all duration-100 group-hover:text-signal group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
+      <div class="flex items-center gap-3 shrink-0">
+        {status && (
+          <span class:list={[
+            'directory-row__badge',
+            status === 'live' && 'directory-row__badge--live',
+            status === 'dev' && 'directory-row__badge--dev',
+            status === 'soon' && 'directory-row__badge--soon',
+          ]}>{statusLabels[status]}</span>
+        )}
+        <span class="directory-row__type">{typeLabels[type]}</span>
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 )}

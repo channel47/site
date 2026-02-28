@@ -6,6 +6,7 @@ author: "Jackson Dean"
 source: "channel47"
 tags: ["meta-ads", "facebook", "instagram"]
 featured: false
+status: "dev"
 compatibleWith: ["Claude Code"]
 relatedTools: ["paid-search"]
 ---

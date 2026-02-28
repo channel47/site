@@ -17,11 +17,11 @@ import EmailSignup from '../components/EmailSignup.astro';
       <a href="/" class="mb-8" aria-label="Back to Channel 47">
         <LogoAnimated />
       </a>
-      <div class="subscribe__bar w-0 h-0.5 bg-signal mb-6" aria-hidden="true"></div>
-      <p class="label mb-4 opacity-0 subscribe__label">BUILD NOTES</p>
-      <h1 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-3 opacity-0 subscribe__headline" style="font-family: var(--font-family-display);">Get the emails.</h1>
-      <p class="font-mono text-sm leading-relaxed text-dust max-w-[38ch] mb-12 opacity-0 subscribe__pitch">Skills, breakdowns, and build process. Weekly when something ships.</p>
-      <div class="w-full opacity-0 subscribe__form">
+      <div class="void-page__bar w-0 h-0.5 bg-signal mb-6" aria-hidden="true"></div>
+      <p class="label mb-4 void-page__label">BUILD NOTES</p>
+      <h1 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-3 void-page__headline" style="font-family: var(--font-family-display);">Get the emails.</h1>
+      <p class="font-mono text-sm leading-relaxed text-dust max-w-[38ch] mb-12 void-page__pitch">Skills, breakdowns, and build process. Weekly when something ships.</p>
+      <div class="w-full void-page__form">
         <EmailSignup
           placeholder="you@domain.com"
           tag="subscribe"
@@ -57,46 +57,3 @@ import EmailSignup from '../components/EmailSignup.astro';
   }
 </script>
 
-<style>
-  .subscribe__bar {
-    animation: subscribe-bar-draw 500ms var(--ease-out) 150ms forwards,
-               breathing-glow 3s ease-in-out 700ms infinite;
-  }
-  .subscribe__label {
-    animation: subscribe-fade-in 400ms var(--ease-out) 450ms forwards;
-  }
-  .subscribe__headline {
-    animation: subscribe-fade-in 400ms var(--ease-out) 550ms forwards;
-  }
-  .subscribe__pitch {
-    animation: subscribe-fade-in 400ms var(--ease-out) 650ms forwards;
-  }
-  .subscribe__form {
-    animation: subscribe-rise 500ms var(--ease-out) 850ms forwards;
-  }
-
-  @keyframes subscribe-bar-draw {
-    from { width: 0; opacity: 0.5; }
-    to { width: 40px; opacity: 1; }
-  }
-  @keyframes subscribe-fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes subscribe-rise {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .subscribe__bar,
-    .subscribe__label,
-    .subscribe__headline,
-    .subscribe__pitch,
-    .subscribe__form {
-      animation: none;
-      opacity: 1;
-    }
-    .subscribe__bar { width: 40px; }
-  }
-</style>

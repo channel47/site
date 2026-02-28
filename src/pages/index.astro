@@ -84,36 +84,33 @@ const schema = [
     </section>
 
     <!-- ═══════ PLUGIN DIRECTORY — HIGH density ═══════ -->
-    <section class="plugin-dir" data-reveal-stagger>
+    <section class="directory" data-reveal-stagger>
       <div class="wrap">
-        <div class="plugin-dir__header" data-reveal-child data-stagger="1">
-          <h2 class="plugin-dir__title">Browse the plugins</h2>
-          <a href="/plugins" class="plugin-dir__viewall">View all →</a>
+        <div class="directory__header" data-reveal-child data-stagger="1">
+          <h2 class="directory__title">Browse the plugins</h2>
+          <a href="/plugins" class="directory__link">View all →</a>
         </div>
 
-        <ul class="plugin-dir__list" data-reveal-child data-stagger="2">
-          <li class="plugin-dir__row">
-            <a href="/plugins/paid-search" class="plugin-dir__link">
-              <span class="plugin-dir__idx">001</span>
-              <span class="plugin-dir__name">Paid Search</span>
-              <span class="plugin-dir__badge plugin-dir__badge--live">Live</span>
-              <span class="plugin-dir__arrow" aria-hidden="true">→</span>
+        <ul class="directory__list" data-reveal-child data-stagger="2">
+          <li class="directory-row">
+            <a href="/plugins/paid-search" class="directory-row__link">
+              <span class="directory-row__idx">001</span>
+              <span class="directory-row__name">Paid Search</span>
+              <span class="directory-row__badge directory-row__badge--live">Live</span>
             </a>
           </li>
-          <li class="plugin-dir__row">
-            <a href="/coming-soon" class="plugin-dir__link">
-              <span class="plugin-dir__idx">002</span>
-              <span class="plugin-dir__name">Meta Ads</span>
-              <span class="plugin-dir__badge plugin-dir__badge--dev">In Dev</span>
-              <span class="plugin-dir__arrow" aria-hidden="true">→</span>
+          <li class="directory-row">
+            <a href="/coming-soon" class="directory-row__link">
+              <span class="directory-row__idx">002</span>
+              <span class="directory-row__name">Meta Ads</span>
+              <span class="directory-row__badge directory-row__badge--dev">In Dev</span>
             </a>
           </li>
-          <li class="plugin-dir__row">
-            <a href="/coming-soon" class="plugin-dir__link">
-              <span class="plugin-dir__idx">003</span>
-              <span class="plugin-dir__name">TikTok Ads</span>
-              <span class="plugin-dir__badge plugin-dir__badge--soon">Soon</span>
-              <span class="plugin-dir__arrow" aria-hidden="true">→</span>
+          <li class="directory-row">
+            <a href="/coming-soon" class="directory-row__link">
+              <span class="directory-row__idx">003</span>
+              <span class="directory-row__name">TikTok Ads</span>
+              <span class="directory-row__badge directory-row__badge--soon">Soon</span>
             </a>
           </li>
         </ul>
@@ -131,16 +128,13 @@ const schema = [
       </div>
     </section>
 
-    <!-- ═══════ RUPTURE — surface flip ═══════ -->
+    <!-- ═══════ RUPTURE — surface flip + density shift (LOW) ═══════ -->
     <section class="rupture" data-reveal>
       <div class="rupture__inner">
         <div class="rupture__bar"></div>
         <p class="label label--muted" style="margin-bottom: 20px;">Signal</p>
         <h2 class="rupture__headline">The people who build skills become the most valuable people in their field.</h2>
-        <p class="rupture__body">
-          Open source plugins. Weekly breakdowns of how they're built. A live lab where you remix skills into your own tools. Start using — then start building.
-        </p>
-        <a href="/plugins" class="rupture__link">Browse all tools</a>
+        <a href="/plugins" class="rupture__link">See the plugins →</a>
       </div>
     </section>
 
@@ -157,137 +151,5 @@ const schema = [
   </main>
 </BaseLayout>
 
-<style>
-  /* ═══════ PLUGIN DIRECTORY ═══════ */
-  .plugin-dir {
-    padding: clamp(72px, 14vh, 140px) 0;
-    border-top: 1px solid var(--color-smoke);
-  }
 
-  /* Header — title left, view-all right */
-  .plugin-dir__header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 32px;
-  }
-  .plugin-dir__title {
-    font-family: var(--font-family-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--color-chalk);
-  }
-  .plugin-dir__viewall {
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-signal);
-    transition: opacity var(--dur-instant) var(--ease-sharp);
-  }
-  .plugin-dir__viewall:hover { opacity: 0.8; }
-  .plugin-dir__viewall:focus-visible {
-    outline: 2px solid var(--color-signal);
-    outline-offset: 2px;
-    border-radius: var(--radius-tight);
-  }
-
-  /* List */
-  .plugin-dir__list { list-style: none; }
-
-  /* Row */
-  .plugin-dir__row {
-    border-bottom: 1px solid var(--color-smoke);
-  }
-  .plugin-dir__row:first-child {
-    border-top: 1px solid var(--color-smoke);
-  }
-
-  /* Link grid */
-  .plugin-dir__link {
-    position: relative;
-    display: grid;
-    grid-template-columns: 3rem 1fr auto auto;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 16px;
-    margin: 0 -16px;
-    transition: background-color var(--dur-quick) var(--ease-out);
-  }
-  .plugin-dir__link::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 12px;
-    bottom: 12px;
-    width: 2px;
-    background: var(--color-signal);
-    transform: scaleY(0);
-    transition: transform 100ms var(--ease-sharp);
-  }
-  .plugin-dir__link:hover {
-    background-color: rgba(245, 158, 11, 0.03);
-  }
-  .plugin-dir__link:hover::before {
-    transform: scaleY(1);
-  }
-  .plugin-dir__link:focus-visible {
-    outline: 2px solid var(--color-signal);
-    outline-offset: -2px;
-    border-radius: var(--radius-tight);
-  }
-
-  /* Cells */
-  .plugin-dir__idx {
-    font-family: var(--font-family-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--color-ash);
-  }
-  .plugin-dir__name {
-    font-family: var(--font-family-mono);
-    font-size: 14px;
-    color: var(--color-bone);
-  }
-  .plugin-dir__arrow {
-    font-family: var(--font-family-mono);
-    font-size: 14px;
-    color: var(--color-ash);
-    transition: color var(--dur-instant) var(--ease-sharp);
-  }
-  .plugin-dir__link:hover .plugin-dir__arrow {
-    color: var(--color-signal);
-  }
-
-  /* Status badges */
-  .plugin-dir__badge {
-    padding: 3px 8px;
-    border-radius: var(--radius-tight);
-    font-family: var(--font-family-mono);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .plugin-dir__badge--live {
-    background: var(--color-signal);
-    color: var(--color-void);
-  }
-  .plugin-dir__badge--dev {
-    border: 1px solid var(--color-ash);
-    color: var(--color-dust);
-  }
-  .plugin-dir__badge--soon {
-    border: 1px solid var(--color-smoke);
-    color: var(--color-stone);
-  }
-
-  @media (max-width: 480px) {
-    .plugin-dir__link {
-      grid-template-columns: 1fr auto auto;
-    }
-    .plugin-dir__idx { display: none; }
-  }
-</style>
 

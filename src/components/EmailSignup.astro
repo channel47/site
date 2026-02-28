@@ -59,39 +59,27 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
   <form
     id={formId}
     class:list={[
-      'email-signup flex flex-col gap-3 w-full',
-      variant === 'prominent' ? 'max-w-[560px]' : 'max-w-[520px]',
-      'sm:flex-row sm:items-stretch',
+      'email-signup',
+      variant === 'prominent' ? 'email-signup--prominent' : 'email-signup--default',
       className
     ]}
     data-signup-form
     data-tag={tag}
   >
-    <div class="w-full">
-      <label for={`${formId}-email`} class="sr-only">Email address</label>
-      <input
-        type="email"
-        id={`${formId}-email`}
-        name="email"
-        placeholder={placeholder}
-        required
-        class:list={[
-          'email-signup__input w-full px-4 font-mono text-bone bg-soot/80 border border-smoke rounded-tight outline-none transition-[color,background-color,border-color,box-shadow] duration-100',
-          'placeholder:text-stone hover:border-ash focus-visible:border-signal focus-visible:bg-void focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]',
-          variant === 'prominent' ? 'h-[52px] text-base' : 'h-12 text-sm'
-        ]}
-        autocomplete="email"
-        spellcheck="false"
-        style="font-size: max(16px, inherit);"
-      />
-    </div>
+    <label for={`${formId}-email`} class="sr-only">Email address</label>
+    <input
+      type="email"
+      id={`${formId}-email`}
+      name="email"
+      placeholder={placeholder}
+      required
+      class="email-signup__input"
+      autocomplete="email"
+      spellcheck="false"
+    />
     <button
       type="submit"
-      class:list={[
-        'email-signup__submit flex items-center justify-center gap-2 w-full sm:w-auto sm:shrink-0 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-void bg-signal border-none rounded-tight cursor-pointer whitespace-nowrap transition-[color,background-color,box-shadow,opacity,transform] duration-100',
-        'hover:bg-[#FBBF24] hover:shadow-[0_2px_8px_rgba(245,158,11,0.25)] hover:-translate-y-px active:scale-[0.97] active:translate-y-0 focus-visible:outline-2 focus-visible:outline-bone focus-visible:outline-offset-2 disabled:opacity-70 disabled:cursor-default',
-        variant === 'prominent' ? 'h-[52px]' : 'h-12'
-      ]}
+      class="email-signup__submit"
       aria-label="Subscribe"
     >
       <span class="email-signup__submit-text">{submitText}</span>

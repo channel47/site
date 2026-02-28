@@ -1,99 +1,228 @@
 ---
 /**
- * Plugins Hub — filtered listing of plugins.
- * Density: LOW (hero) → HIGH (directory) → LOW (CTA void)
+ * Plugins Hub — platform-specific plugins for media buyers.
+ *
+ * Density: LOW (hero) → HIGH (directory) → LOW (rupture) →
+ *          MED (signup) → LOW (CTA void)
+ *
+ * Rupture: surface flip (dark→light) + density shift (HIGH→LOW).
+ *          Single proof point — loss aversion via specificity.
+ *          Signup immediately follows rupture — no cognitive break
+ *          between emotional trigger and conversion ask.
+ *
+ * Psychology: Unity ("from the accounts"), loss aversion ($3K rupture),
+ *             reciprocity (free tools before ask), zero-price effect,
+ *             commitment escalation (browse → feel loss → subscribe).
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ToolCard from '../../components/ToolCard.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
 
 const allTools = await getCollection('tools');
 const plugins = allTools.filter(t => t.data.type === 'plugin');
 
-const schema = {
-  '@type': 'BreadcrumbList',
-  'itemListElement': [
-    { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
-    { '@type': 'ListItem', 'position': 2, 'name': 'Plugins' },
-  ],
-};
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Plugins' },
+    ],
+  },
+  {
+    '@type': 'ItemList',
+    'name': 'AI Plugins for Media Buyers',
+    'numberOfItems': plugins.length,
+    'itemListElement': plugins.map((tool, i) => ({
+      '@type': 'ListItem',
+      'position': i + 1,
+      'name': tool.data.name,
+      'description': tool.data.description,
+      'url': `https://channel47.dev/plugins/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`,
+    })),
+  },
+];
 ---
 
 <BaseLayout
-  title="Plugins — Channel 47"
-  description="Everything your role needs, one install. Skills, scripts, API connections, and safety hooks — packaged by profession."
+  title="AI Plugins for Media Buyers — Channel 47"
+  description="Free, open-source plugins for Paid Search, Meta Ads, and TikTok. Built from managing 25+ ad accounts daily. Install and run."
   schema={schema}
 >
   <Nav />
 
   <main id="main-content">
 
-    <section class="pt-28 pb-0" data-section="hero">
-      <div class="wrap">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'Plugins' },
-        ]} />
-        <div class="accent-bar mt-4" aria-hidden="true"></div>
-        <p class="label mt-5 mb-4">PLUGINS</p>
-        <h1 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-3" style="font-family: var(--font-family-display);">
-          Everything your role needs, one install.
-        </h1>
-        <p class="font-mono text-sm text-dust tracking-wide mb-2">Skills, scripts, API connections, and safety hooks — packaged by profession.</p>
-        <p class="font-mono text-[11px] text-stone mt-6 mb-0"><span id="visible-count">{plugins.length}</span> plugins</p>
+    <!-- ═══════ HERO — LOW density ═══════ -->
+    <section class="hero" data-section="hero" style="min-height: auto; padding-top: clamp(100px, 16vh, 180px); padding-bottom: clamp(32px, 4vh, 48px);">
+      <div class="hero__inner">
+        <div class="hero__bar" aria-hidden="true"></div>
+        <p class="label hero__label">Plugins</p>
+        <h1 class="hero__headline" style="max-width: 20ch;">Built from the accounts.<br />Not the API docs.</h1>
+        <p class="hero__sub">
+          Free, open-source plugins for Paid Search, Meta Ads, and TikTok — built from managing 25+ accounts daily.
+        </p>
+        <div class="install-block" data-section="install">
+          <code class="install-block__cmd">/plugin marketplace add channel47/plugins</code>
+          <button
+            class="install-block__copy"
+            data-install="/plugin marketplace add channel47/plugins"
+            aria-label="Copy install command"
+          >Copy</button>
+        </div>
       </div>
     </section>
 
-    <section class="py-8" data-section="plugins-directory">
+    <!-- ═══════ DIRECTORY — HIGH density ═══════ -->
+    <section class="py-[clamp(60px,10vh,100px)]" data-reveal-stagger>
       <div class="wrap">
-        <div class="mb-5">
-          <label for="plugin-search" class="sr-only">Search plugins</label>
-          <input
-            type="text"
-            id="plugin-search"
-            placeholder="Search plugins..."
-            class="w-full px-4 h-10 font-mono text-sm text-bone bg-soot/80 border border-smoke rounded-tight outline-none transition-[border-color,box-shadow] duration-100 placeholder:text-stone hover:border-ash focus-visible:border-signal focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]"
-            autocomplete="off"
-            spellcheck="false"
-            data-hub-search
-          />
+        <div class="flex items-baseline justify-between mb-6" data-reveal-child data-stagger="1">
+          <p class="label">Directory</p>
+          <span class="font-mono text-[11px] text-stone tracking-wide">{plugins.length} {plugins.length === 1 ? 'plugin' : 'plugins'}</span>
         </div>
 
-        <div id="hub-list">
+        <div>
           {plugins.map((tool, i) => (
-            <ToolCard
-              name={tool.data.name}
-              description={tool.data.description}
-              type={tool.data.type}
-              href={`/plugins/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
-              index={i + 1}
-            />
+            <div data-reveal-child data-stagger={String(Math.min(i + 2, 6))}>
+              <ToolCard
+                name={tool.data.name}
+                description={tool.data.description}
+                type={tool.data.type}
+                href={`/plugins/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
+                index={i + 1}
+                status={tool.data.status}
+              />
+            </div>
           ))}
         </div>
 
-        <p id="no-results" class="font-mono text-sm text-stone py-8 hidden">No plugins match your search.</p>
+        {plugins.length === 0 && (
+          <p class="font-mono text-sm text-stone py-8">First plugins shipping soon.</p>
+        )}
       </div>
     </section>
 
-    <section class="cta" data-section="plugins-cta">
-      <p class="label">CH47</p>
-      <a class="cta__headline" href="/">Browse the full directory</a>
-      <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
+    <!-- ═══════ RUPTURE — LOW density, surface flip ═══════ -->
+    <section class="rupture" data-reveal>
+      <div class="max-w-[640px] mx-auto relative pl-8">
+        <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
+        <p class="label mb-2" style="color: var(--color-ink); opacity: 0.5;">Signal</p>
+        <h2 class="text-[clamp(1.5rem,3vw,2.25rem)] font-semibold tracking-tight leading-[1.15] mb-4" style="font-family: var(--font-family-display); color: var(--color-ink);">
+          One skill caught $3K/month in wasted spend across two accounts.
+        </h2>
+        <a class="font-mono text-[11px] font-semibold tracking-widest uppercase text-signal hover:text-[#D97706] transition-colors duration-100" href="/notes">
+          Read the breakdown &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══════ SIGNUP — MEDIUM density ═══════ -->
+    <section class="py-[clamp(80px,12vh,120px)]" data-reveal>
+      <div class="wrap">
+        <p class="label mb-5">Build Notes</p>
+        <h2 class="section-headline mb-5">Plugin updates and build breakdowns, weekly.</h2>
+        <EmailSignup placeholder="you@domain.com" tag="plugins" submitText="Get Build Notes" />
+      </div>
+    </section>
+
+    <!-- ═══════ CTA VOID — LOW density ═══════ -->
+    <section class="cta" data-reveal>
+      <a class="cta__headline" href="/build">Build your own skill</a>
+      <a href="/plugins/paid-search" class="btn-signal">Try Paid Search</a>
     </section>
 
     <Footer />
   </main>
-
-  <script>
-    import { initHubSearch } from '../../scripts/hub-search';
-
-    function init() { initHubSearch(); }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else { init(); }
-    document.addEventListener('astro:page-load', init);
-  </script>
 </BaseLayout>
+
+<script>
+  function initInstallCopy() {
+    document.querySelectorAll('[data-install]').forEach(btn => {
+      if (btn.hasAttribute('data-initialized')) return;
+      btn.setAttribute('data-initialized', 'true');
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-install');
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          const el = btn as HTMLElement;
+          el.textContent = 'Copied';
+          el.setAttribute('aria-label', 'Copied to clipboard');
+          setTimeout(() => {
+            el.textContent = 'Copy';
+            el.setAttribute('aria-label', 'Copy install command');
+          }, 1500);
+        } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInstallCopy);
+  } else {
+    initInstallCopy();
+  }
+  document.addEventListener('astro:page-load', initInstallCopy);
+</script>
+
+<style>
+  .install-block {
+    opacity: 0;
+    margin-top: 32px;
+  }
+  :global(.hero.is-visible) .install-block {
+    animation: fade-up 400ms var(--ease-out) 900ms forwards;
+  }
+  .install-block {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .install-block__cmd {
+    font-family: var(--font-family-mono);
+    font-size: clamp(13px, 1.4vw, 15px);
+    color: var(--color-chalk);
+    letter-spacing: 0.02em;
+    user-select: all;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--color-ash);
+    padding-bottom: 4px;
+  }
+  .install-block__copy {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-signal);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 100ms var(--ease-sharp);
+    white-space: nowrap;
+  }
+  .install-block__copy:hover {
+    color: #FBBF24;
+  }
+  .install-block__copy:focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 4px;
+    border-radius: var(--radius-tight);
+  }
+  @media (max-width: 480px) {
+    .install-block {
+      flex-direction: column;
+      gap: 8px;
+    }
+    .install-block__cmd {
+      font-size: 12px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .install-block { opacity: 1; }
+  }
+</style>

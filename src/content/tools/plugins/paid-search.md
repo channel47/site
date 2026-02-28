@@ -6,6 +6,7 @@ author: "Jackson Dean"
 source: "channel47"
 tags: ["google-ads", "bing-ads", "paid-search", "plugin"]
 featured: true
+status: "live"
 install: "/plugin install paid-search@channel47"
 compatibleWith: ["Claude Code"]
 relatedTools: ["meta-ads"]

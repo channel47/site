@@ -89,7 +89,6 @@ const typePrefix: Record<string, string> = { skill: 'skills', mcp: 'mcps', plugi
 
 <!-- CTA VOID -->
 <section class="cta" data-section="tool-cta">
-  <p class="label">CH47</p>
   <a class="cta__headline" href={hubHref}>Browse all {hubLabel.toLowerCase()}</a>
 </section>
 
@@ -123,17 +122,3 @@ const typePrefix: Record<string, string> = { skill: 'skills', mcp: 'mcps', plugi
   document.addEventListener('astro:page-load', initCopyButtons);
 </script>
 
-<style>
-  /* Light-surface EmailSignup overrides */
-  .rupture :global(.email-signup__input) {
-    background: var(--color-paper);
-    border-color: var(--color-light-border);
-    color: var(--color-ink);
-  }
-  .rupture :global(.email-signup__input::placeholder) { color: var(--color-stone); }
-  .rupture :global(.email-signup__input:focus) {
-    background: #fff;
-    border-color: var(--color-signal);
-    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
-  }
-</style>

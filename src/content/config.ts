@@ -26,6 +26,7 @@ const tools = defineCollection({
     featured: z.boolean().default(false),
     compatibleWith: z.array(z.string()).default([]),
     relatedTools: z.array(z.string()).default([]),
+    status: z.enum(['live', 'dev', 'soon']).optional(),
   }),
 });
 

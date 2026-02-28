@@ -28,10 +28,10 @@ const pastLabs = [
   <main id="main-content">
 
     <!-- HERO (LOW density) -->
-    <section class="hero" data-section="hero">
+    <section class="hero" data-section="hero" style="min-height: auto; padding-top: clamp(100px, 16vh, 180px); padding-bottom: clamp(32px, 4vh, 48px);">
       <div class="hero__inner">
         <div class="hero__bar" aria-hidden="true"></div>
-        <p class="label">SKILL REMIX LAB</p>
+        <p class="label hero__label">SKILL REMIX LAB</p>
         <h1 class="hero__headline">Build with us, live.</h1>
         <p class="hero__sub">
           Monthly live sessions in the Vibe Marketers community. Pick a skill.
@@ -49,20 +49,18 @@ const pastLabs = [
     </section>
 
     <!-- PROOF STRIP (HIGH density) -->
-    <section class="stats" data-reveal-stagger>
-      <div class="stats__item" data-reveal-child data-stagger="1">
-        <span class="stats__value" data-counter="500">500+</span>
-        <span class="stats__label">Registrations</span>
+    <section class="proof-bar" style="--proof-cols: 3;" data-reveal-stagger>
+      <div class="proof-bar__item" data-reveal-child data-stagger="1">
+        <span class="proof-bar__value" data-counter="500">500+</span>
+        <span class="proof-bar__label">Registrations</span>
       </div>
-      <span class="stats__pipe" aria-hidden="true"></span>
-      <div class="stats__item stats__item--signal" data-reveal-child data-stagger="2">
-        <span class="stats__value">~250</span>
-        <span class="stats__label">Live attendees</span>
+      <div class="proof-bar__item" data-reveal-child data-stagger="2">
+        <span class="proof-bar__value proof-bar__value--signal">~250</span>
+        <span class="proof-bar__label">Live attendees</span>
       </div>
-      <span class="stats__pipe" aria-hidden="true"></span>
-      <div class="stats__item" data-reveal-child data-stagger="3">
-        <span class="stats__value">Monthly</span>
-        <span class="stats__label">Cadence</span>
+      <div class="proof-bar__item" data-reveal-child data-stagger="3">
+        <span class="proof-bar__value">Monthly</span>
+        <span class="proof-bar__label">Cadence</span>
       </div>
     </section>
 
@@ -70,19 +68,25 @@ const pastLabs = [
     <section class="py-[clamp(60px,10vh,100px)]" data-reveal-stagger>
       <div class="wrap">
         <div class="accent-bar" aria-hidden="true"></div>
-        <p class="label mt-5 mb-6">HOW IT WORKS</p>
-        <div class="grid gap-0 max-w-[600px] border-t border-smoke">
-          <div class="flex gap-4 items-baseline py-4 border-b border-smoke" data-reveal-child data-stagger="1">
-            <span class="font-mono text-[11px] text-stone tracking-[0.08em] shrink-0 min-w-[28px]">001</span>
-            <p class="font-mono text-sm leading-[1.7] text-bone tracking-wide m-0"><strong class="font-semibold text-chalk">Live build</strong> — I pick a real workflow from my day job and build a Claude skill from scratch. You watch the whole process, decisions included.</p>
+        <p class="label mt-5 mb-5">HOW IT WORKS</p>
+        <div class="max-w-[600px] border-t border-smoke">
+          <div class="directory-row border-b border-smoke" data-reveal-child data-stagger="1">
+            <div class="directory-row--static">
+              <span class="directory-row__idx">001</span>
+              <p class="directory-row__desc m-0"><strong class="font-semibold text-chalk">Live build</strong> — I pick a real workflow from my day job and build a Claude skill from scratch. You watch the whole process, decisions included.</p>
+            </div>
           </div>
-          <div class="flex gap-4 items-baseline py-4 border-b border-smoke" data-reveal-child data-stagger="2">
-            <span class="font-mono text-[11px] text-stone tracking-[0.08em] shrink-0 min-w-[28px]">002</span>
-            <p class="font-mono text-sm leading-[1.7] text-bone tracking-wide m-0"><strong class="font-semibold text-chalk">Q&A</strong> — Ask anything during the build. How it works, why I made that choice, how to adapt it to your stack.</p>
+          <div class="directory-row border-b border-smoke" data-reveal-child data-stagger="2">
+            <div class="directory-row--static">
+              <span class="directory-row__idx">002</span>
+              <p class="directory-row__desc m-0"><strong class="font-semibold text-chalk">Q&A</strong> — Ask anything during the build. How it works, why I made that choice, how to adapt it to your stack.</p>
+            </div>
           </div>
-          <div class="flex gap-4 items-baseline py-4 border-b border-smoke" data-reveal-child data-stagger="3">
-            <span class="font-mono text-[11px] text-stone tracking-[0.08em] shrink-0 min-w-[28px]">003</span>
-            <p class="font-mono text-sm leading-[1.7] text-bone tracking-wide m-0"><strong class="font-semibold text-chalk">Take it home</strong> — Every lab ships a finished skill you can install and use immediately. No homework, no fluff.</p>
+          <div class="directory-row border-b border-smoke" data-reveal-child data-stagger="3">
+            <div class="directory-row--static">
+              <span class="directory-row__idx">003</span>
+              <p class="directory-row__desc m-0"><strong class="font-semibold text-chalk">Take it home</strong> — Every lab ships a finished skill you can install and use immediately. No homework, no fluff.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -107,7 +111,7 @@ const pastLabs = [
     <!-- PAST LABS (MEDIUM density) -->
     <section class="py-[clamp(60px,10vh,100px)]" data-reveal-stagger>
       <div class="wrap">
-        <p class="label mb-6">PAST LABS</p>
+        <p class="label mb-5">PAST LABS</p>
         <div class="max-w-[600px]">
           {pastLabs.map((lab, i) => (
             <div class="directory-row max-sm:flex-wrap max-sm:gap-y-1" data-reveal-child data-stagger={String(i + 1)}>
@@ -126,15 +130,14 @@ const pastLabs = [
     <!-- SIGNUP (MEDIUM density) -->
     <section class="py-[clamp(80px,12vh,120px)]" data-reveal>
       <div class="wrap">
-        <p class="label mb-2">GET NOTIFIED</p>
-        <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-5" style="font-family: var(--font-family-display);">Lab announcements, straight to your inbox.</h2>
+        <p class="label mb-5">GET NOTIFIED</p>
+        <h2 class="section-headline mb-5">Lab announcements, straight to your inbox.</h2>
         <EmailSignup placeholder="you@domain.com" tag="labs" submitText="Notify me" />
       </div>
     </section>
 
     <!-- CTA VOID (LOW density) -->
     <section class="cta" data-reveal>
-      <p class="label">CH47</p>
       <a class="cta__headline" href="/">Browse the directory</a>
       <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
     </section>

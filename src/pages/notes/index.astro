@@ -24,7 +24,7 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
   <main id="main-content">
 
     <!-- HERO -->
-    <section class="hero" data-section="hero" style="min-height: 60vh; min-height: 60dvh;">
+    <section class="hero" data-section="hero" style="min-height: auto; padding-top: clamp(100px, 16vh, 180px); padding-bottom: clamp(32px, 4vh, 48px);">
       <div class="hero__inner">
         <div class="hero__bar" aria-hidden="true"></div>
         <p class="label hero__label">BUILD NOTES</p>
@@ -36,7 +36,7 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     </section>
 
     <!-- CONTENT GRID -->
-    <section class="notes-grid py-[clamp(40px,6vh,60px)]" data-section="notes-grid">
+    <section class="notes-grid py-[clamp(60px,10vh,100px)]" data-section="notes-grid">
       <div class="wrap">
       <div class="mb-6">
         <div class="flex gap-2 flex-wrap" data-tag-filter>
@@ -75,13 +75,12 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
         <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
         <p class="label mb-2" style="color: var(--color-ink); opacity: 0.5;">BUILD NOTES</p>
         <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-display); color: var(--color-ink);">Get breakdowns like this weekly.</h2>
-        <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Subscribe" />
+        <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Get Build Notes" />
       </div>
     </section>
 
     <!-- CTA VOID -->
     <section class="cta" data-section="cta">
-      <p class="label">CH47</p>
       <a class="cta__headline" href="/">Browse the directory</a>
       <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
     </section>
@@ -150,19 +149,6 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     color: var(--color-signal);
     border-color: var(--color-signal);
     background: var(--signal-dim-alpha);
-  }
-
-  /* Light-surface EmailSignup overrides */
-  .rupture :global(.email-signup__input) {
-    background: var(--color-paper);
-    border-color: var(--color-light-border);
-    color: var(--color-ink);
-  }
-  .rupture :global(.email-signup__input::placeholder) { color: var(--color-stone); }
-  .rupture :global(.email-signup__input:focus) {
-    background: #fff;
-    border-color: var(--color-signal);
-    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
   }
 
   @media (prefers-reduced-motion: reduce) {

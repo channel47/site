@@ -36,7 +36,7 @@ const isBreakdown = tag === 'breakdown';
     <span class="w-px h-3 bg-ash" aria-hidden="true"></span>
     <time class="font-mono text-[11px] text-stone tracking-wide" datetime={date.toISOString()}>{formatted}</time>
   </div>
-  <h3 class="font-mono text-sm font-semibold text-chalk tracking-tight mb-1 transition-colors duration-100 group-hover:text-signal" style="font-family: var(--font-family-display); font-size: clamp(1.1rem, 2vw, 1.35rem); letter-spacing: -0.02em; line-height: 1.2;">{title}</h3>
+  <h3 class="content-card__title mb-1">{title}</h3>
   <p class="font-mono text-[13px] text-dust leading-relaxed tracking-wide line-clamp-2">{description}</p>
 </a>
 
