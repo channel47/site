@@ -1,40 +1,43 @@
 ---
 /**
  * ProductCallout — full-section Paid Briefs callout.
- * Dashed signal-dim border, 2-col grid, eyebrow + name + desc + link on left,
- * feature bullets on right.
+ * Soot card with dashed signal-dim border, accent bar, 2-col asymmetric grid.
+ * Eyebrow + name + desc + link on left, feature bullets on right.
  */
 ---
 
 <section class="product" data-reveal>
   <div class="wrap">
     <div class="product__card">
-      <div>
-        <p class="product__eyebrow">Product by Channel 47</p>
-        <h3 class="product__name">Paid <span>Briefs</span></h3>
-        <p class="product__desc">
-          Daily Google Ads briefs that write themselves. Built from the same skills and MCPs in this directory, shipped as a standalone product.
-        </p>
-        <a href="https://paidbrief.com" class="product__link" target="_blank" rel="noopener">
-          paidbrief.com
-        </a>
-      </div>
-      <div class="product__features">
-        <div class="product__feature">
-          <span class="product__feature-dot"></span>
-          <span>Daily performance briefs for every account</span>
+      <div class="product__bar" aria-hidden="true"></div>
+      <div class="product__grid">
+        <div class="product__primary">
+          <p class="product__eyebrow">Product by Channel 47</p>
+          <h3 class="product__name">Paid<span>Brief</span></h3>
+          <p class="product__desc">
+            Daily Google Ads briefs that write themselves. Built from the same skills and MCPs in this directory, shipped as a standalone product.
+          </p>
+          <a href="https://paidbrief.com" class="product__link" target="_blank" rel="noopener">
+            paidbrief.com <span aria-hidden="true">→</span>
+          </a>
         </div>
-        <div class="product__feature">
-          <span class="product__feature-dot"></span>
-          <span>Waste detection, pacing alerts, budget analysis</span>
-        </div>
-        <div class="product__feature">
-          <span class="product__feature-dot"></span>
-          <span>Built on the Google Ads MCP from this registry</span>
-        </div>
-        <div class="product__feature">
-          <span class="product__feature-dot"></span>
-          <span>Running across 25+ accounts daily at a media agency</span>
+        <div class="product__features">
+          <div class="product__feature">
+            <span class="product__feature-dot" aria-hidden="true"></span>
+            <span>Daily performance briefs for every account</span>
+          </div>
+          <div class="product__feature">
+            <span class="product__feature-dot" aria-hidden="true"></span>
+            <span>Waste detection, pacing alerts, budget analysis</span>
+          </div>
+          <div class="product__feature">
+            <span class="product__feature-dot" aria-hidden="true"></span>
+            <span>Built on the Google Ads MCP from this registry</span>
+          </div>
+          <div class="product__feature">
+            <span class="product__feature-dot" aria-hidden="true"></span>
+            <span>Running across 25+ accounts daily at a media agency</span>
+          </div>
         </div>
       </div>
     </div>

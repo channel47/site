@@ -476,15 +476,28 @@
 
   /* ── Product Callout (MEDIUM density) ── */
   .product { padding: clamp(80px, 14vh, 160px) 0; border-top: 1px solid var(--color-smoke); }
+  .product__card {
+    border: 1px solid var(--color-ash);
+    border-radius: var(--radius-tight);
+    padding: clamp(32px, 5vw, 48px);
+    position: relative;
+    overflow: hidden;
+  }
   .product__bar {
     width: 0;
     height: 2px;
     background: var(--color-signal);
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
   .product.is-visible .product__bar,
   .is-visible .product__bar {
     animation: draw-h 400ms var(--ease-out) 200ms forwards;
+  }
+  .product__grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
   }
   .product__eyebrow {
     font-family: var(--font-family-mono);
@@ -502,6 +515,7 @@
     color: var(--color-chalk);
     margin-bottom: 16px;
   }
+  .product__name span { color: var(--color-signal); }
   .product__desc {
     font-size: 15px;
     line-height: 1.7;
@@ -509,7 +523,9 @@
     max-width: 48ch;
   }
   .product__link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     margin-top: 24px;
     font-family: var(--font-family-mono);
     font-size: 12px;
@@ -519,10 +535,45 @@
     color: var(--color-signal);
     border-bottom: 1px solid transparent;
     padding-bottom: 2px;
-    transition: border-color var(--dur-instant) var(--ease-sharp);
+    transition: border-color var(--dur-instant) var(--ease-sharp),
+                gap var(--dur-quick) var(--ease-out);
   }
-  .product__link:hover { border-color: var(--color-signal); }
+  .product__link:hover { border-color: var(--color-signal); gap: 10px; }
   .product__link:focus-visible { outline: 2px solid var(--color-signal); outline-offset: 2px; border-radius: var(--radius-tight); }
+  .product__features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 4px;
+  }
+  .product__feature {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-bone);
+  }
+  .product__feature-dot {
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    border-radius: 50%;
+    background: var(--color-signal);
+    position: relative;
+    top: 1px;
+  }
+  @media (max-width: 720px) {
+    .product__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .product__features {
+      border-top: 1px solid var(--color-ash);
+      padding-top: 24px;
+    }
+  }
 
   /* ── CTA Void (LOW density) ── */
   .cta {
@@ -732,6 +783,7 @@
     border-right: none;
     border-radius: var(--radius-tight) 0 0 var(--radius-tight);
     height: 48px;
+    padding: 0 14px;
   }
   .email-form .email-signup__input::placeholder,
   .email-form__input::placeholder { color: var(--color-stone); }
