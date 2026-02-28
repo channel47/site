@@ -284,41 +284,32 @@
     color: var(--color-stone);
   }
 
-  /* ── Value Grid (MEDIUM density) ── */
-  .value-grid { padding: clamp(72px, 14vh, 140px) 0; }
-  .value-grid__grid {
-    display: grid;
-    grid-template-columns: 7fr 5fr;
-    gap: 1px;
-    background: var(--color-ash);
-    border: 1px solid var(--color-ash);
-  }
-  .value-grid__cell { padding: clamp(32px, 4vw, 48px); }
-  .value-grid__cell--soot { background: var(--color-soot); }
-  .value-grid__cell--smoke { background: var(--color-smoke); }
-  .value-grid__cell--accent { border-left: 2px solid var(--color-signal); }
-  .value-grid__idx {
-    font-family: var(--font-family-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-signal);
-    display: block;
-    margin-bottom: 16px;
-  }
-  .value-grid__title {
+  /* ── Credibility Block (MEDIUM density) ── */
+  .credibility { padding: clamp(80px, 16vh, 160px) 0; }
+  .credibility .label { margin-bottom: 24px; }
+  .credibility__body {
     font-family: var(--font-family-display);
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.02em;
+    line-height: 1.4;
     color: var(--color-chalk);
-    margin-bottom: 12px;
+    max-width: 580px;
+    margin-bottom: 32px;
   }
-  .value-grid__desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-dust);
-    max-width: 42ch;
+  .credibility__link {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-signal);
+    transition: opacity var(--dur-instant) var(--ease-sharp);
+  }
+  .credibility__link:hover { opacity: 0.8; }
+  .credibility__link:focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
+    border-radius: var(--radius-tight);
   }
 
   /* ── Directory Preview (HIGH density) ── */
@@ -978,8 +969,7 @@
 
 @media (max-width: 768px) {
   .proof-bar { grid-template-columns: repeat(2, 1fr); }
-  .value-grid__grid { grid-template-columns: 1fr; }
-  .directory-row__link:not(.directory-row__link--full) { grid-template-columns: 2.5rem 1fr auto; }
+.directory-row__link:not(.directory-row__link--full) { grid-template-columns: 2.5rem 1fr auto; }
   .directory-row__link:not(.directory-row__link--full) .directory-row__type { display: none; }
   .email-form {
     flex-direction: column;

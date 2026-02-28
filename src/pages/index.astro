@@ -2,8 +2,8 @@
 /**
  * Homepage — AI plugins for media buyers.
  *
- * Density: LOW (hero) → HIGH (proof bar) → MEDIUM (plugin showcase) →
- *          MEDIUM (value grid) → RUPTURE → MEDIUM (product) → LOW (CTA void)
+ * Density: LOW (hero) → HIGH (proof bar) → HIGH (plugin directory) →
+ *          MEDIUM (credibility) → RUPTURE → MEDIUM (product) → LOW (CTA void)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
@@ -82,81 +82,51 @@ const schema = [
       </div>
     </section>
 
-    <!-- ═══════ PLUGIN SHOWCASE — MEDIUM density ═══════ -->
-    <section class="plugin-showcase" data-reveal-stagger>
+    <!-- ═══════ PLUGIN DIRECTORY — HIGH density ═══════ -->
+    <section class="plugin-dir" data-reveal-stagger>
       <div class="wrap">
-        <p class="label mb-8" data-reveal-child data-stagger="1">Plugins</p>
-
-        <!-- Featured: Paid Search (LIVE) -->
-        <div class="plugin-showcase__featured" data-reveal-child data-stagger="2">
-          <div class="plugin-showcase__featured-header">
-            <span class="plugin-badge plugin-badge--live">Live</span>
-            <h2 class="plugin-showcase__name">Paid Search</h2>
-          </div>
-          <p class="plugin-showcase__desc">
-            Complete toolkit for Google Ads and Bing Ads. 6 skills, 2 MCP servers, safety hooks. Built from managing 25+ accounts daily.
-          </p>
-          <a href="/plugins/paid-search" class="plugin-showcase__link">View plugin details</a>
+        <div class="plugin-dir__header" data-reveal-child data-stagger="1">
+          <h2 class="plugin-dir__title">Browse the plugins</h2>
+          <a href="/plugins" class="plugin-dir__viewall">View all →</a>
         </div>
 
-        <!-- Upcoming plugins -->
-        <div class="plugin-showcase__upcoming" data-reveal-child data-stagger="3">
-          <div class="plugin-showcase__upcoming-row">
-            <span class="plugin-badge plugin-badge--dev">In Development</span>
-            <span class="plugin-showcase__upcoming-name">Meta Ads</span>
-            <span class="plugin-showcase__upcoming-sep" aria-hidden="true"></span>
-            <span class="plugin-showcase__upcoming-desc">6 skills structured. Awaiting MCP server.</span>
-          </div>
-          <div class="plugin-showcase__upcoming-row">
-            <span class="plugin-badge plugin-badge--soon">Coming Soon</span>
-            <span class="plugin-showcase__upcoming-name">TikTok Ads</span>
-            <span class="plugin-showcase__upcoming-sep" aria-hidden="true"></span>
-            <span class="plugin-showcase__upcoming-desc">Campaign management plugin on the roadmap.</span>
-          </div>
-        </div>
+        <ul class="plugin-dir__list" data-reveal-child data-stagger="2">
+          <li class="plugin-dir__row">
+            <a href="/plugins/paid-search" class="plugin-dir__link">
+              <span class="plugin-dir__idx">001</span>
+              <span class="plugin-dir__name">Paid Search</span>
+              <span class="plugin-dir__badge plugin-dir__badge--live">Live</span>
+              <span class="plugin-dir__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="plugin-dir__row">
+            <a href="/coming-soon" class="plugin-dir__link">
+              <span class="plugin-dir__idx">002</span>
+              <span class="plugin-dir__name">Meta Ads</span>
+              <span class="plugin-dir__badge plugin-dir__badge--dev">In Dev</span>
+              <span class="plugin-dir__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="plugin-dir__row">
+            <a href="/coming-soon" class="plugin-dir__link">
+              <span class="plugin-dir__idx">003</span>
+              <span class="plugin-dir__name">TikTok Ads</span>
+              <span class="plugin-dir__badge plugin-dir__badge--soon">Soon</span>
+              <span class="plugin-dir__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- ═══════ VALUE GRID — MEDIUM density ═══════ -->
-    <section class="value-grid">
+    <!-- ═══════ CREDIBILITY — MEDIUM density ═══════ -->
+    <section class="credibility" data-reveal>
       <div class="wrap">
-        <div class="value-grid__grid" data-reveal-stagger>
-          <div class="value-grid__cell value-grid__cell--soot" data-reveal-child data-stagger="1">
-            <span class="value-grid__idx">001</span>
-            <h2 class="value-grid__title">One plugin per platform</h2>
-            <p class="value-grid__desc">
-              Not a flat list. Each plugin bundles skills, scripts, API connections, and safety hooks for one ad platform. Install once, get everything.
-            </p>
-          </div>
-          <div class="value-grid__cell value-grid__cell--smoke" data-reveal-child data-stagger="2">
-            <span class="value-grid__idx">002</span>
-            <h2 class="value-grid__title">Skills + scripts + APIs</h2>
-            <p class="value-grid__desc">
-              Knowledge tells AI how to think. Scripts give AI hands. API connections let AI see live data. Plugins bundle all three.
-            </p>
-          </div>
-          <div class="value-grid__cell value-grid__cell--smoke value-grid__cell--accent" data-reveal-child data-stagger="3">
-            <span class="value-grid__idx">003</span>
-            <h2 class="value-grid__title">Built from real workflows</h2>
-            <p class="value-grid__desc">
-              The paid-search plugin caught ~$3K/month in wasted spend across two accounts. Pacing alerts flagged a budget issue 4 days before the client noticed. Built from managing 25+ accounts daily.
-            </p>
-          </div>
-          <div class="value-grid__cell value-grid__cell--soot" data-reveal-child data-stagger="4">
-            <span class="value-grid__idx">047</span>
-            <h2 class="value-grid__title">Learn to build your own</h2>
-            <p class="value-grid__desc">
-              Every tool here was built from a real workflow.
-              <a
-                href="/notes"
-                class="text-signal underline underline-offset-2 hover:brightness-110 transition-[filter]"
-              >
-                Follow the build notes
-              </a>
-              to understand how, then build skills for your own domain.
-            </p>
-          </div>
-        </div>
+        <p class="label">Built from real accounts</p>
+        <p class="credibility__body">
+          The paid-search plugin caught ~$3K/month in wasted spend across two accounts. A pacing alert flagged a budget overrun four days before the client noticed. Every tool here comes from managing 25+ accounts daily — not a lab.
+        </p>
+        <a href="/notes" class="credibility__link">Follow the build notes →</a>
       </div>
     </section>
 
@@ -187,129 +157,136 @@ const schema = [
 </BaseLayout>
 
 <style>
-  /* ═══════ PLUGIN SHOWCASE ═══════ */
-  .plugin-showcase {
+  /* ═══════ PLUGIN DIRECTORY ═══════ */
+  .plugin-dir {
     padding: clamp(72px, 14vh, 140px) 0;
     border-top: 1px solid var(--color-smoke);
   }
 
-  /* Featured card */
-  .plugin-showcase__featured {
-    border: 1px solid var(--color-ash);
-    border-left: 2px solid var(--color-signal);
-    border-radius: var(--radius-tight);
-    padding: clamp(28px, 4vw, 44px);
-    background: var(--color-soot);
-    transition: border-color 100ms var(--ease-sharp),
-                background-color var(--dur-quick) var(--ease-out),
-                box-shadow var(--dur-quick) var(--ease-out);
-  }
-  .plugin-showcase__featured:hover {
-    border-color: var(--color-ash);
-    border-left-color: var(--color-signal);
-    background-color: #1f1b19;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-  }
-  .plugin-showcase__featured-header {
+  /* Header — title left, view-all right */
+  .plugin-dir__header {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
   }
-  .plugin-showcase__name {
+  .plugin-dir__title {
     font-family: var(--font-family-display);
-    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--color-chalk);
   }
-  .plugin-showcase__desc {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--color-dust);
-    max-width: 52ch;
-    margin-bottom: 24px;
-  }
-  .plugin-showcase__link {
+  .plugin-dir__viewall {
     font-family: var(--font-family-mono);
     font-size: 12px;
-    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-signal);
     transition: opacity var(--dur-instant) var(--ease-sharp);
   }
-  .plugin-showcase__link:hover { opacity: 0.8; }
-  .plugin-showcase__link:focus-visible {
+  .plugin-dir__viewall:hover { opacity: 0.8; }
+  .plugin-dir__viewall:focus-visible {
     outline: 2px solid var(--color-signal);
     outline-offset: 2px;
     border-radius: var(--radius-tight);
   }
 
-  /* Badges */
-  .plugin-badge {
-    display: inline-block;
+  /* List */
+  .plugin-dir__list { list-style: none; }
+
+  /* Row */
+  .plugin-dir__row {
+    border-bottom: 1px solid var(--color-smoke);
+  }
+  .plugin-dir__row:first-child {
+    border-top: 1px solid var(--color-smoke);
+  }
+
+  /* Link grid */
+  .plugin-dir__link {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 16px;
+    margin: 0 -16px;
+    transition: background-color var(--dur-quick) var(--ease-out);
+  }
+  .plugin-dir__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: var(--color-signal);
+    transform: scaleY(0);
+    transition: transform 100ms var(--ease-sharp);
+  }
+  .plugin-dir__link:hover {
+    background-color: rgba(245, 158, 11, 0.03);
+  }
+  .plugin-dir__link:hover::before {
+    transform: scaleY(1);
+  }
+  .plugin-dir__link:focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: -2px;
+    border-radius: var(--radius-tight);
+  }
+
+  /* Cells */
+  .plugin-dir__idx {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--color-ash);
+  }
+  .plugin-dir__name {
+    font-family: var(--font-family-mono);
+    font-size: 14px;
+    color: var(--color-bone);
+  }
+  .plugin-dir__arrow {
+    font-family: var(--font-family-mono);
+    font-size: 14px;
+    color: var(--color-ash);
+    transition: color var(--dur-instant) var(--ease-sharp);
+  }
+  .plugin-dir__link:hover .plugin-dir__arrow {
+    color: var(--color-signal);
+  }
+
+  /* Status badges */
+  .plugin-dir__badge {
+    padding: 3px 8px;
+    border-radius: var(--radius-tight);
     font-family: var(--font-family-mono);
     font-size: 10px;
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 0.12em;
-    padding: 3px 10px;
-    border-radius: var(--radius-tight);
-    line-height: 1.4;
+    text-transform: uppercase;
   }
-  .plugin-badge--live {
+  .plugin-dir__badge--live {
     background: var(--color-signal);
     color: var(--color-void);
   }
-  .plugin-badge--dev {
-    background: var(--color-signal-dim);
-    color: var(--color-bone);
+  .plugin-dir__badge--dev {
+    border: 1px solid var(--color-ash);
+    color: var(--color-dust);
   }
-  .plugin-badge--soon {
-    background: var(--color-smoke);
+  .plugin-dir__badge--soon {
+    border: 1px solid var(--color-smoke);
     color: var(--color-stone);
   }
 
-  /* Upcoming rows */
-  .plugin-showcase__upcoming {
-    margin-top: 24px;
-    border-top: 1px solid var(--color-smoke);
-  }
-  .plugin-showcase__upcoming-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--color-smoke);
-  }
-  .plugin-showcase__upcoming-name {
-    font-family: var(--font-family-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-chalk);
-  }
-  .plugin-showcase__upcoming-sep {
-    width: 1px;
-    height: 12px;
-    background: var(--color-ash);
-    flex-shrink: 0;
-  }
-  .plugin-showcase__upcoming-desc {
-    font-family: var(--font-family-mono);
-    font-size: 13px;
-    color: var(--color-stone);
-  }
-
-  @media (max-width: 640px) {
-    .plugin-showcase__upcoming-row {
-      flex-wrap: wrap;
-      gap: 8px 12px;
+  @media (max-width: 480px) {
+    .plugin-dir__link {
+      grid-template-columns: 1fr auto auto;
     }
-    .plugin-showcase__upcoming-sep {
-      display: none;
-    }
+    .plugin-dir__idx { display: none; }
   }
-
 </style>
 

@@ -6,25 +6,22 @@ import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-test('Nav has logo, Plugins, Build, and Subscribe links', async () => {
+test('Nav has logo, Plugins, Notes, Labs, and Subscribe links', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/Nav.astro'), 'utf8');
   assert.match(source, /href="\/"/);
-  assert.match(source, /href="\/subscribe"/);
   assert.match(source, /href="\/plugins"/);
-  assert.match(source, /href="\/tools"/);
-  assert.match(source, />Build<\/a>/);
-});
-
-test('Footer has Build label, Notes, Labs, Subscribe, Privacy links and ctrlswing attribution', async () => {
-  const source = await readFile(resolve(__dirname, '../src/components/Footer.astro'), 'utf8');
-  assert.match(source, /href="\/tools"[^>]*>Build<\/a>/);
   assert.match(source, /href="\/notes"/);
   assert.match(source, /href="\/labs"/);
   assert.match(source, /href="\/subscribe"/);
-  assert.match(source, /href="\/privacy"/);
+  // Subscribe CTA is differentiated with signal color
+  assert.match(source, /text-signal[^"]*hover:text-\[#FBBF24\]/);
+});
+
+test('Footer has Privacy link and ctrlswing attribution', async () => {
+  const source = await readFile(resolve(__dirname, '../src/components/Footer.astro'), 'utf8');
+  assert.match(source, /\/privacy/);
   assert.match(source, /ctrlswing/);
-  // No longer imports SocialLinks
-  assert.doesNotMatch(source, /SocialLinks/);
+  assert.match(source, /Built by/);
 });
 
 test('ToolCard accepts href prop and has search data attributes', async () => {
@@ -42,7 +39,7 @@ test('ProductCallout exists with correct structure', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/ProductCallout.astro'), 'utf8');
   assert.match(source, /paidbrief\.com/);
   assert.match(source, /PRODUCT/i);
-  assert.match(source, /Paid Briefs/);
+  assert.match(source, /PaidBrief/);
 });
 
 test('coming-soon page exists with email signup', async () => {
@@ -50,19 +47,14 @@ test('coming-soon page exists with email signup', async () => {
   assert.match(source, /EmailSignup/);
 });
 
-test('tools page is skill builder with form and voice section', async () => {
-  const source = await readFile(resolve(__dirname, '../src/pages/tools.astro'), 'utf8');
-
-  // No longer a directory page
-  assert.doesNotMatch(source, /getCollection/);
-  assert.doesNotMatch(source, /hub-search/);
-  assert.doesNotMatch(source, /ToolCard/);
+test('/build page is skill builder with form and direct generation flow', async () => {
+  const source = await readFile(resolve(__dirname, '../src/pages/build.astro'), 'utf8');
 
   // Has skill builder structure
   assert.match(source, /Build a skill/);
   assert.match(source, /data-section="hero"/);
   assert.match(source, /data-section="builder-form"/);
-  assert.match(source, /data-section="builder-voice"/);
+  assert.match(source, /data-section="builder-generating"/);
   assert.match(source, /data-section="builder-email"/);
 
   // Has form fields
@@ -70,11 +62,16 @@ test('tools page is skill builder with form and voice section', async () => {
   assert.match(source, /name="platform"/);
   assert.match(source, /name="workflow"/);
 
-  // Has ElevenLabs embed placeholder
-  assert.match(source, /elevenlabs-convai/);
-  // v1 delivery path builds from form (no dead sessionStorage reads)
+  // Calls generate API with client fallback
+  assert.match(source, /\/api\/generate-skill/);
   assert.match(source, /buildSkillFromForm/);
+  assert.doesNotMatch(source, /elevenlabs/i);
   assert.doesNotMatch(source, /sessionStorage/);
+});
+
+test('/tools redirects to /build', async () => {
+  const source = await readFile(resolve(__dirname, '../src/pages/tools.astro'), 'utf8');
+  assert.match(source, /redirect.*\/build.*301/);
 });
 
 test('homepage top-level tool links point to /plugins directory', async () => {
@@ -85,10 +82,10 @@ test('homepage top-level tool links point to /plugins directory', async () => {
   assert.doesNotMatch(source, /href="\/tools" class="cta__headline">Browse the tools\.<\/a>/);
 });
 
-test('generate-skill endpoint enforces signature and guards untrusted prompt input', async () => {
+test('generate-skill endpoint enforces CSRF/content-type checks and guards untrusted prompt input', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/api/generate-skill.ts'), 'utf8');
-  assert.match(source, /if \(!signatureHeader\)/);
-  assert.match(source, /Invalid signature format/);
+  assert.match(source, /Cross-origin requests not allowed/);
+  assert.match(source, /application\/json/);
   assert.match(source, /<untrusted_user_input>/);
   assert.match(source, /escapeXml/);
   assert.match(source, /claude-sonnet-4-20250514/);
@@ -109,7 +106,7 @@ test('tools schema supports compatibleWith and relatedTools fields', async () =>
   assert.match(source, /relatedTools/);
 });
 
-test('homepage has hero, proof bar, value grid, rupture, product callout, CTA', async () => {
+test('homepage has hero, proof bar, plugin directory, credibility, rupture, product callout, CTA', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
 
   // Has hero with is-visible
@@ -120,8 +117,10 @@ test('homepage has hero, proof bar, value grid, rupture, product callout, CTA', 
   assert.match(source, /EmailSignup/);
   // Has proof bar
   assert.match(source, /proof-bar/);
-  // Has value grid
-  assert.match(source, /value-grid/);
+  // Has plugin directory
+  assert.match(source, /plugin-dir/);
+  // Has credibility block
+  assert.match(source, /credibility/);
   // Has rupture
   assert.match(source, /rupture/);
   // Has ProductCallout

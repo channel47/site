@@ -19,17 +19,20 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Environment
 
-`KIT_API_KEY` required for subscribe endpoint. `PUBLIC_GA_*` / `PUBLIC_META_*` for analytics.
+`KIT_API_KEY` required for subscribe endpoint. `ANTHROPIC_API_KEY` required for skill builder generation. `PUBLIC_GA_*` / `PUBLIC_META_*` for analytics.
 
 ## Pages
 
-- `/` — Homepage: marketing AI directory (hero + newsletter bar + filtered tool list)
-- `/skills/` — Skills hub — filtered listing
-- `/skills/[slug]` — Individual skill detail page
-- `/mcps/` — MCPs hub — filtered listing
-- `/mcps/[slug]` — Individual MCP detail page
-- `/plugins/` — Plugins hub — filtered listing
-- `/plugins/[slug]` — Individual plugin detail page
+- `/` — Homepage: AI plugins for media buyers (hero + proof bar + plugin directory + credibility + rupture + product callout + CTA)
+- `/build` — Skill Builder: form → Claude generation → email delivery → .skill download
+- `/tools` — 301 redirect to `/build`
+- `/plugins/` — Plugins hub — filtered listing of plugins
+- `/plugins/[slug]` — Individual plugin detail page (redirects to /coming-soon if no install command)
+- `/plugins/media-buyer` — 301 redirect to `/plugins/paid-search`
+- `/skills/` — 301 redirect to `/plugins`
+- `/skills/[slug]` — Individual skill detail page (still live for direct links)
+- `/mcps/` — 301 redirect to `/plugins`
+- `/mcps/[slug]` — Individual MCP detail page (still live for direct links)
 - `/privacy` — Privacy policy
 - `/coming-soon` — Shared empty state with email signup for tools not yet public
 - `/notes` — Build Notes hub (content collection index)
@@ -37,7 +40,7 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 - `/labs` — Skills Labs landing page (monthly live builds → Skool community)
 - `/subscribe` — Email signup standalone page
 - `/api/subscribe` — POST, proxies to Kit API. Accepts optional `fields` object for custom Kit fields.
-- `/ecosystem`, `/tools`, `/build`, `/hire` — 301 redirects to `/`
+- `/ecosystem`, `/hire` — 301 redirects to `/`
 
 ## Key Files
 
@@ -46,13 +49,15 @@ src/
 ├── layouts/
 │   └── BaseLayout.astro          # Default layout (meta, fonts, scroll reveal)
 ├── pages/
-│   ├── index.astro               # Marketing AI directory with filter tabs and tool list
-│   ├── skills/index.astro        # Skills hub — filtered listing
-│   ├── skills/[slug].astro       # Skill detail page
-│   ├── mcps/index.astro          # MCPs hub — filtered listing
-│   ├── mcps/[slug].astro         # MCP detail page
+│   ├── index.astro               # Homepage — hero + proof bar + plugin directory + credibility + rupture + product callout + CTA
+│   ├── build.astro               # Skill Builder — form → Claude generation → .skill download
+│   ├── tools.astro               # 301 redirect to /build
 │   ├── plugins/index.astro       # Plugins hub — filtered listing
 │   ├── plugins/[slug].astro      # Plugin detail page
+│   ├── skills/index.astro        # 301 redirect to /plugins
+│   ├── skills/[slug].astro       # Skill detail page (still live for direct links)
+│   ├── mcps/index.astro          # 301 redirect to /plugins
+│   ├── mcps/[slug].astro         # MCP detail page (still live for direct links)
 │   ├── privacy.astro             # Privacy policy
 │   ├── coming-soon.astro         # Shared empty state with email signup
 │   ├── labs.astro                 # Skills Labs
@@ -64,13 +69,13 @@ src/
 │   └── main.css                  # Single CSS entry — Tailwind v4 @theme tokens,
 │                                 #   @layer components, keyframes, scroll reveal
 ├── components/
-│   ├── Nav.astro                 # Fixed glass nav bar (logo left, Subscribe right)
-│   ├── Footer.astro              # Notes · Labs · Subscribe · Privacy links + ctrlswing attribution
+│   ├── Nav.astro                 # Fixed glass nav bar (logo left, Plugins · Notes · Labs · Subscribe right)
+│   ├── Footer.astro              # Sign-off only: Privacy + ctrlswing attribution
 │   ├── Breadcrumbs.astro         # Breadcrumb navigation for hub and detail pages
 │   ├── EmailSignup.astro         # Email capture form (JS state handling)
 │   ├── ContentCard.astro         # Note card for grid
 │   ├── ToolCard.astro            # Full-width tool row, accepts href prop for detail page links
-│   ├── PaidBriefsCard.astro      # Featured product card for Paid Briefs (dashed amber border)
+│   ├── PaidBriefsCard.astro      # Featured product card for Paid Briefs
 │   ├── ui/button.tsx             # shadcn/ui Button (React)
 │   └── ui/input.tsx              # shadcn/ui Input (React)
 ├── content/
