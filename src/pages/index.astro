@@ -16,12 +16,13 @@ const schema = [
     '@type': 'Organization',
     'name': 'Channel 47',
     'url': 'https://channel47.dev',
-    'logo': 'https://channel47.dev/og-image.png',
-    'description': 'AI plugins for media buyers. Platform-specific plugins for Paid Search, Meta Ads, and TikTok.',
+    'logo': 'https://channel47.dev/logo-square.png',
+    'description': 'Free, open-source AI plugins for media buyers. Platform-specific plugins for Paid Search, Meta Ads, and TikTok — built from managing 25+ ad accounts daily.',
     'founder': {
       '@type': 'Person',
       'name': 'Jackson Dean',
       'url': 'https://x.com/ctrlswing',
+      'jobTitle': 'Media Buyer & Plugin Developer',
     },
     'sameAs': [
       'https://github.com/channel47',
@@ -37,8 +38,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Channel 47 — AI Plugins for Media Buyers"
-  description="Platform-specific AI plugins for Paid Search, Meta Ads, and TikTok. Install and run. Build your own."
+  title="AI Plugins for Media Buyers — Channel 47"
+  description="Free, open-source AI plugins for Paid Search, Meta Ads, and TikTok — built from managing 25+ ad accounts daily. Install and run, or learn to build your own."
   schema={schema}
 >
   <Nav />
@@ -52,7 +53,7 @@ const schema = [
         <p class="label hero__label">Transmitting</p>
         <h1 class="hero__headline">AI plugins for<br />media buyers.</h1>
         <p class="hero__sub">
-          Platform-specific plugins for Paid Search, Meta Ads, and TikTok.<br />
+          Free, open-source plugins for Paid Search, Meta Ads, and TikTok.<br />
           Install and run. Or learn to build your own.
         </p>
         <div class="hero__cta">
@@ -74,11 +75,11 @@ const schema = [
       </div>
       <div class="proof-bar__item" data-reveal-child data-stagger="3">
         <span class="proof-bar__value">Weekly</span>
-        <span class="proof-bar__label">Updates</span>
+        <span class="proof-bar__label">Build Notes</span>
       </div>
       <div class="proof-bar__item" data-reveal-child data-stagger="4">
-        <span class="proof-bar__value">500+</span>
-        <span class="proof-bar__label">Builders</span>
+        <span class="proof-bar__value" data-counter="16">16</span>
+        <span class="proof-bar__label">Tools Shipped</span>
       </div>
     </section>
 
@@ -137,7 +138,7 @@ const schema = [
         <p class="label label--muted" style="margin-bottom: 20px;">Signal</p>
         <h2 class="rupture__headline">The people who build skills become the most valuable people in their field.</h2>
         <p class="rupture__body">
-          Every tool here was built from a real workflow. Install and run, or learn how it's made and build your own.
+          Open source plugins. Weekly breakdowns of how they're built. A live lab where you remix skills into your own tools. Start using — then start building.
         </p>
         <a href="/plugins" class="rupture__link">Browse all tools</a>
       </div>
@@ -148,7 +149,7 @@ const schema = [
 
     <!-- ═══════ CTA VOID — LOW density ═══════ -->
     <section class="cta" data-reveal>
-      <a href="/plugins" class="cta__headline">Browse the tools.</a>
+      <a href="/plugins" class="cta__headline">See the plugins.</a>
       <a href="/subscribe" class="btn-signal">Get Build Notes</a>
     </section>
 

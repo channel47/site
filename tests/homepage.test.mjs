@@ -77,9 +77,9 @@ test('/tools redirects to /build', async () => {
 test('homepage top-level tool links point to /plugins directory', async () => {
   const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
   assert.match(source, /href="\/plugins" class="rupture__link">Browse all tools<\/a>/);
-  assert.match(source, /href="\/plugins" class="cta__headline">Browse the tools\.<\/a>/);
+  assert.match(source, /href="\/plugins" class="cta__headline">See the plugins\.<\/a>/);
   assert.doesNotMatch(source, /href="\/tools" class="rupture__link">Browse all tools<\/a>/);
-  assert.doesNotMatch(source, /href="\/tools" class="cta__headline">Browse the tools\.<\/a>/);
+  assert.doesNotMatch(source, /href="\/tools" class="cta__headline">/);
 });
 
 test('generate-skill endpoint enforces CSRF/content-type checks and guards untrusted prompt input', async () => {
