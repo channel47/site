@@ -47,7 +47,7 @@ To install, add the Channel 47 marketplace and pick the media-buyer plugin.
 
 `/plugin marketplace add channel47/plugins`
 
-`/plugin install media-buyer@channel47`
+`/plugin install paid-search@channel47`
 
 If you're in Cowork and hit the same network block, same fix from the story above.
 

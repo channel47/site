@@ -54,7 +54,7 @@ Five skills. Two platforms. One install.
 
 ```
 /plugin marketplace add channel47/plugins
-/plugin install media-buyer@channel47
+/plugin install paid-search@channel47
 ```
 
 **In Cowork:** Open the plugin browser with `/plugins`, add `channel47/plugins` as a marketplace, and select media-buyer.
