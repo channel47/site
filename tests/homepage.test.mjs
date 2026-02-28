@@ -124,23 +124,18 @@ test('detail page routes exist for skills, mcps, and plugins', async () => {
   assert.match(pluginPage, /plugin/);
 });
 
-test('hub pages exist for skills, mcps, and plugins', async () => {
+test('skills and mcps hubs redirect to /plugins', async () => {
   const skillsHub = await readFile(resolve(__dirname, '../src/pages/skills/index.astro'), 'utf8');
   const mcpsHub = await readFile(resolve(__dirname, '../src/pages/mcps/index.astro'), 'utf8');
+
+  assert.match(skillsHub, /redirect.*\/plugins/);
+  assert.match(mcpsHub, /redirect.*\/plugins/);
+});
+
+test('plugins hub exists with directory', async () => {
   const pluginsHub = await readFile(resolve(__dirname, '../src/pages/plugins/index.astro'), 'utf8');
-
-  assert.match(skillsHub, /Marketing skills for agents/);
-  assert.match(mcpsHub, /API access for marketing platforms/);
   assert.match(pluginsHub, /One plugin per platform/);
-
-  // All should have Breadcrumbs
-  assert.match(skillsHub, /Breadcrumbs/);
-  assert.match(mcpsHub, /Breadcrumbs/);
   assert.match(pluginsHub, /Breadcrumbs/);
-
-  // All should have hub search
-  assert.match(skillsHub, /data-hub-search/);
-  assert.match(mcpsHub, /data-hub-search/);
   assert.match(pluginsHub, /data-hub-search/);
 });
 
