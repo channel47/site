@@ -8,16 +8,18 @@ import LogoAnimated from './LogoAnimated.astro';
   data-nav
   aria-label="Main navigation"
 >
-  <div class="w-full max-w-[1060px] flex items-center justify-between px-[clamp(24px,5vw,64px)] py-4">
+  <div class="w-full max-w-[1060px] flex items-center justify-between px-[clamp(24px,5vw,64px)] py-5">
     <a href="/" class="inline-flex focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight" aria-label="Channel 47 home">
       <LogoAnimated />
     </a>
     <div class="flex items-center gap-3">
       <a href="/plugins" class="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-stone hover:text-signal transition-colors duration-100 hidden sm:inline focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Plugins</a>
       <span class="w-px h-3 bg-ash shrink-0 hidden sm:block" aria-hidden="true"></span>
-      <a href="/tools" class="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-stone hover:text-signal transition-colors duration-100 hidden sm:inline focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Build</a>
+      <a href="/notes" class="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-stone hover:text-signal transition-colors duration-100 hidden sm:inline focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Notes</a>
       <span class="w-px h-3 bg-ash shrink-0 hidden sm:block" aria-hidden="true"></span>
-      <a href="/subscribe" class="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-stone hover:text-signal transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Subscribe</a>
+      <a href="/labs" class="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-stone hover:text-signal transition-colors duration-100 hidden sm:inline focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Labs</a>
+      <span class="w-px h-3 bg-ash shrink-0 hidden sm:block" aria-hidden="true"></span>
+      <a href="/subscribe" class="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-signal hover:text-[#FBBF24] transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-void rounded-tight">Subscribe</a>
     </div>
   </div>
 </nav>
