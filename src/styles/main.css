@@ -181,9 +181,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    padding-top: 80px;
     padding-bottom: clamp(80px, 12vh, 140px);
     position: relative;
-    overflow: hidden;
   }
   .hero__inner {
     max-width: 1060px;
@@ -214,7 +214,7 @@
     font-size: clamp(3rem, 8vw, 6.5rem);
     font-weight: 700;
     letter-spacing: -0.04em;
-    line-height: 0.92;
+    line-height: 1.0;
     color: var(--color-chalk);
     max-width: 14ch;
     opacity: 0;
@@ -224,7 +224,7 @@
     animation: clip-reveal 600ms var(--ease-out) 500ms forwards;
   }
   .hero__sub {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.7;
     color: var(--color-dust);
     max-width: 44ch;
@@ -240,6 +240,13 @@
   }
   .hero.is-visible .hero__cta {
     animation: fade-up 400ms var(--ease-out) 1000ms forwards;
+  }
+  .hero__hint {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-stone);
+    margin-top: 10px;
+    letter-spacing: 0.02em;
   }
 
   /* ── Proof Bar (HIGH density) ── */
@@ -259,9 +266,7 @@
     gap: 4px;
     padding: 24px 12px;
     background: var(--color-void);
-    transition: background var(--dur-quick) var(--ease-out);
   }
-  .proof-bar__item:hover { background: rgba(245, 158, 11, 0.03); }
   .proof-bar__value {
     font-family: var(--font-family-display);
     font-size: clamp(1.1rem, 2.5vw, 1.75rem);
@@ -291,6 +296,7 @@
   .value-grid__cell { padding: clamp(32px, 4vw, 48px); }
   .value-grid__cell--soot { background: var(--color-soot); }
   .value-grid__cell--smoke { background: var(--color-smoke); }
+  .value-grid__cell--accent { border-left: 2px solid var(--color-signal); }
   .value-grid__idx {
     font-family: var(--font-family-mono);
     font-size: 11px;
@@ -343,19 +349,32 @@
   }
   .directory-row:first-child { border-top: 1px solid var(--color-smoke); }
   .directory-row__link {
+    position: relative;
     display: grid;
-    grid-template-columns: 3rem 1fr auto auto;
+    grid-template-columns: 3rem 1fr auto;
     align-items: center;
     gap: 16px;
     padding: 16px 16px;
     margin: 0 -16px;
-    border-radius: var(--radius-tight);
-    transition: border-color var(--dur-instant) var(--ease-sharp),
-                background var(--dur-quick) var(--ease-out);
     cursor: pointer;
+    transition: background-color var(--dur-quick) var(--ease-out);
+  }
+  .directory-row__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: var(--color-signal);
+    transform: scaleY(0);
+    transition: transform 100ms var(--ease-sharp);
   }
   .directory-row__link:hover {
-    background: rgba(245, 158, 11, 0.04);
+    background-color: rgba(245, 158, 11, 0.03);
+  }
+  .directory-row__link:hover::before {
+    transform: scaleY(1);
   }
   .directory-row__link:focus-visible {
     outline: 2px solid var(--color-signal);
@@ -367,16 +386,12 @@
     font-size: 11px;
     letter-spacing: 0.08em;
     color: var(--color-ash);
-    transition: color var(--dur-instant) var(--ease-sharp);
   }
-  .directory-row__link:hover .directory-row__idx { color: var(--color-signal); }
   .directory-row__name {
     font-family: var(--font-family-mono);
     font-size: 14px;
     color: var(--color-bone);
-    transition: color var(--dur-instant) var(--ease-sharp) 60ms;
   }
-  .directory-row__link:hover .directory-row__name { color: var(--color-chalk); }
   .directory-row__type {
     padding: 3px 8px;
     border: 1px solid var(--color-ash);
@@ -387,38 +402,54 @@
     text-transform: uppercase;
     color: var(--color-dust);
   }
-  .directory-row__arrow {
+  .directory-row__desc {
+    font-family: var(--font-family-mono);
     font-size: 14px;
-    color: var(--color-ash);
-    transition: color var(--dur-instant) var(--ease-sharp),
-                transform var(--dur-instant) var(--ease-sharp);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    color: var(--color-dust);
+    margin-top: 4px;
   }
-  .directory-row__link:hover .directory-row__arrow {
-    color: var(--color-signal);
-    transform: translateX(3px);
+
+  /* Full-width variant (hub pages — includes description) */
+  .directory-row__link--full {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 16px;
+  }
+  .directory-row__main {
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    min-width: 0;
+  }
+  .directory-row__main .directory-row__idx {
+    margin-top: 3px;
   }
 
   /* ── Rupture (light surface inversion) ── */
   .rupture {
     background: var(--color-canvas);
-    padding: clamp(80px, 16vh, 160px) clamp(24px, 5vw, 64px);
+    padding: clamp(80px, 16vh, 160px) 0;
     position: relative;
   }
   .rupture__inner {
-    max-width: 640px;
+    max-width: 1060px;
     margin: 0 auto;
+    padding: 0 clamp(24px, 5vw, 64px);
     position: relative;
-    padding-left: 32px;
+    padding-left: calc(clamp(24px, 5vw, 64px) + 32px);
   }
   .rupture__bar {
     position: absolute;
     top: 0;
-    left: 0;
+    left: clamp(24px, 5vw, 64px);
     width: 3px;
     height: 0;
     background: var(--color-signal);
   }
-  .rupture.is-visible .rupture__bar {
+  .rupture.is-visible .rupture__bar,
+  .is-visible .rupture__bar {
     animation: draw-v 600ms var(--ease-out) 200ms forwards;
   }
   .rupture__headline {
@@ -428,7 +459,7 @@
     letter-spacing: -0.03em;
     line-height: 1.1;
     color: var(--color-ink);
-    max-width: 18ch;
+    max-width: 580px;
     margin-bottom: 24px;
   }
   .rupture__body {
@@ -437,7 +468,7 @@
     line-height: 1.7;
     color: var(--color-ink);
     opacity: 0.65;
-    max-width: 40ch;
+    max-width: 480px;
     margin-bottom: 24px;
   }
   .rupture__link {
@@ -454,20 +485,15 @@
 
   /* ── Product Callout (MEDIUM density) ── */
   .product { padding: clamp(80px, 14vh, 160px) 0; border-top: 1px solid var(--color-smoke); }
-  .product__card {
-    border: 1px dashed var(--color-signal-dim);
-    border-radius: var(--radius-tight);
-    padding: clamp(32px, 4vw, 48px);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(24px, 3vw, 48px);
-    background: var(--color-soot);
-    transition: border-color var(--dur-quick) var(--ease-out),
-                box-shadow var(--dur-quick) var(--ease-out);
+  .product__bar {
+    width: 0;
+    height: 2px;
+    background: var(--color-signal);
+    margin-bottom: 24px;
   }
-  .product__card:hover {
-    border-color: var(--color-signal);
-    box-shadow: 0 0 32px rgba(245, 158, 11, 0.06);
+  .product.is-visible .product__bar,
+  .is-visible .product__bar {
+    animation: draw-h 400ms var(--ease-out) 200ms forwards;
   }
   .product__eyebrow {
     font-family: var(--font-family-mono);
@@ -475,7 +501,7 @@
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: var(--color-stone);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
   .product__name {
     font-family: var(--font-family-display);
@@ -485,29 +511,11 @@
     color: var(--color-chalk);
     margin-bottom: 16px;
   }
-  .product__name span { color: var(--color-signal); }
   .product__desc {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.7;
     color: var(--color-dust);
-    max-width: 38ch;
-  }
-  .product__features { display: flex; flex-direction: column; gap: 16px; justify-content: center; }
-  .product__feature {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--color-dust);
-  }
-  .product__feature-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-signal);
-    flex-shrink: 0;
-    margin-top: 7px;
+    max-width: 48ch;
   }
   .product__link {
     display: inline-block;
@@ -533,7 +541,6 @@
     flex-direction: column;
     align-items: center;
   }
-  .cta__label { margin-bottom: 24px; }
   .cta__headline {
     font-family: var(--font-family-display);
     font-size: clamp(1.75rem, 4vw, 3rem);
@@ -604,7 +611,7 @@
   }
   .accent-bar-v {
     width: 2px;
-    height: 0;
+    height: 0; /* animated via draw-v */
     background: var(--color-signal);
     position: absolute;
     top: 0;
@@ -667,25 +674,79 @@
   }
   .stats__pipe { width: 1px; height: 32px; background: var(--color-smoke); }
 
-  /* ── Email Form (inline variant for hero) ── */
-  .email-form { display: flex; gap: 0; max-width: 400px; }
+  /* ── Email Signup (shared base) ── */
+  .email-signup__input {
+    width: 100%;
+    background: var(--color-soot);
+    border: 1px solid var(--color-smoke);
+    border-radius: var(--radius-tight);
+    padding: 0 16px;
+    height: 48px;
+    font-family: var(--font-family-mono);
+    font-size: 14px;
+    font-size: max(16px, 14px); /* prevent iOS zoom */
+    letter-spacing: 0.02em;
+    color: var(--color-bone);
+    outline: none;
+    transition: border-color var(--dur-quick) var(--ease-out),
+                background-color var(--dur-quick) var(--ease-out),
+                box-shadow var(--dur-quick) var(--ease-out);
+  }
+  .email-signup__input::placeholder { color: var(--color-stone); }
+  .email-signup__input:hover { border-color: var(--color-ash); }
+  .email-signup__input:focus {
+    border-color: var(--color-signal);
+    background: var(--color-void);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+  }
+
+  .email-signup__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--color-signal);
+    color: var(--color-void);
+    border: none;
+    border-radius: var(--radius-tight);
+    padding: 0 20px;
+    height: 48px;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--dur-quick) var(--ease-out),
+                box-shadow var(--dur-quick) var(--ease-out),
+                transform var(--dur-instant) var(--ease-sharp);
+  }
+  .email-signup__submit:hover {
+    background: #FBBF24;
+    box-shadow: 0 2px 12px rgba(245, 158, 11, 0.25);
+    transform: translateY(-1px);
+  }
+  .email-signup__submit:active { transform: translateY(0); }
+  .email-signup__submit:focus-visible { outline: 2px solid var(--color-bone); outline-offset: 2px; }
+  .email-signup__submit:disabled { opacity: 0.7; cursor: default; }
+
+  /* ── Email Form — inline variant (hero) ── */
+  .email-form { display: flex; gap: 0; max-width: 440px; }
+  .email-form .email-signup__input,
   .email-form__input {
     flex: 1;
     background: transparent;
     border: 1px solid var(--color-ash);
     border-right: none;
     border-radius: var(--radius-tight) 0 0 var(--radius-tight);
-    padding: 12px 16px;
-    min-height: 44px;
-    font-family: var(--font-family-mono);
-    font-size: 13px;
-    letter-spacing: 0.02em;
-    color: var(--color-bone);
-    outline: none;
-    transition: border-color var(--dur-quick) var(--ease-out);
+    height: 48px;
   }
+  .email-form .email-signup__input::placeholder,
   .email-form__input::placeholder { color: var(--color-stone); }
-  .email-form__input:focus { border-color: var(--color-signal); }
+  .email-form .email-signup__input:focus,
+  .email-form__input:focus { border-color: var(--color-signal); box-shadow: none; background: transparent; }
+  .email-form .email-signup__submit,
   .email-form__btn {
     display: inline-flex;
     align-items: center;
@@ -694,10 +755,10 @@
     color: var(--color-void);
     border: 1px solid var(--color-signal);
     border-radius: 0 var(--radius-tight) var(--radius-tight) 0;
-    padding: 12px 24px;
-    min-height: 44px;
+    padding: 0 24px;
+    height: 48px;
     font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -706,9 +767,85 @@
     transition: background var(--dur-quick) var(--ease-out),
                 box-shadow var(--dur-quick) var(--ease-out);
   }
+  .email-form .email-signup__submit:hover,
   .email-form__btn:hover {
     background: #FBBF24;
     box-shadow: 0 2px 12px rgba(245, 158, 11, 0.3);
+    transform: none;
+  }
+
+  /* ── Email Form — default variant (stacked mobile, connected row desktop) ── */
+  .email-signup--default {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 520px;
+  }
+  .email-signup--default .email-signup__submit {
+    width: 100%;
+  }
+  @media (min-width: 640px) {
+    .email-signup--default {
+      flex-direction: row;
+      gap: 0;
+    }
+    .email-signup--default .email-signup__input {
+      flex: 1;
+      border-right: none;
+      border-radius: var(--radius-tight) 0 0 var(--radius-tight);
+    }
+    .email-signup--default .email-signup__submit {
+      width: auto;
+      flex-shrink: 0;
+      border-radius: 0 var(--radius-tight) var(--radius-tight) 0;
+    }
+  }
+
+  /* ── Email Form — prominent variant (subscribe page, connected row desktop) ── */
+  .email-signup--prominent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 560px;
+  }
+  .email-signup--prominent .email-signup__input { height: 52px; }
+  .email-signup--prominent .email-signup__submit {
+    width: 100%;
+    height: 52px;
+  }
+  @media (min-width: 640px) {
+    .email-signup--prominent {
+      flex-direction: row;
+      gap: 0;
+    }
+    .email-signup--prominent .email-signup__input {
+      flex: 1;
+      border-right: none;
+      border-radius: var(--radius-tight) 0 0 var(--radius-tight);
+    }
+    .email-signup--prominent .email-signup__submit {
+      width: auto;
+      flex-shrink: 0;
+      border-radius: 0 var(--radius-tight) var(--radius-tight) 0;
+    }
+  }
+
+  /* ── Email on light surfaces (ruptures) ── */
+  .rupture .email-signup__input,
+  .article-signup .email-signup__input {
+    background: var(--color-paper);
+    border-color: var(--color-light-border);
+    color: var(--color-ink);
+  }
+  .rupture .email-signup__input::placeholder,
+  .article-signup .email-signup__input::placeholder { color: var(--color-stone); }
+  .rupture .email-signup__input:focus,
+  .article-signup .email-signup__input:focus {
+    background: #fff;
+    border-color: var(--color-signal);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
   }
 }
 
@@ -764,6 +901,12 @@
 @keyframes counter-tick {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Void page shared keyframes (subscribe, coming-soon) */
+@keyframes void-bar-draw {
+  from { width: 0; opacity: 0.5; }
+  to { width: 40px; opacity: 1; }
 }
 
 /* Legacy aliases for existing scoped styles */
@@ -836,17 +979,20 @@
 @media (max-width: 768px) {
   .proof-bar { grid-template-columns: repeat(2, 1fr); }
   .value-grid__grid { grid-template-columns: 1fr; }
-  .directory-row__link { grid-template-columns: 2.5rem 1fr auto; }
-  .directory-row__type { display: none; }
-  .product__card { grid-template-columns: 1fr; }
+  .directory-row__link:not(.directory-row__link--full) { grid-template-columns: 2.5rem 1fr auto; }
+  .directory-row__link:not(.directory-row__link--full) .directory-row__type { display: none; }
   .email-form {
     flex-direction: column;
     gap: 8px;
   }
+  .email-form .email-signup__input,
   .email-form__input {
+    flex: none;
     border-right: 1px solid var(--color-ash);
     border-radius: var(--radius-tight);
+    height: 48px;
   }
+  .email-form .email-signup__submit,
   .email-form__btn { border-radius: var(--radius-tight); }
 }
 

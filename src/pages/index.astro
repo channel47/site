@@ -56,7 +56,7 @@ const schema = [
           Install and run. Or learn to build your own.
         </p>
         <div class="hero__cta">
-          <EmailSignup variant="inline" placeholder="you@domain.com" tag="home" submitText="Subscribe" />
+          <EmailSignup variant="inline" placeholder="you@domain.com" tag="home" submitText="Get Build Notes" />
           <p class="hero__hint">One email a week. Unsubscribe anytime.</p>
         </div>
       </div>
@@ -91,35 +91,27 @@ const schema = [
         <div class="plugin-showcase__featured" data-reveal-child data-stagger="2">
           <div class="plugin-showcase__featured-header">
             <span class="plugin-badge plugin-badge--live">Live</span>
-            <h3 class="plugin-showcase__name">Paid Search</h3>
+            <h2 class="plugin-showcase__name">Paid Search</h2>
           </div>
           <p class="plugin-showcase__desc">
             Complete toolkit for Google Ads and Bing Ads. 6 skills, 2 MCP servers, safety hooks. Built from managing 25+ accounts daily.
           </p>
-          <div class="plugin-showcase__install">
-            <code>/plugin install paid-search@channel47</code>
-            <button
-              class="plugin-showcase__copy"
-              data-install="/plugin install paid-search@channel47"
-              aria-label="Copy install command"
-            >Copy</button>
-          </div>
           <a href="/plugins/paid-search" class="plugin-showcase__link">View plugin details</a>
         </div>
 
-        <!-- Teaser grid: Meta Ads + TikTok Ads -->
-        <div class="plugin-showcase__teasers" data-reveal-child data-stagger="3">
-          <div class="plugin-showcase__teaser">
+        <!-- Upcoming plugins -->
+        <div class="plugin-showcase__upcoming" data-reveal-child data-stagger="3">
+          <div class="plugin-showcase__upcoming-row">
             <span class="plugin-badge plugin-badge--dev">In Development</span>
-            <h3 class="plugin-showcase__teaser-name">Meta Ads</h3>
-            <p class="plugin-showcase__teaser-desc">6 skills structured. Awaiting MCP server.</p>
-            <EmailSignup variant="inline" placeholder="you@domain.com" tag="meta-ads" submitText="Notify me" />
+            <span class="plugin-showcase__upcoming-name">Meta Ads</span>
+            <span class="plugin-showcase__upcoming-sep" aria-hidden="true"></span>
+            <span class="plugin-showcase__upcoming-desc">6 skills structured. Awaiting MCP server.</span>
           </div>
-          <div class="plugin-showcase__teaser">
+          <div class="plugin-showcase__upcoming-row">
             <span class="plugin-badge plugin-badge--soon">Coming Soon</span>
-            <h3 class="plugin-showcase__teaser-name">TikTok Ads</h3>
-            <p class="plugin-showcase__teaser-desc">Campaign management plugin on the roadmap.</p>
-            <EmailSignup variant="inline" placeholder="you@domain.com" tag="tiktok-ads" submitText="Notify me" />
+            <span class="plugin-showcase__upcoming-name">TikTok Ads</span>
+            <span class="plugin-showcase__upcoming-sep" aria-hidden="true"></span>
+            <span class="plugin-showcase__upcoming-desc">Campaign management plugin on the roadmap.</span>
           </div>
         </div>
       </div>
@@ -131,28 +123,28 @@ const schema = [
         <div class="value-grid__grid" data-reveal-stagger>
           <div class="value-grid__cell value-grid__cell--soot" data-reveal-child data-stagger="1">
             <span class="value-grid__idx">001</span>
-            <h3 class="value-grid__title">One plugin per platform</h3>
+            <h2 class="value-grid__title">One plugin per platform</h2>
             <p class="value-grid__desc">
               Not a flat list. Each plugin bundles skills, scripts, API connections, and safety hooks for one ad platform. Install once, get everything.
             </p>
           </div>
           <div class="value-grid__cell value-grid__cell--smoke" data-reveal-child data-stagger="2">
             <span class="value-grid__idx">002</span>
-            <h3 class="value-grid__title">Skills + scripts + APIs</h3>
+            <h2 class="value-grid__title">Skills + scripts + APIs</h2>
             <p class="value-grid__desc">
               Knowledge tells AI how to think. Scripts give AI hands. API connections let AI see live data. Plugins bundle all three.
             </p>
           </div>
           <div class="value-grid__cell value-grid__cell--smoke value-grid__cell--accent" data-reveal-child data-stagger="3">
             <span class="value-grid__idx">003</span>
-            <h3 class="value-grid__title">Built from real workflows</h3>
+            <h2 class="value-grid__title">Built from real workflows</h2>
             <p class="value-grid__desc">
               The paid-search plugin caught ~$3K/month in wasted spend across two accounts. Pacing alerts flagged a budget issue 4 days before the client noticed. Built from managing 25+ accounts daily.
             </p>
           </div>
           <div class="value-grid__cell value-grid__cell--soot" data-reveal-child data-stagger="4">
             <span class="value-grid__idx">047</span>
-            <h3 class="value-grid__title">Learn to build your own</h3>
+            <h2 class="value-grid__title">Learn to build your own</h2>
             <p class="value-grid__desc">
               Every tool here was built from a real workflow.
               <a
@@ -186,7 +178,6 @@ const schema = [
 
     <!-- ═══════ CTA VOID — LOW density ═══════ -->
     <section class="cta" data-reveal>
-      <p class="label cta__label">ch47</p>
       <a href="/plugins" class="cta__headline">Browse the tools.</a>
       <a href="/subscribe" class="btn-signal">Get Build Notes</a>
     </section>
@@ -204,74 +195,47 @@ const schema = [
 
   /* Featured card */
   .plugin-showcase__featured {
-    border: 1px dashed var(--color-signal-dim);
+    border: 1px solid var(--color-ash);
+    border-left: 2px solid var(--color-signal);
     border-radius: var(--radius-tight);
-    padding: clamp(24px, 4vw, 40px);
+    padding: clamp(28px, 4vw, 44px);
     background: var(--color-soot);
-    margin-bottom: 1px;
-    transition: border-color var(--dur-quick) var(--ease-out),
+    transition: border-color 100ms var(--ease-sharp),
+                background-color var(--dur-quick) var(--ease-out),
                 box-shadow var(--dur-quick) var(--ease-out);
   }
   .plugin-showcase__featured:hover {
-    border-color: var(--color-signal);
-    box-shadow: 0 0 32px rgba(245, 158, 11, 0.06);
+    border-color: var(--color-ash);
+    border-left-color: var(--color-signal);
+    background-color: #1f1b19;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   }
   .plugin-showcase__featured-header {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
   .plugin-showcase__name {
     font-family: var(--font-family-display);
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
     font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--color-chalk);
   }
   .plugin-showcase__desc {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.7;
     color: var(--color-dust);
     max-width: 52ch;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
-  .plugin-showcase__install {
-    position: relative;
-    font-family: var(--font-family-mono);
-    font-size: 13px;
-    color: var(--color-dust);
-    background: var(--color-void);
-    border: 1px solid var(--color-smoke);
-    border-radius: var(--radius-tight);
-    padding: 12px 16px;
-    padding-right: 72px;
-    overflow-x: auto;
-    margin-bottom: 16px;
-  }
-  .plugin-showcase__copy {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    font-family: var(--font-family-mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-stone);
-    background: var(--color-soot);
-    border: 1px solid var(--color-smoke);
-    border-radius: var(--radius-tight);
-    padding: 4px 10px;
-    cursor: pointer;
-    transition: color var(--dur-instant) var(--ease-sharp);
-  }
-  .plugin-showcase__copy:hover { color: var(--color-signal); }
   .plugin-showcase__link {
     font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     color: var(--color-signal);
     transition: opacity var(--dur-instant) var(--ease-sharp);
   }
@@ -307,69 +271,45 @@ const schema = [
     color: var(--color-stone);
   }
 
-  /* Teaser grid */
-  .plugin-showcase__teasers {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    margin-top: 1px;
+  /* Upcoming rows */
+  .plugin-showcase__upcoming {
+    margin-top: 24px;
+    border-top: 1px solid var(--color-smoke);
   }
-  .plugin-showcase__teaser {
-    border: 1px solid var(--color-smoke);
-    border-radius: var(--radius-tight);
-    padding: clamp(20px, 3vw, 32px);
-    background: var(--color-soot);
+  .plugin-showcase__upcoming-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-smoke);
   }
-  .plugin-showcase__teaser-name {
+  .plugin-showcase__upcoming-name {
     font-family: var(--font-family-display);
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: 1rem;
     font-weight: 600;
-    letter-spacing: -0.01em;
     color: var(--color-chalk);
-    margin: 10px 0 8px;
   }
-  .plugin-showcase__teaser-desc {
+  .plugin-showcase__upcoming-sep {
+    width: 1px;
+    height: 12px;
+    background: var(--color-ash);
+    flex-shrink: 0;
+  }
+  .plugin-showcase__upcoming-desc {
     font-family: var(--font-family-mono);
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 13px;
     color: var(--color-stone);
-    margin-bottom: 16px;
-  }
-  /* Constrain inline email forms inside teasers */
-  .plugin-showcase__teaser :global(.email-form) {
-    max-width: 100%;
   }
 
-  @media (max-width: 768px) {
-    .plugin-showcase__teasers {
-      grid-template-columns: 1fr;
+  @media (max-width: 640px) {
+    .plugin-showcase__upcoming-row {
+      flex-wrap: wrap;
+      gap: 8px 12px;
+    }
+    .plugin-showcase__upcoming-sep {
+      display: none;
     }
   }
 
 </style>
 
-<script>
-  function initShowcaseCopy() {
-    document.querySelectorAll('.plugin-showcase__copy[data-install]').forEach(btn => {
-      if (btn.hasAttribute('data-initialized')) return;
-      btn.setAttribute('data-initialized', 'true');
-      btn.addEventListener('click', async () => {
-        const text = btn.getAttribute('data-install');
-        if (!text) return;
-        try {
-          await navigator.clipboard.writeText(text);
-          const el = btn as HTMLElement;
-          el.textContent = 'Copied';
-          setTimeout(() => { el.textContent = 'Copy'; }, 1500);
-        } catch { /* clipboard API may fail in insecure contexts */ }
-      });
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initShowcaseCopy);
-  } else {
-    initShowcaseCopy();
-  }
-  document.addEventListener('astro:page-load', initShowcaseCopy);
-</script>
