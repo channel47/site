@@ -3,38 +3,13 @@
  * Homepage — AI plugins for media buyers.
  *
  * Density: LOW (hero) → HIGH (proof bar) → MEDIUM (plugin showcase) →
- *          MEDIUM (value grid) → HIGH (directory preview) → RUPTURE →
- *          MEDIUM (product) → LOW (CTA void)
+ *          MEDIUM (value grid) → RUPTURE → MEDIUM (product) → LOW (CTA void)
  */
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import EmailSignup from '../components/EmailSignup.astro';
-import ToolCard from '../components/ToolCard.astro';
 import ProductCallout from '../components/ProductCallout.astro';
-
-const allTools = await getCollection('tools');
-
-// Directory preview: installable tools, featured first, limit 8
-const previewTools = allTools
-  .filter(t => t.data.install)
-  .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
-  .slice(0, 8);
-
-// Route prefixes
-const typePrefix: Record<string, string> = {
-  skill: 'skills',
-  mcp: 'mcps',
-  plugin: 'plugins',
-  subagent: 'coming-soon',
-};
-
-function toolHref(tool: { id: string; data: { type: string } }) {
-  if (tool.data.type === 'subagent') return '/coming-soon';
-  const slug = tool.id.split('/').pop()?.replace(/\.md$/, '');
-  return `/${typePrefix[tool.data.type]}/${slug}`;
-}
 
 const schema = [
   {
@@ -190,28 +165,6 @@ const schema = [
             </p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ═══════ DIRECTORY PREVIEW — HIGH density ═══════ -->
-    <section class="directory" data-reveal-stagger>
-      <div class="wrap">
-        <div class="directory__header" data-reveal-child data-stagger="1">
-          <h2 class="directory__title">From the registry</h2>
-          <a href="/plugins" class="directory__link">View all</a>
-        </div>
-        <ul class="directory__list">
-          {previewTools.map((tool, i) => (
-            <ToolCard
-              name={tool.data.name}
-              description={tool.data.description}
-              type={tool.data.type}
-              href={toolHref(tool)}
-              index={i + 1}
-              variant="compact"
-            />
-          ))}
-        </ul>
       </div>
     </section>
 
@@ -393,33 +346,6 @@ const schema = [
     }
   }
 
-  /* ═══════ DIRECTORY STAGGER ═══════ */
-  .directory__list :global(li) {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity var(--dur-measured) var(--ease-out),
-                transform var(--dur-measured) var(--ease-out);
-  }
-  .directory__list :global(li.is-visible),
-  .directory.is-visible .directory__list :global(li) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .directory__list :global(li:nth-child(1)) { transition-delay: 80ms; }
-  .directory__list :global(li:nth-child(2)) { transition-delay: 160ms; }
-  .directory__list :global(li:nth-child(3)) { transition-delay: 240ms; }
-  .directory__list :global(li:nth-child(4)) { transition-delay: 320ms; }
-  .directory__list :global(li:nth-child(5)) { transition-delay: 400ms; }
-  .directory__list :global(li:nth-child(6)) { transition-delay: 480ms; }
-  .directory__list :global(li:nth-child(7)) { transition-delay: 560ms; }
-  .directory__list :global(li:nth-child(8)) { transition-delay: 640ms; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .directory__list :global(li) {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
 </style>
 
 <script>
