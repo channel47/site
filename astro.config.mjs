@@ -19,7 +19,6 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes('/ecosystem') &&
-        !page.includes('/tools') &&
         !page.includes('/build') &&
         !page.includes('/hire')
     })
