@@ -1,3 +1,163 @@
 ---
-return Astro.redirect('/', 301);
+/**
+ * /tools - Skill Builder
+ * Voice-agent-powered tool that generates .skill files.
+ * Density: LOW (hero) -> MED (form) -> MED (voice) -> LOW (email) -> LOW (CTA void)
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Skill Builder' },
+    ],
+  },
+  {
+    '@type': 'WebApplication',
+    'name': 'Skill Builder - Channel 47',
+    'description': 'Build a custom AI skill through a short voice conversation. Describe your workflow, talk to the builder, get a .skill file.',
+    'url': 'https://channel47.dev/tools/',
+    'applicationCategory': 'DeveloperApplication',
+    'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+  },
+];
 ---
+
+<BaseLayout
+  title="Skill Builder - Channel 47"
+  description="Build a custom AI skill through a short voice conversation. Describe your workflow, talk to the builder, get a .skill file."
+  schema={schema}
+>
+  <Nav />
+
+  <main id="main-content">
+    <!-- HERO - LOW density -->
+    <section class="pt-28 pb-16" data-section="hero">
+      <div class="wrap max-w-[640px]">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <p class="label mt-5 mb-4">SKILL BUILDER</p>
+        <h1
+          class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] text-chalk mb-3"
+          style="font-family: var(--font-family-display);"
+        >
+          Build a skill.
+        </h1>
+        <p class="font-mono text-sm text-dust tracking-wide max-w-[48ch]">
+          Describe what you do and the workflow you want to automate. Talk to the builder. Get a .skill file you can
+          install in Claude Code or Cowork.
+        </p>
+      </div>
+    </section>
+
+    <!-- FORM - MED density -->
+    <section class="pb-12" data-section="builder-form">
+      <div class="wrap max-w-[640px]">
+        <form id="builder-form" class="flex flex-col gap-5" novalidate>
+          <div>
+            <label for="field-role" class="font-mono text-[11px] text-stone tracking-wider uppercase mb-2 block">
+              What do you do?
+            </label>
+            <input
+              type="text"
+              id="field-role"
+              name="role"
+              placeholder="e.g. Media buyer, Content strategist, Sales ops"
+              required
+              class="w-full px-4 h-10 font-mono text-sm text-bone bg-soot/80 border border-smoke rounded-tight outline-none transition-[border-color,box-shadow] duration-100 placeholder:text-stone hover:border-ash focus-visible:border-signal focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div>
+            <label
+              for="field-platform"
+              class="font-mono text-[11px] text-stone tracking-wider uppercase mb-2 block"
+            >
+              What tools or platforms do you work with?
+            </label>
+            <input
+              type="text"
+              id="field-platform"
+              name="platform"
+              placeholder="e.g. Google Ads, Salesforce, Notion"
+              required
+              class="w-full px-4 h-10 font-mono text-sm text-bone bg-soot/80 border border-smoke rounded-tight outline-none transition-[border-color,box-shadow] duration-100 placeholder:text-stone hover:border-ash focus-visible:border-signal focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)]"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div>
+            <label
+              for="field-workflow"
+              class="font-mono text-[11px] text-stone tracking-wider uppercase mb-2 block"
+            >
+              Describe the task you want to automate
+            </label>
+            <textarea
+              id="field-workflow"
+              name="workflow"
+              placeholder="e.g. Every Monday I pull search term reports from Google Ads, classify each term, and build a negative keyword list..."
+              required
+              rows="4"
+              class="w-full px-4 py-3 font-mono text-sm text-bone bg-soot/80 border border-smoke rounded-tight outline-none transition-[border-color,box-shadow] duration-100 placeholder:text-stone hover:border-ash focus-visible:border-signal focus-visible:shadow-[0_0_0_4px_rgba(245,158,11,0.2)] resize-none"
+              spellcheck="false"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="self-start px-6 h-10 font-mono text-sm font-medium bg-signal text-void rounded-tight hover:brightness-110 transition-[filter] duration-100"
+          >
+            Talk to the builder
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- VOICE - MED density (hidden until form submit) -->
+    <section class="pb-12 hidden" data-section="builder-voice" id="voice-section">
+      <div class="wrap max-w-[640px]">
+        <div class="border border-smoke rounded-tight bg-soot/60 p-8 flex flex-col items-center gap-4">
+          <p class="font-mono text-[11px] text-stone tracking-wider uppercase">VOICE BUILDER</p>
+          <p class="font-mono text-sm text-dust text-center max-w-[38ch]">
+            The builder will ask a few quick questions to refine your skill.
+          </p>
+          <div id="voice-widget-container">
+            <!-- ElevenLabs widget injected here by JS -->
+            <elevenlabs-convai agent-id="placeholder"></elevenlabs-convai>
+          </div>
+          <p id="voice-status" class="font-mono text-[11px] text-stone"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMAIL CAPTURE - LOW density (hidden until voice ends) -->
+    <section class="py-16 hidden" data-section="builder-email" id="email-section">
+      <div class="wrap max-w-[640px] text-center">
+        <p class="label mb-4">ALMOST DONE</p>
+        <p class="font-mono text-sm text-dust mb-8 max-w-[38ch] mx-auto">
+          Your skill is being built. Enter your email to receive the .skill file.
+        </p>
+        <EmailSignup
+          placeholder="you@domain.com"
+          tag="skill-builder"
+          submitText="Send me my skill"
+          variant="prominent"
+        />
+      </div>
+    </section>
+
+    <!-- CTA VOID - LOW density -->
+    <section class="cta" data-section="builder-cta">
+      <p class="label">CH47</p>
+      <a class="cta__headline" href="/plugins">Browse plugins</a>
+      <a href="/subscribe" class="btn-signal">Get Build Notes</a>
+    </section>
+
+    <Footer />
+  </main>
+</BaseLayout>

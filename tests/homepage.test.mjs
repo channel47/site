@@ -6,12 +6,12 @@ import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-test('Nav has logo, Notes, Labs, and Subscribe links', async () => {
+test('Nav has logo, Plugins, Tools, and Subscribe links', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/Nav.astro'), 'utf8');
   assert.match(source, /href="\/"/);
   assert.match(source, /href="\/subscribe"/);
-  assert.match(source, /href="\/notes"/);
-  assert.match(source, /href="\/labs"/);
+  assert.match(source, /href="\/plugins"/);
+  assert.match(source, /href="\/tools"/);
 });
 
 test('Footer has Notes, Labs, Subscribe, Privacy links and ctrlswing attribution', async () => {
@@ -48,6 +48,30 @@ test('coming-soon page exists with email signup', async () => {
   assert.match(source, /EmailSignup/);
 });
 
+test('tools page is skill builder with form and voice section', async () => {
+  const source = await readFile(resolve(__dirname, '../src/pages/tools.astro'), 'utf8');
+
+  // No longer a directory page
+  assert.doesNotMatch(source, /getCollection/);
+  assert.doesNotMatch(source, /hub-search/);
+  assert.doesNotMatch(source, /ToolCard/);
+
+  // Has skill builder structure
+  assert.match(source, /Build a skill/);
+  assert.match(source, /data-section="hero"/);
+  assert.match(source, /data-section="builder-form"/);
+  assert.match(source, /data-section="builder-voice"/);
+  assert.match(source, /data-section="builder-email"/);
+
+  // Has form fields
+  assert.match(source, /name="role"/);
+  assert.match(source, /name="platform"/);
+  assert.match(source, /name="workflow"/);
+
+  // Has ElevenLabs embed placeholder
+  assert.match(source, /elevenlabs-convai/);
+});
+
 test('tools schema supports compatibleWith and relatedTools fields', async () => {
   const source = await readFile(resolve(__dirname, '../src/content/config.ts'), 'utf8');
   assert.match(source, /compatibleWith/);
@@ -60,7 +84,7 @@ test('homepage has hero, proof bar, value grid, directory, rupture, product call
   // Has hero with is-visible
   assert.match(source, /class="hero/);
   // Has new headline
-  assert.match(source, /The marketing AI directory/);
+  assert.match(source, /AI plugins for/);
   // Has EmailSignup
   assert.match(source, /EmailSignup/);
   // Has proof bar
@@ -107,7 +131,7 @@ test('hub pages exist for skills, mcps, and plugins', async () => {
 
   assert.match(skillsHub, /Marketing skills for agents/);
   assert.match(mcpsHub, /API access for marketing platforms/);
-  assert.match(pluginsHub, /Everything your role needs/);
+  assert.match(pluginsHub, /One plugin per platform/);
 
   // All should have Breadcrumbs
   assert.match(skillsHub, /Breadcrumbs/);
