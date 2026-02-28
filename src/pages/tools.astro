@@ -150,12 +150,14 @@ const schema = [
         <p class="font-mono text-sm text-dust mb-8 max-w-[38ch] mx-auto">
           Your skill is being built. Enter your email to receive the .skill file.
         </p>
-        <EmailSignup
-          placeholder="you@domain.com"
-          tag="skill-builder"
-          submitText="Send me my skill"
-          variant="prominent"
-        />
+        <div data-skill-email>
+          <EmailSignup
+            placeholder="you@domain.com"
+            tag="skill-builder"
+            submitText="Send me my skill"
+            variant="prominent"
+          />
+        </div>
       </div>
     </section>
 
@@ -184,7 +186,112 @@ const schema = [
       form.setAttribute('data-initialized', 'true');
 
       let formData: { role: string; platform: string; workflow: string } | null = null;
+      let generatedSkillContent = '';
       const widget = widgetContainer?.querySelector('elevenlabs-convai');
+
+      if (typeof window !== 'undefined') {
+        generatedSkillContent = window.sessionStorage.getItem('skill_builder_skill_content') || '';
+      }
+
+      function buildFallbackSkill(currentFormData: { role: string; platform: string; workflow: string }): string {
+        const safeRole = currentFormData.role || 'Operator';
+        const safePlatform = currentFormData.platform || 'General';
+        const safeWorkflow = currentFormData.workflow || 'Run workflow steps';
+        return `---
+name: ${safeRole.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'custom-skill'}
+description: Execute ${safeWorkflow.toLowerCase()} using ${safePlatform}.
+---
+
+# Purpose
+Automate a repeatable workflow for ${safeRole}.
+
+# When To Use
+- Trigger when working in ${safePlatform}
+- Trigger when this workflow is requested: ${safeWorkflow}
+
+# Process
+1. Gather required context before starting.
+2. Execute each workflow step in order.
+3. Validate output quality before returning.
+
+# Output
+- Return a concise, structured result.
+- Include next actions when follow-up is needed.
+`;
+      }
+
+      function setupEmailDelivery(
+        skillContent: string,
+        currentFormData: { role: string; platform: string; workflow: string }
+      ) {
+        const emailForm = emailSection?.querySelector('[data-skill-email] [data-signup-form]') as HTMLFormElement | null;
+        if (!emailForm || emailForm.hasAttribute('data-delivery-initialized')) return;
+        emailForm.setAttribute('data-delivery-initialized', 'true');
+
+        emailForm.addEventListener(
+          'submit',
+          async (e) => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            const emailInput = emailForm.querySelector('input[name="email"]') as HTMLInputElement | null;
+            const submitButton = emailForm.querySelector('.email-signup__submit') as HTMLButtonElement | null;
+            const email = emailInput?.value.trim() || '';
+            const resolvedSkillContent = skillContent || buildFallbackSkill(currentFormData);
+
+            if (!email || !emailInput || !submitButton) {
+              emailForm.classList.add('is-error');
+              return;
+            }
+
+            submitButton.disabled = true;
+            emailForm.classList.remove('is-error', 'is-success', 'is-server-error');
+            emailForm.classList.add('is-loading');
+
+            try {
+              const res = await fetch('/api/deliver-skill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email,
+                  skill_content: resolvedSkillContent,
+                  metadata: {
+                    role: currentFormData.role,
+                    platform: currentFormData.platform,
+                    workflow: currentFormData.workflow,
+                    skillName: `${currentFormData.role}-skill`
+                  }
+                })
+              });
+
+              const data = await res.json();
+              if (res.ok && data.success && data.skill) {
+                const blob = new Blob([data.skill], { type: 'text/markdown' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = data.filename || 'my-skill.skill';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                emailForm.classList.remove('is-loading');
+                emailForm.classList.add('is-success');
+                emailInput.value = '';
+              } else {
+                throw new Error('delivery-failed');
+              }
+            } catch {
+              emailForm.classList.remove('is-loading');
+              emailForm.classList.add('is-server-error');
+            } finally {
+              submitButton.disabled = false;
+            }
+          },
+          { capture: true }
+        );
+      }
 
       function revealEmailSection() {
         const voiceBox = voiceSection?.querySelector('.border');
@@ -200,6 +307,14 @@ const schema = [
             build_tool: formData.platform,
             build_task: formData.workflow,
           });
+        }
+
+        if (typeof window !== 'undefined') {
+          generatedSkillContent = window.sessionStorage.getItem('skill_builder_skill_content') || generatedSkillContent;
+        }
+
+        if (formData) {
+          setupEmailDelivery(generatedSkillContent, formData);
         }
       }
 
