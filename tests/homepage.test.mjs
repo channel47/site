@@ -6,16 +6,18 @@ import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-test('Nav has logo, Plugins, Tools, and Subscribe links', async () => {
+test('Nav has logo, Plugins, Build, and Subscribe links', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/Nav.astro'), 'utf8');
   assert.match(source, /href="\/"/);
   assert.match(source, /href="\/subscribe"/);
   assert.match(source, /href="\/plugins"/);
   assert.match(source, /href="\/tools"/);
+  assert.match(source, />Build<\/a>/);
 });
 
-test('Footer has Notes, Labs, Subscribe, Privacy links and ctrlswing attribution', async () => {
+test('Footer has Build label, Notes, Labs, Subscribe, Privacy links and ctrlswing attribution', async () => {
   const source = await readFile(resolve(__dirname, '../src/components/Footer.astro'), 'utf8');
+  assert.match(source, /href="\/tools"[^>]*>Build<\/a>/);
   assert.match(source, /href="\/notes"/);
   assert.match(source, /href="\/labs"/);
   assert.match(source, /href="\/subscribe"/);
@@ -70,6 +72,37 @@ test('tools page is skill builder with form and voice section', async () => {
 
   // Has ElevenLabs embed placeholder
   assert.match(source, /elevenlabs-convai/);
+  // v1 delivery path builds from form (no dead sessionStorage reads)
+  assert.match(source, /buildSkillFromForm/);
+  assert.doesNotMatch(source, /sessionStorage/);
+});
+
+test('homepage top-level tool links point to /plugins directory', async () => {
+  const source = await readFile(resolve(__dirname, '../src/pages/index.astro'), 'utf8');
+  assert.match(source, /href="\/plugins" class="directory__link">View all<\/a>/);
+  assert.match(source, /href="\/plugins" class="rupture__link">Browse all tools<\/a>/);
+  assert.match(source, /href="\/plugins" class="cta__headline">Browse the tools\.<\/a>/);
+  assert.doesNotMatch(source, /href="\/tools" class="directory__link">View all<\/a>/);
+  assert.doesNotMatch(source, /href="\/tools" class="rupture__link">Browse all tools<\/a>/);
+  assert.doesNotMatch(source, /href="\/tools" class="cta__headline">Browse the tools\.<\/a>/);
+});
+
+test('generate-skill endpoint enforces signature and guards untrusted prompt input', async () => {
+  const source = await readFile(resolve(__dirname, '../src/pages/api/generate-skill.ts'), 'utf8');
+  assert.match(source, /if \(!signatureHeader\)/);
+  assert.match(source, /Invalid signature format/);
+  assert.match(source, /<untrusted_user_input>/);
+  assert.match(source, /escapeXml/);
+  assert.match(source, /claude-sonnet-4-20250514/);
+});
+
+test('deliver-skill endpoint validates and applies security headers', async () => {
+  const source = await readFile(resolve(__dirname, '../src/pages/api/deliver-skill.ts'), 'utf8');
+  assert.match(source, /EMAIL_REGEX/);
+  assert.match(source, /Cross-origin requests not allowed/);
+  assert.match(source, /X-Frame-Options/);
+  assert.match(source, /X-XSS-Protection/);
+  assert.match(source, /REQUEST_TIMEOUT_MS/);
 });
 
 test('tools schema supports compatibleWith and relatedTools fields', async () => {

@@ -186,14 +186,10 @@ const schema = [
       form.setAttribute('data-initialized', 'true');
 
       let formData: { role: string; platform: string; workflow: string } | null = null;
-      let generatedSkillContent = '';
       const widget = widgetContainer?.querySelector('elevenlabs-convai');
 
-      if (typeof window !== 'undefined') {
-        generatedSkillContent = window.sessionStorage.getItem('skill_builder_skill_content') || '';
-      }
-
-      function buildFallbackSkill(currentFormData: { role: string; platform: string; workflow: string }): string {
+      // v1 delivery path: build from form data until webhook output is persisted server-side.
+      function buildSkillFromForm(currentFormData: { role: string; platform: string; workflow: string }): string {
         const safeRole = currentFormData.role || 'Operator';
         const safePlatform = currentFormData.platform || 'General';
         const safeWorkflow = currentFormData.workflow || 'Run workflow steps';
@@ -220,10 +216,7 @@ Automate a repeatable workflow for ${safeRole}.
 `;
       }
 
-      function setupEmailDelivery(
-        skillContent: string,
-        currentFormData: { role: string; platform: string; workflow: string }
-      ) {
+      function setupEmailDelivery(currentFormData: { role: string; platform: string; workflow: string }) {
         const emailForm = emailSection?.querySelector('[data-skill-email] [data-signup-form]') as HTMLFormElement | null;
         if (!emailForm || emailForm.hasAttribute('data-delivery-initialized')) return;
         emailForm.setAttribute('data-delivery-initialized', 'true');
@@ -237,7 +230,7 @@ Automate a repeatable workflow for ${safeRole}.
             const emailInput = emailForm.querySelector('input[name="email"]') as HTMLInputElement | null;
             const submitButton = emailForm.querySelector('.email-signup__submit') as HTMLButtonElement | null;
             const email = emailInput?.value.trim() || '';
-            const resolvedSkillContent = skillContent || buildFallbackSkill(currentFormData);
+            const resolvedSkillContent = buildSkillFromForm(currentFormData);
 
             if (!email || !emailInput || !submitButton) {
               emailForm.classList.add('is-error');
@@ -309,12 +302,8 @@ Automate a repeatable workflow for ${safeRole}.
           });
         }
 
-        if (typeof window !== 'undefined') {
-          generatedSkillContent = window.sessionStorage.getItem('skill_builder_skill_content') || generatedSkillContent;
-        }
-
         if (formData) {
-          setupEmailDelivery(generatedSkillContent, formData);
+          setupEmailDelivery(formData);
         }
       }
 
