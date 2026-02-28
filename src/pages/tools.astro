@@ -131,6 +131,12 @@ const schema = [
             <elevenlabs-convai agent-id="placeholder"></elevenlabs-convai>
           </div>
           <p id="voice-status" class="font-mono text-[11px] text-stone"></p>
+          <button
+            id="skip-voice"
+            class="mt-4 font-mono text-[11px] text-stone underline underline-offset-2 hover:text-dust transition-colors hidden"
+          >
+            Done talking? Continue -
+          </button>
         </div>
       </div>
     </section>
@@ -160,4 +166,92 @@ const schema = [
 
     <Footer />
   </main>
+
+  <script>
+    function initSkillBuilder() {
+      const form = document.getElementById('builder-form') as HTMLFormElement | null;
+      const voiceSection = document.getElementById('voice-section');
+      const emailSection = document.getElementById('email-section');
+      const voiceStatus = document.getElementById('voice-status');
+      const widgetContainer = document.getElementById('voice-widget-container');
+      const skipButton = document.getElementById('skip-voice');
+
+      if (!form || form.hasAttribute('data-initialized')) return;
+      form.setAttribute('data-initialized', 'true');
+
+      let formData: { role: string; platform: string; workflow: string } | null = null;
+
+      function revealEmailSection() {
+        const voiceBox = voiceSection?.querySelector('.border');
+        voiceBox?.classList.add('opacity-50');
+
+        emailSection?.classList.remove('hidden');
+        emailSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const emailForm = emailSection?.querySelector('[data-signup-form]') as HTMLElement | null;
+        if (emailForm && formData) {
+          emailForm.dataset.fields = JSON.stringify({
+            build_role: formData.role,
+            build_tool: formData.platform,
+            build_task: formData.workflow,
+          });
+        }
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const role = (form.querySelector('[name="role"]') as HTMLInputElement | null)?.value.trim() || '';
+        const platform = (form.querySelector('[name="platform"]') as HTMLInputElement | null)?.value.trim() || '';
+        const workflow = (form.querySelector('[name="workflow"]') as HTMLTextAreaElement | null)?.value.trim() || '';
+
+        if (!role || !platform || !workflow) return;
+
+        formData = { role, platform, workflow };
+
+        form.classList.add('opacity-50', 'pointer-events-none');
+        form.querySelector('button[type="submit"]')?.setAttribute('disabled', 'true');
+
+        voiceSection?.classList.remove('hidden');
+
+        if (widgetContainer) {
+          const agentId = widgetContainer.querySelector('elevenlabs-convai')?.getAttribute('agent-id');
+          if (agentId && agentId !== 'placeholder') {
+            const widget = widgetContainer.querySelector('elevenlabs-convai');
+            if (widget) {
+              widget.setAttribute(
+                'dynamic-variables',
+                JSON.stringify({
+                  user_role: formData.role,
+                  user_platform: formData.platform,
+                  user_workflow: formData.workflow,
+                })
+              );
+            }
+          }
+        }
+
+        voiceSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        if (voiceStatus) {
+          voiceStatus.textContent = 'Click the widget to start talking.';
+        }
+
+        setTimeout(() => {
+          skipButton?.classList.remove('hidden');
+        }, 10000);
+      });
+
+      skipButton?.addEventListener('click', () => {
+        revealEmailSection();
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSkillBuilder);
+    } else {
+      initSkillBuilder();
+    }
+    document.addEventListener('astro:page-load', initSkillBuilder);
+  </script>
 </BaseLayout>
