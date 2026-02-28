@@ -26,7 +26,7 @@ Skills are the knowledge layer. They encode your expertise so Claude can follow 
 
 MCP (Model Context Protocol) servers are the API connections. They give Claude access to external platforms — Google Ads, Bing Ads, keyword research tools, image generators.
 
-Plugins bundle these servers so you don't configure them separately. Install the media-buyer plugin and Claude can already talk to Google Ads and Bing Ads. The connections are pre-wired.
+Plugins bundle these servers so you don't configure them separately. Install the paid-search plugin and Claude can already talk to Google Ads and Bing Ads. The connections are pre-wired.
 
 ### Hooks
 
@@ -36,17 +36,18 @@ You stay in control. Claude proposes, you approve.
 
 ## How plugins are organized
 
-Each plugin targets a profession. Season 01 ships the **media buyer** — a plugin for paid-search practitioners managing Google Ads and Bing Ads accounts.
+Each plugin targets one ad platform. The first is **Paid Search** — a plugin for practitioners managing Google Ads and Bing Ads accounts.
 
-Inside the media-buyer plugin:
+Inside the paid-search plugin:
 
 - **Platform Setup** — Connect your ad accounts and verify access
 - **Morning Brief** — Daily cross-platform performance summary with anomaly detection
 - **Waste Detector** — Find spend leaks, quantify them in dollars, auto-remediate
 - **Search Term Verdict** — Classify search terms: NEGATE, PROMOTE, INVESTIGATE, or KEEP
 - **PMax Decoder** — Crack open Performance Max campaigns for transparency
+- **Profile Review** — Periodic cleanup of your account context, watch list, and decision log
 
-Five skills. Two platforms. One install.
+Six skills. Two platforms. One install.
 
 ## How to install
 
@@ -57,7 +58,7 @@ Five skills. Two platforms. One install.
 /plugin install paid-search@channel47
 ```
 
-**In Cowork:** Open the plugin browser with `/plugins`, add `channel47/plugins` as a marketplace, and select media-buyer.
+**In Cowork:** Open the plugin browser with `/plugins`, add `channel47/plugins` as a marketplace, and select paid-search.
 
 You'll need API keys for the ad platforms you want to connect. The plugin's setup skill walks you through it.
 
@@ -73,4 +74,4 @@ The ecosystem grows when practitioners contribute their knowledge. Your expertis
 
 ---
 
-Ready to get started? [Install the media-buyer plugin](/ecosystem) or [learn how to build your own skill](/build).
+Ready to get started? [Install the paid-search plugin](/plugins/paid-search) or [learn how to build your own skill](/notes).
