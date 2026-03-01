@@ -64,7 +64,7 @@ You'll need API keys for the ad platforms you want to connect. The plugin's setu
 
 <aside class="note-cta">
 <p class="note-cta__label">TRY IT</p>
-<p class="note-cta__text"><a href="/plugins/paid-search">Install the paid-search plugin</a> — six skills, two platforms, one command.</p>
+<p class="note-cta__text">The Waste Detector alone caught ~$3K/month in two accounts. <a href="/plugins/paid-search">See what it finds in yours</a>.</p>
 </aside>
 
 ## Why this matters

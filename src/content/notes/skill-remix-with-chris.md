@@ -36,7 +36,7 @@ Chris isn't a developer. I'm barely one. We just had a clear picture of what we 
 
 <aside class="note-cta">
 <p class="note-cta__label">BUILD NOTES</p>
-<p class="note-cta__text">I send one of these a week. <a href="/subscribe">Subscribe</a></p>
+<p class="note-cta__text">I document sessions like this every week — what we built, what broke, what we'd do differently. <a href="/subscribe">Subscribe</a>.</p>
 </aside>
 
 ## Try it

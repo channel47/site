@@ -17,7 +17,7 @@ export function initNavScroll(): void {
 
     // Always show at top
     if (currentY <= 0) {
-      nav!.classList.remove('nav--hidden');
+      nav.classList.remove('nav--hidden');
       lastY = currentY;
       return;
     }
@@ -27,10 +27,10 @@ export function initNavScroll(): void {
 
     if (delta > 0) {
       // Scrolling down — hide
-      nav!.classList.add('nav--hidden');
+      nav.classList.add('nav--hidden');
     } else {
       // Scrolling up — show
-      nav!.classList.remove('nav--hidden');
+      nav.classList.remove('nav--hidden');
     }
 
     lastY = currentY;

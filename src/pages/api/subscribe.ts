@@ -260,8 +260,6 @@ export const POST: APIRoute = async ({ request }) => {
 
   // Call Kit API with timeout
   try {
-    const kitEndpoint = 'https://api.kit.com/v4/subscribers';
-
     // Create abort controller for timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -284,10 +282,10 @@ export const POST: APIRoute = async ({ request }) => {
     payload.fields = kitFields;
 
     let response: Response;
-    let data: any;
+    let data: { errors?: string[] };
 
     try {
-      response = await fetch(kitEndpoint, {
+      response = await fetch(`${KIT_BASE}/subscribers`, {
         method: 'POST',
         headers: {
           'X-Kit-Api-Key': API_KEY,
@@ -299,11 +297,11 @@ export const POST: APIRoute = async ({ request }) => {
 
       clearTimeout(timeoutId);
       data = await response.json();
-    } catch (fetchError: any) {
+    } catch (fetchError: unknown) {
       clearTimeout(timeoutId);
 
       // Handle timeout
-      if (fetchError.name === 'AbortError') {
+      if ((fetchError as { name?: string })?.name === 'AbortError') {
         console.error('Kit API timeout');
         return createResponse(
           {
@@ -323,7 +321,7 @@ export const POST: APIRoute = async ({ request }) => {
       // Handle specific error cases
       // Kit returns { errors: string[] } for validation errors
       if (response.status === 400 || response.status === 422) {
-        const errorMessage = Array.isArray(data.errors)
+        const errorMessage = Array.isArray(data.errors) && data.errors.length > 0
           ? data.errors[0]
           : 'Invalid subscription data';
         return createResponse(
@@ -361,7 +359,7 @@ export const POST: APIRoute = async ({ request }) => {
       200
     );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Subscription error:', error);
 
     // Don't expose internal error details
