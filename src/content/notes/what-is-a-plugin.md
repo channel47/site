@@ -62,6 +62,11 @@ Six skills. Two platforms. One install.
 
 You'll need API keys for the ad platforms you want to connect. The plugin's setup skill walks you through it.
 
+<aside class="note-cta">
+<p class="note-cta__label">TRY IT</p>
+<p class="note-cta__text"><a href="/plugins/paid-search">Install the paid-search plugin</a> — six skills, two platforms, one command.</p>
+</aside>
+
 ## Why this matters
 
 Most people use AI by typing instructions from scratch every time. That works for simple questions. It doesn't work for complex professional workflows where consistency, domain knowledge, and safety matter.

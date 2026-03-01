@@ -34,6 +34,11 @@ The original generates ad variations you can split test across any platform. The
 
 Chris isn't a developer. I'm barely one. We just had a clear picture of what we needed, and the existing skill gave us something to start from. That's what remixing is. You don't start from scratch every time you cook. You find a recipe that's close and adjust.
 
+<aside class="note-cta">
+<p class="note-cta__label">BUILD NOTES</p>
+<p class="note-cta__text">I send one of these a week. <a href="/subscribe">Subscribe</a></p>
+</aside>
+
 ## Try it
 
 The creative variant generator is [open source](https://github.com/channel47/plugins/tree/main/plugins/paid-search/skills/creative-variants). It lives inside a Claude plugin, and has a few other skills in it too.
