@@ -25,6 +25,7 @@
 
   /* ── Signal Accent ── */
   --color-signal: #F59E0B;
+  --color-signal-hover: #FBBF24;
   --color-signal-dim: #B45309;
   --color-signal-wash: #451A03;
 
@@ -681,7 +682,7 @@
                 transform var(--dur-instant) var(--ease-sharp);
   }
   .btn-signal:hover {
-    background: #FBBF24;
+    background: var(--color-signal-hover);
     box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
     transform: translateY(-1px);
   }
@@ -773,7 +774,7 @@
                 transform var(--dur-instant) var(--ease-sharp);
   }
   .email-signup__submit:hover {
-    background: #FBBF24;
+    background: var(--color-signal-hover);
     box-shadow: 0 2px 12px rgba(245, 158, 11, 0.25);
     transform: translateY(-1px);
   }
@@ -820,7 +821,7 @@
   }
   .email-form .email-signup__submit:hover,
   .email-form__btn:hover {
-    background: #FBBF24;
+    background: var(--color-signal-hover);
     box-shadow: 0 2px 12px rgba(245, 158, 11, 0.3);
     transform: none;
   }
