@@ -14,23 +14,41 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const tags = ['all', 'breakdown', 'story', 'guide'] as const;
+
+const schema = {
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
+    { '@type': 'ListItem', 'position': 2, 'name': 'Build Notes' },
+  ],
+};
 ---
 
 <BaseLayout
   title="Build Notes — Channel 47"
   description="Skill breakdowns, build process, and the dead ends that led somewhere."
+  schema={schema}
 >
   <Nav />
   <main id="main-content">
 
     <!-- HERO -->
-    <section class="hero" data-section="hero" style="min-height: auto; padding-top: clamp(100px, 16vh, 180px); padding-bottom: clamp(32px, 4vh, 48px);">
+    <section class="hero hero--compact" data-section="hero">
       <div class="hero__inner">
         <div class="hero__bar" aria-hidden="true"></div>
         <p class="label hero__label">BUILD NOTES</p>
-        <h1 class="hero__headline" style="max-width: 12ch;">From the workshop.</h1>
+        <h1 class="hero__headline max-w-[16ch]">How the tools get built.</h1>
         <p class="hero__sub">
-          Skill breakdowns, build process, and the dead ends that led somewhere.
+          Skill breakdowns, build decisions, and the dead ends that led somewhere. From managing 25+ ad accounts daily.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════ DEFINITION — AI-extractable answer block ═══════ -->
+    <section class="py-[clamp(40px,6vh,60px)] border-t border-smoke" data-reveal>
+      <div class="wrap">
+        <p class="font-mono text-sm text-dust leading-[1.75] tracking-wide max-w-[600px]">
+          Build Notes is Channel 47's weekly publication covering how AI skills and plugins get built for media buyers. Each issue breaks down a real tool — the workflow it automates, the decisions behind the architecture, and what went wrong along the way. Written by Jackson Dean, who manages 25+ Google Ads and Bing Ads accounts daily.
         </p>
       </div>
     </section>
@@ -72,16 +90,16 @@ const tags = ['all', 'breakdown', 'story', 'guide'] as const;
     <!-- SIGNUP RUPTURE -->
     <section class="rupture" data-section="notes-signup">
       <div class="max-w-[640px] mx-auto relative pl-8">
-        <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
-        <p class="label mb-2" style="color: var(--color-ink); opacity: 0.5;">BUILD NOTES</p>
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-display); color: var(--color-ink);">Get breakdowns like this weekly.</h2>
+        <div class="accent-bar-v" aria-hidden="true"></div>
+        <p class="label text-ink/50 mb-2">BUILD NOTES</p>
+        <h2 class="font-display text-ink text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-3">Get breakdowns like this weekly.</h2>
         <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Get Build Notes" />
       </div>
     </section>
 
     <!-- CTA VOID -->
     <section class="cta" data-section="cta">
-      <a class="cta__headline" href="/">Browse the directory</a>
+      <a class="cta__headline" href="/plugins">See the plugins</a>
       <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
     </section>
 

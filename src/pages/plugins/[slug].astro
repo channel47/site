@@ -24,7 +24,7 @@ const related = tool.data.relatedTools.length > 0
 
 const slug = tool.id.split('/').pop()?.replace(/\.md$/, '');
 
-const schema = [
+const schema: Record<string, any>[] = [
   {
     '@type': 'SoftwareApplication',
     'name': tool.data.name,
@@ -44,6 +44,35 @@ const schema = [
     ],
   },
 ];
+
+// HowTo schema for plugins with install commands
+if (tool.data.install) {
+  schema.push({
+    '@type': 'HowTo',
+    'name': `How to install the ${tool.data.name} plugin for Claude Code`,
+    'description': `Install the ${tool.data.name} Claude Code plugin to get AI-powered tools for managing ad accounts.`,
+    'step': [
+      {
+        '@type': 'HowToStep',
+        'position': 1,
+        'name': 'Add the Channel 47 marketplace',
+        'text': 'In Claude Code, run: /plugin marketplace add channel47/plugins',
+      },
+      {
+        '@type': 'HowToStep',
+        'position': 2,
+        'name': 'Install the plugin',
+        'text': `Run: ${tool.data.install}`,
+      },
+      {
+        '@type': 'HowToStep',
+        'position': 3,
+        'name': 'Configure your credentials',
+        'text': 'Run the platform-setup skill to connect your ad platform API keys and verify access.',
+      },
+    ],
+  });
+}
 ---
 
 <BaseLayout title={`${tool.data.name} — Channel 47`} description={tool.data.description} schema={schema}>

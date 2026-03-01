@@ -18,17 +18,26 @@ const pastLabs = [
   { idx: '001', name: 'Waste Detector', date: 'Jan 2026', topic: 'Find and kill wasted ad spend with one skill' },
   { idx: '002', name: 'Morning Brief', date: 'Feb 2026', topic: 'Daily cross-platform health check — anomaly detection' },
 ];
+
+const schema = {
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
+    { '@type': 'ListItem', 'position': 2, 'name': 'Skill Remix Lab' },
+  ],
+};
 ---
 
 <BaseLayout
   title="Skill Remix Lab — Channel 47"
   description="Monthly live build sessions. Pick a skill. Break it down. Rebuild it yours. Free inside The Vibe Marketers."
+  schema={schema}
 >
   <Nav />
   <main id="main-content">
 
     <!-- HERO (LOW density) -->
-    <section class="hero" data-section="hero" style="min-height: auto; padding-top: clamp(100px, 16vh, 180px); padding-bottom: clamp(32px, 4vh, 48px);">
+    <section class="hero hero--compact" data-section="hero">
       <div class="hero__inner">
         <div class="hero__bar" aria-hidden="true"></div>
         <p class="label hero__label">SKILL REMIX LAB</p>
@@ -96,10 +105,10 @@ const pastLabs = [
 
     <section class="rupture" data-reveal>
       <div class="relative pl-8 max-w-[640px] mx-auto">
-        <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
-        <p class="label mb-2" style="color: var(--color-ink); opacity: 0.5;">NEXT LAB</p>
-        <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-display); color: var(--color-ink);">March 2026</h2>
-        <p class="font-mono text-sm leading-[1.7] tracking-wide mb-5 max-w-[480px]" style="color: var(--color-ink); opacity: 0.7;">
+        <div class="accent-bar-v" aria-hidden="true"></div>
+        <p class="label text-ink/50 mb-2">NEXT LAB</p>
+        <h2 class="font-display text-ink text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight leading-[1.1] mb-3">March 2026</h2>
+        <p class="font-mono text-sm text-ink/70 leading-[1.7] tracking-wide mb-5 max-w-[480px]">
           Skill and date announced inside the community. Members get first access.
         </p>
         <a class="font-mono text-[11px] font-semibold tracking-widest uppercase text-signal hover:text-[#D97706] transition-colors duration-100" href={SKOOL_LINK} target="_blank" rel="noopener">
@@ -138,8 +147,8 @@ const pastLabs = [
 
     <!-- CTA VOID (LOW density) -->
     <section class="cta" data-reveal>
-      <a class="cta__headline" href="/">Browse the directory</a>
-      <a href="/subscribe" class="btn-signal">Subscribe to Build Notes</a>
+      <a class="cta__headline" href="/plugins">See the plugins</a>
+      <a href="/subscribe" class="btn-signal">Get Build Notes</a>
     </section>
 
     <Footer />

@@ -75,7 +75,7 @@ Audit your skill files for the patterns you don't want reflected back. Read your
 
 Delete your kill list. If you've done the steps above, the kill list is actively hurting your output. The exemplar pairs and Voice Compass replace it.
 
-If you want to try building one from scratch, the [skill builder](/build) walks through the basics in about 10 minutes.
+If you want to try building one from scratch, the [What is a Claude Code plugin?](/notes/what-is-a-plugin) guide walks through the basics.
 
 ## The instruction budget
 

@@ -30,22 +30,37 @@ const formatted = date.toLocaleDateString('en-US', {
 
 const tagLabel = tag.toUpperCase();
 
-const schema = {
-  '@type': 'Article',
-  headline: title,
-  description,
-  datePublished: date.toISOString(),
-  author: {
-    '@type': 'Person',
-    name: 'Jackson Dean',
-    url: 'https://x.com/ctrlswing',
+const schema = [
+  {
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: date.toISOString(),
+    dateModified: date.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: 'Jackson Dean',
+      url: 'https://x.com/ctrlswing',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Channel 47',
+      url: 'https://channel47.dev',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://channel47.dev/logo-square.png',
+      },
+    },
   },
-  publisher: {
-    '@type': 'Organization',
-    name: 'Channel 47',
-    url: 'https://channel47.dev',
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://channel47.dev/' },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Build Notes', 'item': 'https://channel47.dev/notes/' },
+      { '@type': 'ListItem', 'position': 3, 'name': title },
+    ],
   },
-};
+];
 ---
 
 <BaseLayout
@@ -66,7 +81,7 @@ const schema = {
         <div class="article-hero__meta">
           <span class:list={['article-hero__tag', `article-hero__tag--${tag}`]}>{tagLabel}</span>
           <span class="w-px h-3 bg-ash" aria-hidden="true"></span>
-          <time class="font-mono text-[11px] text-stone tracking-[0.05em]" datetime={date.toISOString()}>{formatted}</time>
+          <time class="font-mono text-[11px] text-stone tracking-[0.05em]" datetime={date.toISOString()}>Published {formatted}</time>
         </div>
         <h1 class="article-hero__title">{title}</h1>
         <p class="article-hero__desc">{description}</p>
@@ -82,7 +97,7 @@ const schema = {
 
         <footer class="mt-[clamp(56px,8vh,80px)] pt-[clamp(48px,8vh,72px)] border-t border-smoke">
           <div class="w-10 h-0.5 bg-signal mb-6" aria-hidden="true"></div>
-          <p class="text-lg font-semibold text-chalk tracking-[-0.01em] mb-1" style="font-family: var(--font-family-display);">Jackson Dean</p>
+          <p class="font-display text-lg font-semibold text-chalk tracking-[-0.01em] mb-1">Jackson Dean</p>
           <p class="font-mono text-sm text-stone tracking-[0.02em] mb-8 max-w-[400px] leading-relaxed">Media buyer. Building tools from real workflows. Sharing the process every week.</p>
           <a class="font-mono text-[11px] font-semibold tracking-[0.1em] uppercase text-stone hover:text-signal transition-colors duration-100" href="/notes">&larr; All notes</a>
         </footer>
@@ -92,9 +107,9 @@ const schema = {
     <!-- SIGNUP RUPTURE -->
     <section class="article-signup" data-section="article-signup">
       <div class="max-w-[480px] relative pl-8">
-        <div class="accent-bar-v" aria-hidden="true" style="height: 0;"></div>
+        <div class="accent-bar-v" aria-hidden="true"></div>
         <p class="font-mono text-[11px] uppercase tracking-[0.15em] text-stone mb-3">BUILD NOTES</p>
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-3" style="font-family: var(--font-family-display); color: var(--color-ink);">Get breakdowns like this weekly.</h2>
+        <h2 class="font-display text-ink text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-tight leading-[1.1] mb-3">Get breakdowns like this weekly.</h2>
         <EmailSignup placeholder="you@domain.com" tag="notes" submitText="Subscribe" />
       </div>
     </section>
@@ -168,7 +183,7 @@ const schema = {
     margin-bottom: 24px;
   }
   [data-section="hero"].is-visible .article-hero__bar {
-    animation: drawH 600ms var(--ease-out) 200ms forwards;
+    animation: draw-h 600ms var(--ease-out) 200ms forwards;
   }
   .article-hero__meta {
     display: flex;
@@ -178,7 +193,7 @@ const schema = {
     opacity: 0;
   }
   [data-section="hero"].is-visible .article-hero__meta {
-    animation: fadeIn 200ms var(--ease-out) 300ms forwards;
+    animation: fade-in 200ms var(--ease-out) 300ms forwards;
   }
   .article-hero__tag {
     font-family: var(--font-family-mono);
@@ -207,7 +222,7 @@ const schema = {
     clip-path: inset(0 50% 0 50%);
   }
   [data-section="hero"].is-visible .article-hero__title {
-    animation: clipReveal 600ms var(--ease-out) 400ms forwards;
+    animation: clip-reveal 600ms var(--ease-out) 400ms forwards;
   }
   .article-hero__desc {
     font-family: var(--font-family-mono);
@@ -219,7 +234,7 @@ const schema = {
     opacity: 0;
   }
   [data-section="hero"].is-visible .article-hero__desc {
-    animation: fadeUp 400ms var(--ease-out) 600ms forwards;
+    animation: fade-up 400ms var(--ease-out) 600ms forwards;
   }
 
   /* Article Body */
@@ -335,7 +350,7 @@ const schema = {
   /* Light-surface EmailSignup overrides */
   .article-signup :global(.email-signup__input) { background: var(--color-paper); border-color: var(--color-light-border); color: var(--color-ink); }
   .article-signup :global(.email-signup__input::placeholder) { color: var(--color-stone); }
-  .article-signup :global(.email-signup__input:focus) { background: #fff; border-color: var(--color-signal); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15); }
+  .article-signup :global(.email-signup__input:focus) { background: var(--color-canvas); border-color: var(--color-signal); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15); }
 
   /* Reduced Motion */
   @media (prefers-reduced-motion: reduce) {

@@ -13,11 +13,9 @@ interface Props {
 }
 
 const { class: className, delay = 0 } = Astro.props;
-const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <span
-  id={formId}
   class={`logo-animated ${className || ''}`.trim()}
   role="img"
   aria-label="Channel47 Logo"
@@ -43,8 +41,6 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
       <span class="logo-animated__char" data-char="█"></span>
     </span>
   </span>
-  <!-- Glow ring that pulses on completion -->
-  <span class="logo-animated__glow" aria-hidden="true"></span>
 </span>
 
 <script>
@@ -61,7 +57,6 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
 
       const delay = parseInt(logo.getAttribute('data-delay') || '0', 10);
       const chars = logo.querySelectorAll('.logo-animated__char') as NodeListOf<HTMLElement>;
-      const glow = logo.querySelector('.logo-animated__glow') as HTMLElement;
 
       // Store final characters and set initial random state
       const targets: string[] = [];
@@ -105,11 +100,38 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
       function complete() {
         clearInterval(scrambleInterval);
         logo.classList.add('is-complete');
+      }
 
-        // Trigger glow pulse
-        if (glow) {
-          glow.classList.add('is-active');
-        }
+      // Schedule eased lock-in sequence and return timeout IDs
+      function scheduleLockIns(
+        lockDuration: number,
+        baseDelay: number,
+        onComplete: () => void
+      ): number[] {
+        const nonSpaceIndices = targets
+          .map((t, i) => (t !== ' ' ? i : -1))
+          .filter((i) => i !== -1);
+        const shuffled = [...nonSpaceIndices].sort(() => Math.random() - 0.5);
+        const timeouts: number[] = [];
+
+        shuffled.forEach((charIndex, i) => {
+          const progress = i / shuffled.length;
+          const eased = 1 - Math.pow(1 - progress, 2);
+          const lockTime = baseDelay + eased * lockDuration;
+
+          const t = window.setTimeout(() => {
+            lockChar(charIndex);
+            if (i === shuffled.length - 1) onComplete();
+          }, lockTime);
+          timeouts.push(t);
+        });
+
+        return timeouts;
+      }
+
+      function beginScramble() {
+        logo.classList.add('is-animating');
+        scrambleInterval = window.setInterval(scramble, 50);
       }
 
       // Start the scramble animation
@@ -118,39 +140,12 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
         hasAnimated = true;
 
         setTimeout(() => {
-          logo.classList.add('is-animating');
-
-          // Start scrambling at 60fps feel
-          scrambleInterval = window.setInterval(scramble, 50);
-
-          // Schedule lock-ins with staggered timing
-          const nonSpaceIndices = targets
-            .map((t, i) => (t !== ' ' ? i : -1))
-            .filter((i) => i !== -1);
-
-          // Shuffle for more organic feel
-          const shuffled = [...nonSpaceIndices].sort(() => Math.random() - 0.5);
-
-          // Lock chars over ~800ms with varying gaps
-          const lockDuration = 800;
-          const baseDelay = 300;
-
-          shuffled.forEach((charIndex, i) => {
-            const progress = i / shuffled.length;
-            const easeOut = 1 - Math.pow(1 - progress, 2);
-            const lockTime = baseDelay + easeOut * lockDuration;
-
-            window.setTimeout(() => {
-              lockChar(charIndex);
-              if (i === shuffled.length - 1) {
-                setTimeout(complete, 150);
-              }
-            }, lockTime);
-          });
+          beginScramble();
+          scheduleLockIns(800, 300, () => setTimeout(complete, 150));
         }, delay);
       }
 
-      // Hover replay — faster scramble → lock after initial animation
+      // Hover replay — faster scramble -> lock after initial animation
       let isReplaying = false;
       let replayTimeouts: number[] = [];
 
@@ -158,44 +153,20 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
         if (isReplaying) return;
         isReplaying = true;
 
-        // Clear pending timeouts from any previous replay
         replayTimeouts.forEach((t) => clearTimeout(t));
         replayTimeouts = [];
 
-        // Reset state
         clearInterval(scrambleInterval);
         logo.classList.remove('is-complete');
-        if (glow) glow.classList.remove('is-active');
         locked.fill(false);
         chars.forEach((char) => char.classList.remove('is-locked'));
 
-        logo.classList.add('is-animating');
-        scrambleInterval = window.setInterval(scramble, 50);
-
-        const nonSpaceIndices = targets
-          .map((t, i) => (t !== ' ' ? i : -1))
-          .filter((i) => i !== -1);
-        const shuffled = [...nonSpaceIndices].sort(() => Math.random() - 0.5);
-
-        // Faster on hover: 400ms lock duration, 100ms base delay
-        const lockDuration = 400;
-        const baseDelay = 100;
-
-        shuffled.forEach((charIndex, i) => {
-          const progress = i / shuffled.length;
-          const easeOut = 1 - Math.pow(1 - progress, 2);
-          const lockTime = baseDelay + easeOut * lockDuration;
-
+        beginScramble();
+        replayTimeouts = scheduleLockIns(400, 100, () => {
           const t = window.setTimeout(() => {
-            lockChar(charIndex);
-            if (i === shuffled.length - 1) {
-              const t2 = window.setTimeout(() => {
-                complete();
-                isReplaying = false;
-              }, 100);
-              replayTimeouts.push(t2);
-            }
-          }, lockTime);
+            complete();
+            isReplaying = false;
+          }, 100);
           replayTimeouts.push(t);
         });
       }
@@ -313,11 +284,6 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     }
   }
 
-  /* Glow ring - minimal */
-  .logo-animated__glow {
-    display: none;
-  }
-
   /* Reduced motion - skip scramble, just fade in */
   @media (prefers-reduced-motion: reduce) {
     .logo-animated__char {
@@ -332,12 +298,6 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
 
     .logo-animated.is-complete .logo-animated__glyph {
       animation: none;
-    }
-
-    .logo-animated__glow {
-      animation: none !important;
-      opacity: 0.3;
-      transform: scale(1);
     }
   }
 </style>

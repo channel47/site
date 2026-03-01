@@ -28,7 +28,7 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 - `/tools` — 301 redirect to `/build`
 - `/plugins/` — Plugins hub — filtered listing of plugins
 - `/plugins/[slug]` — Individual plugin detail page (redirects to /coming-soon if no install command)
-- `/plugins/media-buyer` — 301 redirect to `/plugins/paid-search`
+- `/plugins/media-buyer` — removed (was duplicate of paid-search)
 - `/skills/` — 301 redirect to `/plugins`
 - `/skills/[slug]` — Individual skill detail page (still live for direct links)
 - `/mcps/` — 301 redirect to `/plugins`

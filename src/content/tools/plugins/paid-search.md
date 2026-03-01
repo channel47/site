@@ -1,6 +1,6 @@
 ---
 name: "Paid Search"
-description: "Complete paid-search toolkit for Google Ads and Bing Ads management"
+description: "Claude Code plugin for Google Ads and Bing Ads — six skills for daily briefs, waste detection, search term verdicts, and Performance Max transparency, powered by live API connections"
 type: "plugin"
 author: "Jackson Dean"
 source: "channel47"

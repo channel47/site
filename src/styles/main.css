@@ -62,14 +62,11 @@
   --dur-instant: 100ms;
   --dur-quick: 200ms;
   --dur-measured: 400ms;
-  --dur-cinematic: 700ms;
 
   /* Alpha variants */
   --signal-dim-alpha: rgba(245, 158, 11, 0.12);
-  --signal-glow: rgba(245, 158, 11, 0.25);
 
   /* Z-index */
-  --z-nav: 100;
   --z-progress: 9999;
 }
 
@@ -257,6 +254,13 @@
     color: var(--color-stone);
     margin-top: 10px;
     letter-spacing: 0.02em;
+  }
+
+  /* ── Hero Compact (sub-page hubs) ── */
+  .hero--compact {
+    min-height: auto;
+    padding-top: clamp(100px, 16vh, 180px);
+    padding-bottom: clamp(32px, 4vh, 48px);
   }
 
   /* ── Proof Bar (HIGH density) ── */
@@ -730,8 +734,7 @@
     padding: 0 16px;
     height: 48px;
     font-family: var(--font-family-mono);
-    font-size: 14px;
-    font-size: max(16px, 14px); /* prevent iOS zoom */
+    font-size: 16px; /* prevent iOS zoom */
     letter-spacing: 0.02em;
     color: var(--color-bone);
     outline: none;
@@ -916,18 +919,57 @@
     animation: fade-up 500ms var(--ease-out) 850ms forwards;
   }
 
-  /* ── Email on light surfaces (ruptures) ── */
-  .rupture .email-signup__input,
-  .article-signup .email-signup__input {
+  /* ── FAQ Accordion ── */
+  .faq-item:first-child { border-top: 1px solid var(--color-smoke); }
+  .faq-item__q {
+    font-family: var(--font-family-display);
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-bone);
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: color 100ms var(--ease-out);
+  }
+  .faq-item__q::-webkit-details-marker { display: none; }
+  .faq-item__q::after {
+    content: '+';
+    font-family: var(--font-family-mono);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-stone);
+    transition: transform 200ms var(--ease-out), color 100ms var(--ease-out);
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-item__q::after {
+    transform: rotate(45deg);
+    color: var(--color-signal);
+  }
+  .faq-item__q:hover { color: var(--color-chalk); }
+  .faq-item__q:focus-visible { outline: 2px solid var(--color-signal); outline-offset: 2px; border-radius: var(--radius-tight); }
+  .faq-item__a {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    line-height: 1.75;
+    letter-spacing: 0.02em;
+    color: var(--color-dust);
+    padding: 0 0 20px;
+    max-width: 560px;
+  }
+
+  .rupture .email-signup__input {
     background: var(--color-paper);
     border-color: var(--color-light-border);
     color: var(--color-ink);
   }
-  .rupture .email-signup__input::placeholder,
-  .article-signup .email-signup__input::placeholder { color: var(--color-stone); }
-  .rupture .email-signup__input:focus,
-  .article-signup .email-signup__input:focus {
-    background: #fff;
+  .rupture .email-signup__input::placeholder { color: var(--color-stone); }
+  .rupture .email-signup__input:focus {
+    background: var(--color-canvas);
     border-color: var(--color-signal);
     box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
   }
@@ -977,46 +1019,19 @@
   50% { box-shadow: 0 0 16px 2px rgba(245, 158, 11, 0.15); }
 }
 
-@keyframes logo-breathe {
-  0%, 100% { text-shadow: 0 0 1px rgba(231,229,228,0.3), 0 0 8px rgba(231,229,228,0.3); }
-  50% { text-shadow: 0 0 2px rgba(231,229,228,0.3), 0 0 12px rgba(231,229,228,0.3), 0 0 20px rgba(231,229,228,0.18); }
-}
-
-@keyframes counter-tick {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Legacy aliases for existing scoped styles */
-@keyframes drawH { to { width: 40px; } }
-@keyframes drawV { to { height: 40px; } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes clipReveal { from { opacity: 0; clip-path: inset(0 50% 0 50%); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
-
 /* ═══════════════════════════════════════════
    SCROLL REVEAL SYSTEM
    ═══════════════════════════════════════════ */
 
-/* Single-element reveals */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity var(--dur-measured) var(--ease-out),
-              transform var(--dur-measured) var(--ease-out);
-}
-[data-reveal].is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Parent-triggered stagger children */
+/* Single-element reveals + stagger children */
+[data-reveal],
 [data-reveal-child] {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity var(--dur-measured) var(--ease-out),
               transform var(--dur-measured) var(--ease-out);
 }
+[data-reveal].is-visible,
 [data-reveal-child].is-visible {
   opacity: 1;
   transform: translateY(0);
@@ -1056,7 +1071,7 @@
 
 @media (max-width: 768px) {
   .proof-bar { grid-template-columns: repeat(2, 1fr); }
-.directory-row__link:not(.directory-row__link--full) { grid-template-columns: 2.5rem 1fr auto; }
+  .directory-row__link:not(.directory-row__link--full) { grid-template-columns: 2.5rem 1fr auto; }
   .directory-row__link:not(.directory-row__link--full) .directory-row__type { display: none; }
   .email-form {
     flex-direction: column;

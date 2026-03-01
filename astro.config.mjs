@@ -20,7 +20,11 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/ecosystem') &&
         !page.includes('/build') &&
-        !page.includes('/hire')
+        !page.includes('/hire') &&
+        !page.includes('/coming-soon') &&
+        !page.endsWith('/tools/') &&
+        !page.endsWith('/skills/') &&
+        !page.endsWith('/mcps/')
     })
   ],
   vite: {

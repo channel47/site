@@ -1,6 +1,6 @@
 ---
 name: "Search Term Verdict"
-description: "Classify search terms into add, negate, or monitor buckets"
+description: "Pull search term reports from Google Ads and Bing Ads, classify each term as NEGATE, PROMOTE, INVESTIGATE, or KEEP, and return actionable verdicts ranked by spend impact"
 type: "skill"
 author: "Jackson Dean"
 source: "channel47"
