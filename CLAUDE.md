@@ -19,13 +19,13 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 ## Environment
 
-`KIT_API_KEY` required for subscribe endpoint. `ANTHROPIC_API_KEY` required for skill builder generation. `PUBLIC_GA_*` / `PUBLIC_META_*` for analytics.
+`KIT_API_KEY` required for subscribe endpoint. `PUBLIC_GA_*` / `PUBLIC_META_*` for analytics.
 
 ## Pages
 
 - `/` — Homepage: AI plugins for media buyers (hero + proof bar + plugin directory + credibility + rupture + product callout + CTA)
-- `/build` — Skill Builder: form → Claude generation → email delivery → .skill download
-- `/tools` — 301 redirect to `/build`
+- `/build` — 301 redirect to `/`
+- `/tools` — 301 redirect to `/`
 - `/plugins/` — Plugins hub — filtered listing of plugins
 - `/plugins/[slug]` — Individual plugin detail page (redirects to /coming-soon if no install command)
 - `/plugins/media-buyer` — removed (was duplicate of paid-search)
@@ -50,8 +50,8 @@ src/
 │   └── BaseLayout.astro          # Default layout (meta, fonts, scroll reveal)
 ├── pages/
 │   ├── index.astro               # Homepage — hero + proof bar + plugin directory + credibility + rupture + product callout + CTA
-│   ├── build.astro               # Skill Builder — form → Claude generation → .skill download
-│   ├── tools.astro               # 301 redirect to /build
+│   ├── build.astro               # 301 redirect to /
+│   ├── tools.astro               # 301 redirect to /
 │   ├── plugins/index.astro       # Plugins hub — filtered listing
 │   ├── plugins/[slug].astro      # Plugin detail page
 │   ├── skills/index.astro        # 301 redirect to /plugins
