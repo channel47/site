@@ -15,6 +15,9 @@ export function initNavScroll(): void {
     const currentY = window.scrollY;
     const delta = currentY - lastY;
 
+    // Keep nav visible while mobile menu is open
+    if (nav.hasAttribute('data-menu-open')) return;
+
     // Always show at top
     if (currentY <= 0) {
       nav.classList.remove('nav--hidden');
