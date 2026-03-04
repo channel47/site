@@ -13,6 +13,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       <LogoAnimated />
     </a>
     <div class="flex items-center gap-3">
+      <a href="/skills" class="nav__link hidden sm:inline">Skills</a>
+      <span class="nav__sep hidden sm:block" aria-hidden="true"></span>
       <a href="/plugins" class="nav__link hidden sm:inline">Plugins</a>
       <span class="nav__sep hidden sm:block" aria-hidden="true"></span>
       <a href="/notes" class="nav__link hidden sm:inline">Notes</a>
@@ -40,6 +42,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     hidden
   >
     <div class="nav__panel-inner">
+      <a href="/skills" class="nav__panel-link" aria-current={currentPath.startsWith('/skills') ? 'page' : undefined}>Skills</a>
       <a href="/plugins" class="nav__panel-link" aria-current={currentPath.startsWith('/plugins') ? 'page' : undefined}>Plugins</a>
       <a href="/notes" class="nav__panel-link" aria-current={currentPath.startsWith('/notes') ? 'page' : undefined}>Notes</a>
       <a href="/labs" class="nav__panel-link" aria-current={currentPath === '/labs' ? 'page' : undefined}>Labs</a>
