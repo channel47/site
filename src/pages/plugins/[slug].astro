@@ -55,18 +55,12 @@ if (tool.data.install) {
       {
         '@type': 'HowToStep',
         'position': 1,
-        'name': 'Add the Channel 47 marketplace',
-        'text': 'In Claude Code, run: /plugin marketplace add channel47/plugins',
+        'name': 'Install the plugin',
+        'text': `In Claude Code, run: ${tool.data.install}`,
       },
       {
         '@type': 'HowToStep',
         'position': 2,
-        'name': 'Install the plugin',
-        'text': `Run: ${tool.data.install}`,
-      },
-      {
-        '@type': 'HowToStep',
-        'position': 3,
         'name': 'Configure your credentials',
         'text': 'Run the platform-setup skill to connect your ad platform API keys and verify access.',
       },

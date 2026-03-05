@@ -1,8 +1,8 @@
 ---
 /**
- * Homepage — AI skills for marketers who build.
+ * Homepage — AI plugins for media buyers.
  *
- * Density: LOW (hero) → HIGH (proof bar) → HIGH (skills directory) →
+ * Density: LOW (hero) → HIGH (proof bar) → HIGH (plugin directory) →
  *          MEDIUM (credibility) → MEDIUM (workshop callout) →
  *          RUPTURE → MEDIUM (product) → LOW (CTA void)
  */
@@ -17,28 +17,29 @@ import ToolCard from '../components/ToolCard.astro';
 const SKOOL_LINK = 'https://www.skool.com/the-vibe-marketers/about?ref=a005b4a2e4e9420e814a94e5e1c2e708';
 
 const allTools = await getCollection('tools');
+const plugins = allTools.filter(t => t.data.type === 'plugin' && t.data.featured);
 const skills = allTools.filter(t => t.data.type === 'skill');
 
 const faqs = [
   {
     q: 'What is Channel 47?',
-    a: 'Channel 47 is a free, open-source platform that builds AI skills and plugins for marketers who build. Each skill is a focused AI workflow you can install with one command. Every tool is built by Jackson Dean from managing 25+ ad accounts daily.',
+    a: 'Channel 47 builds free, open-source Claude plugins for paid media. One plugin per ad platform — Google Ads, Microsoft Ads, and Meta Ads. Each plugin connects Claude to live API data and runs practitioner-built workflows for morning briefs, waste detection, and search term analysis. Built by Jackson Dean from managing 25+ ad accounts daily.',
   },
   {
     q: "What's the difference between a skill and a plugin?",
     a: 'A skill is a single, focused AI workflow — install it and run it today. A plugin bundles multiple skills, API connections, and safety hooks into one package for a specific ad platform. Skills are the entry point. Plugins are the depth layer.',
   },
   {
-    q: 'Are Channel 47 skills free?',
-    a: 'Yes. All Channel 47 skills and plugins are free and open source on GitHub. The paid-search plugin (Google Ads and Bing Ads) is live at v7.0.0 with six skills included. PaidBrief, a commercial product built from the same ecosystem, is available separately at paidbrief.com.',
+    q: 'Are Channel 47 plugins free?',
+    a: 'Yes. All Channel 47 plugins are free and open source (MIT license). Three plugins are live: Google Ads (9 skills), Microsoft Ads (8 skills), and Meta Ads (9 skills + 2 agents). PaidBrief, a commercial product built from the same ecosystem, is available separately at paidbrief.com.',
   },
   {
     q: 'What ad platforms does Channel 47 support?',
-    a: 'Channel 47 currently supports Google Ads and Bing Ads through the paid-search plugin, which includes six skills and two MCP servers for live API access. Meta Ads (Facebook and Instagram) and TikTok Ads plugins are in active development.',
+    a: 'Channel 47 has three live plugins: Google Ads (9 skills including waste detection and Performance Max transparency), Microsoft Ads (8 skills including import auditing and MSAN cleanup), and Meta Ads (9 skills + 2 agents for creative analysis and audience diagnostics). All read-only by design.',
   },
   {
-    q: 'How do I install a skill?',
-    a: 'In Claude Code, run: npx skills add channel47/skills --skill [skill-name]. For the full plugin with all skills bundled, run: /plugin marketplace add channel47/plugins, then /plugin install paid-search@channel47.',
+    q: 'How do I install a plugin?',
+    a: 'In Claude Code, run: claude plugin install google-ads@channel47 (or microsoft-ads@channel47, or meta-ads@channel47). Then run the platform-setup skill to configure your credentials and verify API access.',
   },
 ];
 
@@ -48,12 +49,12 @@ const schema = [
     'name': 'Channel 47',
     'url': 'https://channel47.dev',
     'logo': 'https://channel47.dev/logo-square.png',
-    'description': 'Free AI skills and plugins for marketers who build. Install a skill and run it today, or learn to build your own at monthly workshops. Built from managing 25+ ad accounts daily.',
+    'description': 'Free, open-source Claude plugins for paid media — Google Ads, Microsoft Ads, and Meta Ads. Practitioner-built workflows for morning briefs, waste detection, and search term analysis. Read-only by design.',
     'founder': {
       '@type': 'Person',
       'name': 'Jackson Dean',
       'url': 'https://x.com/ctrlswing',
-      'jobTitle': 'Marketer & Skill Builder',
+      'jobTitle': 'Marketer & Plugin Builder',
     },
     'sameAs': [
       'https://github.com/channel47',
@@ -80,8 +81,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="AI Skills for Marketers — Channel 47"
-  description="Free AI skills for marketers who build. Install and run today, or learn to build your own at monthly workshops. Built from managing 25+ ad accounts daily."
+  title="Claude Plugins for Google Ads, Microsoft Ads & Meta Ads — Channel 47"
+  description="Free, open-source Claude plugins for paid media. Morning briefs, waste detection, search term analysis — built from managing 25+ ad accounts daily. Read-only by design."
   schema={schema}
 >
   <Nav />
@@ -93,9 +94,9 @@ const schema = [
       <div class="hero__inner">
         <div class="hero__bar" aria-hidden="true"></div>
         <p class="label hero__label">Transmitting</p>
-        <h1 class="hero__headline">AI skills for<br />marketers who build.</h1>
+        <h1 class="hero__headline">AI plugins for<br />media buyers.</h1>
         <p class="hero__sub">
-          Install a skill. Run it today. Or come to a workshop and build your own.
+          Free, open-source Claude plugins for Google Ads, Microsoft Ads, and Meta Ads. Install a plugin. Run it on your live data.
         </p>
         <div class="hero__cta">
           <EmailSignup variant="inline" placeholder="you@domain.com" tag="home" submitText="Get Build Notes" />
@@ -107,16 +108,16 @@ const schema = [
     <!-- ═══════ PROOF BAR — HIGH density ═══════ -->
     <section class="proof-bar" data-reveal-stagger>
       <div class="proof-bar__item" data-reveal-child data-stagger="1">
-        <span class="proof-bar__value" data-counter="16">16<span class="text-signal">+</span></span>
-        <span class="proof-bar__label">Skills Shipped</span>
+        <span class="proof-bar__value" data-counter="3">3</span>
+        <span class="proof-bar__label">Plugins Live</span>
       </div>
       <div class="proof-bar__item" data-reveal-child data-stagger="2">
-        <span class="proof-bar__value" data-counter="25">25<span class="text-signal">+</span></span>
-        <span class="proof-bar__label">Accounts Managed Daily</span>
+        <span class="proof-bar__value" data-counter="26">26</span>
+        <span class="proof-bar__label">Skills Included</span>
       </div>
       <div class="proof-bar__item" data-reveal-child data-stagger="3">
-        <span class="proof-bar__value">Monthly</span>
-        <span class="proof-bar__label">Live Workshops</span>
+        <span class="proof-bar__value" data-counter="25">25<span class="text-signal">+</span></span>
+        <span class="proof-bar__label">Accounts Managed Daily</span>
       </div>
       <div class="proof-bar__item" data-reveal-child data-stagger="4">
         <span class="proof-bar__value">Weekly</span>
@@ -124,21 +125,21 @@ const schema = [
       </div>
     </section>
 
-    <!-- ═══════ SKILLS DIRECTORY — HIGH density ═══════ -->
+    <!-- ═══════ PLUGIN DIRECTORY — HIGH density ═══════ -->
     <section class="directory" data-reveal-stagger>
       <div class="wrap">
         <div class="directory__header" data-reveal-child data-stagger="1">
-          <h2 class="directory__title">Browse the skills</h2>
-          <a href="/skills" class="directory__link">View all →</a>
+          <h2 class="directory__title">The plugins</h2>
+          <a href="/plugins" class="directory__link">View all →</a>
         </div>
 
         <ul class="directory__list" data-reveal-child data-stagger="2">
-          {skills.map((tool, i) => (
+          {plugins.map((tool, i) => (
             <ToolCard
               name={tool.data.name}
               description={tool.data.description}
               type={tool.data.type}
-              href={`/skills/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
+              href={`/plugins/${tool.id.split('/').pop()?.replace(/\.md$/, '')}`}
               index={i + 1}
               variant="compact"
               status={tool.data.status}
@@ -146,11 +147,13 @@ const schema = [
           ))}
         </ul>
 
-        <div class="mt-6" data-reveal-child data-stagger="3">
-          <a href="/plugins" class="font-mono text-[11px] font-semibold tracking-widest uppercase text-stone hover:text-signal transition-colors duration-100">
-            Go deeper → See the plugins
-          </a>
-        </div>
+        {skills.length > 0 && (
+          <div class="mt-6" data-reveal-child data-stagger="3">
+            <a href="/skills" class="font-mono text-[11px] font-semibold tracking-widest uppercase text-stone hover:text-signal transition-colors duration-100">
+              Browse standalone skills →
+            </a>
+          </div>
+        )}
       </div>
     </section>
 
@@ -159,7 +162,7 @@ const schema = [
       <div class="wrap">
         <p class="label">Built from the work, not the docs</p>
         <p class="credibility__body">
-          The paid-search plugin caught ~$3K/month in wasted spend across two accounts. A pacing alert flagged a budget overrun four days before the client noticed. Every tool here comes from managing 25+ accounts daily — not a lab.
+          The Google Ads plugin caught ~$3K/month in wasted spend across two accounts. A pacing alert flagged a budget overrun four days before the client noticed. Every plugin here comes from managing 25+ accounts daily — not a lab.
         </p>
         <a href="/notes" class="credibility__link">Follow the build notes →</a>
       </div>
@@ -205,8 +208,8 @@ const schema = [
       <div class="rupture__inner">
         <div class="rupture__bar"></div>
         <p class="label label--muted mb-5">Signal</p>
-        <h2 class="rupture__headline">The people who build skills become the most valuable people in their field.</h2>
-        <a href="/skills" class="rupture__link">Browse the skills →</a>
+        <h2 class="rupture__headline">The people who build plugins become the most valuable people on their team.</h2>
+        <a href="/plugins" class="rupture__link">Browse the plugins →</a>
       </div>
     </section>
 
@@ -215,7 +218,7 @@ const schema = [
 
     <!-- ═══════ CTA VOID — LOW density ═══════ -->
     <section class="cta" data-reveal>
-      <a href="/skills" class="cta__headline">Browse the skills.</a>
+      <a href="/plugins" class="cta__headline">Browse the plugins.</a>
       <a href="/subscribe" class="btn-signal">Get Build Notes</a>
     </section>
 

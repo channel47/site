@@ -1,36 +1,59 @@
 ---
 name: "Meta Ads"
-description: "AI plugin for Facebook and Instagram ad management — creative analysis, audience building, waste detection, and daily reporting via MCP"
+description: "Claude plugin for Meta Ads (Facebook + Instagram) — nine skills and two agents for daily monitoring, creative analysis, waste detection, audience diagnostics, placement optimization, and competitive intelligence. Read-only by design."
 type: "plugin"
 author: "Jackson Dean"
 source: "channel47"
-tags: ["meta-ads", "facebook", "instagram"]
-featured: false
-status: "dev"
-compatibleWith: ["Claude Code"]
-relatedTools: ["paid-search"]
+tags: ["meta-ads", "facebook-ads", "instagram-ads", "creative-analysis", "waste-detection", "plugin"]
+featured: true
+status: "live"
+install: "claude plugin install meta-ads@channel47"
+compatibleWith: ["Claude Code", "Claude Cowork"]
+relatedTools: ["google-ads", "microsoft-ads"]
 ---
 
 ## What it does
 
-The Meta Ads plugin brings the same practitioner-built approach from Paid Search to Facebook and Instagram campaigns. Creative fatigue, audience overlap, frequency violations, placement bleed — the waste patterns that eat Meta budgets.
+The Meta Ads plugin connects Claude to your Facebook and Instagram ad accounts through live API access. It runs practitioner-built workflows for creative performance, audience diagnostics, and spend efficiency. Read-only by design — it cannot modify your accounts.
+
+Meta's black-box optimization makes it hard to see what's working. This plugin opens the box.
 
 ## Skills included
 
-Six skills structured and awaiting MCP server build:
+Nine skills and two agents, each handling a distinct piece of the Meta Ads workflow:
 
-**platform-setup** — Configure Meta Business Manager credentials and verify API access.
+**platform-setup** — Configure and verify your Meta Ads credentials. Tests connections, discovers ad accounts, confirms API access.
 
-**morning-brief** — Daily Meta account health: CPM trends, frequency, creative fatigue, budget pacing.
+**morning-brief** — Daily account health check. Spend pacing, delivery issues, creative fatigue signals, audience saturation metrics. Adapted for Meta's auction dynamics.
 
-**waste-detector** — Find Meta-specific waste: audience overlap, creative fatigue, placement bleed, frequency violations.
+**waste-detector** — Finds Meta-specific waste across budget allocation, audience overlap, placement bleed, and creative fatigue. Every finding includes dollar impact and fix instructions.
 
-**creative-analyzer** — Evaluate creative performance: hook rate, fatigue signals, winner/loser classification.
+**creative-analyzer** — Deep creative performance analysis. Identifies winning and losing ad creatives, detects fatigue patterns, surfaces asset-level performance data.
 
-**audience-builder** — Design audience strategies: lookalikes, custom audiences, retargeting funnels.
+**audience-diagnostics** — Audience overlap detection, saturation analysis, and targeting efficiency. Finds where audiences compete against each other and where frequency is too high.
 
-**profile-review** — Periodic profile cleanup: audit watch list, active tests, and decision log.
+**placement-optimizer** — Placement-level performance breakdown. Identifies which placements (Feed, Stories, Reels, Audience Network) are performing and which are bleeding budget.
 
-## Status
+**competitor-intel** — Competitive intelligence via Meta Ad Library data and DataForSEO integration. See what competitors are running.
 
-In development. Skills are fully structured with workflows and decision trees. Waiting on `@channel47/meta-ads-mcp` to connect to the Meta Marketing API.
+**account-scorecard** — Quantified health grade across five dimensions with Meta-specific benchmarks.
+
+**profile-review** — Periodic profile cleanup. Audits watch list, active tests, and decision log.
+
+## Agents
+
+**creative-analyst** — Parallel creative performance analysis across multiple ad accounts and campaigns.
+
+**competitor-scout** — Parallel competitive research across Meta Ad Library and third-party data sources.
+
+## Getting started
+
+Install the plugin:
+
+```
+claude plugin install meta-ads@channel47
+```
+
+Run platform-setup first to configure your Meta access token and verify API access.
+
+Then try morning-brief to see what the plugin does with your live Meta data.
