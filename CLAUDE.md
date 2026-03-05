@@ -21,70 +21,100 @@ Tests use `node:test` (no framework). Test files in `tests/`.
 
 `KIT_API_KEY` required for subscribe endpoint. `PUBLIC_GA_*` / `PUBLIC_META_*` for analytics.
 
+## Plugins (current state)
+
+Three live plugins, one deprecated:
+
+| Plugin | Status | Skills | Content file |
+|--------|--------|-------:|-------------|
+| google-ads | Live v1.0.0 | 9 | `src/content/tools/plugins/google-ads.md` |
+| microsoft-ads | Live v1.0.0 | 8 | `src/content/tools/plugins/microsoft-ads.md` |
+| meta-ads | Live v1.0.0 | 9 + 2 agents | `src/content/tools/plugins/meta-ads.md` |
+| paid-search | Deprecated (frozen v7.0.0) | 6 | `src/content/tools/plugins/paid-search.md` |
+| frontend-craft | Not marketed | — | `src/content/tools/plugins/frontend-craft.md` |
+
+Install command format: `claude plugin install google-ads@channel47` (NOT the old `/plugin install` or `/plugin marketplace add` format).
+
 ## Pages
 
-- `/` — Homepage: AI plugins for media buyers (hero + proof bar + plugin directory + credibility + rupture + product callout + CTA)
-- `/build` — 301 redirect to `/`
-- `/tools` — 301 redirect to `/`
-- `/plugins/` — Plugins hub — filtered listing of plugins
-- `/plugins/[slug]` — Individual plugin detail page (redirects to /coming-soon if no install command)
-- `/plugins/media-buyer` — removed (was duplicate of paid-search)
-- `/skills/` — 301 redirect to `/plugins`
-- `/skills/[slug]` — Individual skill detail page (still live for direct links)
-- `/mcps/` — 301 redirect to `/plugins`
-- `/mcps/[slug]` — Individual MCP detail page (still live for direct links)
-- `/privacy` — Privacy policy
-- `/coming-soon` — Shared empty state with email signup for tools not yet public
+- `/` — Homepage: AI plugins for media buyers (hero + proof bar + plugin directory + credibility + workshop + FAQ + rupture + product callout + CTA)
+- `/plugins/` — Plugins hub — filtered listing of featured plugins (excludes deprecated/unmarketable)
+- `/plugins/[slug]` — Plugin detail page with rendered markdown body, schema (SoftwareApplication + BreadcrumbList + HowTo)
 - `/notes` — Build Notes hub (content collection index)
-- `/notes/[slug]` — Individual note articles (dynamic route from `src/content/notes/`)
+- `/notes/[slug]` — Individual note articles (Article + BreadcrumbList schema)
 - `/labs` — Skills Labs landing page (monthly live builds → Skool community)
 - `/subscribe` — Email signup standalone page
-- `/api/subscribe` — POST, proxies to Kit API. Accepts optional `fields` object for custom Kit fields.
-- `/ecosystem`, `/hire` — 301 redirects to `/`
+- `/privacy` — Privacy policy
+- `/coming-soon` — Shared empty state with email signup
+- `/skills/` — 301 redirect to `/plugins`
+- `/skills/[slug]` — Skill detail page (legacy, still live for direct links, excluded from sitemap)
+- `/mcps/` — 301 redirect to `/plugins`
+- `/mcps/[slug]` — MCP detail page (legacy, still live for direct links, excluded from sitemap)
+- `/build`, `/tools`, `/ecosystem`, `/hire` — 301 redirects to `/`
+- `/api/subscribe` — POST, proxies to Kit API
+
+## Navigation
+
+Header: Plugins · Notes · Labs · Subscribe (no "Skills" — it 301s to /plugins)
+Footer: Plugins · Notes · Labs · Privacy · jackson attribution
+
+## Sitemap
+
+12 URLs in sitemap. Excluded via `astro.config.mjs` filter: `/skills/*`, `/mcps/*`, `/tools/*`, `/plugins/paid-search`, `/plugins/frontend-craft`, `/coming-soon`, redirect pages.
 
 ## Key Files
 
 ```
 src/
 ├── layouts/
-│   └── BaseLayout.astro          # Default layout (meta, fonts, scroll reveal)
+│   └── BaseLayout.astro          # Root layout (meta, fonts, schema, scroll reveal)
 ├── pages/
-│   ├── index.astro               # Homepage — hero + proof bar + plugin directory + credibility + rupture + product callout + CTA
-│   ├── build.astro               # 301 redirect to /
-│   ├── tools.astro               # 301 redirect to /
-│   ├── plugins/index.astro       # Plugins hub — filtered listing
-│   ├── plugins/[slug].astro      # Plugin detail page
-│   ├── skills/index.astro        # 301 redirect to /plugins
-│   ├── skills/[slug].astro       # Skill detail page (still live for direct links)
-│   ├── mcps/index.astro          # 301 redirect to /plugins
-│   ├── mcps/[slug].astro         # MCP detail page (still live for direct links)
-│   ├── privacy.astro             # Privacy policy
-│   ├── coming-soon.astro         # Shared empty state with email signup
-│   ├── labs.astro                 # Skills Labs
-│   ├── subscribe.astro           # Email signup
+│   ├── index.astro               # Homepage
+│   ├── plugins/index.astro       # Plugins hub — filtered listing (featured only)
+│   ├── plugins/[slug].astro      # Plugin detail (renders Content via slot)
+│   ├── skills/[slug].astro       # Skill detail (legacy, renders Content via slot)
+│   ├── mcps/[slug].astro         # MCP detail (legacy, renders Content via slot)
 │   ├── notes/index.astro         # Build Notes hub
 │   ├── notes/[...slug].astro     # Article page
+│   ├── labs.astro                # Skills Labs
+│   ├── subscribe.astro           # Email signup
+│   ├── privacy.astro             # Privacy policy
+│   ├── coming-soon.astro         # Empty state
 │   └── api/subscribe.ts          # Kit API proxy (serverless)
-├── styles/
-│   └── main.css                  # Single CSS entry — Tailwind v4 @theme tokens,
-│                                 #   @layer components, keyframes, scroll reveal
 ├── components/
-│   ├── Nav.astro                 # Fixed glass nav bar (logo left, Plugins · Notes · Labs · Subscribe right)
-│   ├── Footer.astro              # Sign-off only: Privacy + ctrlswing attribution
-│   ├── Breadcrumbs.astro         # Breadcrumb navigation for hub and detail pages
+│   ├── Nav.astro                 # Fixed glass nav (Plugins · Notes · Labs · Subscribe)
+│   ├── Footer.astro              # Plugins · Notes · Labs · Privacy + attribution
+│   ├── Breadcrumbs.astro         # Breadcrumb navigation
 │   ├── EmailSignup.astro         # Email capture form (JS state handling)
 │   ├── ContentCard.astro         # Note card for grid
-│   ├── ToolCard.astro            # Full-width tool row, accepts href prop for detail page links
-│   ├── PaidBriefsCard.astro      # Featured product card for Paid Briefs
+│   ├── ToolCard.astro            # Full-width tool row
+│   ├── ToolDetail.astro          # Tool detail layout with slot for markdown body + prose styles
+│   ├── ProductCallout.astro      # PaidBrief callout card
+│   ├── LogoAnimated.astro        # Animated channel47 logo
 │   ├── ui/button.tsx             # shadcn/ui Button (React)
 │   └── ui/input.tsx              # shadcn/ui Input (React)
 ├── content/
-│   ├── notes/                    # Published web notes (markdown, `notes` collection)
-│   ├── tools/                    # Tool registry entries (YAML, `tools` collection)
+│   ├── notes/                    # Published notes (markdown, `notes` collection)
+│   ├── tools/                    # Tool registry (markdown with YAML frontmatter, `tools` collection)
+│   │   ├── plugins/              # google-ads, microsoft-ads, meta-ads, paid-search, frontend-craft
+│   │   ├── skills/               # morning-brief, waste-detector, search-term-verdict, pmax-decoder, platform-setup, gaql
+│   │   └── mcps/                 # google-ads-mcp, bing-ads-mcp
 │   └── newsletters/              # Newsletter drafts (markdown)
+├── styles/
+│   └── main.css                  # Tailwind v4 @theme tokens, @layer components, keyframes
 └── scripts/
-    └── page-motion.ts            # IntersectionObserver scroll reveal
+    ├── scroll-reveal.ts          # IntersectionObserver scroll reveal
+    ├── nav-scroll.ts             # Nav hide-on-scroll behavior
+    └── copy-to-clipboard.ts      # Copy button utility
 ```
+
+## Schema (structured data)
+
+BaseLayout accepts a `schema` prop → renders JSON-LD. Currently deployed:
+- **Homepage**: Organization + WebSite + FAQPage
+- **Plugin detail pages**: SoftwareApplication + BreadcrumbList + HowTo
+- **Notes articles**: Article + BreadcrumbList
+- **Plugins hub**: BreadcrumbList + ItemList
 
 ## Subscribe API
 
@@ -115,9 +145,14 @@ Tailwind CSS v4 via `@tailwindcss/vite`. Single entry point: `src/styles/main.cs
 - State classes: `.is-visible`, `.is-loading`, `.is-success`, `.is-error`, `.is-server-error`
 - Prefer `[data-*]` attributes over classes for JS targeting
 - Vanilla JS for Astro components, React for shadcn/ui components
+- ToolDetail uses a `<slot />` for markdown body content — pass `<Content />` from the page
 
 ## Gotchas
 
 - **`:global()` required** for cross-component ancestor selectors in scoped styles
 - **Newsletter content** lives in `src/content/newsletters/` as markdown with frontmatter (`title`, `date`, `status`, `kit_broadcast_id`)
 - **Gray scale is inverted** — `gray-0` is black, `gray-700` is near-white. Dark-first design.
+- **Plugin filtering** — Plugins hub and homepage filter by `featured: true` to hide deprecated/unmarketable plugins. Set `featured: false` to hide from listings.
+- **Install command format changed** — Old: `/plugin install paid-search@channel47`. New: `claude plugin install google-ads@channel47`. Don't use the old format.
+- **paid-search is deprecated** — Frozen at v7.0.0, `featured: false`, excluded from sitemap. Use google-ads + microsoft-ads instead.
+- **Tool content bodies** — Markdown body in tool .md files renders on detail pages via ToolDetail slot. Skills with no body render an empty (hidden) prose div.
