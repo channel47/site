@@ -60,7 +60,7 @@ const typePrefix: Record<string, string> = { skill: 'skills', mcp: 'mcps', plugi
       {compatibleWith.length > 0 && <p>Works with: {compatibleWith.join(', ')}</p>}
     </div>
 
-    <div class="tool-prose border-t border-smoke pt-8 mb-8">
+    <div class="tool-prose border-t border-smoke pt-8 mb-8 empty:hidden">
       <slot />
     </div>
 
