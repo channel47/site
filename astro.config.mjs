@@ -22,9 +22,11 @@ export default defineConfig({
         !page.includes('/build') &&
         !page.includes('/hire') &&
         !page.includes('/coming-soon') &&
-        !page.endsWith('/tools/') &&
-        !page.endsWith('/skills/') &&
-        !page.endsWith('/mcps/')
+        !page.includes('/tools') &&
+        !page.includes('/skills') &&
+        !page.includes('/mcps') &&
+        !page.includes('/plugins/paid-search') &&
+        !page.includes('/plugins/frontend-craft')
     })
   ],
   vite: {
