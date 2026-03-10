@@ -39,9 +39,11 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       name="email"
       placeholder={placeholder}
       required
+      aria-required="true"
       class="email-form__input"
       autocomplete="email"
       spellcheck="false"
+      data-original-placeholder={placeholder}
     />
     <button type="submit" class="email-form__btn email-signup__submit">
       <span class="email-signup__submit-text">{submitText}</span>
@@ -71,9 +73,11 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       name="email"
       placeholder={placeholder}
       required
+      aria-required="true"
       class="email-signup__input"
       autocomplete="email"
       spellcheck="false"
+      data-original-placeholder={placeholder}
     />
     <button type="submit" class="email-signup__submit">
       <span class="email-signup__submit-text">{submitText}</span>
@@ -96,6 +100,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const input = form.querySelector<HTMLInputElement>('input[type="email"]');
+        const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
         const status = form.querySelector<HTMLElement>('[data-signup-status]');
         const email = input?.value.trim();
         if (!email) return;
@@ -105,6 +110,8 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
         // Reset states
         form.classList.remove('is-success', 'is-error', 'is-server-error');
         form.classList.add('is-loading');
+        if (btn) btn.disabled = true;
+        if (input) input.removeAttribute('aria-invalid');
         if (status) status.textContent = 'Submitting...';
 
         try {
@@ -116,6 +123,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 
           const data = await res.json();
           form.classList.remove('is-loading');
+          if (btn) btn.disabled = false;
 
           if (res.ok && data.success) {
             form.classList.add('is-success');
@@ -126,13 +134,16 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
             if (status) status.textContent = 'Success! You\'re in.';
           } else {
             form.classList.add('is-error');
+            if (input) input.setAttribute('aria-invalid', 'true');
             const msg = data.message || 'Something went wrong';
             if (input) input.placeholder = msg;
             if (status) status.textContent = msg;
           }
         } catch {
           form.classList.remove('is-loading');
+          if (btn) btn.disabled = false;
           form.classList.add('is-server-error');
+          if (input) input.setAttribute('aria-invalid', 'true');
           if (input) input.placeholder = 'Connection error. Try again.';
           if (status) status.textContent = 'Connection error. Try again.';
         }
@@ -142,9 +153,8 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
           form.classList.remove('is-error', 'is-server-error');
           const input = form.querySelector<HTMLInputElement>('input[type="email"]');
           if (input && !form.classList.contains('is-success')) {
-            input.placeholder = form.querySelector('.email-form__input')
-              ? 'your@email.com'
-              : input.getAttribute('placeholder') || 'your@email.com';
+            input.placeholder = input.dataset.originalPlaceholder || 'your@email.com';
+            input.removeAttribute('aria-invalid');
           }
         }, 3000);
       });

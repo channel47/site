@@ -1,22 +1,28 @@
 # Channel 47 Site
 
-Astro 5 → channel47.dev via Vercel. Fresh rebuild — minimal placeholder live, everything else is a blank canvas.
+Astro 5 → channel47.dev via Vercel. Single-page landing with hero card and email capture.
 
 ## What Exists
 
-- `src/pages/index.astro` — placeholder page (logo + "coming soon")
-- `src/pages/api/subscribe.ts` — Kit email subscription endpoint (keep)
-- `src/components/LogoAnimated.astro` — animated "47" logo with scramble effect
-- `src/layouts/BaseLayout.astro` — HTML shell (meta, fonts, scroll reveal)
-- `src/styles/main.css` — full design system (tokens, component CSS, animations)
-- `src/scripts/` — scroll-reveal, nav-scroll, copy-to-clipboard
+- `src/pages/index.astro` — hero card landing page (dark card on cream, 2-column grid, email capture)
+- `src/pages/api/subscribe.ts` — Kit email subscription endpoint (server-side, requires `KIT_API_KEY`)
+- `src/components/EmailSignup.astro` — reusable email form (inline, default, prominent variants)
+- `src/components/LogoAnimated.astro` — animated "47" logo with scramble → lock-in effect
+- `src/layouts/BaseLayout.astro` — HTML shell (meta, fonts, structured data, scroll reveal)
+- `src/styles/main.css` — design system (tokens, component CSS, keyframes, scroll reveal)
+- `src/scripts/scroll-reveal.ts` — IntersectionObserver: `[data-reveal]`, `[data-reveal-stagger]`, `[data-counter]`
+- `src/scripts/nav-scroll.ts` — hide/show nav on scroll (targets `[data-nav]`, ready for Nav component)
 
 ## Design System (main.css)
 
-- Light-first. Body: Geist. Headlines: Geist. Mono: Geist Mono. Accent: amber `#fcaa2d`.
+- Light-first. Body + Headlines: Geist. Mono: Geist Mono. Accent: amber `#fcaa2d`.
 - Warm gray neutrals (not pure gray). `--color-bg: #fffef2`.
-- Component patterns defined in CSS: `.hero`, `.proof-bar`, `.credibility`, `.directory`, `.rupture` (dark inversion), `.product`, `.cta`, `.btn-signal`, `.email-signup`, `.email-form`, `.faq-item`.
-- Scroll reveal: `[data-reveal]`, `[data-reveal-child]`, `[data-section]`, `[data-animate]`.
+- Dark panel surface: `--color-panel: #18181a` with rgba white overlay scale:
+  - `--color-panel-fg` (0.85), `--color-panel-fg-muted` (0.6), `--color-panel-fg-dim` (0.5)
+  - `--color-panel-dim` (0.35), `--color-panel-tint` (0.05), `--color-panel-tint-hover` (0.08)
+  - `--color-panel-divider` (0.10), `--color-panel-border` (0.15)
+- Component patterns: `.email-signup`, `.email-form` (inline), `.email-signup--default`, `.email-signup--prominent`
+- Scroll reveal: `[data-reveal]`, `[data-reveal-child]`, `[data-reveal-stagger]`, `[data-stagger="1-4"]`
 
 ## Commands
 
@@ -38,3 +44,5 @@ npm run preview
 - Footer attribution: `ctrlswing`, not `jackson`
 - Email framing: "Join the community", not "Subscribe to the newsletter"
 - No MCP, no PaidBrief, no "tool calls" or "API" in user-facing copy
+- Use design tokens — no hardcoded rgba values in page-level CSS
+- Use `:focus-visible` (not `:focus`) for keyboard focus indicators
