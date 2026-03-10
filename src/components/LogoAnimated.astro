@@ -207,21 +207,21 @@ const { class: className, delay = 0 } = Astro.props;
 
 <style>
   .logo-animated {
-    --logo-glow: rgba(231, 229, 228, 0.3);
+    --logo-glow: rgba(252, 170, 45, 0.3);
 
     position: relative;
     display: inline-flex;
     flex-direction: column;
-    font-family: var(--font-family-mono);
+    font-family: var(--font-mono);
     font-size: 11px;
     line-height: 1;
     font-weight: normal;
-    color: var(--color-bone);
+    color: var(--color-neutral-900);
     white-space: pre;
     user-select: none;
     letter-spacing: -0.08em;
     cursor: pointer;
-    text-shadow: 0 0 8px rgba(231, 229, 228, 0.15);
+    text-shadow: none;
   }
 
   .logo-animated__glyph {
@@ -258,29 +258,24 @@ const { class: className, delay = 0 } = Astro.props;
   .logo-animated__char.is-flashing {
     text-shadow:
       0 0 6px var(--logo-glow),
-      0 0 12px rgba(245, 158, 11, 0.25);
+      0 0 12px rgba(252, 170, 45, 0.2);
   }
 
-  /* Completed state - glow with breathing animation */
+  /* Completed state - subtle glow */
   .logo-animated.is-complete .logo-animated__glyph {
-    text-shadow:
-      0 0 1px var(--logo-glow),
-      0 0 8px var(--logo-glow);
+    text-shadow: 0 0 8px var(--logo-glow);
     animation: logo-breathe 4s ease-in-out infinite;
     animation-delay: 1s;
   }
 
   @keyframes logo-breathe {
     0%, 100% {
-      text-shadow:
-        0 0 1px var(--logo-glow),
-        0 0 8px var(--logo-glow);
+      text-shadow: 0 0 8px var(--logo-glow);
     }
     50% {
       text-shadow:
-        0 0 2px var(--logo-glow),
         0 0 12px var(--logo-glow),
-        0 0 20px rgba(231, 229, 228, 0.18);
+        0 0 20px rgba(252, 170, 45, 0.15);
     }
   }
 
