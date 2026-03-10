@@ -1,22 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LogoAnimated from '../components/LogoAnimated.astro';
 import EmailSignup from '../components/EmailSignup.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <BaseLayout title="CH47 Design System" noindex={true}>
+  <Nav currentPath="/brand" />
   <main id="main-content" class="brand-page">
     <div class="brand-wrap">
 
       <!-- Header -->
       <header class="brand-header">
-        <div class="brand-header__logo">
-          <LogoAnimated />
-        </div>
-        <div>
-          <h1 class="brand-header__title">CH47 Design System</h1>
-          <p class="brand-header__sub">Brand guidelines and component reference for channel47.dev</p>
-        </div>
+        <h1 class="brand-header__title">CH47 Design System</h1>
+        <p class="brand-header__sub">Brand guidelines and component reference for channel47.dev</p>
       </header>
 
       <hr class="divider" />
@@ -394,14 +391,139 @@ import EmailSignup from '../components/EmailSignup.astro';
         </div>
       </section>
 
-      <!-- Footer -->
-      <footer class="brand-footer">
-        <span class="brand-footer__text">channel47.dev/brand</span>
-        <span class="brand-footer__text">by <a href="https://x.com/ctrlswing" target="_blank" rel="noopener noreferrer" class="brand-footer__link">ctrlswing</a></span>
-      </footer>
+      <hr class="divider" />
+
+      <!-- ═══════════════ LINKS ═══════════════ -->
+      <section class="brand-section" id="links">
+        <h2>Links</h2>
+        <p class="brand-section__desc">Inline body links use an underline that darkens on hover. Muted variant for secondary contexts.</p>
+
+        <h3>Inline Link</h3>
+        <p>Install plugins from the <a href="https://github.com/ctrlswing" class="link">ctrlswing GitHub org</a> and start using them immediately.</p>
+
+        <h3>Muted Link</h3>
+        <p><a href="https://github.com/ctrlswing" class="link link--muted">View all repositories</a></p>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- ═══════════════ TYPOGRAPHY TOKENS ═══════════════ -->
+      <section class="brand-section" id="type-tokens">
+        <h2>Typography Tokens</h2>
+        <p class="brand-section__desc">Named size tokens for consistent typography across components. Use these instead of hardcoded values.</p>
+
+        <div class="token-table">
+          <div class="token-table__row">
+            <span class="token-table__key">--text-xs</span>
+            <span class="token-table__val">11px</span>
+            <span class="token-table__desc">Labels, badges, small mono text</span>
+          </div>
+          <div class="token-table__row">
+            <span class="token-table__key">--text-sm</span>
+            <span class="token-table__val">13px</span>
+            <span class="token-table__desc">Cell content, code blocks, metadata</span>
+          </div>
+          <div class="token-table__row">
+            <span class="token-table__key">--text-base</span>
+            <span class="token-table__val">15px</span>
+            <span class="token-table__desc">Body text (default)</span>
+          </div>
+          <div class="token-table__row">
+            <span class="token-table__key">--text-lg</span>
+            <span class="token-table__val">1.125rem</span>
+            <span class="token-table__desc">Card titles, h3 headings</span>
+          </div>
+          <div class="token-table__row">
+            <span class="token-table__key">--text-xl</span>
+            <span class="token-table__val">1.5rem</span>
+            <span class="token-table__desc">Section headings, h2</span>
+          </div>
+          <div class="token-table__row">
+            <span class="token-table__key">--text-2xl</span>
+            <span class="token-table__val">2rem</span>
+            <span class="token-table__desc">Large headings</span>
+          </div>
+          <div class="token-table__row">
+            <span class="token-table__key">--text-3xl</span>
+            <span class="token-table__val">2.5rem</span>
+            <span class="token-table__desc">Page titles</span>
+          </div>
+          <div class="token-table__row">
+            <span class="token-table__key">--text-4xl</span>
+            <span class="token-table__val">3.75rem</span>
+            <span class="token-table__desc">Hero display text</span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- ═══════════════ SPACING TOKENS ═══════════════ -->
+      <section class="brand-section" id="spacing-tokens">
+        <h2>Spacing Tokens</h2>
+        <p class="brand-section__desc">Consistent spacing scale for padding, margins, and gaps. Based on a 4px base unit.</p>
+
+        <div class="spacing-demo">
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-1);"></div>
+            <span class="spacing-demo__label">--space-1 (4px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-2);"></div>
+            <span class="spacing-demo__label">--space-2 (8px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-3);"></div>
+            <span class="spacing-demo__label">--space-3 (12px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-4);"></div>
+            <span class="spacing-demo__label">--space-4 (16px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-5);"></div>
+            <span class="spacing-demo__label">--space-5 (20px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-6);"></div>
+            <span class="spacing-demo__label">--space-6 (24px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-8);"></div>
+            <span class="spacing-demo__label">--space-8 (32px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-10);"></div>
+            <span class="spacing-demo__label">--space-10 (40px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-12);"></div>
+            <span class="spacing-demo__label">--space-12 (48px)</span>
+          </div>
+          <div class="spacing-demo__item">
+            <div class="spacing-demo__bar" style="width: var(--space-16);"></div>
+            <span class="spacing-demo__label">--space-16 (64px)</span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- ═══════════════ NAV & FOOTER ═══════════════ -->
+      <section class="brand-section" id="nav-footer">
+        <h2>Navigation & Footer</h2>
+        <p class="brand-section__desc">Shared layout components used across all content pages. The Nav is sticky and hides on scroll down. Both are visible on this page.</p>
+
+        <h3>Nav</h3>
+        <p>Sticky header with logo, site name, and links. Uses <code class="code">[data-nav]</code> for scroll behavior via <code class="code">nav-scroll.ts</code>. Scroll down on this page to see the hide/show effect.</p>
+
+        <h3>Footer</h3>
+        <p>Site name left, social icons and attribution right. Shared across content pages. The homepage uses a custom footer inside the hero card instead.</p>
+      </section>
 
     </div>
   </main>
+  <Footer />
 </BaseLayout>
 
 <style>
@@ -417,14 +539,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* ── Header ── */
   .brand-header {
-    display: flex;
-    align-items: center;
-    gap: 24px;
     margin-bottom: 48px;
-  }
-
-  .brand-header__logo {
-    flex-shrink: 0;
   }
 
   .brand-header__title {
@@ -810,36 +925,35 @@ import EmailSignup from '../components/EmailSignup.astro';
     border-color: var(--color-panel-border);
   }
 
-  /* ── Footer ── */
-  .brand-footer {
-    padding: 32px 0;
+  /* ── Spacing demo ── */
+  .spacing-demo {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .spacing-demo__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .spacing-demo__bar {
+    height: 8px;
+    background: var(--color-primary-500);
+    border-radius: var(--radius-xs);
+    flex-shrink: 0;
+  }
+
+  .spacing-demo__label {
     font-family: var(--font-mono);
-    font-size: 12px;
-  }
-
-  .brand-footer__text {
+    font-size: 11px;
     color: var(--color-fg-dim);
-  }
-
-  .brand-footer__link {
-    color: var(--color-fg-muted);
-    transition: color var(--dur-instant) var(--ease-sharp);
-  }
-
-  .brand-footer__link:hover {
-    color: var(--color-fg);
+    white-space: nowrap;
   }
 
   /* ── Responsive ── */
   @media (max-width: 768px) {
-    .brand-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
-
     .swatch {
       min-width: 56px;
       height: 64px;

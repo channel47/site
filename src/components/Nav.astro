@@ -1,0 +1,51 @@
+---
+/**
+ * Nav — sticky site navigation.
+ * Uses [data-nav] for scroll hide/show via nav-scroll.ts.
+ * Logo left, links right.
+ */
+
+import LogoAnimated from './LogoAnimated.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const { currentPath = '' } = Astro.props;
+
+const links: NavLink[] = [
+  { label: 'Plugins', href: '/#plugins' },
+  { label: 'GitHub', href: 'https://github.com/ctrlswing' },
+];
+---
+
+<nav class="nav" data-nav aria-label="Site navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__brand" aria-label="Channel 47 home">
+      <LogoAnimated />
+      <span class="nav__name">channel47</span>
+    </a>
+    <ul class="nav__links">
+      {links.map(({ label, href }) => {
+        const isExternal = href.startsWith('http');
+        const isActive = currentPath === href;
+        return (
+          <li>
+            <a
+              href={href}
+              class={`nav__link${isActive ? ' nav__link--active' : ''}`}
+              {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</nav>
