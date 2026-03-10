@@ -10,13 +10,29 @@ import Footer from '../components/Footer.astro';
   <main id="main-content" class="brand-page">
     <div class="brand-wrap">
 
-      <!-- Header -->
-      <header class="brand-header">
-        <h1 class="brand-header__title">CH47 Design System</h1>
-        <p class="brand-header__sub">Brand guidelines and component reference for channel47.dev</p>
+      <!-- Hero -->
+      <header class="brand-hero">
+        <div class="brand-hero__content">
+          <p class="label">Reference</p>
+          <h1 class="brand-hero__title">Design<br>System</h1>
+          <p class="brand-hero__sub">Tokens, components, and patterns for channel47.dev</p>
+        </div>
+        <span class="brand-hero__mark" aria-hidden="true">47</span>
       </header>
 
-      <hr class="divider" />
+      <!-- Section nav -->
+      <nav class="brand-anchors" aria-label="Page sections">
+        <a href="#colors" class="brand-anchors__link">Colors</a>
+        <a href="#typography" class="brand-anchors__link">Type</a>
+        <a href="#buttons" class="brand-anchors__link">Buttons</a>
+        <a href="#cards" class="brand-anchors__link">Cards</a>
+        <a href="#code" class="brand-anchors__link">Code</a>
+        <a href="#email" class="brand-anchors__link">Email</a>
+        <a href="#radius" class="brand-anchors__link">Radius</a>
+        <a href="#dark-panel" class="brand-anchors__link">Dark Panel</a>
+        <a href="#links" class="brand-anchors__link">Links</a>
+        <a href="#type-tokens" class="brand-anchors__link">Tokens</a>
+      </nav>
 
       <!-- ═══════════════ COLORS ═══════════════ -->
       <section class="brand-section" id="colors">
@@ -537,23 +553,87 @@ import Footer from '../components/Footer.astro';
     margin: 0 auto;
   }
 
-  /* ── Header ── */
-  .brand-header {
-    margin-bottom: 48px;
+  /* ── Hero ── */
+  .brand-hero {
+    background: var(--color-panel);
+    border-radius: var(--radius-xl);
+    padding: clamp(40px, 6vw, 72px);
+    position: relative;
+    overflow: hidden;
   }
 
-  .brand-header__title {
+  .brand-hero__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-hero__content .label {
+    color: var(--color-primary-500);
+    margin-bottom: var(--space-4);
+    display: block;
+  }
+
+  .brand-hero__title {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 700;
-    color: var(--color-fg);
-    letter-spacing: -0.02em;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--color-panel-fg);
   }
 
-  .brand-header__sub {
-    font-size: 14px;
+  .brand-hero__sub {
+    font-size: var(--text-base);
+    color: var(--color-panel-fg-muted);
+    line-height: 1.6;
+    margin-top: var(--space-4);
+    max-width: 40ch;
+  }
+
+  .brand-hero__mark {
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+    font-family: var(--font-heading);
+    font-size: clamp(12rem, 28vw, 20rem);
+    font-weight: 800;
+    line-height: 0.8;
+    color: rgba(255, 255, 255, 0.03);
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── Section anchors ── */
+  .brand-anchors {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .brand-anchors__link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     color: var(--color-fg-muted);
-    margin-top: 4px;
+    letter-spacing: 0.02em;
+    padding: 5px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    transition: background var(--dur-instant) var(--ease-out),
+                color var(--dur-instant) var(--ease-out),
+                border-color var(--dur-instant) var(--ease-out);
+  }
+  .brand-anchors__link:hover {
+    background: var(--color-surface);
+    color: var(--color-fg);
+    border-color: var(--color-border-hover);
+  }
+  .brand-anchors__link:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-full);
   }
 
   /* ── Sections ── */
