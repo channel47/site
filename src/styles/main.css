@@ -335,6 +335,7 @@
   }
   .btn--secondary:hover {
     background: var(--color-neutral-800);
+    box-shadow: 0 2px 8px rgba(25, 25, 24, 0.15);
     transform: translateY(-1px);
   }
 
@@ -382,6 +383,8 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     white-space: nowrap;
+    transition: background var(--dur-instant) var(--ease-out),
+                color var(--dur-instant) var(--ease-out);
   }
   .badge--default {
     background: var(--color-surface-raised);
@@ -411,14 +414,16 @@
     border-radius: var(--radius-md);
     padding: 24px;
     transition: box-shadow var(--dur-quick) var(--ease-out),
-                border-color var(--dur-quick) var(--ease-out);
+                border-color var(--dur-quick) var(--ease-out),
+                transform var(--dur-quick) var(--ease-out);
   }
   .card:hover {
     border-color: var(--color-border-hover);
     box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
   }
   .card--flat { border: none; background: var(--color-surface); }
-  .card--flat:hover { box-shadow: none; }
+  .card--flat:hover { box-shadow: none; transform: none; }
 
   /* ═══════════════════════════════════════════
      LABEL
@@ -447,6 +452,10 @@
     border-radius: var(--radius-xs);
     padding: 2px 6px;
     color: var(--color-fg);
+    transition: background var(--dur-instant) var(--ease-out);
+  }
+  .code:hover {
+    background: var(--color-border);
   }
 
   .code-block {

@@ -142,17 +142,17 @@ import EmailSignup from '../components/EmailSignup.astro';
         <h3>Dark Panel Surface</h3>
         <div class="panel-demo">
           <div class="panel-demo__row">
-            <span style="color: var(--color-panel-fg);">panel-fg (0.85)</span>
-            <span style="color: var(--color-panel-fg-muted);">panel-fg-muted (0.6)</span>
-            <span style="color: var(--color-panel-fg-dim);">panel-fg-dim (0.5)</span>
-            <span style="color: var(--color-panel-dim);">panel-dim (0.35)</span>
+            <span class="panel-demo__fg">panel-fg (0.85)</span>
+            <span class="panel-demo__fg-muted">panel-fg-muted (0.6)</span>
+            <span class="panel-demo__fg-dim">panel-fg-dim (0.5)</span>
+            <span class="panel-demo__dim">panel-dim (0.35)</span>
           </div>
-          <hr style="border: none; height: 1px; background: var(--color-panel-divider); margin: 16px 0;" />
-          <div class="panel-demo__row" style="gap: 12px;">
-            <span style="background: var(--color-panel-tint); padding: 4px 12px; border-radius: var(--radius-xs);">tint (0.05)</span>
-            <span style="background: var(--color-panel-tint-hover); padding: 4px 12px; border-radius: var(--radius-xs);">tint-hover (0.08)</span>
-            <span style="border: 1px solid var(--color-panel-border); padding: 4px 12px; border-radius: var(--radius-xs);">border (0.15)</span>
-            <span style="border: 1px solid var(--color-panel-divider); padding: 4px 12px; border-radius: var(--radius-xs);">divider (0.10)</span>
+          <hr class="divider divider--panel panel-demo__divider" />
+          <div class="panel-demo__row panel-demo__row--tight">
+            <span class="panel-demo__chip panel-demo__chip--tint">tint (0.05)</span>
+            <span class="panel-demo__chip panel-demo__chip--tint-hover">tint-hover (0.08)</span>
+            <span class="panel-demo__chip panel-demo__chip--border">border (0.15)</span>
+            <span class="panel-demo__chip panel-demo__chip--divider">divider (0.10)</span>
           </div>
         </div>
       </section>
@@ -168,27 +168,27 @@ import EmailSignup from '../components/EmailSignup.astro';
         <div class="type-samples">
           <div class="type-sample">
             <span class="type-sample__label">H1 — Geist 700, clamp(2.25rem, 5vw, 3.75rem), tracking -0.03em</span>
-            <h1 style="font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; color: var(--color-fg);">DTC Google Ads, meet Claude.</h1>
+            <h1 class="type-sample__h1">DTC Google Ads, meet Claude.</h1>
           </div>
 
           <div class="type-sample">
             <span class="type-sample__label">H2 — Geist 600, 1.5rem, tracking -0.02em</span>
-            <h2 style="font-size: 1.5rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; color: var(--color-fg);">Section Heading</h2>
+            <h2 class="type-sample__h2">Section Heading</h2>
           </div>
 
           <div class="type-sample">
             <span class="type-sample__label">H3 — Geist 600, 1.125rem, tracking -0.01em</span>
-            <h3 style="font-size: 1.125rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--color-fg);">Subsection Heading</h3>
+            <h3 class="type-sample__h3">Subsection Heading</h3>
           </div>
 
           <div class="type-sample">
             <span class="type-sample__label">Body — Geist 400, 15px, line-height 1.6</span>
-            <p style="color: var(--color-neutral-700);">Two open-source plugins built from $6M+ in real DTC spend. Campaign architecture, daily optimization, customer research to creative — install and go.</p>
+            <p class="type-sample__body">Two open-source plugins built from $6M+ in real DTC spend. Campaign architecture, daily optimization, customer research to creative — install and go.</p>
           </div>
 
           <div class="type-sample">
             <span class="type-sample__label">Body Muted — color-fg-muted</span>
-            <p style="color: var(--color-fg-muted);">Frameworks from real DTC accounts — not blog posts, not theory.</p>
+            <p class="type-sample__body-muted">Frameworks from real DTC accounts — not blog posts, not theory.</p>
           </div>
 
           <div class="type-sample">
@@ -198,7 +198,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
           <div class="type-sample">
             <span class="type-sample__label">Mono Body — Geist Mono 400, 13px</span>
-            <p style="font-family: var(--font-mono); font-size: 13px; color: var(--color-fg-muted);">claude plugin install ctrlswing/dtc-google-ads-playbook</p>
+            <p class="type-sample__mono">claude plugin install ctrlswing/dtc-google-ads-playbook</p>
           </div>
         </div>
       </section>
@@ -251,29 +251,29 @@ import EmailSignup from '../components/EmailSignup.astro';
 
         <div class="card-grid">
           <div class="card">
-            <p class="label" style="margin-bottom: 12px;">Plugin</p>
-            <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--color-fg); margin-bottom: 8px;">DTC Google Ads Playbook</h3>
-            <p style="font-size: 14px; color: var(--color-fg-muted); line-height: 1.6; margin-bottom: 16px;">Campaign architecture, daily optimization, ad copy, and landing pages. Built from real DTC accounts.</p>
-            <div class="component-row" style="gap: 6px;">
+            <p class="label card__label">Plugin</p>
+            <h3 class="card__title">DTC Google Ads Playbook</h3>
+            <p class="card__desc">Campaign architecture, daily optimization, ad copy, and landing pages. Built from real DTC accounts.</p>
+            <div class="card__tags">
               <span class="badge badge--primary">Google Ads</span>
               <span class="badge badge--default">MIT</span>
             </div>
           </div>
 
           <div class="card">
-            <p class="label" style="margin-bottom: 12px;">Plugin</p>
-            <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--color-fg); margin-bottom: 8px;">DTC Research Engine</h3>
-            <p style="font-size: 14px; color: var(--color-fg-muted); line-height: 1.6; margin-bottom: 16px;">5-stage pipeline: customer research, personas, angles, copy, scripts. Full creative pipeline.</p>
-            <div class="component-row" style="gap: 6px;">
+            <p class="label card__label">Plugin</p>
+            <h3 class="card__title">DTC Research Engine</h3>
+            <p class="card__desc">5-stage pipeline: customer research, personas, angles, copy, scripts. Full creative pipeline.</p>
+            <div class="card__tags">
               <span class="badge badge--primary">Research</span>
               <span class="badge badge--default">MIT</span>
             </div>
           </div>
 
           <div class="card card--flat">
-            <p class="label label--muted" style="margin-bottom: 12px;">Flat Variant</p>
-            <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--color-fg); margin-bottom: 8px;">No Border Card</h3>
-            <p style="font-size: 14px; color: var(--color-fg-muted); line-height: 1.6;">Uses a subtle background fill instead of a border. Good for grids where borders create too much visual noise.</p>
+            <p class="label label--muted card__label">Flat Variant</p>
+            <h3 class="card__title">No Border Card</h3>
+            <p class="card__desc">Uses a subtle background fill instead of a border. Good for grids where borders create too much visual noise.</p>
           </div>
         </div>
       </section>
@@ -321,22 +321,22 @@ import EmailSignup from '../components/EmailSignup.astro';
         <h2>Radius & Shadows</h2>
 
         <h3>Border Radius</h3>
-        <div class="component-row" style="gap: 24px; flex-wrap: wrap;">
-          <div class="radius-demo" style="border-radius: var(--radius-xs);"><span>xs (3px)</span></div>
-          <div class="radius-demo" style="border-radius: var(--radius-sm);"><span>sm (6px)</span></div>
-          <div class="radius-demo" style="border-radius: var(--radius-md);"><span>md (8px)</span></div>
-          <div class="radius-demo" style="border-radius: var(--radius-lg);"><span>lg (10px)</span></div>
-          <div class="radius-demo" style="border-radius: var(--radius-xl);"><span>xl (16px)</span></div>
-          <div class="radius-demo" style="border-radius: var(--radius-2xl);"><span>2xl (24px)</span></div>
-          <div class="radius-demo" style="border-radius: var(--radius-full);"><span>full</span></div>
+        <div class="demo-row">
+          <div class="radius-demo radius-demo--xs"><span>xs (3px)</span></div>
+          <div class="radius-demo radius-demo--sm"><span>sm (6px)</span></div>
+          <div class="radius-demo radius-demo--md"><span>md (8px)</span></div>
+          <div class="radius-demo radius-demo--lg"><span>lg (10px)</span></div>
+          <div class="radius-demo radius-demo--xl"><span>xl (16px)</span></div>
+          <div class="radius-demo radius-demo--2xl"><span>2xl (24px)</span></div>
+          <div class="radius-demo radius-demo--full"><span>full</span></div>
         </div>
 
         <h3>Shadows</h3>
-        <div class="component-row" style="gap: 24px; flex-wrap: wrap;">
-          <div class="shadow-demo" style="box-shadow: var(--shadow-subtle);"><span>subtle</span></div>
-          <div class="shadow-demo" style="box-shadow: var(--shadow-medium);"><span>medium</span></div>
-          <div class="shadow-demo" style="box-shadow: var(--shadow-elevated);"><span>elevated</span></div>
-          <div class="shadow-demo" style="box-shadow: var(--shadow-card);"><span>card</span></div>
+        <div class="demo-row">
+          <div class="shadow-demo shadow-demo--subtle"><span>subtle</span></div>
+          <div class="shadow-demo shadow-demo--medium"><span>medium</span></div>
+          <div class="shadow-demo shadow-demo--elevated"><span>elevated</span></div>
+          <div class="shadow-demo shadow-demo--card"><span>card</span></div>
         </div>
       </section>
 
@@ -384,20 +384,20 @@ import EmailSignup from '../components/EmailSignup.astro';
         <p class="brand-section__desc">The hero card uses a dark panel surface. Components on dark surfaces use the panel token scale for text, borders, and tints.</p>
 
         <div class="dark-panel-demo">
-          <p class="label" style="color: var(--color-primary-500); margin-bottom: 16px;">On Dark Surface</p>
-          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-panel-fg); margin-bottom: 8px;">Headline on Panel</h3>
-          <p style="color: var(--color-panel-fg-muted); margin-bottom: 20px; line-height: 1.6;">Body text uses panel-fg-muted for comfortable reading on dark surfaces. Panel-dim is for decorative or tertiary content.</p>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <p class="label dark-panel-demo__label">On Dark Surface</p>
+          <h3 class="dark-panel-demo__heading">Headline on Panel</h3>
+          <p class="dark-panel-demo__body">Body text uses panel-fg-muted for comfortable reading on dark surfaces. Panel-dim is for decorative or tertiary content.</p>
+          <div class="dark-panel-demo__actions">
             <button class="btn btn--primary">Primary Action</button>
-            <button class="btn btn--ghost" style="color: var(--color-panel-fg-dim); border-color: var(--color-panel-border);">Ghost on Dark</button>
+            <button class="btn btn--ghost dark-panel-demo__ghost">Ghost on Dark</button>
           </div>
         </div>
       </section>
 
       <!-- Footer -->
       <footer class="brand-footer">
-        <span style="color: var(--color-fg-dim);">channel47.dev/brand</span>
-        <span style="color: var(--color-fg-dim);">by <a href="https://x.com/ctrlswing" target="_blank" rel="noopener noreferrer" style="color: var(--color-fg-muted); transition: color var(--dur-instant) var(--ease-sharp);">ctrlswing</a></span>
+        <span class="brand-footer__text">channel47.dev/brand</span>
+        <span class="brand-footer__text">by <a href="https://x.com/ctrlswing" target="_blank" rel="noopener noreferrer" class="brand-footer__link">ctrlswing</a></span>
       </footer>
 
     </div>
@@ -494,6 +494,14 @@ import EmailSignup from '../components/EmailSignup.astro';
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid var(--color-border);
+    transition: transform var(--dur-quick) var(--ease-out),
+                box-shadow var(--dur-quick) var(--ease-out);
+  }
+
+  .swatch:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-medium);
+    z-index: 1;
   }
 
   .swatch__label {
@@ -507,6 +515,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-family: var(--font-mono);
     font-size: 9px;
     opacity: 0.6;
+    transition: opacity var(--dur-instant) var(--ease-out);
+  }
+
+  .swatch:hover .swatch__hex {
+    opacity: 0.9;
   }
 
   .swatch--dark-text .swatch__label,
@@ -535,6 +548,25 @@ import EmailSignup from '../components/EmailSignup.astro';
     color: var(--color-panel-fg);
   }
 
+  .panel-demo__row--tight { gap: 12px; }
+  .panel-demo__divider { margin: 16px 0; }
+  .panel-demo__fg { color: var(--color-panel-fg); }
+  .panel-demo__fg-muted { color: var(--color-panel-fg-muted); }
+  .panel-demo__fg-dim { color: var(--color-panel-fg-dim); }
+  .panel-demo__dim { color: var(--color-panel-dim); }
+
+  .panel-demo__chip {
+    padding: 4px 12px;
+    border-radius: var(--radius-xs);
+    transition: background var(--dur-instant) var(--ease-out),
+                border-color var(--dur-instant) var(--ease-out);
+  }
+  .panel-demo__chip--tint { background: var(--color-panel-tint); }
+  .panel-demo__chip--tint:hover { background: var(--color-panel-tint-hover); }
+  .panel-demo__chip--tint-hover { background: var(--color-panel-tint-hover); }
+  .panel-demo__chip--border { border: 1px solid var(--color-panel-border); }
+  .panel-demo__chip--divider { border: 1px solid var(--color-panel-divider); }
+
   /* ── Type samples ── */
   .type-samples {
     display: flex;
@@ -551,6 +583,41 @@ import EmailSignup from '../components/EmailSignup.astro';
     letter-spacing: 0.02em;
   }
 
+  .type-sample__h1 {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--color-fg);
+  }
+
+  .type-sample__h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-top: 0;
+  }
+
+  .type-sample__h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--color-fg);
+    margin-top: 0;
+  }
+
+  .type-sample__body { color: var(--color-neutral-700); }
+  .type-sample__body-muted { color: var(--color-fg-muted); }
+
+  .type-sample__mono {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-fg-muted);
+  }
+
   /* ── Component demos ── */
   .component-row {
     display: flex;
@@ -565,6 +632,33 @@ import EmailSignup from '../components/EmailSignup.astro';
     gap: 16px;
   }
 
+  .card__label { margin-bottom: 12px; }
+  .card__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-fg);
+    margin-bottom: 8px;
+  }
+  .card__desc {
+    font-size: 14px;
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .card__tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Demo row (shared for radius + shadows) ── */
+  .demo-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
   /* ── Radius demos ── */
   .radius-demo {
     width: 80px;
@@ -574,7 +668,24 @@ import EmailSignup from '../components/EmailSignup.astro';
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform var(--dur-quick) var(--ease-out),
+                box-shadow var(--dur-quick) var(--ease-out),
+                border-color var(--dur-quick) var(--ease-out);
   }
+
+  .radius-demo:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-subtle);
+    transform: scale(1.05);
+  }
+
+  .radius-demo--xs { border-radius: var(--radius-xs); }
+  .radius-demo--sm { border-radius: var(--radius-sm); }
+  .radius-demo--md { border-radius: var(--radius-md); }
+  .radius-demo--lg { border-radius: var(--radius-lg); }
+  .radius-demo--xl { border-radius: var(--radius-xl); }
+  .radius-demo--2xl { border-radius: var(--radius-2xl); }
+  .radius-demo--full { border-radius: var(--radius-full); }
 
   .radius-demo span {
     font-family: var(--font-mono);
@@ -591,7 +702,21 @@ import EmailSignup from '../components/EmailSignup.astro';
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform var(--dur-quick) var(--ease-out),
+                box-shadow var(--dur-quick) var(--ease-out);
   }
+
+  .shadow-demo:hover {
+    transform: translateY(-3px);
+  }
+
+  .shadow-demo--subtle { box-shadow: var(--shadow-subtle); }
+  .shadow-demo--subtle:hover { box-shadow: var(--shadow-medium); }
+  .shadow-demo--medium { box-shadow: var(--shadow-medium); }
+  .shadow-demo--medium:hover { box-shadow: var(--shadow-elevated); }
+  .shadow-demo--elevated { box-shadow: var(--shadow-elevated); }
+  .shadow-demo--elevated:hover { box-shadow: var(--shadow-card); }
+  .shadow-demo--card { box-shadow: var(--shadow-card); }
 
   .shadow-demo span {
     font-family: var(--font-mono);
@@ -616,6 +741,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     border-bottom: 1px solid var(--color-border);
     align-items: center;
     gap: 16px;
+    transition: background var(--dur-instant) var(--ease-out);
+  }
+
+  .token-table__row:hover {
+    background: var(--color-surface);
   }
 
   .token-table__row:last-child {
@@ -647,6 +777,36 @@ import EmailSignup from '../components/EmailSignup.astro';
     padding: 40px;
   }
 
+  .dark-panel-demo__label {
+    color: var(--color-primary-500);
+    margin-bottom: 16px;
+  }
+
+  .dark-panel-demo__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-panel-fg);
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+
+  .dark-panel-demo__body {
+    color: var(--color-panel-fg-muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .dark-panel-demo__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .dark-panel-demo__ghost {
+    color: var(--color-panel-fg-dim);
+    border-color: var(--color-panel-border);
+  }
+
   /* Ghost button on dark override */
   .dark-panel-demo :global(.btn--ghost:hover) {
     background: var(--color-panel-tint-hover);
@@ -663,6 +823,19 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-size: 12px;
   }
 
+  .brand-footer__text {
+    color: var(--color-fg-dim);
+  }
+
+  .brand-footer__link {
+    color: var(--color-fg-muted);
+    transition: color var(--dur-instant) var(--ease-sharp);
+  }
+
+  .brand-footer__link:hover {
+    color: var(--color-fg);
+  }
+
   /* ── Responsive ── */
   @media (max-width: 768px) {
     .brand-header {
@@ -676,21 +849,16 @@ import EmailSignup from '../components/EmailSignup.astro';
       height: 64px;
     }
 
-    .swatch__hex {
-      display: none;
-    }
+    .swatch__hex { display: none; }
 
     .token-table__row {
       grid-template-columns: 1fr;
       gap: 4px;
     }
 
-    .token-table__desc {
-      display: none;
-    }
-
-    .card-grid {
-      grid-template-columns: 1fr;
-    }
+    .token-table__desc { display: none; }
+    .card-grid { grid-template-columns: 1fr; }
+    .demo-row { gap: 16px; }
+    .dark-panel-demo { padding: 24px; }
   }
 </style>
