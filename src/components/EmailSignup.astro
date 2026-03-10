@@ -43,14 +43,15 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       autocomplete="email"
       spellcheck="false"
     />
-    <button type="submit" class="email-form__btn email-signup__submit" aria-label={submitText}>
+    <button type="submit" class="email-form__btn email-signup__submit">
       <span class="email-signup__submit-text">{submitText}</span>
-      <span class="email-signup__submit-icons relative w-4 h-4 shrink-0 inline-flex items-center">
+      <span class="email-signup__submit-icons relative w-4 h-4 shrink-0 inline-flex items-center" aria-hidden="true">
         <svg class="email-signup__icon email-signup__icon--arrow absolute inset-0 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         <svg class="email-signup__icon email-signup__icon--check absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
         <svg class="email-signup__icon email-signup__icon--loading absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </span>
     </button>
+    <p class="email-signup__status sr-only" aria-live="polite" data-signup-status></p>
   </form>
 ) : (
   <form
@@ -74,14 +75,15 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       autocomplete="email"
       spellcheck="false"
     />
-    <button type="submit" class="email-signup__submit" aria-label={submitText}>
+    <button type="submit" class="email-signup__submit">
       <span class="email-signup__submit-text">{submitText}</span>
-      <span class="email-signup__submit-icons relative w-4 h-4 shrink-0">
+      <span class="email-signup__submit-icons relative w-4 h-4 shrink-0" aria-hidden="true">
         <svg class="email-signup__icon email-signup__icon--arrow absolute inset-0 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         <svg class="email-signup__icon email-signup__icon--check absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
         <svg class="email-signup__icon email-signup__icon--loading absolute inset-0 w-4 h-4 opacity-0 scale-[0.8]" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </span>
     </button>
+    <p class="email-signup__status sr-only" aria-live="polite" data-signup-status></p>
   </form>
 )}
 
@@ -94,6 +96,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const input = form.querySelector<HTMLInputElement>('input[type="email"]');
+        const status = form.querySelector<HTMLElement>('[data-signup-status]');
         const email = input?.value.trim();
         if (!email) return;
 
@@ -102,6 +105,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
         // Reset states
         form.classList.remove('is-success', 'is-error', 'is-server-error');
         form.classList.add('is-loading');
+        if (status) status.textContent = 'Submitting...';
 
         try {
           const res = await fetch('/api/subscribe', {
@@ -119,14 +123,18 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
               input.value = '';
               input.placeholder = 'You\'re in.';
             }
+            if (status) status.textContent = 'Success! You\'re in.';
           } else {
             form.classList.add('is-error');
-            if (input) input.placeholder = data.message || 'Something went wrong';
+            const msg = data.message || 'Something went wrong';
+            if (input) input.placeholder = msg;
+            if (status) status.textContent = msg;
           }
         } catch {
           form.classList.remove('is-loading');
           form.classList.add('is-server-error');
           if (input) input.placeholder = 'Connection error. Try again.';
+          if (status) status.textContent = 'Connection error. Try again.';
         }
 
         // Reset error states after delay

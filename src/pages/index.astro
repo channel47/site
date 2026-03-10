@@ -42,7 +42,8 @@ import EmailSignup from '../components/EmailSignup.astro';
         </section>
 
         <!-- Right: Metrics grid -->
-        <section class="hero-card__metrics" data-reveal-stagger aria-label="Key metrics">
+        <section class="hero-card__metrics" data-reveal-stagger aria-labelledby="metrics-heading">
+          <h2 id="metrics-heading" class="sr-only">Key Metrics</h2>
           <div class="hero-card__metric-row">
             <article class="hero-card__cell" data-reveal-child data-stagger="1">
               <div class="hero-card__cell-top">
@@ -52,7 +53,7 @@ import EmailSignup from '../components/EmailSignup.astro';
                   <rect x="3" y="14" width="7" height="7" rx="1" />
                   <path d="M14 17.5h7M17.5 14v7" stroke-linecap="round" />
                 </svg>
-                <span class="hero-card__number" data-counter="2">0</span>
+                <span class="hero-card__number" data-counter="2" aria-label="2">2</span>
               </div>
               <div class="hero-card__cell-content">
                 <h3>Free Plugins</h3>
@@ -94,7 +95,7 @@ import EmailSignup from '../components/EmailSignup.astro';
                 <svg class="hero-card__icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <span class="hero-card__number" data-counter="5">0</span>
+                <span class="hero-card__number" data-counter="5" aria-label="5">5</span>
               </div>
               <div class="hero-card__cell-content">
                 <h3>Research Stages</h3>
@@ -141,8 +142,8 @@ import EmailSignup from '../components/EmailSignup.astro';
     width: 100%;
     max-width: 1400px;
     min-height: 800px;
-    border-radius: 24px;
-    box-shadow: 0 40px 80px -20px rgba(25, 25, 24, 0.3);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-card);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -163,8 +164,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* ── Logo inversion for dark surface ── */
   .hero-card :global(.logo-animated) {
-    color: rgba(255, 255, 255, 0.85);
-    --logo-glow: rgba(252, 170, 45, 0.4);
+    color: var(--color-panel-fg);
   }
 
   /* ── Main grid ── */
@@ -177,7 +177,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   /* ── Hero (left column) ── */
   .hero-card__hero {
     padding: 48px;
-    border-right: 1px solid rgba(255, 255, 255, 0.10);
+    border-right: 1px solid var(--color-panel-divider);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -210,7 +210,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-weight: 700;
     line-height: 1.05;
     letter-spacing: -0.03em;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.93);
     opacity: 0;
     clip-path: inset(0 50% 0 50%);
     animation: hero-card-clip-reveal 600ms var(--ease-out) 550ms forwards;
@@ -220,7 +220,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-family: var(--font-body);
     font-size: 15px;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-panel-fg-muted);
     max-width: 44ch;
     opacity: 0;
     animation: hero-card-fade-up 400ms var(--ease-out) 850ms forwards;
@@ -235,7 +235,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   .hero-card__hint {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--color-panel-dim);
     margin-top: 10px;
     letter-spacing: 0.02em;
   }
@@ -258,12 +258,12 @@ import EmailSignup from '../components/EmailSignup.astro';
     border-radius: var(--radius-sm) 0 0 var(--radius-sm);
   }
   .hero-card :global(.email-form__input::placeholder) {
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.4);
   }
   .hero-card :global(.email-form__input:focus) {
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--color-primary-500);
-    box-shadow: 0 0 0 3px rgba(252, 170, 45, 0.12);
+    box-shadow: 0 0 0 3px rgba(252, 170, 45, 0.3);
   }
 
   .hero-card :global(.email-form__btn) {
@@ -281,6 +281,10 @@ import EmailSignup from '../components/EmailSignup.astro';
   .hero-card :global(.email-form__btn:hover) {
     background: var(--color-primary-400);
     box-shadow: 0 4px 20px rgba(252, 170, 45, 0.3);
+  }
+  .hero-card :global(.email-form__btn:focus-visible) {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 
   /* Success state override for dark context */
@@ -301,7 +305,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   .hero-card__metric-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid var(--color-panel-divider);
   }
   .hero-card__metric-row:last-child {
     border-bottom: none;
@@ -310,7 +314,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   /* ── Individual metric cell ── */
   .hero-card__cell {
     padding: 36px;
-    border-right: 1px solid rgba(255, 255, 255, 0.10);
+    border-right: 1px solid var(--color-panel-divider);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -333,7 +337,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   .hero-card__icon {
     width: 28px;
     height: 28px;
-    stroke: rgba(255, 255, 255, 0.3);
+    stroke: var(--color-panel-dim);
     stroke-width: 1.5;
     fill: none;
     flex-shrink: 0;
@@ -344,7 +348,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-size: clamp(2rem, 3.5vw, 3rem);
     font-weight: 400;
     line-height: 1;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--color-panel-fg);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
   }
@@ -363,19 +367,19 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-family: var(--font-body);
     font-size: 13px;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--color-panel-fg-muted);
   }
 
   /* ── Footer ── */
   .hero-card__footer {
     padding: 24px 48px;
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    border-top: 1px solid var(--color-panel-divider);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: var(--font-mono);
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--color-panel-dim);
     letter-spacing: 0.02em;
   }
 
@@ -386,7 +390,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   }
 
   .hero-card__footer-icon {
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--color-panel-dim);
     transition: color var(--dur-instant) var(--ease-sharp);
     display: flex;
     align-items: center;
@@ -399,7 +403,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   }
 
   .hero-card__footer-link {
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--color-panel-dim);
     transition: color var(--dur-instant) var(--ease-sharp);
   }
   .hero-card__footer-link:hover { color: var(--color-primary-500); }
@@ -443,11 +447,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
     .hero-card__hero {
       border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      border-bottom: 1px solid var(--color-panel-divider);
     }
     .hero-card {
       min-height: auto;
-      border-radius: 20px;
+      border-radius: var(--radius-xl);
     }
     .hero-card__header,
     .hero-card__hero,
@@ -462,7 +466,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   @media (max-width: 768px) {
     .hero-card {
-      border-radius: 16px;
+      border-radius: var(--radius-xl);
     }
     .hero-card__header {
       padding: 24px 24px;
@@ -501,7 +505,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
     .hero-card__cell {
       border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      border-bottom: 1px solid var(--color-panel-divider);
     }
     .hero-card__metric-row:last-child .hero-card__cell:last-child {
       border-bottom: none;

@@ -207,8 +207,6 @@ const { class: className, delay = 0 } = Astro.props;
 
 <style>
   .logo-animated {
-    --logo-glow: rgba(252, 170, 45, 0.3);
-
     position: relative;
     display: inline-flex;
     flex-direction: column;
@@ -241,7 +239,7 @@ const { class: className, delay = 0 } = Astro.props;
     min-width: 0.55em;
     text-align: center;
     opacity: 0.3;
-    transition: opacity 0.1s ease-out;
+    transition: opacity var(--dur-instant) var(--ease-out);
   }
 
   /* During animation - scrambling characters visible */
