@@ -1,0 +1,759 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LogoAnimated from '../components/LogoAnimated.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Channel 47 — Brand" noindex={true}>
+  <Nav currentPath="/brand" />
+  <main id="main-content" class="brand-page">
+
+    <!-- ━━━ 1. THE MARK ━━━ -->
+    <section class="brand-hero" data-reveal>
+      <div class="brand-hero__logo">
+        <LogoAnimated class="brand-hero__logo-glyph" />
+      </div>
+      <div class="brand-hero__text">
+        <h1 class="brand-hero__wordmark">Channel<span class="brand-hero__47">47</span></h1>
+        <p class="brand-hero__tagline">Open-source Claude plugins for DTC.</p>
+      </div>
+      <span class="brand-hero__watermark" aria-hidden="true">47</span>
+    </section>
+
+    <!-- ━━━ 2. PALETTE ━━━ -->
+    <section class="brand-palette" data-reveal>
+      <div class="brand-palette__colors">
+        <div class="brand-palette__swatch brand-palette__swatch--cream">
+          <span class="brand-palette__hex">#fffef2</span>
+          <span class="brand-palette__name">Cream</span>
+        </div>
+        <div class="brand-palette__swatch brand-palette__swatch--amber">
+          <span class="brand-palette__hex">#fcaa2d</span>
+          <span class="brand-palette__name">Amber</span>
+        </div>
+        <div class="brand-palette__swatch brand-palette__swatch--charcoal">
+          <span class="brand-palette__hex">#18181a</span>
+          <span class="brand-palette__name">Charcoal</span>
+        </div>
+      </div>
+      <p class="brand-palette__note">Warm, not cold. Three colors, nothing else.</p>
+    </section>
+
+    <!-- ━━━ 3. VOICE ━━━ -->
+    <section class="brand-voice" data-reveal>
+      <p class="label brand-voice__label">Typography</p>
+      <h2 class="brand-voice__headline">DTC Google Ads,<br>meet Claude.</h2>
+      <p class="brand-voice__body">Two open-source plugins built from $6M+ in real DTC spend. Campaign architecture, daily optimization, customer research to creative — install and go.</p>
+      <p class="brand-voice__mono">claude plugin install ctrlswing/dtc-google-ads-playbook</p>
+      <div class="brand-voice__fonts">
+        <span class="brand-voice__font-tag">Geist</span>
+        <span class="brand-voice__font-divider" aria-hidden="true">/</span>
+        <span class="brand-voice__font-tag brand-voice__font-tag--mono">Geist Mono</span>
+      </div>
+    </section>
+
+    <!-- ━━━ 4. IN CONTEXT ━━━ -->
+    <section class="brand-context" data-reveal>
+      <div class="brand-context__panel">
+
+        <!-- Top bar -->
+        <div class="brand-context__topbar">
+          <span class="brand-context__dot" aria-hidden="true"></span>
+          <span class="brand-context__dot" aria-hidden="true"></span>
+          <span class="brand-context__dot" aria-hidden="true"></span>
+        </div>
+
+        <!-- Card content -->
+        <div class="brand-context__content">
+          <div class="brand-context__badges">
+            <span class="badge badge--primary">Google Ads</span>
+            <span class="badge badge--default">MIT</span>
+            <span class="badge badge--success">Active</span>
+          </div>
+
+          <h3 class="brand-context__title">DTC Google Ads Playbook</h3>
+          <p class="brand-context__desc">Campaign architecture, daily optimization, ad copy, and landing pages. Built from real DTC accounts managing $6M+ in annual spend.</p>
+
+          <div class="brand-context__divider" aria-hidden="true"></div>
+
+          <div class="brand-context__code">
+            <span class="brand-context__code-prompt">$</span>
+            <span>claude plugin install ctrlswing/dtc-google-ads-playbook</span>
+          </div>
+
+          <div class="brand-context__divider" aria-hidden="true"></div>
+
+          <div class="brand-context__cta">
+            <div class="brand-context__email-row">
+              <input
+                type="email"
+                class="brand-context__input"
+                placeholder="you@company.com"
+                aria-label="Email address"
+                disabled
+              />
+              <button class="btn btn--primary" disabled>Join the Community</button>
+            </div>
+            <p class="brand-context__hint">Get early access to new plugins and updates.</p>
+          </div>
+        </div>
+      </div>
+      <p class="brand-context__caption">Components in context — badges, code, email capture, buttons — all on the dark panel surface.</p>
+    </section>
+
+    <!-- ━━━ 5. ELEMENTS ━━━ -->
+    <section class="brand-elements" data-reveal>
+      <div class="brand-elements__grid">
+
+        <div class="brand-elements__cell">
+          <span class="brand-elements__cell-label">Buttons</span>
+          <div class="brand-elements__cell-content">
+            <button class="btn btn--primary btn--sm">Primary</button>
+            <button class="btn btn--secondary btn--sm">Secondary</button>
+            <button class="btn btn--ghost btn--sm">Ghost</button>
+          </div>
+        </div>
+
+        <div class="brand-elements__cell">
+          <span class="brand-elements__cell-label">Badges</span>
+          <div class="brand-elements__cell-content">
+            <span class="badge badge--primary">Plugin</span>
+            <span class="badge badge--success">Active</span>
+            <span class="badge badge--destructive">Beta</span>
+          </div>
+        </div>
+
+        <div class="brand-elements__cell">
+          <span class="brand-elements__cell-label">Radius</span>
+          <div class="brand-elements__cell-content brand-elements__cell-content--radius">
+            <div class="brand-elements__radius brand-elements__radius--sm"></div>
+            <div class="brand-elements__radius brand-elements__radius--md"></div>
+            <div class="brand-elements__radius brand-elements__radius--lg"></div>
+            <div class="brand-elements__radius brand-elements__radius--full"></div>
+          </div>
+        </div>
+
+        <div class="brand-elements__cell">
+          <span class="brand-elements__cell-label">Motion</span>
+          <div class="brand-elements__cell-content brand-elements__cell-content--motion">
+            <div class="brand-elements__motion-bar" aria-hidden="true"></div>
+            <span class="brand-elements__motion-label">400ms ease-out</span>
+          </div>
+        </div>
+
+        <div class="brand-elements__cell brand-elements__cell--wide">
+          <span class="brand-elements__cell-label">Type Scale</span>
+          <div class="brand-elements__cell-content brand-elements__cell-content--type">
+            <span class="brand-elements__type-4xl">Aa</span>
+            <span class="brand-elements__type-2xl">Aa</span>
+            <span class="brand-elements__type-xl">Aa</span>
+            <span class="brand-elements__type-base">Aa</span>
+            <span class="brand-elements__type-xs">Aa</span>
+          </div>
+        </div>
+
+        <div class="brand-elements__cell">
+          <span class="brand-elements__cell-label">Signal</span>
+          <div class="brand-elements__cell-content brand-elements__cell-content--signal">
+            <span class="brand-elements__signal" aria-hidden="true">▁▂▃▄▅▆▇█▇▆▅▄▃▂▁</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ── Page ── */
+  .brand-page {
+    padding: 0 clamp(16px, 4vw, 40px) clamp(24px, 4vw, 64px);
+    overflow: hidden;
+  }
+
+  /* ═══════════════════════════════════════════
+     1. THE MARK
+     ═══════════════════════════════════════════ */
+  .brand-hero {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: clamp(64px, 10vw, 140px) 0 clamp(48px, 8vw, 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .brand-hero__logo {
+    margin-bottom: var(--space-8);
+  }
+
+  .brand-hero__logo :global(.logo-animated) {
+    font-size: 22px;
+    color: var(--color-neutral-900);
+  }
+
+  .brand-hero__text {
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-hero__wordmark {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--color-fg);
+  }
+
+  .brand-hero__47 {
+    color: var(--color-primary-500);
+  }
+
+  .brand-hero__tagline {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin-top: var(--space-4);
+    letter-spacing: 0.02em;
+  }
+
+  .brand-hero__watermark {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-size: clamp(16rem, 40vw, 28rem);
+    font-weight: 800;
+    line-height: 0.75;
+    color: var(--color-neutral-200);
+    opacity: 0.4;
+    letter-spacing: -0.06em;
+    pointer-events: none;
+    user-select: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
+  /* ═══════════════════════════════════════════
+     2. PALETTE
+     ═══════════════════════════════════════════ */
+  .brand-palette {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-12) 0;
+  }
+
+  .brand-palette__colors {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .brand-palette__swatch {
+    aspect-ratio: 1;
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--space-1);
+    position: relative;
+    transition: transform var(--dur-quick) var(--ease-out);
+  }
+
+  .brand-palette__swatch:hover {
+    transform: scale(1.02);
+    z-index: 1;
+  }
+
+  .brand-palette__swatch--cream {
+    background: var(--color-neutral-50);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  }
+
+  .brand-palette__swatch--amber {
+    background: var(--color-primary-500);
+  }
+
+  .brand-palette__swatch--charcoal {
+    background: var(--color-panel);
+    border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+  }
+
+  .brand-palette__hex {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
+  .brand-palette__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .brand-palette__swatch--cream .brand-palette__hex,
+  .brand-palette__swatch--cream .brand-palette__name {
+    color: var(--color-fg-dim);
+  }
+
+  .brand-palette__swatch--amber .brand-palette__hex,
+  .brand-palette__swatch--amber .brand-palette__name {
+    color: var(--color-neutral-900);
+  }
+
+  .brand-palette__swatch--charcoal .brand-palette__hex {
+    color: var(--color-panel-fg-dim);
+  }
+  .brand-palette__swatch--charcoal .brand-palette__name {
+    color: var(--color-panel-fg);
+  }
+
+  .brand-palette__note {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-dim);
+    text-align: center;
+    margin-top: var(--space-5);
+    letter-spacing: 0.02em;
+  }
+
+
+  /* ═══════════════════════════════════════════
+     3. VOICE
+     ═══════════════════════════════════════════ */
+  .brand-voice {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: clamp(48px, 8vw, 96px) 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .brand-voice__label {
+    color: var(--color-primary-500);
+    margin-bottom: var(--space-5);
+    display: block;
+  }
+
+  .brand-voice__headline {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-6);
+  }
+
+  .brand-voice__body {
+    font-size: var(--text-base);
+    color: var(--color-fg-muted);
+    line-height: 1.7;
+    max-width: 52ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .brand-voice__mono {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-dim);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    display: inline-block;
+    margin-bottom: var(--space-8);
+  }
+
+  .brand-voice__fonts {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .brand-voice__font-tag {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+
+  .brand-voice__font-tag--mono {
+    font-family: var(--font-mono);
+    font-weight: 500;
+  }
+
+  .brand-voice__font-divider {
+    color: var(--color-fg-dim);
+    font-size: var(--text-sm);
+  }
+
+
+  /* ═══════════════════════════════════════════
+     4. IN CONTEXT
+     ═══════════════════════════════════════════ */
+  .brand-context {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-12) 0;
+  }
+
+  .brand-context__panel {
+    background: var(--color-panel);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .brand-context__topbar {
+    display: flex;
+    gap: 6px;
+    padding: 14px var(--space-5);
+    border-bottom: 1px solid var(--color-panel-divider);
+  }
+
+  .brand-context__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background: var(--color-panel-tint-hover);
+  }
+
+  .brand-context__content {
+    padding: clamp(24px, 4vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .brand-context__badges {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .brand-context__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 700;
+    color: var(--color-panel-fg);
+    letter-spacing: -0.02em;
+  }
+
+  .brand-context__desc {
+    font-size: var(--text-base);
+    color: var(--color-panel-fg-muted);
+    line-height: 1.7;
+    max-width: 56ch;
+  }
+
+  .brand-context__divider {
+    height: 1px;
+    background: var(--color-panel-divider);
+  }
+
+  .brand-context__code {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-panel-fg-dim);
+    background: var(--color-panel-tint);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .brand-context__code-prompt {
+    color: var(--color-primary-500);
+    user-select: none;
+  }
+
+  .brand-context__cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .brand-context__email-row {
+    display: flex;
+    gap: var(--space-2);
+    max-width: 480px;
+  }
+
+  .brand-context__input {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-panel-fg);
+    background: var(--color-panel-tint);
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2) var(--space-4);
+    outline: none;
+  }
+
+  .brand-context__input::placeholder {
+    color: var(--color-panel-dim);
+  }
+
+  .brand-context__hint {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-panel-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .brand-context__caption {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-dim);
+    text-align: center;
+    margin-top: var(--space-5);
+    letter-spacing: 0.02em;
+  }
+
+
+  /* ═══════════════════════════════════════════
+     5. ELEMENTS
+     ═══════════════════════════════════════════ */
+  .brand-elements {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-12) 0 clamp(48px, 8vw, 96px);
+  }
+
+  .brand-elements__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .brand-elements__cell {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-height: 120px;
+    transition: border-color var(--dur-quick) var(--ease-out);
+  }
+
+  .brand-elements__cell:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .brand-elements__cell--wide {
+    grid-column: span 2;
+  }
+
+  .brand-elements__cell-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-fg-dim);
+  }
+
+  .brand-elements__cell-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    flex: 1;
+  }
+
+  /* Radius */
+  .brand-elements__cell-content--radius {
+    gap: var(--space-3);
+    align-items: flex-end;
+  }
+
+  .brand-elements__radius {
+    width: 36px;
+    height: 36px;
+    background: var(--color-primary-500);
+    opacity: 0.8;
+    transition: opacity var(--dur-quick) var(--ease-out);
+  }
+
+  .brand-elements__radius:hover { opacity: 1; }
+  .brand-elements__radius--sm { border-radius: var(--radius-sm); }
+  .brand-elements__radius--md { border-radius: var(--radius-md); }
+  .brand-elements__radius--lg { border-radius: var(--radius-lg); }
+  .brand-elements__radius--full { border-radius: var(--radius-full); }
+
+  /* Motion */
+  .brand-elements__cell-content--motion {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+
+  .brand-elements__motion-bar {
+    height: 4px;
+    background: var(--color-primary-500);
+    border-radius: var(--radius-full);
+    width: 0%;
+    animation: motion-demo 2s var(--ease-out) infinite;
+  }
+
+  @keyframes motion-demo {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+  }
+
+  .brand-elements__motion-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-fg-dim);
+  }
+
+  /* Type scale */
+  .brand-elements__cell-content--type {
+    align-items: baseline;
+    gap: var(--space-4);
+  }
+
+  .brand-elements__type-4xl {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-fg);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .brand-elements__type-2xl {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--color-fg);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .brand-elements__type-xl {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-fg-muted);
+    line-height: 1;
+  }
+
+  .brand-elements__type-base {
+    font-size: var(--text-base);
+    color: var(--color-fg-muted);
+    line-height: 1;
+  }
+
+  .brand-elements__type-xs {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+
+  /* Signal */
+  .brand-elements__cell-content--signal {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .brand-elements__signal {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-primary-500);
+    letter-spacing: -0.05em;
+    opacity: 0.7;
+    animation: signal-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes signal-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .brand-palette__colors {
+      grid-template-columns: 1fr;
+    }
+
+    .brand-palette__swatch {
+      aspect-ratio: auto;
+      padding: var(--space-5);
+      min-height: 80px;
+    }
+
+    .brand-palette__swatch--cream {
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .brand-palette__swatch--charcoal {
+      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    }
+
+    .brand-elements__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .brand-elements__cell--wide {
+      grid-column: span 2;
+    }
+
+    .brand-context__email-row {
+      flex-direction: column;
+    }
+
+    .brand-voice__headline {
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .brand-elements__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .brand-elements__cell--wide {
+      grid-column: span 1;
+    }
+
+    .brand-hero__watermark {
+      font-size: 14rem;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .brand-elements__motion-bar {
+      animation: none;
+      width: 60%;
+    }
+
+    .brand-elements__signal {
+      animation: none;
+      opacity: 0.7;
+    }
+
+    .brand-palette__swatch:hover {
+      transform: none;
+    }
+  }
+</style>
