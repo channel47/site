@@ -28,6 +28,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  other: {
+    "view-transition": "same-origin",
+  },
   title: "channel47 — Turn Reddit threads and Amazon reviews into creative strategy",
   description:
     "A free Claude Code plugin that extracts real customer language from public data and turns it into personas and ad angles you can use today.",

@@ -15,7 +15,7 @@ import SocialIconLink from "@/components/SocialIconLink";
 
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen overflow-x-hidden relative">
       <ScrollReveal />
       <TopNavigation />
       <FloatingBottomNav />
@@ -270,6 +270,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
