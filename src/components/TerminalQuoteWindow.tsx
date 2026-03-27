@@ -9,7 +9,7 @@ export default function TerminalQuoteWindow() {
           creative-strategist extract --raw
         </span>
       </div>
-      <div className="p-5 font-mono text-xs leading-relaxed text-zinc-400 space-y-4">
+      <div className="terminal-lines p-5 font-mono text-xs leading-relaxed text-zinc-400 space-y-4">
         <div className="flex gap-3 terminal-line">
           <span className="text-c47-accent shrink-0">[fire-3]</span>
           <div>

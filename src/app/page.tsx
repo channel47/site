@@ -28,7 +28,7 @@ export default function Home() {
         <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
           <SectionHeader label="Why launch slow when you can move fast?" />
 
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight text-white max-w-5xl mb-24 reveal reveal-delay-1">
+          <h2 className="text-4xl md:text-7xl font-medium leading-[1.05] tracking-tight text-white max-w-5xl mb-24 reveal reveal-delay-1">
             One command.{" "}
             <span className="text-[#666666]">
               30 seconds. Real customer language ready to deploy.
@@ -38,7 +38,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Steps card */}
             <div
-              className="reveal reveal-delay-2 rounded-[2.5rem] p-10 md:p-12 min-h-[520px] flex flex-col justify-between relative overflow-hidden card-shimmer gradient-border-glow"
+              className="reveal reveal-delay-2 rounded-[2.5rem] p-10 md:p-12 min-h-[520px] flex flex-col justify-between relative overflow-hidden group transition-all duration-500 card-shimmer gradient-border-glow"
               style={{
                 background:
                   "radial-gradient(ellipse at top right, rgba(255,107,80,0.06), transparent 60%), linear-gradient(135deg, #111111, #0d0d0d)",
@@ -89,7 +89,7 @@ export default function Home() {
               The Skills
             </h2>
             <span className="hidden md:block text-[#444444] text-xs font-medium uppercase tracking-widest">
-              Claude Code Plugin
+              Claude Code Plugin &mdash; 2024
             </span>
           </div>
 
@@ -148,7 +148,7 @@ export default function Home() {
 
               <div className="flex flex-col md:flex-row gap-16 justify-between items-start">
                 <div className="max-w-xl flex flex-col gap-6">
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[1.05]">
+                  <h3 className="text-4xl md:text-6xl font-semibold tracking-tight text-white leading-[1.05]">
                     Want this running for your team{" "}
                     <span className="text-[#666666]">by end of day?</span>
                   </h3>
@@ -161,7 +161,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col gap-6 shrink-0 w-full md:w-auto md:min-w-[280px]">
                   <div className="flex flex-col gap-1">
-                    <span className="text-6xl font-bold tracking-tight text-gradient">
+                    <span className="text-6xl font-bold tracking-tight gradient-text">
                       $750
                     </span>
                     <span className="text-sm text-[#888888]">
@@ -192,7 +192,9 @@ export default function Home() {
                 What I am building, what is working, what is not. Weekly.
               </p>
             </div>
-            <NewsletterForm />
+            <div className="w-full max-w-md">
+              <NewsletterForm />
+            </div>
           </div>
         </section>
       </main>

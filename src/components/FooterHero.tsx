@@ -1,7 +1,7 @@
 export default function FooterHero() {
   return (
     <div>
-      <h2 className="text-[14vw] md:text-[10vw] leading-[0.85] font-black tracking-tighter mb-12 select-none text-gradient">
+      <h2 className="text-[14vw] md:text-[10vw] leading-[0.85] font-black tracking-tighter mb-12 select-none gradient-text">
         LET&rsquo;S
         <br />
         TALK.

@@ -8,7 +8,7 @@ export default function StepCard({
   description: string;
 }) {
   return (
-    <div className="step-item flex items-start gap-6 cursor-default">
+    <div className="group/step flex items-start gap-6 cursor-default">
       <span
         className="step-number text-5xl font-bold leading-none"
         style={{ color: "#222222" }}

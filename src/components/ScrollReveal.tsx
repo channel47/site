@@ -7,16 +7,18 @@ export default function ScrollReveal() {
     const initializeObservers = () => {
       try {
         if (!("IntersectionObserver" in window)) {
-          // Fallback: make everything visible immediately
           document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
-          document.querySelectorAll(".terminal-line").forEach((el) => el.classList.add("visible"));
+          document.querySelectorAll(".terminal-container").forEach((el) => {
+            const lines = el.querySelector(".terminal-lines");
+            if (lines) lines.classList.add("terminal-active");
+          });
           return;
         }
 
         const revealObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-              if (entry.isIntersecting) {
+              if (entry && entry.isIntersecting && entry.target) {
                 entry.target.classList.add("visible");
               }
             });
@@ -27,10 +29,9 @@ export default function ScrollReveal() {
         const terminalObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.querySelectorAll(".terminal-line").forEach((line) => {
-                  line.classList.add("visible");
-                });
+              if (entry && entry.isIntersecting && entry.target) {
+                const lines = entry.target.querySelector(".terminal-lines");
+                if (lines) lines.classList.add("terminal-active");
               }
             });
           },
@@ -43,7 +44,6 @@ export default function ScrollReveal() {
         };
 
         observe();
-        // Retry for async-mounted content
         setTimeout(observe, 800);
         setTimeout(observe, 2000);
 
@@ -53,9 +53,7 @@ export default function ScrollReveal() {
         };
       } catch (err) {
         console.warn("ScrollReveal init failed gracefully:", err);
-        // Fallback: show everything
         document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
-        document.querySelectorAll(".terminal-line").forEach((el) => el.classList.add("visible"));
       }
     };
 
