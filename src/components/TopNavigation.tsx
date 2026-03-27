@@ -1,3 +1,5 @@
+import AnimatedLogo from "./AnimatedLogo";
+
 export default function TopNavigation() {
   return (
     <nav className="fixed top-0 inset-x-0 z-50">
@@ -12,10 +14,9 @@ export default function TopNavigation() {
           <div className="flex items-center gap-8">
             <a
               href="/"
-              className="text-2xl font-black tracking-tight text-white italic"
               aria-label="channel47 home"
             >
-              H7
+              <AnimatedLogo />
             </a>
             <div className="hidden md:flex items-center gap-6 text-sm">
               <a

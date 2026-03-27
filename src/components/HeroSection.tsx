@@ -1,4 +1,5 @@
 import CopyButton from "./CopyButton";
+import AnimatedLogo from "./AnimatedLogo";
 
 export default function HeroSection() {
   return (
@@ -11,6 +12,9 @@ export default function HeroSection() {
         }}
       />
       <div className="reveal relative z-10">
+        <div className="mb-8 flex justify-center">
+          <AnimatedLogo delay={300} />
+        </div>
         <h1 className="text-[18vw] md:text-[14vw] lg:text-[12vw] font-black tracking-[-0.05em] leading-[0.85] text-white select-none relative">
           <span
             className="italic font-extralight absolute"
